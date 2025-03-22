@@ -19,21 +19,21 @@
   <meta name="author" content="chaye">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+    <meta name="description" content="file:RCE.java1234567891011121314151617181920import java.io.InputStream;import java.io.InputStreamReader;import java.io.BufferedReader;public class RuntimeTest&#123;    public static void main (String">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2025/03/22/hello-world/index.html">
+<meta property="og:title" content="chaye的博客">
+<meta property="og:url" content="http://example.com/2025/03/22/JAVA%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/index.html">
 <meta property="og:site_name" content="chaye的博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="file:RCE.java1234567891011121314151617181920import java.io.InputStream;import java.io.InputStreamReader;import java.io.BufferedReader;public class RuntimeTest&#123;    public static void main (String">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2025-03-22T12:10:03.168Z">
-<meta property="article:modified_time" content="2025-03-22T12:10:03.168Z">
+<meta property="article:published_time" content="2025-03-22T12:50:31.002Z">
+<meta property="article:modified_time" content="2024-12-17T11:10:18.000Z">
 <meta property="article:author" content="chaye">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Hello World - chaye的博客</title>
+  <title>chaye的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Hello World"></span>
+            <span id="subtitle" data-typed-text=""></span>
           
         </div>
 
@@ -210,7 +210,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-03-22 20:10" pubdate>
+        <time datetime="2025-03-22 20:50" pubdate>
           March 22, 2025 pm
         </time>
       </span>
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          18 words
+          86 words
         
       </span>
     
@@ -270,25 +270,14 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Hello World</h1>
+            <h1 id="seo-header"></h1>
             
             
               <div class="markdown-body">
                 
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+                <figure class="highlight java"><figcaption><span>file:RCE.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.InputStream;<br><span class="hljs-keyword">import</span> java.io.InputStreamReader;<br><span class="hljs-keyword">import</span> java.io.BufferedReader;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RuntimeTest</span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span> <span class="hljs-params">(String args [])</span> <span class="hljs-keyword">throws</span> Exception&#123;<br>        <span class="hljs-keyword">if</span> (args.length==<span class="hljs-number">0</span>) &#123;<br>            System.exit(<span class="hljs-number">1</span>);  <span class="hljs-comment">//没有参数就退出</span><br>        &#125;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">command</span> <span class="hljs-operator">=</span> args[<span class="hljs-number">0</span>];<br>        <span class="hljs-type">Runtime</span> <span class="hljs-variable">run</span> <span class="hljs-operator">=</span> Runtime.getRuntime();<br>        <span class="hljs-type">Process</span> <span class="hljs-variable">pro</span> <span class="hljs-operator">=</span> run. exec(command);  <span class="hljs-comment">//执行命令</span><br>        <span class="hljs-type">InputStreamReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(pro.getInputStream());<br>        <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">buff</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(in);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">String</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> buff.readLine();temp!=<span class="hljs-literal">null</span>;temp=buff.readLine())&#123;<br>            System.out.println(temp);  <span class="hljs-comment">//输出结果</span><br>        &#125;<br>        buff .close();<br>        in.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">javac -encoding UTF-8 RuntimeTest.java<br>java RuntimeTest <span class="hljs-string">&quot;whoami&quot;</span><br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -305,8 +294,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Hello World</div>
-      <div>http://example.com/2025/03/22/hello-world/</div>
+      <div></div>
+      <div>http://example.com/2025/03/22/JAVA命令执行/</div>
     </div>
     <div class="license-meta">
       
@@ -350,7 +339,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/03/22/SSRF/" title="">
+                      <a href="/2025/03/22/HTTP/" title="">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile"></span>
                         <span class="visible-mobile">Previous</span>
@@ -359,6 +348,12 @@
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2025/03/22/SSRF/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
