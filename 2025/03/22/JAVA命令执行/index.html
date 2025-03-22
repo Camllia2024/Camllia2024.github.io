@@ -19,21 +19,22 @@
   <meta name="author" content="chaye">
   <meta name="keywords" content="">
   
-    <meta name="description" content="file:RCE.java1234567891011121314151617181920import java.io.InputStream;import java.io.InputStreamReader;import java.io.BufferedReader;public class RuntimeTest&#123;    public static void main (String">
+    <meta name="description" content="file:RCE.java123456789101112131415161718192021import java.io.InputStream;import java.io.InputStreamReader;import java.io.BufferedReader;public class RuntimeTest&#123;    public static void main (Strin">
 <meta property="og:type" content="article">
-<meta property="og:title" content="chaye的博客">
+<meta property="og:title" content="JAVA命令执行">
 <meta property="og:url" content="http://example.com/2025/03/22/JAVA%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/index.html">
 <meta property="og:site_name" content="chaye的博客">
-<meta property="og:description" content="file:RCE.java1234567891011121314151617181920import java.io.InputStream;import java.io.InputStreamReader;import java.io.BufferedReader;public class RuntimeTest&#123;    public static void main (String">
+<meta property="og:description" content="file:RCE.java123456789101112131415161718192021import java.io.InputStream;import java.io.InputStreamReader;import java.io.BufferedReader;public class RuntimeTest&#123;    public static void main (Strin">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-03-22T12:50:31.002Z">
-<meta property="article:modified_time" content="2024-12-17T11:10:18.000Z">
+<meta property="article:modified_time" content="2025-03-22T13:02:54.262Z">
 <meta property="article:author" content="chaye">
+<meta property="article:tag" content="WEB">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>chaye的博客</title>
+  <title>JAVA命令执行 - chaye的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="JAVA命令执行"></span>
           
         </div>
 
@@ -270,12 +271,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header"></h1>
+            <h1 id="seo-header">JAVA命令执行</h1>
             
             
               <div class="markdown-body">
                 
-                <figure class="highlight java"><figcaption><span>file:RCE.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.InputStream;<br><span class="hljs-keyword">import</span> java.io.InputStreamReader;<br><span class="hljs-keyword">import</span> java.io.BufferedReader;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RuntimeTest</span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span> <span class="hljs-params">(String args [])</span> <span class="hljs-keyword">throws</span> Exception&#123;<br>        <span class="hljs-keyword">if</span> (args.length==<span class="hljs-number">0</span>) &#123;<br>            System.exit(<span class="hljs-number">1</span>);  <span class="hljs-comment">//没有参数就退出</span><br>        &#125;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">command</span> <span class="hljs-operator">=</span> args[<span class="hljs-number">0</span>];<br>        <span class="hljs-type">Runtime</span> <span class="hljs-variable">run</span> <span class="hljs-operator">=</span> Runtime.getRuntime();<br>        <span class="hljs-type">Process</span> <span class="hljs-variable">pro</span> <span class="hljs-operator">=</span> run. exec(command);  <span class="hljs-comment">//执行命令</span><br>        <span class="hljs-type">InputStreamReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(pro.getInputStream());<br>        <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">buff</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(in);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">String</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> buff.readLine();temp!=<span class="hljs-literal">null</span>;temp=buff.readLine())&#123;<br>            System.out.println(temp);  <span class="hljs-comment">//输出结果</span><br>        &#125;<br>        buff .close();<br>        in.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+                <figure class="highlight java"><figcaption><span>file:RCE.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-keyword">import</span> java.io.InputStream;<br><span class="hljs-keyword">import</span> java.io.InputStreamReader;<br><span class="hljs-keyword">import</span> java.io.BufferedReader;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RuntimeTest</span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span> <span class="hljs-params">(String args [])</span> <span class="hljs-keyword">throws</span> Exception&#123;<br>        <span class="hljs-keyword">if</span> (args.length==<span class="hljs-number">0</span>) &#123;<br>            System.exit(<span class="hljs-number">1</span>);  <span class="hljs-comment">//没有参数就退出</span><br>        &#125;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">command</span> <span class="hljs-operator">=</span> args[<span class="hljs-number">0</span>];<br>        <span class="hljs-type">Runtime</span> <span class="hljs-variable">run</span> <span class="hljs-operator">=</span> Runtime.getRuntime();<br>        <span class="hljs-type">Process</span> <span class="hljs-variable">pro</span> <span class="hljs-operator">=</span> run. exec(command);  <span class="hljs-comment">//执行命令</span><br>        <span class="hljs-type">InputStreamReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(pro.getInputStream());<br>        <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">buff</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(in);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">String</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> buff.readLine();temp!=<span class="hljs-literal">null</span>;temp=buff.readLine())&#123;<br>            System.out.println(temp);  <span class="hljs-comment">//输出结果</span><br>        &#125;<br>        buff .close();<br>        in.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">javac -encoding UTF-8 RuntimeTest.java<br>java RuntimeTest <span class="hljs-string">&quot;whoami&quot;</span><br></code></pre></td></tr></table></figure>
                 
@@ -286,6 +287,13 @@
               <div class="post-metas my-3">
   
   
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/WEB/" class="print-no-link">#WEB</a>
+      
+    </div>
+  
 </div>
 
 
@@ -294,7 +302,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
+      <div>JAVA命令执行</div>
       <div>http://example.com/2025/03/22/JAVA命令执行/</div>
     </div>
     <div class="license-meta">
@@ -339,9 +347,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/03/22/HTTP/" title="">
+                      <a href="/2025/03/22/HTTP/" title="HTTP">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
+                        <span class="hidden-mobile">HTTP</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -349,8 +357,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/03/22/SSRF/" title="">
-                        <span class="hidden-mobile"></span>
+                      <a href="/2025/03/22/SSRF/" title="SSRF">
+                        <span class="hidden-mobile">SSRF</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
