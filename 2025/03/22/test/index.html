@@ -1,0 +1,778 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="https:&#x2F;&#x2F;blog.csdn.net&#x2F;fogota&#x2F;article&#x2F;details&#x2F;6767758 背景一、如何找到Mapper&#x3D;0的NES游戏？ 你自然有不少的NES文件，同时也知道上哪去下载这些文件，你可以多下载一些你觉得简单的游戏。我下面介绍查看mapper值的方法。 我已经找到几个Mapper&#x3D;0的游戏：超级玛丽、坦克大战 方法有两个 方法(1) VirtuaNE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chaye的博客">
+<meta property="og:url" content="http://example.com/2025/03/22/test/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="https:&#x2F;&#x2F;blog.csdn.net&#x2F;fogota&#x2F;article&#x2F;details&#x2F;6767758 背景一、如何找到Mapper&#x3D;0的NES游戏？ 你自然有不少的NES文件，同时也知道上哪去下载这些文件，你可以多下载一些你觉得简单的游戏。我下面介绍查看mapper值的方法。 我已经找到几个Mapper&#x3D;0的游戏：超级玛丽、坦克大战 方法有两个 方法(1) VirtuaNE">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741418451147-c7014651-ee07-41a9-b57d-f2227826a2a0.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741418463059-b44b4680-4b01-4282-a99b-9ea6a0874ca8.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741418480682-5e7ed3b8-7e54-481a-8da1-19dd483fcc67.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741420979634-50c13261-8ea0-4a2a-90f8-42ae8eebea88.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741420994150-67b1ac62-76fd-4ae2-bf02-d7b347c5a242.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741421022907-3e6fcc2e-ca2e-4252-986c-12cb303d8471.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741421106794-4b2335c0-145a-470f-a4ae-039659f924eb.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741421059983-d610e2cd-cb14-48ce-a625-ef24d88859d3.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741708767826-f8f2b419-b32e-4905-b88a-5ff17c37cf22.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741419256964-69856734-4fc1-42ab-9929-d319c6c1fe01.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741418395482-843dfd13-99ea-4389-9718-783a3594f4eb.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741419165702-57bad6fd-0b9c-4cac-a85f-f4fe2a9d7f28.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741419767757-5cfb67c8-a43c-4092-b050-7fa0f8a78105.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741420056271-4f8d75df-b34b-48b9-8325-9b2cb0e792dc.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741709266224-553180e2-fb39-44d6-a16b-2e2d6e5e2545.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741709756176-dbd26352-cb02-462d-8549-d69b24d71089.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741710181978-c9534bf4-ebe6-4cf7-8cd9-45a6069a9013.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741710552358-b2720dac-228b-4429-bc6f-d7ad34761324.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741710162833-33cee26d-da76-4d11-87dc-0609309ade76.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741710467489-0446e5ee-e3bc-4afd-a9bc-27269875e8eb.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741708666856-c2b8147d-30a2-4fe3-91ba-9775a25f2426.png">
+<meta property="article:published_time" content="2025-03-22T13:10:43.041Z">
+<meta property="article:modified_time" content="2025-03-22T13:27:03.062Z">
+<meta property="article:author" content="chaye">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741418451147-c7014651-ee07-41a9-b57d-f2227826a2a0.png">
+  
+  
+  
+  <title>chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-03-22 21:10" pubdate>
+          March 22, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.6k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          22 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/fogota/article/details/6767758">https://blog.csdn.net/fogota/article/details/6767758</a></p>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>一、如何找到Mapper&#x3D;0的NES游戏？</p>
+<p>你自然有不少的NES文件，同时也知道上哪去下载这些文件，你可以多下载一些你觉得简单的游戏。我下面介绍查看mapper值的方法。</p>
+<p>我已经找到几个Mapper&#x3D;0的游戏：超级玛丽、坦克大战</p>
+<p>方法有两个</p>
+<p>方法(1) VirtuaNES</p>
+<p>用VirtuaNES 打开NES文件，点菜单“文件-ROM信息”就可以查看mapper值了。</p>
+<p>方法(2) NesHeader</p>
+<p>用网友“疾风の迅雷”写的一个软件NesHeader.exe，可以批量读取整个文件夹上所有NES文件的ROM信息。</p>
+<p>**</p>
+<p>找到Mapper0的NES游戏之后，我们来确定机器码的运行首地址。</p>
+<p>Mapper0的nes只有一段机器码段，这就好办了。其首地址有可能是</p>
+<p>   $8000  或  $C000</p>
+<p>先不要问我为什么有两个可能性，我先来教你判断。</p>
+<p>二、怎样判断Mapper0的NES游戏的机器码的首地址。</p>
+<p>第一步：我提供两个办法。</p>
+<p>先看NES文件的大小,</p>
+<p>NES文件</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741418451147-c7014651-ee07-41a9-b57d-f2227826a2a0.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>另一个办法：用上面提到的NesHeader.exe，查看PROM大小,</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741418463059-b44b4680-4b01-4282-a99b-9ea6a0874ca8.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>第二步：如果nes大小&#x3D;24K则要查看游戏程序的运行地址区域。</p>
+<p>用Fcdebug打开ROM，点菜单DEBUG，打开“指令显示&#x2F;控制”窗口。按“暂停”，查看（运行）地址。（这时看到的是正在运行任一条指令）</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741418480682-5e7ed3b8-7e54-481a-8da1-19dd483fcc67.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>本办法是针对Mapper0的NES而设计的，对于别的Mapper值则完全不适用。</p>
+<p>钻牛角的人要跑来问“别的Mapper是如何找到首地址？”</p>
+<p>我在文章的后面解答一下吧。</p>
+<p>**</p>
+<p>接下来要将机器码从NES文件上分离出来。</p>
+<p>你要知道，NES文件是由文件头(Head)、程序ROM（即PROM）、图形ROM（即VROM）组成。在ROM里面，连接的顺也是Head-PROM-VROM。其中Head固定占16字节；PROM占[n x 16K]，n是一个倍数；VROM占[m x 8K]，m是一个倍数。</p>
+<p>朋友们看出来了，这个PROM的大小和VROM的大小在ROM信息中出现过。</p>
+<p>PROM一般是16K为1页(1 bank)，也有8K,4K为单位的。因不同的Mapper值而异。（NES文件中统统以16K为单位记录）</p>
+<p>我们专门说Mapper0，这个号是不切页的，所以可以看成只有1页，也就是说：</p>
+<p>注：机器码首地址，指机器码运行时在寄存器中的首地址，不是NES文件上的地址。</p>
+<p>NES大小</p>
+<p>PROM大小</p>
+<p>机器码首地址</p>
+<p>机器码末地址</p>
+<p>机器码长度</p>
+<p>40K</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741420979634-50c13261-8ea0-4a2a-90f8-42ae8eebea88.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>在上面的述中揭示了一些东西。要是看不明白也没关系，下面可以照着做。</p>
+<p>三、如何才能将机器码从NES文件上分离出来？</p>
+<p>我提供两个办法。上面用到的地址，我都算准了。</p>
+<p>方法(1)DUMP法：</p>
+<p>用FCdebug(NES_debug)运行ROM，点菜单DEBUG，打开“指令显示&#x2F;控制”窗口。按“暂停”，在窗口的最底行，找到“内存”，在边上的两个编辑框里，填入首地址和末地址，建议末地址统一填FFFF，其中$号省略。然后按“DUMP下来”，保存成mem文件。</p>
+<p>FCdebug是VirtuaNES的一个改版，加入了debug功能。</p>
+<p>方法(2)HEX编辑法：</p>
+<p>用HEX类编辑软件，打开ROM。例如Hex Workshop。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741420994150-67b1ac62-76fd-4ae2-bf02-d7b347c5a242.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>将这个地址以下的部分（包括这个分界点）删除或剪切走。留下的部分另存为mem文件。</p>
+<p>**</p>
+<p>终于到了反汇编软件上场了。</p>
+<p>有人会问：“这个mem是什么文件？”</p>
+<p>这个是内存文件，其实就是机器码，里面没有别的东西了。这个后缀名不重要，因为都没有关联软件。你叫他bin文件或别的都行。我只为统一叫法。</p>
+<p>四、如何将mem文件显示成汇编代码呢？</p>
+<p>我用这个</p>
+<p>看图标,这是我用的“反汇编器”。它可以对多种CPU进行反汇编。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741421022907-3e6fcc2e-ca2e-4252-986c-12cb303d8471.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>（1）打开它，先要选CPU，在窗口右上角选6502。</p>
+<p>（2）用这个反汇编软件,打开mem文件。</p>
+<p>（3）然后点选项“BIN文件”,在开始地址,填上“首地址”,</p>
+<p>（4）确定提勾“立即反编译”，点“确定”就OK</p>
+<p>（5）保存反汇编的asm文档,结束。</p>
+<p>**</p>
+<p>汇编代码是反出来了。可是问题来了：“从何看起？”</p>
+<p>针对NES的结构，机器码是有一个入口的，这个入口的地址写在一个固定的地方。我们叫“指针”。共有3个指针，都放在一起，分别指向NMI、RESET、IRQ|BRK。其中RESET就是主程序的入口，NMI是中断的入口，IRQ|BRK是另一种中断入口。</p>
+<p>五、如何找到程序的入口？</p>
+<p>将asm文件（用记事本）打开，滚动条向下拉，拉到底。看到FFFA到FFFF的数据，抄下来。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741421106794-4b2335c0-145a-470f-a4ae-039659f924eb.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>记a,b 是一组指针，实际地址为ba，即a为低位，b为高位。如此类推得3组指针</p>
+<p>NMI &#x3D; ba</p>
+<p>RESET &#x3D; dc</p>
+<p>IRQ|BRK &#x3D; fe</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741421059983-d610e2cd-cb14-48ce-a625-ef24d88859d3.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>NMI &#x3D; $8035</p>
+<p>RESET &#x3D; $8000</p>
+<p>IRQ|BRK &#x3D; $805C</p>
+<p>六、注意事项</p>
+<p>反汇编的结果不是全都是代码，其中有部分可能会是数据，也有可能整页都是图型（CHR）数据。反汇编器总是优先将能够反成代码的译成代码。于是你会发现在DB旁边出现没有作用的代码，有时发现代码去读一个指令，其实是在读指针或数据。</p>
+<p>另外一些软件生成的ROM会加入一些没机会运行的代码。这可能是优化不完全。</p>
+<p>七、局部反汇编，只做第三步和第四步就行。其中第三步用dump法。具体，多接触就会了解。</p>
+<p>疑难解答：</p>
+<p>Mapper是什么?</p>
+<p>​    Mapper是一个编号，用于区分不同电路结构的卡带。NES模拟器拿一个ROM当作是一个卡带来模拟，那么卡带的电路也要区分才能模拟的。卡带不是标准统一的，当时不同的NES游戏开发商都开发出自己独有的保密的卡带；还发展出多个不同的升级产品，可以令游戏性能更理想；同时对游戏程序有保密作用。</p>
+<p>为什么Mapper0的ROM机器码首地址有可能是$8000或$C000？</p>
+<p>Mapper0就是表示卡带电路没有任何特别，卡带的寄存器是直接接到CPU总线上的。也就是有可能</p>
+<p>(1)       16K的寄存器接到$8000-$BFFF的地址上并镜像到$C000-FFFF。</p>
+<p>(2)       32K的寄存器接到$8000-$FFFF的地址上。</p>
+<p>在(1)情况下，$8000-$BFFF和$C000-FFFF的机器码是完全一样的。主要是看程序的作者，将代码（基于）.org $8000还是.org $C000进行编译的。</p>
+<p>我本来想在“判断首地址”的方法用程序入口的办法，但这个不准确，因为在(1)情况下我可以恶作剧的将程序入口改成对应镜像的位置，程序一样是正常运行的。</p>
+<p>Mapper0以外的ROM是如何找到首地址？</p>
+<p>只有Mapper0不切页，换句话说，Mapper0是静态将寄存器接入总线。其余的Mapper都是动态的将寄存器接入总线。也就是说，是通过程序控制接入某一块寄存器接入总线上某地址段，而原接入的块（页）断开。</p>
+<p>答案就是：你要先知道最早是默认接入的寄存器页，将之按mapper0的方法反汇编。然后从程序入口，一行一行看代码，看调入了哪一页，然后计算这一页的位置，将它分离出来。再反汇编。如此直到掌握全部页的动向。</p>
+<h1 id="FCEUX使用"><a href="#FCEUX使用" class="headerlink" title="FCEUX使用"></a>FCEUX使用</h1><h2 id="debug-ppu-viewer"><a href="#debug-ppu-viewer" class="headerlink" title="debug  ppu viewer"></a>debug  ppu viewer</h2><p>右键可以更改颜色</p>
+<p><a target="_blank" rel="noopener" href="https://fceux.com/web/help/PPUViewer.html">https://fceux.com/web/help/PPUViewer.html</a></p>
+<p>介绍</p>
+<p>NES 架构包括一个 6502 CPU 以及一个称为 PPU（图片处理单元）的自定义视频控制器。PPU 的视频内存与主 CPU 内存分开，可以通过特殊端口进行读&#x2F;写（请参阅 <a target="_blank" rel="noopener" href="https://fceux.com/web/help/PPU.html">PPU 内存</a>）。</p>
+<p>PPU 查看器将仅显示当前 PPU 内存的内容。它不会以任何方式更改游戏数据。</p>
+<p>使用 PPU 查看器</p>
+<p>在扫描线上显示</p>
+<p>此选项使其显示屏幕绘制该特定扫描线时 PPU 的外观。它对于像 SMB 这样的游戏很有用，这些游戏会在帧中交换模式表（例如，用于状态栏内容）。</p>
+<p>右键单击其中一个 PPU 面板将更改显示它的调色板，在图案调色板之间循环，然后是 sprite 调色板，然后是第九个固定的灰色调色板（如果所有调色板当前都是黑色的，则可用于检查 CHR）。</p>
+<p>将鼠标光标放在图块上将显示图块地址。将光标移动到调色板颜色上将给出调色板地址。</p>
+<p>当 <a target="_blank" rel="noopener" href="https://fceux.com/web/help/CodeDataLogger.html">Code&#x2F;Data Logger</a> 运行时，您还可以使用 “Mask unused graphics” 功能。或者，您只能遮罩已使用（绘制或以其他方式访问）的图块，并强调未使用的图块（例如，为了查找秘密 Sprite）。</p>
+<p>注意：此功能仅适用于使用 CHR ROM 的游戏，因为代码&#x2F;数据记录器仅记录对 CHR ROM 的访问。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741708767826-f8f2b419-b32e-4905-b88a-5ff17c37cf22.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h2 id="debug-cheat"><a href="#debug-cheat" class="headerlink" title="debug cheat"></a>debug cheat</h2><p>先看ram search  确定变量</p>
+<p>再cheat 可以导入随机数</p>
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><h2 id="例题xctf-chase"><a href="#例题xctf-chase" class="headerlink" title="例题xctf chase"></a>例题xctf chase</h2><p>mapper为0</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741419256964-69856734-4fc1-42ab-9929-d319c6c1fe01.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741418395482-843dfd13-99ea-4389-9718-783a3594f4eb.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741419165702-57bad6fd-0b9c-4cac-a85f-f4fe2a9d7f28.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>看到机器码从8000</p>
+<p>ida用二进制打开 以6502的形式</p>
+<h3 id="flag01"><a href="#flag01" class="headerlink" title="flag01"></a>flag01</h3><p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741419767757-5cfb67c8-a43c-4092-b050-7fa0f8a78105.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>可以直接ce开挂, </p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741420056271-4f8d75df-b34b-48b9-8325-9b2cb0e792dc.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>TPCTF{D0_Y0U_L1KE_</p>
+<p>也可用FCEUX自带的cheat改动<img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741709266224-553180e2-fb39-44d6-a16b-2e2d6e5e2545.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="flag02"><a href="#flag02" class="headerlink" title="flag02"></a>flag02</h3><p>法1</p>
+<p>经过不断调试发现AB对应的值和场景有关，每个场景对应值固定且范围普遍在0-60之间，那么尝试爆破，调整AB的值，改内存时发现会有随机性，相同的值不保证每次的闪烁结果相同，这里是尝试到0x15时看到flag2：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741709756176-dbd26352-cb02-462d-8549-d69b24d71089.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>法2</p>
+<p>第二段有点misc的感觉，猜测也是在内存里面只不过不会加载到屏幕上，由于每段flag开头都会有THE FLAG PT我们搜索这几个字符的tile 34 28 25,一共发现两个其实一个是第一段flag，tile D2就是代表字符2 D1也就是字符1</p>
+<p>这段是flag1</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741710181978-c9534bf4-ebe6-4cf7-8cd9-45a6069a9013.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741710552358-b2720dac-228b-4429-bc6f-d7ad34761324.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>第二段是flag2</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741710162833-33cee26d-da76-4d11-87dc-0609309ade76.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs plain">import binascii<br><br>data = &quot;34282500262C21270030340ED200262F3200392F35002933000112A4000118302C2139D12ED93DD6202DD3333D00019ABDADAD6D000103B9ADAD6E000103B9ADAD6E0001030D01030001100001000F0F0F0F0F1C2C3C0F1222320F1424340F1132300F1C2C3C0F0927380F1121310F1132300F1121310F0727380F1323330F1132300F1525350F0527380F1323330F1132300F1929390F0B27380F1727370F1132300F1626360F0727380F1828380F0F29300F0F26300F0F24300F0F213000FF490008FF4A0000074B0008074C008000FF4D0108FF4E0100074F01080750018000FF4D0208FF4E0200074F02080750028000FF4D0308FF4E0300074F03080750038077F488F499F4AAF4B0E717F4E1E827F4ACEA37F4C8EC37F448EF37F49BF217F4280044280044280044280044204F10205010205110FF2C2536252C1A000027252D331A0000000F000000002C293625331A000304037A7B7C7D7C7D7E7F80819A9B867B8788898A8B8C8D7D807D909192939495967F94959C9500000000000058E5ADE40BE7FEE48D1C038E1D038D23038E240388B9FFFF8D2D0388B9FFFF8D2C038C2F0320FFFFA0FFD0E860000000000000&quot;<br><br>data = binascii.a2b_hex(data)<br><br>table = &#123;&#125;<br>str_1 = ord(&quot;A&quot;)<br>for i in range(0x21,0x3B):<br>    table[i] = chr(str_1)<br>    str_1 += 1<br>table[0x20] = &quot;@&quot;<br>table[0] = &quot; &quot;<br>table[0x3d] = &quot;_&quot;<br>str_1 = ord(&quot;0&quot;)<br>for i in range(0xD0,0xDA):<br>    table[i] = chr(str_1)<br>    str_1 += 1<br>flag = &quot;&quot;<br><br>for i in range(len(data)):<br>    for key,value in table.items():<br>        if data[i] == key:<br>            flag += value<br>print(flag)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741710467489-0446e5ee-e3bc-4afd-a9bc-27269875e8eb.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>THE FLAG PT2 FOR YOU IS  PLAY1N9_6@M3S_       LBRDTRPLGXAQRPAQGXCSRPEUGXCSRPIYGXGWRPFVGXHXIPFPDPAP            GWWWH H H H @@@LEVEL  GEMS       LIVES       CDMLO@0      </p>
+<h3 id="flag03"><a href="#flag03" class="headerlink" title="flag03"></a>flag03</h3><p>看ppu viewer</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/42988179/1741708666856-c2b8147d-30a2-4fe3-91ba-9775a25f2426.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>ON_Y0UR_N3S?}</p>
+<p>FLAG：TPCTF{D0_Y0U_L1KE_PLAY1N9_6@M3S_ ON_Y0UR_N3S?}</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2025/03/22/test/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>March 22, 2025</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/03/22/%E6%9D%82%E9%A1%B9%E6%80%BB%E7%BB%93/" title="杂项总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">杂项总结</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/03/22/XSS/" title="XSS">
+                        <span class="hidden-mobile">XSS</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
