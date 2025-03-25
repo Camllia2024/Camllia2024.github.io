@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/42988179/1721810793101-b9a78de4-2091-436b-bd04-eb0224fe1889.png">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/42988179/1721810845881-7f4c76e2-921b-4e0d-ad9c-8000207917ef.png">
 <meta property="article:published_time" content="2025-03-22T15:00:28.682Z">
-<meta property="article:modified_time" content="2025-03-22T15:01:20.022Z">
+<meta property="article:modified_time" content="2025-03-22T15:15:02.727Z">
 <meta property="article:author" content="chaye">
 <meta property="article:tag" content="WEB">
 <meta name="twitter:card" content="summary_large_image">
@@ -235,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          556 words
+          524 words
         
       </span>
     
@@ -324,7 +324,24 @@
 <p>ctrl+F 搜索网页文本</p>
 <p><img src="https://cdn.nlark.com/yuque/0/2024/png/42988179/1721810845881-7f4c76e2-921b-4e0d-ad9c-8000207917ef.png" srcset="/img/loading.gif" lazyload></p>
 <p>得到flag</p>
-<h1 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h1><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/upload.php</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>node4.anna.nssctf.cn:28128<br><span class="hljs-attribute">Content-Length</span><span class="hljs-punctuation">: </span>294<br><span class="hljs-attribute">Cache-Control</span><span class="hljs-punctuation">: </span>max-age=0<br><span class="hljs-attribute">Origin</span><span class="hljs-punctuation">: </span>http://node4.anna.nssctf.cn:28128<br><span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>multipart/form-data; boundary=----WebKitFormBoundaryaJYMnfi8JLJdTfbu<br><span class="hljs-attribute">Upgrade-Insecure-Requests</span><span class="hljs-punctuation">: </span>1<br><span class="hljs-attribute">User-Agent</span><span class="hljs-punctuation">: </span>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0<br><span class="hljs-attribute">Accept</span><span class="hljs-punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7<br><span class="hljs-attribute">Referer</span><span class="hljs-punctuation">: </span>http://node4.anna.nssctf.cn:28128/<br><span class="hljs-attribute">Accept-Encoding</span><span class="hljs-punctuation">: </span>gzip, deflate<br><span class="hljs-attribute">Accept-Language</span><span class="hljs-punctuation">: </span>zh-CN,zh;q=0.9<br><span class="hljs-attribute">Cookie</span><span class="hljs-punctuation">: </span>Hm_lvt_648a44a949074de73151ffaa0a832aec=1740560840,1741511209; HMACCOUNT=9B0CB3FE954795E1; Hm_lpvt_648a44a949074de73151ffaa0a832aec=1741511219; PHPSESSID=kogpi8bg9liflpkkag5ra1eor6<br><span class="hljs-attribute">Connection</span><span class="hljs-punctuation">: </span>close<br><br><span class="language-pgsql"><span class="hljs-comment">------WebKitFormBoundaryaJYMnfi8JLJdTfbu</span></span><br><span class="language-pgsql">Content-Disposition: form-data; <span class="hljs-type">name</span>=&quot;uploaded&quot;; filename=&quot;1.txt&quot;</span><br><span class="language-pgsql">Content-<span class="hljs-keyword">Type</span>: <span class="hljs-type">text</span>/plain</span><br><span class="language-pgsql"></span><br><span class="language-pgsql"></span><br><span class="language-pgsql"><span class="hljs-comment">------WebKitFormBoundaryaJYMnfi8JLJdTfbu</span></span><br><span class="language-pgsql">Content-Disposition: form-data; <span class="hljs-type">name</span>=&quot;submit&quot;</span><br><span class="language-pgsql"></span><br><span class="language-pgsql">鎰熻瑕佽绉掍簡</span><br><span class="language-pgsql"><span class="hljs-comment">------WebKitFormBoundaryaJYMnfi8JLJdTfbu--</span></span><br><span class="language-pgsql"></span><br></code></pre></td></tr></table></figure>
+<h1 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h1><pre><code class="hljs">POST /upload.php HTTP/1.1
+Host: node4.anna.nssctf.cn:28128
+Content-Length: 294
+Cache-Control: max-age=0
+Origin: http://node4.anna.nssctf.cn:28128
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryaJYMnfi8JLJdTfbu
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://node4.anna.nssctf.cn:28128/
+Accept-Encoding: gzip, deflate
+Accept-Language: zh-CN,zh;q=0.9
+Cookie: Hm_lvt_648a44a949074de73151ffaa0a832aec=1740560840,1741511209; HMACCOUNT=9B0CB3FE954795E1; Hm_lpvt_648a44a949074de73151ffaa0a832aec=1741511219; PHPSESSID=kogpi8bg9liflpkkag5ra1eor6
+Connection: close
+
+------WebKitFormBoundd
+</code></pre>
+
                 
               </div>
             
