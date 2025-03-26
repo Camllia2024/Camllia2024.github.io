@@ -19,22 +19,42 @@
   <meta name="author" content="chaye">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
-<meta property="og:title" content="imagetest">
-<meta property="og:url" content="http://example.com/2025/03/25/imagetest/index.html">
+    <meta name="description" content="Metasploit（超详细）命令_metasploit命令-CSDN博客 Metasploit控制端接口命令use [auxiliary（辅助模块）&amp;exploit（攻击模块）&amp;payload（攻击载荷）&amp;encode（编译器模块）]：指定设置的模块 [exploits&amp;payloads&amp;encoder&amp;auxiliary&amp;options]">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Metasploit控制端接口命令">
+<meta property="og:url" content="http://example.com/2025/03/26/metaploit%E6%8C%87%E4%BB%A4%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="Metasploit（超详细）命令_metasploit命令-CSDN博客 Metasploit控制端接口命令use [auxiliary（辅助模块）&amp;exploit（攻击模块）&amp;payload（攻击载荷）&amp;encode（编译器模块）]：指定设置的模块 [exploits&amp;payloads&amp;encoder&amp;auxiliary&amp;options]">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/a258930cbb40b06d7a2187799a4dc78.jpg">
-<meta property="article:published_time" content="2025-03-25T11:46:30.151Z">
-<meta property="article:modified_time" content="2025-03-25T12:39:05.311Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325220839429.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325220058576.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325220113924.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325220135087.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325220148267.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/8df6b6c50b9e994184a4b45be0c64385.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/b84675e5044cd882931809f708d6543b.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/db1df491b514202642b75723a65c86e8.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/c1145355b8061dfbbf02209c17add1bf.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/63e81d9598365d5caadda80bd21a1687.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/4fe7b1dcc37028e564696725e22054ba.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/b553c4b4dd8067c57ed7e2e6cc11c5bf.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/7308fc36255251724694b3a6b56d2d6c.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/835ec0e6b1e4bd63cade41cc0e5767d1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/6e6f9a8e3b96d64d6d9206cf89c3d3da.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/08875cbc06328bd121dcb0e063398c50.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/8966845fbc8631b773e7dd2eb56f9956.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/c9b1ceab75d45a1b70e20f9c44533c9d.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1c0805e1e4bc4cf57a3e4d09c75c9a8d.png">
+<meta property="article:published_time" content="2025-03-26T05:51:04.337Z">
+<meta property="article:modified_time" content="2025-03-25T14:10:54.274Z">
 <meta property="article:author" content="chaye">
-<meta property="article:tag" content="other">
+<meta property="article:tag" content="渗透测试">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/a258930cbb40b06d7a2187799a4dc78.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325220839429.png">
   
   
   
-  <title>imagetest - chaye的博客</title>
+  <title>Metasploit控制端接口命令 - chaye的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +220,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="imagetest"></span>
+            <span id="subtitle" data-typed-text="Metasploit控制端接口命令"></span>
           
         </div>
 
@@ -211,8 +231,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-03-25 19:46" pubdate>
-          March 25, 2025 pm
+        <time datetime="2025-03-26 13:51" pubdate>
+          March 26, 2025 pm
         </time>
       </span>
     
@@ -223,7 +243,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 words
+          295 words
         
       </span>
     
@@ -234,7 +254,7 @@
         
         
         
-          1 mins
+          3 mins
         
       </span>
     
@@ -271,12 +291,43 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">imagetest</h1>
+            <h1 id="seo-header">Metasploit控制端接口命令</h1>
             
             
               <div class="markdown-body">
                 
-                <p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/a258930cbb40b06d7a2187799a4dc78.jpg" srcset="/img/loading.gif" lazyload alt="a258930cbb40b06d7a2187799a4dc78"></p>
+                <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_58784379/article/details/119845311">Metasploit（超详细）命令_metasploit命令-CSDN博客</a></p>
+<h3 id="Metasploit控制端接口命令"><a href="#Metasploit控制端接口命令" class="headerlink" title="Metasploit控制端接口命令"></a><strong><strong><strong>Metasploit控制端接口命令</strong></strong></strong></h3><p>use [auxiliary（辅助模块）&amp;exploit（攻击模块）&amp;payload（攻击载荷）&amp;encode（编译器模块）]：指定设置的模块</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325220839429.png" srcset="/img/loading.gif" lazyload alt="image-20250325220839429"><br>[exploits&amp;payloads&amp;encoder&amp;auxiliary&amp;options]：显示可使用的模块或选项</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325220058576.png" srcset="/img/loading.gif" lazyload alt="image-20250325220058576"></p>
+<p>set [options&amp;payload]：设定选项或模块 </p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325220113924.png" srcset="/img/loading.gif" lazyload alt="image-20250325220113924"></p>
+<p>run&amp;exploit：启用模块<br><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325220135087.png" srcset="/img/loading.gif" lazyload alt="image-20250325220135087"></p>
+<p>back：取消当前指定模块，同时返回上级目录</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325220148267.png" srcset="/img/loading.gif" lazyload alt="image-20250325220148267"></p>
+<p>info：查看这个模块的详情<br><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/8df6b6c50b9e994184a4b45be0c64385.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>search：搜索符合条件的模块</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/b84675e5044cd882931809f708d6543b.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>check：检查指定特定目标是否存在安全漏洞，并且能被exploit（攻击模块）利用</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/db1df491b514202642b75723a65c86e8.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>sessions：查看当前会话<br><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/c1145355b8061dfbbf02209c17add1bf.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="Meterepreter作为payloads时，会获得一个Meterepreter会话"><a href="#Meterepreter作为payloads时，会获得一个Meterepreter会话" class="headerlink" title="Meterepreter作为payloads时，会获得一个Meterepreter会话"></a>Meterepreter作为payloads时，会获得一个Meterepreter会话</h3><p>sysinfo：列举被渗透主机的信息系统</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/63e81d9598365d5caadda80bd21a1687.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>inconfig：列举被渗透主机的网络接口信息</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/4fe7b1dcc37028e564696725e22054ba.png" srcset="/img/loading.gif" lazyload alt="img"><br>arp：列举被渗透主机的ARP缓存</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/b553c4b4dd8067c57ed7e2e6cc11c5bf.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>background：将处于激活状态的会话置于后台运行，可以通过sessions查看，再次想进入可以输入sessions -i 1<br><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/7308fc36255251724694b3a6b56d2d6c.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>shell：获取被渗透主机的cmd shell</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/835ec0e6b1e4bd63cade41cc0e5767d1.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>getuid：获取当前用户信息</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/6e6f9a8e3b96d64d6d9206cf89c3d3da.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>getsystem：提权</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/08875cbc06328bd121dcb0e063398c50.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>getpid：查看Meterepreter会话在被渗透主机内的进程号</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/8966845fbc8631b773e7dd2eb56f9956.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/c9b1ceab75d45a1b70e20f9c44533c9d.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>ps：列举被渗透主机的所有进程号</p>
+<p>​                        <img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1c0805e1e4bc4cf57a3e4d09c75c9a8d.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 
                 
               </div>
@@ -289,7 +340,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/other/" class="print-no-link">#other</a>
+        <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="print-no-link">#渗透测试</a>
       
     </div>
   
@@ -301,8 +352,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>imagetest</div>
-      <div>http://example.com/2025/03/25/imagetest/</div>
+      <div>Metasploit控制端接口命令</div>
+      <div>http://example.com/2025/03/26/metaploit指令使用/</div>
     </div>
     <div class="license-meta">
       
@@ -314,7 +365,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>March 25, 2025</div>
+          <div>March 26, 2025</div>
         </div>
       
       
@@ -346,18 +397,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/03/26/docker/" title="">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/03/22/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" title="信息泄露">
-                        <span class="hidden-mobile">信息泄露</span>
+                      <a href="/2025/03/26/metaploitable%E9%9D%B6%E6%9C%BA%E6%B5%8B%E8%AF%95/" title="metaploitable靶机测试">
+                        <span class="hidden-mobile">metaploitable靶机测试</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
