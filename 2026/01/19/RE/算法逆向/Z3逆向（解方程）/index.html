@@ -1,0 +1,655 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Z3逆向（解方程）了解https:&#x2F;&#x2F;www.freebuf.com&#x2F;articles&#x2F;web&#x2F;232002.html 注意：不能建立任何z3同名的文件，不然import导入的是z3文件而不是z3模块 因为这个问题一直以为自己电脑用不了z3了，甚至决定放弃这块，现在想想真是可笑（顺便夸一下万能ai） #v &#x3D; [Int(f’v{i}’)    for i in range(0, 16)]">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chaye的博客">
+<meta property="og:url" content="http://example.com/2026/01/19/RE/%E7%AE%97%E6%B3%95%E9%80%86%E5%90%91/Z3%E9%80%86%E5%90%91%EF%BC%88%E8%A7%A3%E6%96%B9%E7%A8%8B%EF%BC%89/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="Z3逆向（解方程）了解https:&#x2F;&#x2F;www.freebuf.com&#x2F;articles&#x2F;web&#x2F;232002.html 注意：不能建立任何z3同名的文件，不然import导入的是z3文件而不是z3模块 因为这个问题一直以为自己电脑用不了z3了，甚至决定放弃这块，现在想想真是可笑（顺便夸一下万能ai） #v &#x3D; [Int(f’v{i}’)    for i in range(0, 16)]">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/49277317_OcNrDgdRnL7OC6p2/1721790096751-21fcbb1c-4754-4223-8446-6f575e67948a-080979.png">
+<meta property="og:image" content="http://example.com/img/49277317_OcNrDgdRnL7OC6p2/1721791003971-2f81c425-cc6d-4e8b-b0ee-7b1813dccafc-758946.png">
+<meta property="og:image" content="http://example.com/img/49277317_OcNrDgdRnL7OC6p2/1721791302249-cb278161-cf5d-4c14-a1bf-4cc96250a6d6-077345.png">
+<meta property="og:image" content="http://example.com/img/49277317_OcNrDgdRnL7OC6p2/1721791549516-6b414aa8-6fec-4e08-8b64-15086e37809c-948813.png">
+<meta property="og:image" content="http://example.com/img/49277317_OcNrDgdRnL7OC6p2/1726988449299-2134c22d-c2a5-4353-8577-a74dafbacf54-816805.png">
+<meta property="article:published_time" content="2026-01-19T05:29:07.888Z">
+<meta property="article:modified_time" content="2025-11-04T06:19:41.237Z">
+<meta property="article:author" content="chaye">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/49277317_OcNrDgdRnL7OC6p2/1721790096751-21fcbb1c-4754-4223-8446-6f575e67948a-080979.png">
+  
+  
+  
+  <title>chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-19 13:29" pubdate>
+          January 19, 2026 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Z3逆向（解方程）"><a href="#Z3逆向（解方程）" class="headerlink" title="Z3逆向（解方程）"></a>Z3逆向（解方程）</h1><h1 id="了解"><a href="#了解" class="headerlink" title="了解"></a>了解</h1><p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/232002.html">https://www.freebuf.com/articles/web/232002.html</a></p>
+<p>注意：不能建立任何z3同名的文件，不然import导入的是z3文件而不是z3模块</p>
+<p>因为这个问题一直以为自己电脑用不了z3了，甚至决定放弃这块，现在想想真是可笑（顺便夸一下万能ai）</p>
+<p><font style="color:#DF2A3F;">#v &#x3D; [Int(f’v{i}’)    for i in range(0, 16)] 自定义</font></p>
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><h2 id="1、login"><a href="#1、login" class="headerlink" title="1、login"></a>1、login</h2><p><img src="/./img/49277317_OcNrDgdRnL7OC6p2/1721790096751-21fcbb1c-4754-4223-8446-6f575e67948a-080979.png" srcset="/img/loading.gif" lazyload alt="1721790096751-21fcbb1c-4754-4223-8446-6f575e67948a.png"></p>
+<p>先进行正常的py逆向，得到python文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs plain">#!/usr/bin/env python<br># visit https://tool.lu/pyc/ for more information<br># Version: Python 3.6<br><br>import sys<br>input1 = input(&#x27;input something:&#x27;)<br>if len(input1) != 14:<br>    print(&#x27;Wrong length!&#x27;)<br>    sys.exit()<br>code = []<br>for i in range(13):<br>    code.append(ord(input1[i]) ^ ord(input1[i + 1]))<br><br>code.append(ord(input1[13]))<br>a1 = code[2]<br>a2 = code[1]<br>a3 = code[0]<br>a4 = code[3]<br>a5 = code[4]<br>a6 = code[5]<br>a7 = code[6]<br>a8 = code[7]<br>a9 = code[9]<br>a10 = code[8]<br>a11 = code[10]<br>a12 = code[11]<br>a13 = code[12]<br>a14 = code[13]<br>if ((((a1 * 88 + a2 * 67 + a3 * 65 - a4 * 5) + a5 * 43 + a6 * 89 + a7 * 25 + a8 * 13 - a9 * 36) + a10 * 15 + a11 * 11 + a12 * 47 - a13 * 60) + a14 * 29 == 22748) &amp; ((((a1 * 89 + a2 * 7 + a3 * 12 - a4 * 25) + a5 * 41 + a6 * 23 + a7 * 20 - a8 * 66) + a9 * 31 + a10 * 8 + a11 * 2 - a12 * 41 - a13 * 39) + a14 * 17 == 7258) &amp; ((((a1 * 28 + a2 * 35 + a3 * 16 - a4 * 65) + a5 * 53 + a6 * 39 + a7 * 27 + a8 * 15 - a9 * 33) + a10 * 13 + a11 * 101 + a12 * 90 - a13 * 34) + a14 * 23 == 26190) &amp; ((((a1 * 23 + a2 * 34 + a3 * 35 - a4 * 59) + a5 * 49 + a6 * 81 + a7 * 25 + (a8 &lt;&lt; 7) - a9 * 32) + a10 * 75 + a11 * 81 + a12 * 47 - a13 * 60) + a14 * 29 == 37136) &amp; (((a1 * 38 + a2 * 97 + a3 * 35 - a4 * 52) + a5 * 42 + a6 * 79 + a7 * 90 + a8 * 23 - a9 * 36) + a10 * 57 + a11 * 81 + a12 * 42 - a13 * 62 - a14 * 11 == 27915) &amp; ((((a1 * 22 + a2 * 27 + a3 * 35 - a4 * 45) + a5 * 47 + a6 * 49 + a7 * 29 + a8 * 18 - a9 * 26) + a10 * 35 + a11 * 41 + a12 * 40 - a13 * 61) + a14 * 28 == 17298) &amp; ((((a1 * 12 + a2 * 45 + a3 * 35 - a4 * 9 - a5 * 42) + a6 * 86 + a7 * 23 + a8 * 85 - a9 * 47) + a10 * 34 + a11 * 76 + a12 * 43 - a13 * 44) + a14 * 65 == 19875) &amp; (((a1 * 79 + a2 * 62 + a3 * 35 - a4 * 85) + a5 * 33 + a6 * 79 + a7 * 86 + a8 * 14 - a9 * 30) + a10 * 25 + a11 * 11 + a12 * 57 - a13 * 50 - a14 * 9 == 22784) &amp; ((((a1 * 8 + a2 * 6 + a3 * 64 - a4 * 85) + a5 * 73 + a6 * 29 + a7 * 2 + a8 * 23 - a9 * 36) + a10 * 5 + a11 * 2 + a12 * 47 - a13 * 64) + a14 * 27 == 9710) &amp; (((((a1 * 67 - a2 * 68) + a3 * 68 - a4 * 51 - a5 * 43) + a6 * 81 + a7 * 22 - a8 * 12 - a9 * 38) + a10 * 75 + a11 * 41 + a12 * 27 - a13 * 52) + a14 * 31 == 13376) &amp; ((((a1 * 85 + a2 * 63 + a3 * 5 - a4 * 51) + a5 * 44 + a6 * 36 + a7 * 28 + a8 * 15 - a9 * 6) + a10 * 45 + a11 * 31 + a12 * 7 - a13 * 67) + a14 * 78 == 24065) &amp; ((((a1 * 47 + a2 * 64 + a3 * 66 - a4 * 5) + a5 * 43 + a6 * 112 + a7 * 25 + a8 * 13 - a9 * 35) + a10 * 95 + a11 * 21 + a12 * 43 - a13 * 61) + a14 * 20 == 27687) &amp; (((a1 * 89 + a2 * 67 + a3 * 85 - a4 * 25) + a5 * 49 + a6 * 89 + a7 * 23 + a8 * 56 - a9 * 92) + a10 * 14 + a11 * 89 + a12 * 47 - a13 * 61 - a14 * 29 == 29250) &amp; (((a1 * 95 + a2 * 34 + a3 * 62 - a4 * 9 - a5 * 43) + a6 * 83 + a7 * 25 + a8 * 12 - a9 * 36) + a10 * 16 + a11 * 51 + a12 * 47 - a13 * 60 - a14 * 24 == 15317):<br>    print(&#x27;flag is GWHT&#123;md5(your_input)&#125;&#x27;)<br>    print(&#x27;Congratulations and have fun!&#x27;)<br>else:<br>    print(&#x27;Sorry,plz try again...&#x27;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>这里的(a8 &lt;&lt; 7)要改成(a8 * 0x80)，不然会报错</p>
+<p><font style="color:#DF2A3F;">在Python中，使用左移操作符 </font><code>&lt;font style=&quot;color:#DF2A3F;&quot;&gt;&lt;&lt;&lt;/font&gt;</code><font style="color:#DF2A3F;"> 可以将数值按位左移。然而，在Z3中，左移操作符 </font><code>&lt;font style=&quot;color:#DF2A3F;&quot;&gt;&lt;&lt;&lt;/font&gt;</code><font style="color:#DF2A3F;"> 是不支持的。因此，需要将左移操作转换为等效的乘法操作。</font></p>
+<p><font style="color:#DF2A3F;">左移7位相当于乘以 2的7次，也就是128。因此，</font><code>&lt;font style=&quot;color:#DF2A3F;&quot;&gt;a8 &lt;&lt; 7&lt;/font&gt;</code><font style="color:#DF2A3F;"> 等价于 </font><code>&lt;font style=&quot;color:#DF2A3F;&quot;&gt;a8 * 128&lt;/font&gt;</code><font style="color:#DF2A3F;"> 或 </font><code>&lt;font style=&quot;color:#DF2A3F;&quot;&gt;a8 * 0x80&lt;/font&gt;</code></p>
+<p><img src="/./img/49277317_OcNrDgdRnL7OC6p2/1721791003971-2f81c425-cc6d-4e8b-b0ee-7b1813dccafc-758946.png" srcset="/img/loading.gif" lazyload alt="1721791003971-2f81c425-cc6d-4e8b-b0ee-7b1813dccafc.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs plain">from z3 import *<br><br>a1 = Int(&#x27;a2&#x27;)<br>a2 = Int(&#x27;a1&#x27;)<br>a3 = Int(&#x27;a0&#x27;)<br>a4 = Int(&#x27;a3&#x27;)<br>a5 = Int(&#x27;a4&#x27;)<br>a6 = Int(&#x27;a5&#x27;)<br>a7 = Int(&#x27;a6&#x27;)<br>a8 = Int(&#x27;a7&#x27;)<br>a9 = Int(&#x27;a9&#x27;)<br>a10 = Int(&#x27;a8&#x27;)<br>a11 = Int(&#x27;a10&#x27;)<br>a12 = Int(&#x27;a11&#x27;)<br>a13 = Int(&#x27;a12&#x27;)<br>a14 = Int(&#x27;a13&#x27;)<br><br>s = Solver()<br><br>s.add(a1 * 88 + a2 * 67 + a3 * 65 - a4 * 5 + a5 * 43 + a6 * 89 + a7 * 25 + a8 * 13 - a9 * 36 + a10 * 15 + a11 * 11 + a12 * 47 - a13 * 60 + a14 * 29 == 22748)<br>s.add(a1 * 89 + a2 * 7 + a3 * 12 - a4 * 25 + a5 * 41 + a6 * 23 + a7 * 20 - a8 * 66 + a9 * 31 + a10 * 8 + a11 * 2 - a12 * 41 - a13 * 39 + a14 * 17 == 7258)<br>s.add(a1 * 28 + a2 * 35 + a3 * 16 - a4 * 65 + a5 * 53 + a6 * 39 + a7 * 27 + a8 * 15 - a9 * 33 + a10 * 13 + a11 * 101 + a12 * 90 - a13 * 34 + a14 * 23 == 26190)<br>s.add(a1 * 23 + a2 * 34 + a3 * 35 - a4 * 59 + a5 * 49 + a6 * 81 + a7 * 25 + (a8 * 0x80) - a9 * 32 + a10 * 75 + a11 * 81 + a12 * 47 - a13 * 60 + a14 * 29 == 37136)<br>s.add(a1 * 38 + a2 * 97 + a3 * 35 - a4 * 52 + a5 * 42 + a6 * 79 + a7 * 90 + a8 * 23 - a9 * 36 + a10 * 57 + a11 * 81 + a12 * 42 - a13 * 62 - a14 * 11 == 27915)<br>s.add(a1 * 22 + a2 * 27 + a3 * 35 - a4 * 45 + a5 * 47 + a6 * 49 + a7 * 29 + a8 * 18 - a9 * 26 + a10 * 35 + a11 * 41 + a12 * 40 - a13 * 61 + a14 * 28 == 17298)<br>s.add(a1 * 12 + a2 * 45 + a3 * 35 - a4 * 9 - a5 * 42 + a6 * 86 + a7 * 23 + a8 * 85 - a9 * 47 + a10 * 34 + a11 * 76 + a12 * 43 - a13 * 44 + a14 * 65 == 19875)<br>s.add(a1 * 79 + a2 * 62 + a3 * 35 - a4 * 85 + a5 * 33 + a6 * 79 + a7 * 86 + a8 * 14 - a9 * 30 + a10 * 25 + a11 * 11 + a12 * 57 - a13 * 50 - a14 * 9 == 22784)<br>s.add(a1 * 8 + a2 * 6 + a3 * 64 - a4 * 85 + a5 * 73 + a6 * 29 + a7 * 2 + a8 * 23 - a9 * 36 + a10 * 5 + a11 * 2 + a12 * 47 - a13 * 64 + a14 * 27 == 9710)<br>s.add(a1 * 67 - a2 * 68 + a3 * 68 - a4 * 51 - a5 * 43 + a6 * 81 + a7 * 22 - a8 * 12 - a9 * 38 + a10 * 75 + a11 * 41 + a12 * 27 - a13 * 52 + a14 * 31 == 13376)<br>s.add(a1 * 85 + a2 * 63 + a3 * 5 - a4 * 51 + a5 * 44 + a6 * 36 + a7 * 28 + a8 * 15 - a9 * 6 + a10 * 45 + a11 * 31 + a12 * 7 - a13 * 67 + a14 * 78 == 24065)<br>s.add(a1 * 47 + a2 * 64 + a3 * 66 - a4 * 5 + a5 * 43 + a6 * 112 + a7 * 25 + a8 * 13 - a9 * 35 + a10 * 95 + a11 * 21 + a12 * 43 - a13 * 61 + a14 * 20 == 27687)<br>s.add(a1 * 89 + a2 * 67 + a3 * 85 - a4 * 25 + a5 * 49 + a6 * 89 + a7 * 23 + a8 * 56 - a9 * 92 + a10 * 14 + a11 * 89 + a12 * 47 - a13 * 61 - a14 * 29 == 29250)<br>s.add(a1 * 95 + a2 * 34 + a3 * 62 - a4 * 9 - a5 * 43 + a6 * 83 + a7 * 25 + a8 * 12 - a9 * 36 + a10 * 16 + a11 * 51 + a12 * 47 - a13 * 60 - a14 * 24 == 15317)<br><br>if &#x27;un&#x27; not in str(s.check()):<br>    print(s.model())<br></code></pre></td></tr></table></figure>
+
+<p>根据输出创建字典</p>
+<p><img src="/./img/49277317_OcNrDgdRnL7OC6p2/1721791302249-cb278161-cf5d-4c14-a1bf-4cc96250a6d6-077345.png" srcset="/img/loading.gif" lazyload alt="1721791302249-cb278161-cf5d-4c14-a1bf-4cc96250a6d6.png"></p>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs plain">from z3 import *<br><br>a1 = Int(&#x27;a2&#x27;)<br>a2 = Int(&#x27;a1&#x27;)<br>a3 = Int(&#x27;a0&#x27;)<br>a4 = Int(&#x27;a3&#x27;)<br>a5 = Int(&#x27;a4&#x27;)<br>a6 = Int(&#x27;a5&#x27;)<br>a7 = Int(&#x27;a6&#x27;)<br>a8 = Int(&#x27;a7&#x27;)<br>a9 = Int(&#x27;a9&#x27;)<br>a10 = Int(&#x27;a8&#x27;)<br>a11 = Int(&#x27;a10&#x27;)<br>a12 = Int(&#x27;a11&#x27;)<br>a13 = Int(&#x27;a12&#x27;)<br>a14 = Int(&#x27;a13&#x27;)<br><br>s = Solver()<br><br>s.add(a1 * 88 + a2 * 67 + a3 * 65 - a4 * 5 + a5 * 43 + a6 * 89 + a7 * 25 + a8 * 13 - a9 * 36 + a10 * 15 + a11 * 11 + a12 * 47 - a13 * 60 + a14 * 29 == 22748)<br>s.add(a1 * 89 + a2 * 7 + a3 * 12 - a4 * 25 + a5 * 41 + a6 * 23 + a7 * 20 - a8 * 66 + a9 * 31 + a10 * 8 + a11 * 2 - a12 * 41 - a13 * 39 + a14 * 17 == 7258)<br>s.add(a1 * 28 + a2 * 35 + a3 * 16 - a4 * 65 + a5 * 53 + a6 * 39 + a7 * 27 + a8 * 15 - a9 * 33 + a10 * 13 + a11 * 101 + a12 * 90 - a13 * 34 + a14 * 23 == 26190)<br>s.add(a1 * 23 + a2 * 34 + a3 * 35 - a4 * 59 + a5 * 49 + a6 * 81 + a7 * 25 + (a8 * 0x80) - a9 * 32 + a10 * 75 + a11 * 81 + a12 * 47 - a13 * 60 + a14 * 29 == 37136)<br>s.add(a1 * 38 + a2 * 97 + a3 * 35 - a4 * 52 + a5 * 42 + a6 * 79 + a7 * 90 + a8 * 23 - a9 * 36 + a10 * 57 + a11 * 81 + a12 * 42 - a13 * 62 - a14 * 11 == 27915)<br>s.add(a1 * 22 + a2 * 27 + a3 * 35 - a4 * 45 + a5 * 47 + a6 * 49 + a7 * 29 + a8 * 18 - a9 * 26 + a10 * 35 + a11 * 41 + a12 * 40 - a13 * 61 + a14 * 28 == 17298)<br>s.add(a1 * 12 + a2 * 45 + a3 * 35 - a4 * 9 - a5 * 42 + a6 * 86 + a7 * 23 + a8 * 85 - a9 * 47 + a10 * 34 + a11 * 76 + a12 * 43 - a13 * 44 + a14 * 65 == 19875)<br>s.add(a1 * 79 + a2 * 62 + a3 * 35 - a4 * 85 + a5 * 33 + a6 * 79 + a7 * 86 + a8 * 14 - a9 * 30 + a10 * 25 + a11 * 11 + a12 * 57 - a13 * 50 - a14 * 9 == 22784)<br>s.add(a1 * 8 + a2 * 6 + a3 * 64 - a4 * 85 + a5 * 73 + a6 * 29 + a7 * 2 + a8 * 23 - a9 * 36 + a10 * 5 + a11 * 2 + a12 * 47 - a13 * 64 + a14 * 27 == 9710)<br>s.add(a1 * 67 - a2 * 68 + a3 * 68 - a4 * 51 - a5 * 43 + a6 * 81 + a7 * 22 - a8 * 12 - a9 * 38 + a10 * 75 + a11 * 41 + a12 * 27 - a13 * 52 + a14 * 31 == 13376)<br>s.add(a1 * 85 + a2 * 63 + a3 * 5 - a4 * 51 + a5 * 44 + a6 * 36 + a7 * 28 + a8 * 15 - a9 * 6 + a10 * 45 + a11 * 31 + a12 * 7 - a13 * 67 + a14 * 78 == 24065)<br>s.add(a1 * 47 + a2 * 64 + a3 * 66 - a4 * 5 + a5 * 43 + a6 * 112 + a7 * 25 + a8 * 13 - a9 * 35 + a10 * 95 + a11 * 21 + a12 * 43 - a13 * 61 + a14 * 20 == 27687)<br>s.add(a1 * 89 + a2 * 67 + a3 * 85 - a4 * 25 + a5 * 49 + a6 * 89 + a7 * 23 + a8 * 56 - a9 * 92 + a10 * 14 + a11 * 89 + a12 * 47 - a13 * 61 - a14 * 29 == 29250)<br>s.add(a1 * 95 + a2 * 34 + a3 * 62 - a4 * 9 - a5 * 43 + a6 * 83 + a7 * 25 + a8 * 12 - a9 * 36 + a10 * 16 + a11 * 51 + a12 * 47 - a13 * 60 - a14 * 24 == 15317)<br><br>if &#x27;un&#x27; not in str(s.check()):<br>    print(s.model())<br><br>direct=&#123;<br>    13 : 33,<br>    3 : 7,<br>    4 : 104,<br>    10 : 88,<br>    12 : 88,<br>    1 : 24,<br>    7 : 91,<br>    9 : 52,<br>    6 : 28,<br>    5 : 43,<br>    0 : 10,<br>    8 : 108,<br>    2 : 119,<br>    11 : 74<br>&#125;<br>flag=[0 for i in range(15)]<br>for i in direct:<br>    flag[i]=direct[i]<br><br>for i in range(13,-1,-1):<br>    flag[i]^=flag[i+1]<br><br>for  i in range(14):<br>    print(chr(flag[i]),end=&#x27;&#x27;)<br></code></pre></td></tr></table></figure>
+
+<p><img src="/./img/49277317_OcNrDgdRnL7OC6p2/1721791549516-6b414aa8-6fec-4e08-8b64-15086e37809c-948813.png" srcset="/img/loading.gif" lazyload alt="1721791549516-6b414aa8-6fec-4e08-8b64-15086e37809c.png"></p>
+<p>最后进行md5加密</p>
+<p>58964088b637e50d3a22b9510c1d1ef8</p>
+<h2 id="2、babe-ze3（不会）"><a href="#2、babe-ze3（不会）" class="headerlink" title="2、babe-ze3（不会）"></a>2、babe-ze3（不会）</h2><p><img src="/./img/49277317_OcNrDgdRnL7OC6p2/1726988449299-2134c22d-c2a5-4353-8577-a74dafbacf54-816805.png" srcset="/img/loading.gif" lazyload alt="1726988449299-2134c22d-c2a5-4353-8577-a74dafbacf54.png"></p>
+<p>网站Hint最后一个if有问题，狗屁通说v4和  !(_DWORD)v4无法同时成立</p>
+<p>之前Z3解密用的都是Ints类型，这次运算有变，变成<font style="color:rgb(38, 38, 38);background-color:rgb(245, 245, 245);">BitVec()位向量</font></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs plain">from libnum import n2s<br>from z3 import *<br>from Crypto.Util.number import *<br><br># 定义变量<br>s = BitVec(&#x27;s&#x27;, 64)<br>v6 = BitVec(&#x27;v6&#x27;, 64)<br>v7 = BitVec(&#x27;v7&#x27;, 64)<br>v8 = BitVec(&#x27;v8&#x27;, 64)<br>solver = Solver()<br><br># 添加条件<br>solver.add((v7 &amp; s &amp; v8 | (~(v6 | s) | v6 &amp; v7) &amp; v6 &amp; s) == 0x2024243035302131)<br>solver.add((v6 ^ (v7 &amp; (s + v7) | v8 &amp; ~(v7 &amp; s) | v6 &amp; (v6 + v8) &amp; ~s)) == 0x7071001344417B54)<br>solver.add(((v7 - v8) ^ (s - v6)) == 0x3FE01013130FFD3)<br>solver.add((s + v7 - v8 + v6) * (v8 + s + v6 - v7) == 0x1989A41A9049C5C9)<br>solver.add((v7 + v6 + s + v8) % 0x1BF52 == 21761)<br>solver.add(v8 * v7 * v6 * s % 0x1D4B42 == 827118)<br><br># 检查是否有解<br>if solver.check() == sat:<br>    model = solver.model()<br><br>    # 输出变量的解<br>    s_val = model[s].as_long()<br>    v6_val = model[v6].as_long()<br>    v7_val = model[v7].as_long()<br>    v8_val = model[v8].as_long()<br><br>    # 将解转换为字符串<br>    print(&quot;s:&quot;, n2s(s_val))<br>    print(&quot;v6:&quot;, n2s(v6_val))<br>    print(&quot;v7:&quot;, n2s(v7_val))<br>    print(&quot;v8:&quot;, n2s(v8_val))<br>else:<br>    print(&quot;No solution found&quot;)<br><br># 处理字符串翻转<br>s = &#x27;cd5250c9dbc4fdab1760517947e35495&#x27;<br>s1 = &#x27;&#x27;<br>for i in range(0, 32, 8):<br>    a = s[i:i+8]<br>    a = a[::-1]  # 翻转每个8字符的子串<br>    s1 += a<br><br>print(&quot;Processed string:&quot;, s1)<br># 结果应为: 9c0525dcba4fdfbd9715067159453e74<br></code></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>更新: 2025-06-03 19:20:35<br>原文: <a target="_blank" rel="noopener" href="https://www.yuque.com/chaye-apqbl/vsc85q/rtbffu0uqgr3h5m3">https://www.yuque.com/chaye-apqbl/vsc85q/rtbffu0uqgr3h5m3</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2026/01/19/RE/算法逆向/Z3逆向（解方程）/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 19, 2026</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/01/19/WP/2024/0xGame2024/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E7%AE%97%E6%B3%95%E9%80%86%E5%90%91/TEA/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

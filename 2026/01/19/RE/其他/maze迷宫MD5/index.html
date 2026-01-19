@@ -1,0 +1,798 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="maze迷宫MD5前言：该篇文章会介绍一个在ctf当中reverse方向中常见的一种迷宫题，我从攻防世界中选取了一道比较有代表性的题目，逐一讲解，并且每个思路都相当清晰透彻，借此分享，相信看完之后对于迷宫类型的题目会有更深的理解。 例题1：攻防世界-reverse_re3第一步首先看有无壳，直接丢到exeinfope—发现是elf文件是linux的可执行程序  第二步反手丢进ida看到main 直">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chaye的博客">
+<meta property="og:url" content="http://example.com/2026/01/19/RE/%E5%85%B6%E4%BB%96/maze%E8%BF%B7%E5%AE%ABMD5/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="maze迷宫MD5前言：该篇文章会介绍一个在ctf当中reverse方向中常见的一种迷宫题，我从攻防世界中选取了一道比较有代表性的题目，逐一讲解，并且每个思路都相当清晰透彻，借此分享，相信看完之后对于迷宫类型的题目会有更深的理解。 例题1：攻防世界-reverse_re3第一步首先看有无壳，直接丢到exeinfope—发现是elf文件是linux的可执行程序  第二步反手丢进ida看到main 直">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1717234589796-a7e22b5b-307e-4b76-8a29-87319e857a1b-913314.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1717234604020-6b0ec156-23fb-43fd-a782-8ade83694c45-644909.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1717234684753-fa345f3c-fcd8-4cf2-a622-cf4e4773d23e-625806.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1717234697051-8cfd01d3-dad0-4095-9bea-505930fca360-520418.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1717234791049-81359f85-da1d-49cc-82c9-71c6c429ac94-080754.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1717234822384-19edaf01-78e6-48f6-b162-16c4d2c4e14a-161276.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/42988179/1717234833866-133d0ab3-eda8-48ac-8230-ec838e7ae849.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1717234857731-0367cdf8-5cb7-470d-9b2b-5c37400107d3-520779.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1717234880358-f64c4fdd-828a-4744-afa3-70004e33c2d4-745912.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1717234923253-2411cdf6-26ea-44fa-9a59-8bdf81c838cf-433649.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1717234935670-ff0486b9-6c59-471a-88ef-dc0b0655cf92-084936.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1721287542512-fd0e9f66-ad89-4f99-aa08-b3c5fc41d933-455404.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1721287626134-4c1d02ad-2ed0-48f3-a698-f92236473e44-513169.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1721287763212-b4cc0f54-cc4e-41f7-8325-4895a9b743ac-253909.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1721287799865-9ae1bc66-51e5-4083-a47e-0da39777b1ed-194589.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1721287879466-867a862b-99c2-4249-a32e-c3440b3ba5c8-981061.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1721287938904-da7cd899-3e25-4630-8538-420efe1ccc9f-817581.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1721287963254-d35f1b10-f2d0-4c09-b86f-a9bed5885a19-633624.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1721288121231-bcb51aa9-1ef6-4e1c-801f-00a311c1fe8b-011439.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1721288538242-b466a9b5-a88a-4108-a8be-e59dfb79cd2d-711029.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1721288574799-f3796f86-3941-4f3e-933b-fa988c94cb86-902758.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1722242072121-514173b5-a127-4f85-91fa-52129b918f90-978523.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1722242096451-7bae7aa6-269c-4701-859a-9bf8c435ee54-283612.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1722242173880-9f1c79a7-1f70-4f35-8706-f6d4ee27499f-020436.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1722242151448-a1d6ea37-e848-4e45-8a93-21014039a4b5-576710.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1722245506015-581550ac-dbac-4933-8619-58cde96fbd6d-489526.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1722245419058-b0588599-cd50-4ceb-b3b0-2a097b6faff0-441098.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1722243985629-a34c7275-0cfd-4e95-9704-018fccdc19d7-602611.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1722244218163-08dabf4d-3780-49fb-93dc-32b77155a0fd-149049.png">
+<meta property="og:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1722245042043-0f1e8bb4-abac-453b-b0d7-b2c448126fbb-574011.png">
+<meta property="article:published_time" content="2026-01-19T05:29:07.122Z">
+<meta property="article:modified_time" content="2025-11-04T06:22:46.112Z">
+<meta property="article:author" content="chaye">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/49277317_bgpB08qunU-1Ty9m/1717234589796-a7e22b5b-307e-4b76-8a29-87319e857a1b-913314.png">
+  
+  
+  
+  <title>chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-19 13:29" pubdate>
+          January 19, 2026 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.3k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          45 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="maze迷宫MD5"><a href="#maze迷宫MD5" class="headerlink" title="maze迷宫MD5"></a>maze迷宫MD5</h1><p><font style="color:rgb(51, 51, 51);">前言：该篇文章会介绍一个在ctf当中reverse方向中常见的一种迷宫题，我从攻防世界中选取了一道比较有代表性的题目，逐一讲解，并且每个思路都相当清晰透彻，借此分享，相信看完之后对于迷宫类型的题目会有更深的理解。</font></p>
+<h1 id="例题1：攻防世界-reverse-re3"><a href="#例题1：攻防世界-reverse-re3" class="headerlink" title="例题1：攻防世界-reverse_re3"></a><font style="color:rgb(51, 51, 51);">例题1：攻防世界-reverse_re3</font></h1><h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a><font style="color:rgb(51, 51, 51);">第一步</font></h2><p><font style="color:rgb(51, 51, 51);">首先看有无壳，直接丢到exeinfope—发现是elf文件是linux的可执行程序</font></p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1717234589796-a7e22b5b-307e-4b76-8a29-87319e857a1b-913314.png" srcset="/img/loading.gif" lazyload alt="1717234589796-a7e22b5b-307e-4b76-8a29-87319e857a1b.png"></p>
+<h2 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a><font style="color:rgb(51, 51, 51);">第二步</font></h2><p><font style="color:rgb(51, 51, 51);">反手丢进ida看到main 直接F5反编译看一手</font></p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1717234604020-6b0ec156-23fb-43fd-a782-8ade83694c45-644909.png" srcset="/img/loading.gif" lazyload alt="1717234604020-6b0ec156-23fb-43fd-a782-8ade83694c45.png"></p>
+<h2 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a><font style="color:rgb(51, 51, 51);">第三步</font></h2><p><font style="color:rgb(51, 51, 51);">一个一个函数来，sub_11B4双击点开好像没啥东西，看看sub_940</font></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs plain">__int64 sub_940()<br>&#123;<br>  int v0; // eax<br>  int v2; // [rsp+8h] [rbp-218h]<br>  int v3; // [rsp+Ch] [rbp-214h]<br>  char v4[520]; // [rsp+10h] [rbp-210h] BYREF<br>  unsigned __int64 v5; // [rsp+218h] [rbp-8h]<br><br>  v5 = __readfsqword(0x28u);<br>  v3 = 0;<br>  memset(v4, 0, 0x200uLL);<br>  _isoc99_scanf(&amp;unk_1278, v4, v4);<br>  while ( 1 )<br>  &#123;<br>    do<br>    &#123;<br>      v2 = 0;<br>      sub_86C();<br>      v0 = v4[v3];<br>      if ( v0 == &#x27;d&#x27; )               //原题是ascii码可以对着ascii按&quot;r&quot;快捷键转成字符<br>      &#123;<br>        v2 = sub_E23();<br>      &#125;<br>      else if ( v0 &gt; &#x27;d&#x27; )          //wasd很明显就是游戏里常见的移动键呗<br>      &#123;<br>        if ( v0 == &#x27;s&#x27; )<br>        &#123;<br>          v2 = sub_C5A();<br>        &#125;<br>        else if ( v0 == &#x27;w&#x27; )<br>        &#123;<br>          v2 = sub_A92();<br>        &#125;<br>      &#125;<br>      else<br>      &#123;<br>        if ( v0 == 27 )<br>          return 0xFFFFFFFFLL;<br>        if ( v0 == &#x27;a&#x27; )<br>          v2 = sub_FEC();<br>      &#125;<br>      ++v3;<br>    &#125;<br>    while ( v2 != 1 );<br>    if ( dword_202AB0 == 2 )<br>      break;<br>    ++dword_202AB0;<br>  &#125;<br>  puts(&quot;success! the flag is flag&#123;md5(your input)&#125;&quot;);<br>  return 1LL;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><font style="color:rgb(51, 51, 51);">这里留个心眼，flag是要输入的md5值</font></p>
+<p><font style="color:rgb(51, 51, 51);">接下来分析wasd到底是怎么走的（像这种题大概率就是迷宫图，所以要明白它是怎么运动的）</font></p>
+<p><font style="color:rgb(51, 51, 51);">先打开sub_E23康康</font></p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1717234684753-fa345f3c-fcd8-4cf2-a622-cf4e4773d23e-625806.png" srcset="/img/loading.gif" lazyload alt="1717234684753-fa345f3c-fcd8-4cf2-a622-cf4e4773d23e.png"></p>
+<h2 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a><font style="color:rgb(51, 51, 51);">第四步</font></h2><p><font style="color:rgb(51, 51, 51);">千万不要给这几个变量绕晕了</font></p>
+<p><font style="color:rgb(51, 51, 51);">dword_202020：其实就是题目给的地图，可以双击进去看看（shift+e 提取数据）</font></p>
+<p><font style="color:rgb(51, 51, 51);">dword_202AB0：代表哪个迷宫，此题有3个迷宫（至于为什么后文会提及）</font></p>
+<p><font style="color:rgb(51, 51, 51);">dword_202AB4：代表行（因为15*，说明可能是一行15个数字，大胆猜测！）</font></p>
+<p><font style="color:rgb(51, 51, 51);">dword_202AB8：代表列</font></p>
+<p><font style="color:rgb(51, 51, 51);">225：地图尺寸15*15</font></p>
+<p><font style="color:rgb(51, 51, 51);">这里我转换了一下不容易混淆</font></p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1717234697051-8cfd01d3-dad0-4095-9bea-505930fca360-520418.png" srcset="/img/loading.gif" lazyload alt="1717234697051-8cfd01d3-dad0-4095-9bea-505930fca360.png"></p>
+<h2 id="第五步"><a href="#第五步" class="headerlink" title="第五步"></a><font style="color:rgb(51, 51, 51);">第五步</font></h2><p><font style="color:rgb(51, 51, 51);">第一个if！&#x3D;14 是因为跟下标有关系，一行15个数字下标最大是14，我们这个函数是”d“的操作也就是向右移，所以是如果下标等于14的话就不能再”d“了<br></font><font style="color:rgb(51, 51, 51);">第二个if 判断当前位置右移的数字是不是1，如果是将该位置标志为3，之前的位置标志为1，其实就是暗示我们1是可以走的，而3其实是我们的起点，如果不理解后面看看迷宫就明白了，<br></font><font style="color:rgb(51, 51, 51);">第三个if如果右移后是4就返回1，说明4就是我们的终点</font></p>
+<p><font style="color:rgb(51, 51, 51);">再看看上下移动的函数（下图是”s“的函数，也就是下移）——有一些题目上下移动不是单纯的往上或者往下 而是斜向下或者斜向上噢</font></p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1717234791049-81359f85-da1d-49cc-82c9-71c6c429ac94-080754.png" srcset="/img/loading.gif" lazyload alt="1717234791049-81359f85-da1d-49cc-82c9-71c6c429ac94.png"></p>
+<h2 id="第六步"><a href="#第六步" class="headerlink" title="第六步"></a><font style="color:rgb(51, 51, 51);">第六步</font></h2><p><font style="color:rgb(51, 51, 51);">每次加15说明每次加一行</font></p>
+<p><font style="color:rgb(51, 51, 51);">注意：这里分析的是右移”d“和下移”s“的函数至于”w“ ”a“都是差不多的，这里就不过多赘述了</font></p>
+<p><font style="color:rgb(51, 51, 51);">再回到sub_940函数</font></p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1717234822384-19edaf01-78e6-48f6-b162-16c4d2c4e14a-161276.png" srcset="/img/loading.gif" lazyload alt="1717234822384-19edaf01-78e6-48f6-b162-16c4d2c4e14a.png"></p>
+<h2 id="第七步"><a href="#第七步" class="headerlink" title="第七步"></a><font style="color:rgb(51, 51, 51);">第七步</font></h2><p><font style="color:rgb(51, 51, 51);">这里的dword_202AB0&#x3D;&#x3D;2 我们在前面提到它可能是标识哪一个迷宫的，这里说&#x3D;&#x3D;2的话就break，否则就++，说明这里会循环3次，说明会有3个迷宫，接下来我们来看看这个稍微的迷宫长什么样。</font></p>
+<p><font style="color:rgb(51, 51, 51);">双击点开前文提到的dword_202020</font></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/42988179/1717234833866-133d0ab3-eda8-48ac-8230-ec838e7ae849.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="第八步"><a href="#第八步" class="headerlink" title="第八步"></a><font style="color:rgb(51, 51, 51);">第八步</font></h2><p><font style="color:rgb(51, 51, 51);">这密密麻麻的数字就是它的数据啦，现在按shift+e提取数据，然后导出来</font></p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1717234857731-0367cdf8-5cb7-470d-9b2b-5c37400107d3-520779.png" srcset="/img/loading.gif" lazyload alt="1717234857731-0367cdf8-5cb7-470d-9b2b-5c37400107d3.png"><font style="color:rgb(51, 51, 51);"><br></font><font style="color:rgb(51, 51, 51);">这里有个大大大坑，就是dword类型的数据是4位一组，只取第一位作为数值，也就是说100010000111 最终会变成110 ，后3位是填充的，接下来就是怎么转换成一个迷宫了，网上一堆wp却几乎没有人提到如何去把这份原始数据转换成迷宫，下面我提供了一个python脚本针对这道题目，只要运行即可得到迷宫的样子，</font></p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1717234880358-f64c4fdd-828a-4744-afa3-70004e33c2d4-745912.png" srcset="/img/loading.gif" lazyload alt="1717234880358-f64c4fdd-828a-4744-afa3-70004e33c2d4.png"><font style="color:rgb(51, 51, 51);"><br></font><font style="color:rgb(51, 51, 51);">一开始数据是这样的，先利用记事本的功能替换掉 ，和空格 以及前面的括号等等</font></p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1717234923253-2411cdf6-26ea-44fa-9a59-8bdf81c838cf-433649.png" srcset="/img/loading.gif" lazyload alt="1717234923253-2411cdf6-26ea-44fa-9a59-8bdf81c838cf.png"><font style="color:rgb(51, 51, 51);"><br></font><font style="color:rgb(51, 51, 51);">之后利用一下py脚本即可完成转换</font></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 输入需要处理的字符串  <br>input_string = input(&quot;请输入需要处理的字符串：&quot;)  <br><br># 将所有字符连起来，去掉换行符  <br>output_string = input_string.replace(&quot;\n&quot;, &quot;&quot;)  <br>ZeK1D = output_string.replace(&quot; &quot;, &quot;&quot;)    <br><br>def extract_chars(input_string):  <br>    # 将输入字符串分割为每四位  <br>    chunks = [input_string[i:i+4] for i in range(0, len(input_string), 4)]  <br><br>    # 提取每四位中的第一位字符  <br>    first_chars = [chunk[0] for chunk in chunks if chunk]  <br><br>    # 将字符连在一起并输出  <br>    output= &#x27;&#x27;.join(first_chars)  <br>    print(output)  <br><br><br># 调用函数并输出结果  <br>extract_chars(ZeK1D)<br></code></pre></td></tr></table></figure>
+
+<p><font style="color:rgb(51, 51, 51);">之后可以将输出结果复制到word 改格式会好看一点</font></p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1717234935670-ff0486b9-6c59-471a-88ef-dc0b0655cf92-084936.png" srcset="/img/loading.gif" lazyload alt="1717234935670-ff0486b9-6c59-471a-88ef-dc0b0655cf92.png"></p>
+<h2 id="第九步"><a href="#第九步" class="headerlink" title="第九步"></a><font style="color:rgb(51, 51, 51);">第九步</font></h2><p><font style="color:rgb(51, 51, 51);">之后再按每15行为一个迷宫分成3个小迷宫，以3为起点4为终点进行运动，之后再md5加密即可得到flag</font></p>
+<p><font style="color:rgb(51, 51, 51);">第一个迷宫</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 1, 1, 1, 0, 3, 1, 1, 0, 0, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]</font></p>
+<p><font style="color:rgb(51, 51, 51);">第二个迷宫</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 0, 3, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]</font></p>
+<p><font style="color:rgb(51, 51, 51);">第三个迷宫</font></p>
+<p><font style="color:rgb(51, 51, 51);">[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[0, 3, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0]</font></p>
+<p><font style="color:rgb(51, 51, 51);">行动轨迹为：ddsssddddsssdssdddddsssddddsssaassssdddsddssddwddssssssdddssssdddss</font></p>
+<p><font style="color:rgb(51, 51, 51);">经过md5编码后flag是flag{aeea66fcac7fa80ed8f79f38ad5bb953}</font></p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a><font style="color:rgb(51, 51, 51);">总结：</font></h2><p><font style="color:rgb(51, 51, 51);">逆向遇到迷宫题的思路大概分2点</font></p>
+<p><font style="color:rgb(51, 51, 51);">1.弄清楚移动的方式</font></p>
+<p><font style="color:rgb(51, 51, 51);">2.分析迷宫图的尺寸</font></p>
+<p><font style="color:rgb(51, 51, 51);">3.手动走迷宫或写脚本走迷宫（建议BFS算法）</font></p>
+<h1 id="例题2"><a href="#例题2" class="headerlink" title="例题2"></a><font style="color:rgb(51, 51, 51);">例题2</font></h1><p>查壳，放ida</p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1721287542512-fd0e9f66-ad89-4f99-aa08-b3c5fc41d933-455404.png" srcset="/img/loading.gif" lazyload alt="1721287542512-fd0e9f66-ad89-4f99-aa08-b3c5fc41d933.png"></p>
+<p>注意flag是md5（留个心眼），然后去动态调试找flag，这个createmap非常显眼</p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1721287626134-4c1d02ad-2ed0-48f3-a698-f92236473e44-513169.png" srcset="/img/loading.gif" lazyload alt="1721287626134-4c1d02ad-2ed0-48f3-a698-f92236473e44.png"></p>
+<p>先下个断点，然后开始调试</p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1721287763212-b4cc0f54-cc4e-41f7-8325-4895a9b743ac-253909.png" srcset="/img/loading.gif" lazyload alt="1721287763212-b4cc0f54-cc4e-41f7-8325-4895a9b743ac.png"></p>
+<p>任意输入一些，然后去search map</p>
+<p>这里的快捷键有ctrl+T，查找下一个text</p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1721287799865-9ae1bc66-51e5-4083-a47e-0da39777b1ed-194589.png" srcset="/img/loading.gif" lazyload alt="1721287799865-9ae1bc66-51e5-4083-a47e-0da39777b1ed.png"></p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1721287879466-867a862b-99c2-4249-a32e-c3440b3ba5c8-981061.png" srcset="/img/loading.gif" lazyload alt="1721287879466-867a862b-99c2-4249-a32e-c3440b3ba5c8.png"></p>
+<p>找到后shift+E提取数据，然后放入我们的脚本文件</p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1721287938904-da7cd899-3e25-4630-8538-420efe1ccc9f-817581.png" srcset="/img/loading.gif" lazyload alt="1721287938904-da7cd899-3e25-4630-8538-420efe1ccc9f.png"><img src="/./img/49277317_bgpB08qunU-1Ty9m/1721287963254-d35f1b10-f2d0-4c09-b86f-a9bed5885a19-633624.png" srcset="/img/loading.gif" lazyload alt="1721287963254-d35f1b10-f2d0-4c09-b86f-a9bed5885a19.png"></p>
+<p><font style="color:rgb(77, 77, 77);">修改脚本中行列参数，运行脚本得到16*16的二维列表</font></p>
+<p><font style="color:rgb(77, 77, 77);">将二维列表复制到【</font><strong><font style="color:rgb(77, 77, 77);">二.（一）</font></strong><font style="color:rgb(77, 77, 77);">】中的</font><strong><font style="color:rgb(77, 77, 77);">&lt;脚本二：获得迷宫路径&gt;</font></strong><font style="color:rgb(77, 77, 77);">中</font></p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1721288121231-bcb51aa9-1ef6-4e1c-801f-00a311c1fe8b-011439.png" srcset="/img/loading.gif" lazyload alt="1721288121231-bcb51aa9-1ef6-4e1c-801f-00a311c1fe8b.png"></p>
+<p><font style="color:rgb(77, 77, 77);"> 分析check()函数得到起点坐标为(15, 1)，且本题未给出确切终点而是在main函数中给出了路径长为54</font></p>
+<p><font style="color:rgb(77, 77, 77);">并且用aswd键位移动</font></p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1721288538242-b466a9b5-a88a-4108-a8be-e59dfb79cd2d-711029.png" srcset="/img/loading.gif" lazyload alt="1721288538242-b466a9b5-a88a-4108-a8be-e59dfb79cd2d.png"></p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1721288574799-f3796f86-3941-4f3e-933b-fa988c94cb86-902758.png" srcset="/img/loading.gif" lazyload alt="1721288574799-f3796f86-3941-4f3e-933b-fa988c94cb86.png"></p>
+<p>这里附上最终代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><code class="hljs plain">from collections import deque<br># str为ida中使用快捷键[shift+e]提取到的数据, 如果提取的是string literal则加上引号视作字符串，如果是C array(decimal)则加上中括号视作列表<br>str = [<br><br>    1,   1,   1,   1,   1,   1,   1,   1,   1,   1,<br>    1,   1,   1,   1,   1,   1,   1,   0,   0,   0,<br>    0,   0,   1,   1,   1,   1,   1,   1,   0,   1,<br>    1,   1,   1,   0,   1,   1,   1,   0,   1,   1,<br>    1,   1,   1,   1,   0,   1,   1,   1,   1,   0,<br>    1,   1,   1,   0,   1,   1,   0,   0,   0,   1,<br>    0,   1,   1,   1,   1,   0,   1,   1,   1,   0,<br>    1,   1,   0,   1,   0,   1,   0,   1,   1,   1,<br>    1,   0,   1,   1,   1,   0,   0,   0,   0,   1,<br>    0,   1,   0,   1,   1,   1,   1,   0,   1,   1,<br>    1,   1,   1,   1,   0,   1,   0,   1,   0,   1,<br>    1,   1,   1,   0,   1,   1,   1,   1,   1,   1,<br>    0,   0,   0,   1,   0,   1,   1,   1,   1,   0,<br>    1,   1,   1,   1,   1,   1,   1,   0,   1,   1,<br>    0,   1,   1,   1,   1,   0,   1,   1,   1,   1,<br>    1,   1,   1,   0,   1,   1,   0,   1,   1,   1,<br>    1,   0,   0,   0,   0,   1,   1,   0,   0,   0,<br>    0,   1,   0,   0,   0,   1,   1,   1,   1,   1,<br>    0,   1,   1,   1,   1,   0,   1,   1,   0,   1,<br>    0,   1,   1,   1,   1,   1,   0,   1,   1,   1,<br>    1,   0,   1,   1,   0,   1,   0,   1,   1,   0,<br>    0,   0,   0,   1,   1,   1,   1,   0,   1,   1,<br>    0,   1,   0,   0,   1,   0,   1,   1,   1,   1,<br>    1,   1,   1,   0,   0,   0,   0,   1,   1,   1,<br>    1,   0,   1,   1,   1,   1,   1,   1,   1,   1,<br>    1,   1,   1,   1,   1,   1<br>]<br>s = 0  # s用作索引访问str, 供下面tmp列表取值<br><br># 分析题目后设置迷宫的行列<br>row = 16 # 设置二维迷宫行数 input（）<br>col = 16 # 设置二维迷宫列数 input（）<br><br>maze = []<br>for i in range(row):<br>    tmp = []<br>    for j in range(col):<br>        tmp.append(str[s])<br>        s += 1<br>    maze.append(tmp)  # 凑一行添加一行到迷宫中<br>print(maze)<br># 设置二维四向迷宫, 如果题目是多个小迷宫问题, 拆分多次调用脚本获取路径即可<br>path_len = 54+1  # 如果题目未给出终点坐标，则一定会指定路径的长度，在此处修改路径长度并+1，<br>#否则请保留path_len的极大值 0x7fffffff<br><br><br># 进行BFS寻找路径<br>def bfs(start, end, barrier):<br>    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]  # 定义四个方向的移动<br>    for i in range(len(maze)):  # 获取起点和终点在列表中的索引<br>        for j in range(len(maze[i])):<br>            if (maze[i][j] == start):<br>                start = (i, j)<br>            if (maze[i][j] == end):<br>                end = (i, j)<br>    # 以下均是bfs算法套路<br>    queue = deque()<br>    queue.append((start, [start]))  # (当前位置, 路径)<br>    visited = set()<br>    visited.add(start)<br>    while queue:<br>        position, path = queue.popleft()<br>        if position == end:<br>            return path<br>        elif len(path) == path_len:<br>            return path<br>        for d in directions:<br>            next_position = (position[0] + d[0], position[1] + d[1])<br>            if 0 &lt;= next_position[0] &lt; len(maze) and 0 &lt;= next_position[1] &lt; len(maze[0]) and \<br>                    maze[next_position[0]][next_position[1]] != barrier and next_position not in visited:<br>                queue.append((next_position, path + [next_position]))<br>                visited.add(next_position)<br>    return None<br><br><br># 执行BFS搜索并打印结果<br>if __name__ == &#x27;__main__&#x27;:<br>    # maze[起点x坐标][起点y坐标] = &#x27;S&#x27; <br>    #如果题目给了起点终点的坐标，<br>    #在这里直接给起点和终点添加特征<br>    # maze[终点x坐标][终点y坐标] = &#x27;E&#x27;<br>    maze[15][1]=&#x27;S&#x27;<br>    path = bfs(&#x27;S&#x27;, &#x27;E&#x27;, 1)  # bfs函数传入参数代表起点、终点、障碍的特征(若题目给出的数据无特征, 手动添加特征即可, 通常障碍是1也有可能是0或其它字符如&#x27;#&#x27;)<br>    print(&quot;移动路径坐标：&quot;, path)<br>    print(&quot;移动路径方位：&quot;, end=&#x27;&#x27;)<br>    for i in range(1, len(path)):<br>        x1, y1, x2, y2 = path[i - 1][0], path[i - 1][1], path[i][0], path[i][1]<br>        if (x1 &gt; x2):  # 上<br>            print(&quot;w&quot;, end=&#x27;&#x27;)<br>        elif (x1 &lt; x2):  # 下<br>            print(&quot;s&quot;, end=&#x27;&#x27;)<br>        elif (y1 &gt; y2):  # 左<br>            print(&quot;a&quot;, end=&#x27;&#x27;)<br>        elif (y1 &lt; y2):  # 右<br>            print(&quot;d&quot;, end=&#x27;&#x27;)<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h1><h2 id="1）"><a href="#1）" class="headerlink" title="1）"></a>1）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs plain"># str为ida中使用快捷键[shift+e]提取到的数据, 如果提取的是string literal则加上引号视作字符串，如果是C array(decimal)则加上中括号视作列表<br>str = [<br><br>    1,   1,   1,   1,   1,   1,   1,   1,   1,   1,<br>    1,   1,   1,   1,   1,   1,   1,   0,   0,   0,<br>    0,   0,   1,   1,   1,   1,   1,   1,   0,   1,<br>    1,   1,   1,   0,   1,   1,   1,   0,   1,   1,<br>    1,   1,   1,   1,   0,   1,   1,   1,   1,   0,<br>    1,   1,   1,   0,   1,   1,   0,   0,   0,   1,<br>    0,   1,   1,   1,   1,   0,   1,   1,   1,   0,<br>    1,   1,   0,   1,   0,   1,   0,   1,   1,   1,<br>    1,   0,   1,   1,   1,   0,   0,   0,   0,   1,<br>    0,   1,   0,   1,   1,   1,   1,   0,   1,   1,<br>    1,   1,   1,   1,   0,   1,   0,   1,   0,   1,<br>    1,   1,   1,   0,   1,   1,   1,   1,   1,   1,<br>    0,   0,   0,   1,   0,   1,   1,   1,   1,   0,<br>    1,   1,   1,   1,   1,   1,   1,   0,   1,   1,<br>    0,   1,   1,   1,   1,   0,   1,   1,   1,   1,<br>    1,   1,   1,   0,   1,   1,   0,   1,   1,   1,<br>    1,   0,   0,   0,   0,   1,   1,   0,   0,   0,<br>    0,   1,   0,   0,   0,   1,   1,   1,   1,   1,<br>    0,   1,   1,   1,   1,   0,   1,   1,   0,   1,<br>    0,   1,   1,   1,   1,   1,   0,   1,   1,   1,<br>    1,   0,   1,   1,   0,   1,   0,   1,   1,   0,<br>    0,   0,   0,   1,   1,   1,   1,   0,   1,   1,<br>    0,   1,   0,   0,   1,   0,   1,   1,   1,   1,<br>    1,   1,   1,   0,   0,   0,   0,   1,   1,   1,<br>    1,   0,   1,   1,   1,   1,   1,   1,   1,   1,<br>    1,   1,   1,   1,   1,   1<br>]#待输入的迷宫数组<br>s = 0  # s用作索引访问str, 供下面tmp列表取值<br><br># 分析题目后设置迷宫的行列<br>row = 16 # 设置二维迷宫行数<br>col = 16 # 设置二维迷宫列数<br><br>maze = []<br>for i in range(row):<br>    tmp = []<br>    for j in range(col):<br>        tmp.append(str[s])<br>        s += 1<br>    maze.append(tmp)  # 凑一行添加一行到迷宫中<br>print(maze)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="2）"><a href="#2）" class="headerlink" title="2）"></a>2）</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> deque<br><br><span class="hljs-comment"># 设置二维四向迷宫, 如果题目是多个小迷宫问题, 拆分多次调用脚本获取路径即可</span><br>maze = [] <span class="hljs-comment">#二维列表迷宫，直接输入脚本1的二维数组</span><br>path_len = <span class="hljs-number">0x7fffffff</span>  <span class="hljs-comment"># 如果题目未给出终点坐标，则一定会指定路径的长度，在此处修改路径长度，否则请保留path_len的极大值</span><br><br><br><span class="hljs-comment"># 进行BFS寻找路径</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">bfs</span>(<span class="hljs-params">start, end, barrier</span>):<br>    directions = [(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>), (<span class="hljs-number">1</span>, <span class="hljs-number">0</span>), (<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>), (-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>)]  <span class="hljs-comment"># 定义四个方向的移动</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(maze)):  <span class="hljs-comment"># 获取起点和终点在列表中的索引</span><br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(maze[i])):<br>            <span class="hljs-keyword">if</span> (maze[i][j] == start):<br>                start = (i, j)<br>            <span class="hljs-keyword">if</span> (maze[i][j] == end):<br>                end = (i, j)<br>    <span class="hljs-comment"># 以下均是bfs算法套路</span><br>    queue = deque()<br>    queue.append((start, [start]))  <span class="hljs-comment"># (当前位置, 路径)</span><br>    visited = <span class="hljs-built_in">set</span>()<br>    visited.add(start)<br>    <span class="hljs-keyword">while</span> queue:<br>        position, path = queue.popleft()<br>        <span class="hljs-keyword">if</span> position == end:<br>            <span class="hljs-keyword">return</span> path<br>        <span class="hljs-keyword">elif</span> <span class="hljs-built_in">len</span>(path) == path_len:<br>            <span class="hljs-keyword">return</span> path<br>        <span class="hljs-keyword">for</span> d <span class="hljs-keyword">in</span> directions:<br>            next_position = (position[<span class="hljs-number">0</span>] + d[<span class="hljs-number">0</span>], position[<span class="hljs-number">1</span>] + d[<span class="hljs-number">1</span>])<br>            <span class="hljs-keyword">if</span> <span class="hljs-number">0</span> &lt;= next_position[<span class="hljs-number">0</span>] &lt; <span class="hljs-built_in">len</span>(maze) <span class="hljs-keyword">and</span> <span class="hljs-number">0</span> &lt;= next_position[<span class="hljs-number">1</span>] &lt; <span class="hljs-built_in">len</span>(maze[<span class="hljs-number">0</span>]) <span class="hljs-keyword">and</span> \<br>            maze[next_position[<span class="hljs-number">0</span>]][next_position[<span class="hljs-number">1</span>]] != barrier <span class="hljs-keyword">and</span> next_position <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> visited:<br>                queue.append((next_position, path + [next_position]))<br>                visited.add(next_position)<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br><br><br><span class="hljs-comment"># 执行BFS搜索并打印结果</span><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-comment"># maze[起点x坐标][起点y坐标] = &#x27;S&#x27; </span><br>    <span class="hljs-comment">#如果题目给了起点终点的坐标，在这里直接给起点和终点添加特征</span><br>    <span class="hljs-comment"># maze[终点x坐标][终点y坐标] = &#x27;E&#x27;</span><br>    <br>    path = bfs(<span class="hljs-string">&#x27;S&#x27;</span>, <span class="hljs-string">&#x27;E&#x27;</span>, <span class="hljs-number">1</span>)  <span class="hljs-comment"># bfs函数传入参数代表起点、终点、障碍的特征(若题目给出的数据无特征, 手动添加特征即可, 通常障碍是1也有可能是0或其它字符如&#x27;#&#x27;)</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;移动路径坐标：&quot;</span>, path)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;移动路径方位：&quot;</span>, end=<span class="hljs-string">&#x27;&#x27;</span>)<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(path)):<br>        x1, y1, x2, y2 = path[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>], path[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>], path[i][<span class="hljs-number">0</span>], path[i][<span class="hljs-number">1</span>]<br>        <span class="hljs-keyword">if</span> (x1 &gt; x2):  <span class="hljs-comment"># 上</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;w&quot;</span>, end=<span class="hljs-string">&#x27;&#x27;</span>)<br>        <span class="hljs-keyword">elif</span> (x1 &lt; x2):  <span class="hljs-comment"># 下</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;s&quot;</span>, end=<span class="hljs-string">&#x27;&#x27;</span>)<br>        <span class="hljs-keyword">elif</span> (y1 &gt; y2):  <span class="hljs-comment"># 左</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;a&quot;</span>, end=<span class="hljs-string">&#x27;&#x27;</span>)<br>        <span class="hljs-keyword">elif</span> (y1 &lt; y2):  <span class="hljs-comment"># 右</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;d&quot;</span>, end=<span class="hljs-string">&#x27;&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><font style="color:#DF2A3F;">wsad可以根据题目要求更改键位</font></p>
+<h2 id="3）"><a href="#3）" class="headerlink" title="3）"></a>3）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><code class="hljs plain">maze = [<br> [<br>  1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],<br> [<br>  1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],<br> [<br>  1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1],<br> [<br>  1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1],<br> [<br>  1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1],<br> [<br>  1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],<br> [<br>  1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1],<br> [<br>  1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1],<br> [<br>  1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1],<br> [<br>  1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1],<br> [<br>  1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1],<br> [<br>  1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],<br> [<br>  1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1],<br> [<br>  1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1],<br> [<br>  1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1],<br> [<br>  1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1],<br> [<br>  1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1],<br> [<br>  1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],<br> [<br>  1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1],<br> [<br>  1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1],<br> [<br>  1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1],<br> [<br>  1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],<br> [<br>  1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1],<br> [<br>  1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],<br> [<br>  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1]]<br>usedmap=[[0 for i in range(len(maze))]for i in range(len(maze[0]))]<br>sti=0<br>stj=1<br>edi=24<br>edj=23<br>flag=&#x27;&#x27;<br>def dfs(x,y):<br>    global flag<br>    if x==edi and y==edj:<br>        print(flag)<br>        return<br>    if maze[x+1][y]==0 and usedmap[x+1][y]==0:<br>        usedmap[x][y]=1<br>        flag+=&#x27;s&#x27;<br>        dfs(x+1,y)<br>        flag=flag[:-1]<br>        usedmap[x][y]=0<br>    if maze[x-1][y]==0 and usedmap[x-1][y]==0:<br>        usedmap[x][y]=1<br>        flag+=&#x27;w&#x27;<br>        dfs(x-1,y)<br>        flag=flag[:-1]<br>        usedmap[x][y]=0<br>    if maze[x][y+1]==0 and usedmap[x][y+1]==0:<br>        usedmap[x][y]=1<br>        flag+=&#x27;d&#x27;<br>        dfs(x,y+1)<br>        flag=flag[:-1]<br>        usedmap[x][y]=0<br>    if maze[x][y-1]==0 and usedmap[x][y-1]==0:<br>        usedmap[x][y]=1<br>        flag+=&#x27;a&#x27;<br>        dfs(x,y-1)<br>        flag=flag[:-1]<br>        usedmap[x][y]=0<br>dfs(sti,stj)<br>&#x27;&#x27;&#x27;<br>for i in range(len(maze)):<br>    for j in range(len(maze[0])):<br>        print(maze[i][j],end=&#x27;&#x27;)<br>    print()<br>&#x27;&#x27;&#x27;<br></code></pre></td></tr></table></figure>
+
+<h1 id="例题3-doublegame"><a href="#例题3-doublegame" class="headerlink" title="例题3 doublegame"></a>例题3 doublegame</h1><p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1722242072121-514173b5-a127-4f85-91fa-52129b918f90-978523.png" srcset="/img/loading.gif" lazyload alt="1722242072121-514173b5-a127-4f85-91fa-52129b918f90.png"></p>
+<p>运行</p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1722242096451-7bae7aa6-269c-4701-859a-9bf8c435ee54-283612.png" srcset="/img/loading.gif" lazyload alt="1722242096451-7bae7aa6-269c-4701-859a-9bf8c435ee54.png"></p>
+<p>ctrl F搜索gameover出现的地方，然后x查找调用函数</p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1722242173880-9f1c79a7-1f70-4f35-8706-f6d4ee27499f-020436.png" srcset="/img/loading.gif" lazyload alt="1722242173880-9f1c79a7-1f70-4f35-8706-f6d4ee27499f.png"></p>
+<h2 id="（key非预期）发现有个可疑的数据，是key-13371337"><a href="#（key非预期）发现有个可疑的数据，是key-13371337" class="headerlink" title="（key非预期）发现有个可疑的数据，是key&#x3D;13371337"></a>（key非预期）发现有个可疑的数据，是key&#x3D;13371337</h2><p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1722242151448-a1d6ea37-e848-4e45-8a93-21014039a4b5-576710.png" srcset="/img/loading.gif" lazyload alt="1722242151448-a1d6ea37-e848-4e45-8a93-21014039a4b5.png"></p>
+<h2 id="key正常"><a href="#key正常" class="headerlink" title="key正常"></a>key正常</h2><p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1722245506015-581550ac-dbac-4933-8619-58cde96fbd6d-489526.png" srcset="/img/loading.gif" lazyload alt="1722245506015-581550ac-dbac-4933-8619-58cde96fbd6d.png"></p>
+<p>发现key ^0x1DC4&#x3D;13376013</p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1722245419058-b0588599-cd50-4ceb-b3b0-2a097b6faff0-441098.png" srcset="/img/loading.gif" lazyload alt="1722245419058-b0588599-cd50-4ceb-b3b0-2a097b6faff0.png"></p>
+<p> 静态分析发现，sub_14001136B函数是第二关，将去第二关路上的 if的字节码全部修改为相反的， 然后patch，重新调试  <font style="color:#DF2A3F;">（记得备份）</font></p>
+<p>或者找到迷宫，</p>
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1722243985629-a34c7275-0cfd-4e95-9704-018fccdc19d7-602611.png" srcset="/img/loading.gif" lazyload alt="1722243985629-a34c7275-0cfd-4e95-9704-018fccdc19d7.png"></p>
+<p>先拿出迷宫</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs plain">maze=&#x27;&#x27;&#x27; strcpy(Buffer, &quot;000000000000000000000&quot;);<br>  strcpy(v4, &quot;0 0 0 0     0     0 0&quot;);<br>  strcpy(&amp;v4[22], &quot;0 0 0 00000 00000 0 0&quot;);<br>  strcpy(v5, &quot;0 0               0 0&quot;);<br>  strcpy(&amp;v5[22], &quot;0 000 000 0 000 0 0 0&quot;);<br>  strcpy(v6, &quot;0 0     0 0 0   0 0 0&quot;);<br>  strcpy(&amp;v6[22], &quot;0 0 0 00000 000 000 0&quot;);<br>  strcpy(v7, &quot;0 0 0     0   0 0    &quot;);<br>  strcpy(&amp;v7[22], &quot;0 000 0 0 000 0 0 0 0&quot;);<br>  strcpy(v8, &quot;0     0 0 0 0 0 0 0 0&quot;);<br>  strcpy(&amp;v8[22], &quot;0 00000 000 000 0 0 0&quot;);<br>  strcpy(v9, &quot;0     0       0   0 0&quot;);<br>  strcpy(&amp;v9[22], &quot;000 0 0 0 000 0 0 0 0&quot;);<br>  strcpy(v10, &quot;0 0 0 0 0 0 * 0 0 0 0&quot;);<br>  strcpy(&amp;v10[22], &quot;0 0000000 0 000 00000&quot;);<br>  strcpy(v11, &quot;@   0   0 0         0&quot;);<br>  strcpy(&amp;v11[22], &quot;0 0 0 0 0 00000000000&quot;);<br>  strcpy(v12, &quot;0 0 0 0             0&quot;);<br>  strcpy(&amp;v12[22], &quot;000 0 00000 0 000 000&quot;);<br>  strcpy(v13, &quot;0         0 0   0   0&quot;);<br>  strcpy(&amp;v13[22], &quot;000000000000000000000&quot;);&#x27;&#x27;&#x27;<br>maze=[(i[-24:-3]) for i in maze.split(&#x27;\n&#x27;)]<br>for i in maze:<br>    print(i)<br></code></pre></td></tr></table></figure>
+
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1722244218163-08dabf4d-3780-49fb-93dc-32b77155a0fd-149049.png" srcset="/img/loading.gif" lazyload alt="1722244218163-08dabf4d-3780-49fb-93dc-32b77155a0fd.png"></p>
+<p>然后运行脚本</p>
+<h2 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><code class="hljs plain">maze=&#x27;&#x27;&#x27; strcpy(Buffer, &quot;000000000000000000000&quot;);<br>  strcpy(v4, &quot;0 0 0 0     0     0 0&quot;);<br>  strcpy(&amp;v4[22], &quot;0 0 0 00000 00000 0 0&quot;);<br>  strcpy(v5, &quot;0 0               0 0&quot;);<br>  strcpy(&amp;v5[22], &quot;0 000 000 0 000 0 0 0&quot;);<br>  strcpy(v6, &quot;0 0     0 0 0   0 0 0&quot;);<br>  strcpy(&amp;v6[22], &quot;0 0 0 00000 000 000 0&quot;);<br>  strcpy(v7, &quot;0 0 0     0   0 0    &quot;);<br>  strcpy(&amp;v7[22], &quot;0 000 0 0 000 0 0 0 0&quot;);<br>  strcpy(v8, &quot;0     0 0 0 0 0 0 0 0&quot;);<br>  strcpy(&amp;v8[22], &quot;0 00000 000 000 0 0 0&quot;);<br>  strcpy(v9, &quot;0     0       0   0 0&quot;);<br>  strcpy(&amp;v9[22], &quot;000 0 0 0 000 0 0 0 0&quot;);<br>  strcpy(v10, &quot;0 0 0 0 0 0 * 0 0 0 0&quot;);<br>  strcpy(&amp;v10[22], &quot;0 0000000 0 000 00000&quot;);<br>  strcpy(v11, &quot;@   0   0 0         0&quot;);<br>  strcpy(&amp;v11[22], &quot;0 0 0 0 0 00000000000&quot;);<br>  strcpy(v12, &quot;0 0 0 0             0&quot;);<br>  strcpy(&amp;v12[22], &quot;000 0 00000 0 000 000&quot;);<br>  strcpy(v13, &quot;0         0 0   0   0&quot;);<br>  strcpy(&amp;v13[22], &quot;000000000000000000000&quot;);&#x27;&#x27;&#x27;<br>maze=[(i[-24:-3]) for i in maze.split(&#x27;\n&#x27;)]<br><br><br>for i in maze:<br>    print(i)<br># print(len(maze),(len(maze[0])))<br>from hashlib import md5<br>def finda(d):<br>    x,y=d[0],d[1]-1<br>    return (x,y,&#x27;a&#x27;)<br>def findw(d):<br>    x,y=d[0]-1,d[1]<br>    return (x,y,&#x27;w&#x27;)<br>def finds(d):<br>    x,y=d[0]+1,d[1]<br>    return (x,y,&#x27;s&#x27;)<br>def findd(d):<br>    x,y=d[0],d[1]+1<br>    return (x,y,&#x27;d&#x27;)<br>def find0(d,row,column):<br>    if d[0]==0:<br>        t=[finda(d),findd(d),finds(d)]<br>    elif d[0]==row-1:<br>        t=[findw(d),finda(d),findd(d)]<br>    elif d[1]==0:<br>        t=[findw(d),findd(d),finds(d)]<br>    elif d[1]==column-1:<br>        t=[findw(d),finda(d),finds(d)]<br>    else: t=[findw(d),finda(d),finds(d),findd(d)]<br>    tmp=[]<br>    for x,y,r in t:<br>        if maze[x][y]==&#x27; &#x27;or maze[x][y]==&#x27;*&#x27; :<br>            tmp.append((x,y,r))<br>    return tmp<br><br>def get(o,O,row,column):#起点，终点，行，列<br>    SUM=[]<br>    Road = [(&#x27;&#x27;, o)]<br>    while True:<br>        road=[]<br>        for (r_pre,d) in Road:<br>            if d==O:#终点<br>                SUM.append((len(r_pre),r_pre,))<br>                print(r_pre.encode())<br>                print(&#x27;NSSCTF&#123;&#x27;+md5(r_pre.encode()).hexdigest()+&#x27;13371337&#x27;+&#x27;&#125;&#x27;)<br>                exit()<br>                # exit()<br>            next=find0(d,row,column)<br>            for x,y,r in next:<br>                if len(r_pre)&gt;=1:<br>                    if &#x27;ws&#x27;in r_pre[-1]+r or &#x27;sw&#x27; in r_pre[-1]+r:<br>                        continue<br>                    if &#x27;ad&#x27; in r_pre[-1] + r or &#x27;da&#x27; in r_pre[-1] + r:<br>                        continue<br>                road.append((r_pre+r,(x,y)))<br>        # print(road)<br>        Road=road<br><br>row,column=21,21<br>get((15,0),(7,20),row,column)<br></code></pre></td></tr></table></figure>
+
+<p><img src="/./img/49277317_bgpB08qunU-1Ty9m/1722245042043-0f1e8bb4-abac-453b-b0d7-b2c448126fbb-574011.png" srcset="/img/loading.gif" lazyload alt="1722245042043-0f1e8bb4-abac-453b-b0d7-b2c448126fbb.png"></p>
+<blockquote>
+<p>更新: 2024-07-29 17:33:02<br>原文: <a target="_blank" rel="noopener" href="https://www.yuque.com/chaye-apqbl/vsc85q/qpt77zl7ce0pzudz">https://www.yuque.com/chaye-apqbl/vsc85q/qpt77zl7ce0pzudz</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2026/01/19/RE/其他/maze迷宫MD5/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 19, 2026</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E5%85%B6%E4%BB%96/net%E9%80%86%E5%90%91/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E5%85%B6%E4%BB%96/ios%E9%80%86%E5%90%91/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,723 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="动态调试快捷键F9调试 F7步入 F8步过 ctrl+F5 退出调试 1、EASY先查壳  然后放入32位ida，发现main上面有个可疑函数，进去看一下   有个result&#x3D;putchar，那大概是没跑了  设置一下断点，修改汇编代码，直接将call main改成call ques  注意，先调试程序，再进行修改函数， 修改快捷键ctrl+alt+k  然后F8步步跟进即可，两次就行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chaye的博客">
+<meta property="og:url" content="http://example.com/2026/01/19/RE/%E5%9F%BA%E7%A1%80/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/index/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="动态调试快捷键F9调试 F7步入 F8步过 ctrl+F5 退出调试 1、EASY先查壳  然后放入32位ida，发现main上面有个可疑函数，进去看一下   有个result&#x3D;putchar，那大概是没跑了  设置一下断点，修改汇编代码，直接将call main改成call ques  注意，先调试程序，再进行修改函数， 修改快捷键ctrl+alt+k  然后F8步步跟进即可，两次就行">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721275739405-86ee4b6f-8139-43f0-908b-962bbf8c80eb-213924.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721277905448-03ceace4-5c2c-4592-9f2e-2eee9ed093b7-192735.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721277956809-8992b404-510c-47b1-9416-047066f24ed8-547922.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721277996156-6717ccd9-ea2f-471d-a361-036f32d06d76-453366.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721278087597-38200f83-bc9f-4e1a-ac4d-91a48803b710-809275.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721278242989-f4705a0a-5f76-4bd7-a01e-43bfddef85f5-729811.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721275644106-8f422287-94b0-4576-8357-bac121730d74-097981.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721370316119-7415c381-eb3f-46f0-bfa9-887b6e23965d-907859.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721370275150-d9ad6fd2-3ec6-4bb0-8b36-f8347af37b39-519069.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721370369700-c6b41374-4367-4bcd-98eb-e68ad8d21b71-954116.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721370256797-58113b77-0e1e-4143-b728-9867aea8fe4f-116982.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721371725133-4a109ec4-9cde-4838-b4f8-ad6c18613a2a-632022.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721371756029-ecc85495-72e8-49a7-b22a-5ff7e5cb1511-078123.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721543796759-86019a10-f0bf-44ac-b135-7da5c6661c8e-037937.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721544459743-6b4933db-25bf-421e-9e69-ab9bc417f268-075118.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721544541003-61823652-60d6-4c09-8795-6fb1638a046f-536086.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721556839738-a73b9ac7-7882-47f8-8a17-b02e26cdb767-882054.webp">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721548794441-06fefed3-aa4f-4d24-835c-d7ebaa3f3cb2-552563.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721548029980-acd6b0d0-d184-40c2-877b-5bf3a4f44d05-468002.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721551040498-86f5836c-2205-4dd9-9aea-d0d996495135-219070.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721551388752-2c3260fd-7c9f-492e-aedb-ccb529ece0c8-398025.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721551447323-ee15ef0a-c340-439d-b86e-3ffa4da9ecc8-122203.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721551458819-a02738d9-f2ac-428f-a4e1-1bb07bdef89d-388480.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721551205280-0d468676-ce93-4c86-ad1d-4994326f8e16-900754.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721632502706-32eebb9a-c3d5-4a83-99d4-fa75788e1da1-340061.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721632579200-053270d8-a944-412f-aa40-75c5e4445ce4-375701.png">
+<meta property="og:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721632347532-7f325c25-c1dd-4d21-9156-be0a75161de8-238923.png">
+<meta property="article:published_time" content="2026-01-19T05:29:07.780Z">
+<meta property="article:modified_time" content="2025-11-04T06:19:28.345Z">
+<meta property="article:author" content="chaye">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/49277317_v3H0juy_9_1K6pPz/1721275739405-86ee4b6f-8139-43f0-908b-962bbf8c80eb-213924.png">
+  
+  
+  
+  <title>chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-19 13:29" pubdate>
+          January 19, 2026 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          584 words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          5 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="动态调试"><a href="#动态调试" class="headerlink" title="动态调试"></a>动态调试</h1><h1 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h1><p>F9调试</p>
+<p>F7步入</p>
+<p>F8步过</p>
+<p>ctrl+F5 退出调试</p>
+<h1 id="1、EASY"><a href="#1、EASY" class="headerlink" title="1、EASY"></a>1、EASY</h1><p>先查壳</p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721275739405-86ee4b6f-8139-43f0-908b-962bbf8c80eb-213924.png" srcset="/img/loading.gif" lazyload alt="1721275739405-86ee4b6f-8139-43f0-908b-962bbf8c80eb.png"></p>
+<p>然后放入32位ida，发现main上面有个可疑函数，进去看一下</p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721277905448-03ceace4-5c2c-4592-9f2e-2eee9ed093b7-192735.png" srcset="/img/loading.gif" lazyload alt="1721277905448-03ceace4-5c2c-4592-9f2e-2eee9ed093b7.png"></p>
+<p> 有个result&#x3D;putchar，那大概是没跑了</p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721277956809-8992b404-510c-47b1-9416-047066f24ed8-547922.png" srcset="/img/loading.gif" lazyload alt="1721277956809-8992b404-510c-47b1-9416-047066f24ed8.png"></p>
+<p>设置一下断点，修改汇编代码，直接将call main改成call ques</p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721277996156-6717ccd9-ea2f-471d-a361-036f32d06d76-453366.png" srcset="/img/loading.gif" lazyload alt="1721277996156-6717ccd9-ea2f-471d-a361-036f32d06d76.png"></p>
+<p>注意，先调试程序，再进行修改函数，</p>
+<p>修改快捷键ctrl+alt+k</p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721278087597-38200f83-bc9f-4e1a-ac4d-91a48803b710-809275.png" srcset="/img/loading.gif" lazyload alt="1721278087597-38200f83-bc9f-4e1a-ac4d-91a48803b710.png"></p>
+<p>然后F8步步跟进即可，两次就行</p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721278242989-f4705a0a-5f76-4bd7-a01e-43bfddef85f5-729811.png" srcset="/img/loading.gif" lazyload alt="1721278242989-f4705a0a-5f76-4bd7-a01e-43bfddef85f5.png"></p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721275644106-8f422287-94b0-4576-8357-bac121730d74-097981.png" srcset="/img/loading.gif" lazyload alt="1721275644106-8f422287-94b0-4576-8357-bac121730d74.png"></p>
+<p>NSSCTF{HACKIT4FUN}</p>
+<h1 id="2、string"><a href="#2、string" class="headerlink" title="2、string"></a>2、string</h1><p>查壳发现是linux文件，等会放到kali里面调试</p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721370316119-7415c381-eb3f-46f0-bfa9-887b6e23965d-907859.png" srcset="/img/loading.gif" lazyload alt="1721370316119-7415c381-eb3f-46f0-bfa9-887b6e23965d.png"></p>
+<p>先放到64位ida</p>
+<p>跟进flag函数，发现是个随机种子生成函数</p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721370275150-d9ad6fd2-3ec6-4bb0-8b36-f8347af37b39-519069.png" srcset="/img/loading.gif" lazyload alt="1721370275150-d9ad6fd2-3ec6-4bb0-8b36-f8347af37b39.png"></p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721370369700-c6b41374-4367-4bcd-98eb-e68ad8d21b71-954116.png" srcset="/img/loading.gif" lazyload alt="1721370369700-c6b41374-4367-4bcd-98eb-e68ad8d21b71.png"></p>
+<p>找到seed</p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721370256797-58113b77-0e1e-4143-b728-9867aea8fe4f-116982.png" srcset="/img/loading.gif" lazyload alt="1721370256797-58113b77-0e1e-4143-b728-9867aea8fe4f.png"></p>
+<p>然后编写脚本，按照种子生成伪随机数，即flag</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-comment">#include&lt;stdio.h&gt;</span><br><span class="hljs-comment">#include&lt;stdlib.h&gt;</span><br><span class="hljs-keyword">int</span> <span class="hljs-title function_ invoke__">main</span>()<br>&#123;<br>        <span class="hljs-keyword">int</span> seed=<span class="hljs-number">0x2766</span>;<br>        <span class="hljs-keyword">int</span> v4;<br>        <span class="hljs-title function_ invoke__">printf</span>(<span class="hljs-string">&quot;NSSCTF&#123;&quot;</span>);<br>        <span class="hljs-keyword">for</span>( <span class="hljs-keyword">int</span> m = <span class="hljs-number">0</span>; m &lt; <span class="hljs-number">13</span>; ++m )<br>        &#123;<br>        v4 =<span class="hljs-title function_ invoke__">rand</span>();<br>        <span class="hljs-title function_ invoke__">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>, (unsigned <span class="hljs-keyword">int</span>)(v4 % <span class="hljs-number">8</span> + <span class="hljs-number">1</span>));<br>        &#125;<br>        <span class="hljs-title function_ invoke__">putchar</span>(<span class="hljs-number">125</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br> &#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721371725133-4a109ec4-9cde-4838-b4f8-ad6c18613a2a-632022.png" srcset="/img/loading.gif" lazyload alt="1721371725133-4a109ec4-9cde-4838-b4f8-ad6c18613a2a.png"></p>
+<p><font style="color:#DF2A3F;">注意win里面生成的是错误的</font></p>
+<p><font style="color:#DF2A3F;">因为系统不同，所以生成的种子也不同</font></p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721371756029-ecc85495-72e8-49a7-b22a-5ff7e5cb1511-078123.png" srcset="/img/loading.gif" lazyload alt="1721371756029-ecc85495-72e8-49a7-b22a-5ff7e5cb1511.png"></p>
+<h1 id="3、getflag"><a href="#3、getflag" class="headerlink" title="3、getflag"></a>3、getflag</h1><h2 id="注意：如果修改了汇编，patch后那么程序就会更改了，所以调试前最好备份一下"><a href="#注意：如果修改了汇编，patch后那么程序就会更改了，所以调试前最好备份一下" class="headerlink" title="注意：如果修改了汇编，patch后那么程序就会更改了，所以调试前最好备份一下"></a><font style="color:#DF2A3F;">注意：如果修改了汇编，patch后那么程序就会更改了，所以调试前最好备份一下</font></h2><p>如果你这么玩的话，那我只能修改你汇编指令了</p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721543796759-86019a10-f0bf-44ac-b135-7da5c6661c8e-037937.png" srcset="/img/loading.gif" lazyload alt="1721543796759-86019a10-f0bf-44ac-b135-7da5c6661c8e.png"></p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721544459743-6b4933db-25bf-421e-9e69-ab9bc417f268-075118.png" srcset="/img/loading.gif" lazyload alt="1721544459743-6b4933db-25bf-421e-9e69-ab9bc417f268.png"></p>
+<p>点到左边的check函数里面，看到要99999999次的click才能getflag，玩呢</p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721544541003-61823652-60d6-4c09-8795-6fb1638a046f-536086.png" srcset="/img/loading.gif" lazyload alt="1721544541003-61823652-60d6-4c09-8795-6fb1638a046f.png"></p>
+<p>直接动态调试，先在比较cmp地方前面下一个断点<img src="/./img/49277317_v3H0juy_9_1K6pPz/1721556839738-a73b9ac7-7882-47f8-8a17-b02e26cdb767-882054.webp" srcset="/img/loading.gif" lazyload alt="1721556839738-a73b9ac7-7882-47f8-8a17-b02e26cdb767.png"></p>
+<h2 id="第一种办法，将判断条件修改，jg改成jle"><a href="#第一种办法，将判断条件修改，jg改成jle" class="headerlink" title="第一种办法，将判断条件修改，jg改成jle"></a>第一种办法，将判断条件修改，jg改成jle</h2><p>JG   ;有符号大于则跳转</p>
+<p>JLE  ;有符号小于等于则跳转</p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721548794441-06fefed3-aa4f-4d24-835c-d7ebaa3f3cb2-552563.png" srcset="/img/loading.gif" lazyload alt="1721548794441-06fefed3-aa4f-4d24-835c-d7ebaa3f3cb2.png"></p>
+<p>然后本地调试即可</p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721548029980-acd6b0d0-d184-40c2-877b-5bf3a4f44d05-468002.png" srcset="/img/loading.gif" lazyload alt="1721548029980-acd6b0d0-d184-40c2-877b-5bf3a4f44d05.png"></p>
+<h2 id="第二种，调试时修改寄存器的内容"><a href="#第二种，调试时修改寄存器的内容" class="headerlink" title="第二种，调试时修改寄存器的内容"></a>第二种，调试时修改寄存器的内容</h2><p>CMP</p>
+<p>功能: 比较OP1与OP2的值</p>
+<p>语法: CMP r&#x2F;m,r&#x2F;m&#x2F;data</p>
+<p>标志位: C,P,A,Z,O</p>
+<p>MOV</p>
+<p><strong>功能: 把源操作数送给目的操作数</strong></p>
+<p><strong>语法: MOV 目的操作数,源操作数</strong></p>
+<p><strong>格式: MOV r1,r2</strong></p>
+<p><strong>MOV r,m</strong></p>
+<p><strong>MOV m,r</strong></p>
+<p><strong>MOV r,data</strong></p>
+<hr>
+<p><strong>在比较cmp前面下个断点，然后F7步过进入cmp，修改左上角eax寄存器的值，只要大于0x5E5E0FFh</strong></p>
+<p><strong>点击eax，右键modify，修改数值即可</strong></p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721551040498-86f5836c-2205-4dd9-9aea-d0d996495135-219070.png" srcset="/img/loading.gif" lazyload alt="1721551040498-86f5836c-2205-4dd9-9aea-d0d996495135.png"></p>
+<p>我这边就修改的比他大1，为5F5E1000，进了一位，然后再F7步过就可以跳到flag分支了</p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721551388752-2c3260fd-7c9f-492e-aedb-ccb529ece0c8-398025.png" srcset="/img/loading.gif" lazyload alt="1721551388752-2c3260fd-7c9f-492e-aedb-ccb529ece0c8.png"></p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721551447323-ee15ef0a-c340-439d-b86e-3ffa4da9ecc8-122203.png" srcset="/img/loading.gif" lazyload alt="1721551447323-ee15ef0a-c340-439d-b86e-3ffa4da9ecc8.png"></p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721551458819-a02738d9-f2ac-428f-a4e1-1bb07bdef89d-388480.png" srcset="/img/loading.gif" lazyload alt="1721551458819-a02738d9-f2ac-428f-a4e1-1bb07bdef89d.png"></p>
+<p>成功跳转后，F9运行程序即可</p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721551205280-0d468676-ce93-4c86-ad1d-4994326f8e16-900754.png" srcset="/img/loading.gif" lazyload alt="1721551205280-0d468676-ce93-4c86-ad1d-4994326f8e16.png"></p>
+<p>NSSCTF{MFC_pr0gr4mming_is_awes0m3}</p>
+<h1 id="4、贪吃蛇"><a href="#4、贪吃蛇" class="headerlink" title="4、贪吃蛇"></a>4、贪吃蛇</h1><p>32位</p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721632502706-32eebb9a-c3d5-4a83-99d4-fa75788e1da1-340061.png" srcset="/img/loading.gif" lazyload alt="1721632502706-32eebb9a-c3d5-4a83-99d4-fa75788e1da1.png"></p>
+<p>放入ida,随便看一下函数</p>
+<p>将jle改成jg,保存一下然后动调即可</p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721632579200-053270d8-a944-412f-aa40-75c5e4445ce4-375701.png" srcset="/img/loading.gif" lazyload alt="1721632579200-053270d8-a944-412f-aa40-75c5e4445ce4.png"></p>
+<p><img src="/./img/49277317_v3H0juy_9_1K6pPz/1721632347532-7f325c25-c1dd-4d21-9156-be0a75161de8-238923.png" srcset="/img/loading.gif" lazyload alt="1721632347532-7f325c25-c1dd-4d21-9156-be0a75161de8.png"></p>
+<p>NSSCTF{YourAreTheMasterOfGame!}</p>
+<blockquote>
+<p>更新: 2024-10-24 10:04:04<br>原文: <a target="_blank" rel="noopener" href="https://www.yuque.com/chaye-apqbl/vsc85q/chld642z56nkhary">https://www.yuque.com/chaye-apqbl/vsc85q/chld642z56nkhary</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2026/01/19/RE/基础/动态调试/index/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 19, 2026</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E7%AE%97%E6%B3%95%E9%80%86%E5%90%91/base64exp%EF%BC%88%E5%8F%AF%E4%BB%A5%E8%87%AA%E5%AE%9A%E4%B9%89key%EF%BC%89/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E5%9F%BA%E7%A1%80/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/IDA%E8%B0%83%E8%AF%95elf%E6%96%87%E4%BB%B6/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

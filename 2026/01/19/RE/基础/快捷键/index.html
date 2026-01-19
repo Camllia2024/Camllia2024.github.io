@@ -1,0 +1,742 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="快捷键od快捷键	功能 F7	单步步进，遇到call指令跟进 F8	单步步过，不跟进 F9	运行 ctrl + F9	知道出现ret指令时中断，运行到程序返回 alt + F9	进入内核中后，执行此命令，可以瞬间返回用户态 F2	打断点 F4	直接诶运行到光标所在处 ctrl + F2	重新加载可执行文件，重新运行 ctrl + N	查找当前程序调用动态链接库的API列表，然后打断点 Alt +">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chaye的博客">
+<meta property="og:url" content="http://example.com/2026/01/19/RE/%E5%9F%BA%E7%A1%80/%E5%BF%AB%E6%8D%B7%E9%94%AE/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="快捷键od快捷键	功能 F7	单步步进，遇到call指令跟进 F8	单步步过，不跟进 F9	运行 ctrl + F9	知道出现ret指令时中断，运行到程序返回 alt + F9	进入内核中后，执行此命令，可以瞬间返回用户态 F2	打断点 F4	直接诶运行到光标所在处 ctrl + F2	重新加载可执行文件，重新运行 ctrl + N	查找当前程序调用动态链接库的API列表，然后打断点 Alt +">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-01-19T05:29:07.625Z">
+<meta property="article:modified_time" content="2025-11-04T06:19:24.274Z">
+<meta property="article:author" content="chaye">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-19 13:29" pubdate>
+          January 19, 2026 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.3k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          12 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h1><h1 id="od"><a href="#od" class="headerlink" title="od"></a>od</h1><p>快捷键	功能</p>
+<p>F7	单步步进，遇到call指令跟进</p>
+<p>F8	单步步过，不跟进</p>
+<p>F9	运行</p>
+<p>ctrl + F9	知道出现ret指令时中断，运行到程序返回</p>
+<p>alt + F9	进入内核中后，执行此命令，可以瞬间返回用户态</p>
+<p>F2	打断点</p>
+<p>F4	直接诶运行到光标所在处</p>
+<p>ctrl + F2	重新加载可执行文件，重新运行</p>
+<p>ctrl + N	查找当前程序调用动态链接库的API列表，然后打断点</p>
+<p>Alt + M	显示内存，可以看到很多段，并附有每个段的访问、读、写、执行属性</p>
+<p>F2	当显示内存后，使用F2直接打内存访问一次性断点</p>
+<p>shift + F2	设置条件断点</p>
+<p>shift + F4	打开条件断点窗口</p>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/passiones/article/details/103927414">https://blog.csdn.net/passiones/article/details/103927414</a></p>
+<h1 id="IDA"><a href="#IDA" class="headerlink" title="IDA"></a>IDA</h1><h2 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h2><p>shift + e 提取数据</p>
+<p>shift+F2 写脚本</p>
+<p>ctrl+&#x2F; 单行注释</p>
+<p>ctrl+shift+&#x2F; 块注释</p>
+<p>ctrl+shift+ +&#x2F;- 展开&#x2F;折叠</p>
+<p>ctrl+alt+L 格式化代码</p>
+<p>ctrl+shift+ up&#x2F;down 上下移动句子</p>
+<p>Shift+F6 重构-重命名</p>
+<pre><code class="hljs"> 合并数据
+</code></pre>
+<p>x交叉引用</p>
+<h2 id="花指令"><a href="#花指令" class="headerlink" title="花指令"></a>花指令</h2><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>Alt+回车 导入包,自动修正</p>
+<p>Ctrl+N 查找类</p>
+<p>Ctrl+Shift+N 查找文件</p>
+<p>Ctrl+Alt+L 格式化代码</p>
+<p>Ctrl+Alt+O 优化导入的类和包</p>
+<p>Alt+Insert 生成代码(如get,set方法,构造函数等)</p>
+<p>Ctrl+E或者Alt+Shift+C 最近更改的代码</p>
+<p>Ctrl+R 替换文本</p>
+<p>Ctrl+F 查找文本</p>
+<p>Ctrl+Shift+Space 自动补全代码</p>
+<p>Ctrl+空格 代码提示</p>
+<p>Ctrl+Alt+Space 类名或接口名提示</p>
+<p>Ctrl+P 方法参数提示</p>
+<p>Ctrl+Shift+Alt+N 查找类中的方法或变量</p>
+<p>Alt+Shift+C 对比最近修改的代码</p>
+<p>Ctrl+Shift+先上键</p>
+<p>Ctrl+X 删除行</p>
+<p>Ctrl+D 复制行</p>
+<p>Ctrl+&#x2F; 或 Ctrl+Shift+&#x2F; 注释（&#x2F;&#x2F; 或者&#x2F;…&#x2F; ）</p>
+<p>Ctrl+J 自动代码</p>
+<p>Ctrl+E 最近打开的文件</p>
+<p>Ctrl+H 显示类结构图</p>
+<p>Ctrl+Q 显示注释文档</p>
+<p>Alt+F1 查找代码所在位置</p>
+<p>Alt+1 快速打开或隐藏工程面板</p>
+<p>Ctrl+Alt+ left&#x2F;right 返回至上次浏览的位置</p>
+<p>Alt+ left&#x2F;right 切换代码视图</p>
+<p>Alt+ Up&#x2F;Down 在方法间快速移动定位</p>
+<p>Ctrl+Shift+Up&#x2F;Down 代码向上&#x2F;下移动。</p>
+<p>F2 或Shift+F2 高亮错误或警告快速定位</p>
+<p>代码标签输入完成后，按Tab，生成代码。</p>
+<p>选中文本，按Ctrl+Shift+F7 ，高亮显示所有该文本，按Esc高亮消失。</p>
+<p>Ctrl+W 选中代码，连续按会有其他效果</p>
+<p>选中文本，按Alt+F3 ，逐个往下查找相同文本，并高亮显示。</p>
+<p>Ctrl+Up&#x2F;Down 光标跳转到第一行或最后一行下</p>
+<p>Ctrl+B 快速打开光标处的类或方法</p>
+<p>默认配置下的常用快捷键</p>
+<p>查找&#x2F;代替</p>
+<p>ctrl+shift+N 通过文件名快速查找工程内的文件（必记）</p>
+<p>ctrl+shift+alt+N 通过一个字符快速查找位置（必记）</p>
+<p>ctrl+F 在文件内快速查找代码</p>
+<p>F3 查找下一个</p>
+<p>shift+F3 查找上一个</p>
+<p>ctrl+R 文件内代码替换</p>
+<p>ctrl+shift+R 指定目录内代码批量替换</p>
+<p>ctrl+shift+F 指定目录内代码批量查找</p>
+<p>ctrl+R 文件内代码替换</p>
+<p>界面操作</p>
+<p>ctrl+shift+A 快速查找并使用编辑器所有功能（必记）</p>
+<p>alt+[0-9] 快速拆合功能界面模块</p>
+<p>ctrl+shift+F12 最大区域显示代码（会隐藏其他的功能界面模块）</p>
+<p>alt+shift+F 将当前文件加入收藏夹</p>
+<p>ctrl+alt+s 打开配置窗口</p>
+<p>ctrl+tab 切换代码选项卡（还要进行此选择，效率差些）</p>
+<p>alt+&lt;-或-&gt; 切换代码选项卡</p>
+<p>ctrl+shift+N 通过文件名快速查找工程内的文件（必记）</p>
+<p>ctrl+shift+alt+N 通过一个字符快速查找位置（必记）</p>
+<p>ctrl+F 在文件内快速查找代码</p>
+<p>F3 查找下一个</p>
+<p>shift+F3 查找上一个</p>
+<p>ctrl+R 文件内代码替换</p>
+<p>ctrl+shift+R 指定目录内代码批量替换</p>
+<p>ctrl+shift+F 指定目录内代码批量查找</p>
+<p>ctrl+R 文件内代码替换</p>
+<p>界面操作</p>
+<p>ctrl+shift+A 快速查找并使用编辑器所有功能（必记）</p>
+<p>alt+[0-9] 快速拆合功能界面模块</p>
+<p>ctrl+shift+F12 最大区域显示代码（会隐藏其他的功能界面模块）</p>
+<p>alt+shift+F 将当前文件加入收藏夹</p>
+<p>ctrl+alt+s 打开配置窗口</p>
+<p>ctrl+tab 切换代码选项卡（还要进行此选择，效率差些）</p>
+<p>alt+&lt;-或-&gt; 切换代码选项卡</p>
+<p>ctrl+F4 关闭当前代码选项卡</p>
+<p>代码编辑</p>
+<p>ctrl+D 复制当前行</p>
+<p>ctrl+W 选中单词</p>
+<p>ctrl+&lt;-或-&gt; 以单词作为边界跳光标位置</p>
+<p>alt+Insert 新建一个文件或其他</p>
+<p>ctrl+alt+L 格式化代码</p>
+<p>shift+tab&#x2F;tab 减少&#x2F;扩大缩进（可以在代码中减少行缩进）</p>
+<p>ctrl+Y 删除一行</p>
+<p>shift+enter 重新开始一行（无论光标在哪个位置）</p>
+<p>导航</p>
+<p>esc 进入代码编辑区域</p>
+<p>alt+F1 查找代码在其他界面模块的位置，颇为有用</p>
+<p>ctrl+G 到指定行的代码</p>
+<p>ctrl+]&#x2F;[ 光标到代码块的前面或后面</p>
+<p>alt+up&#x2F;down 上一个&#x2F;下一个方法</p>
+<p>建议配置版本控制快捷键</p>
+<p>ctrl+C 提交代码</p>
+<p>ctrl+p 向远程版本库推送更新</p>
+<p>ctrl+G 到指定行的代码</p>
+<p>ctrl+]&#x2F;[ 光标到代码块的前面或后面</p>
+<p>alt+up&#x2F;down 上一个&#x2F;下一个方法</p>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43860634/article/details/132063380">https://blog.csdn.net/weixin_43860634&#x2F;article&#x2F;details&#x2F;132063380</a></p>
+<blockquote>
+<p>更新: 2025-04-08 20:26:32<br>原文: <a target="_blank" rel="noopener" href="https://www.yuque.com/chaye-apqbl/vsc85q/as3gug4bi4p76507">https://www.yuque.com/chaye-apqbl/vsc85q/as3gug4bi4p76507</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2026/01/19/RE/基础/快捷键/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 19, 2026</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E6%8F%90%E5%8F%96/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E5%9F%BA%E7%A1%80/index/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

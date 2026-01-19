@@ -1,0 +1,694 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="脱壳参考链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_45323960&#x2F;article&#x2F;details&#x2F;127883048?  ops_request_misc&#x3D;&amp;request_id&#x3D;de0809d69d604e6ea51b6725ce365671&amp;biz_id&#x3D;&amp;utm_medium&#x3D;di  stribute.pc_se">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chaye的博客">
+<meta property="og:url" content="http://example.com/2026/01/19/RE/%E5%9F%BA%E7%A1%80/%E8%84%B1%E5%A3%B3/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="脱壳参考链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_45323960&#x2F;article&#x2F;details&#x2F;127883048?  ops_request_misc&#x3D;&amp;request_id&#x3D;de0809d69d604e6ea51b6725ce365671&amp;biz_id&#x3D;&amp;utm_medium&#x3D;di  stribute.pc_se">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1722397048051-ab8719f5-61b4-4079-bcd8-53fd7726d4db-783769.jpeg">
+<meta property="og:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1717925027521-60d94ae0-5574-4c90-871c-5560b37e8c8d-685649.png">
+<meta property="og:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1717925197043-63f8fb4c-372a-49ca-835b-1e5341b320c3-336223.png">
+<meta property="og:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1721461309345-00b8f316-2ad4-4dca-a9fa-0d0e8fd30179-421296.png">
+<meta property="og:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1721461329304-9cab47c2-36be-4905-b848-07da03efeda1-601396.png">
+<meta property="og:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1721461390116-527415e4-6bff-4682-8d66-591e781c3e48-731924.jpeg">
+<meta property="og:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1721461502318-df6429cd-c5bd-47d9-8c04-542daeea7141-248103.jpeg">
+<meta property="og:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1721461688508-423f6a99-51fe-423b-bfd1-dafc3611abec-036555.jpeg">
+<meta property="og:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1721461751384-f2d17d2c-591d-4107-ae44-333bee788fbd-775143.jpeg">
+<meta property="og:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1721461791740-4ef68d2c-c364-4676-a6cf-e5c96a6b3db3-038598.jpeg">
+<meta property="og:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1721462778032-481f1f2f-c5a9-474b-9d6c-02ae7c3d6fbe-514228.jpeg">
+<meta property="og:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1721462802787-eec10436-a97a-40a5-8e23-248675eebeee-012969.jpeg">
+<meta property="og:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1721462819438-e6cfbfbc-e7ed-4ad6-9352-e22463100816-273933.jpeg">
+<meta property="og:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1721462879486-1b695a19-6253-4a45-bca6-fcf1661b9705-943508.jpeg">
+<meta property="og:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1721463089860-6dde9b59-d182-4b86-9afb-22c93f5741f0-763152.jpeg">
+<meta property="og:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1721463162459-dfbf1f30-0fd4-4780-891f-1c9c0b6ea522-333316.png">
+<meta property="og:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1721463182729-ee0b5d34-89ec-4552-9cf0-83905cfdf15f-894008.png">
+<meta property="og:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1721463208740-c8802f77-02e3-45f5-88ac-7938a8c2dde9-888022.png">
+<meta property="og:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1721463245110-0638e5ee-763c-4281-8224-266c7015efdf-680713.png">
+<meta property="article:published_time" content="2026-01-19T05:29:07.635Z">
+<meta property="article:modified_time" content="2025-11-04T06:19:25.011Z">
+<meta property="article:author" content="chaye">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/49277317_2SYZoAfVYMhmv9Sl/1722397048051-ab8719f5-61b4-4079-bcd8-53fd7726d4db-783769.jpeg">
+  
+  
+  
+  <title>chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-19 13:29" pubdate>
+          January 19, 2026 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          464 words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          4 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="脱壳"><a href="#脱壳" class="headerlink" title="脱壳"></a>脱壳</h1><p><font style="color:rgb(38,38,38);">参考链接：</font><font style="color:rgb(17,124,238);"><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45323960/article/details/127883048">https://blog.csdn.net/qq_45323960/article/details/127883048</a>? </font></p>
+<p><font style="color:rgb(17,124,238);">ops_request_misc&#x3D;&amp;request_id&#x3D;de0809d69d604e6ea51b6725ce365671&amp;biz_id&#x3D;&amp;utm_medium&#x3D;di </font></p>
+<p><font style="color:rgb(17,124,238);">stribute.pc_search_result.none-task-blog-2<del>blog</del>koosearch~default-2-127883048-null</font></p>
+<p><font style="color:rgb(17,124,238);">null.268^v1^control&amp;utm_term&#x3D;2022CTF%E5%9F%B9%E8%AE%AD&amp;spm&#x3D;1018.2226.3001.4450 </font></p>
+<p><font style="color:rgb(17,124,238);"><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45986910/article/details/107993680">https://blog.csdn.net/weixin_45986910/article/details/107993680</a> </font></p>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景 "></a><font style="color:rgb(38,38,38);">背景 </font></h1><p><font style="color:rgb(38,38,38);">壳实质上是⼀个⼦程序，在程序运⾏时⾸先取得控制权并对程序进⾏压缩，同时隐藏程序真正的OEP。 </font></p>
+<p><font style="color:rgb(38,38,38);">脱壳的⽬的就是找到真正的OEP。 </font></p>
+<p><font style="color:rgb(38,38,38);">OEP：程序的⼊⼝点，软件加壳就是隐藏了OEP（或者⽤了假的OEP）， 只要我们找到程序真正的 </font></p>
+<p><font style="color:rgb(38,38,38);">OEP，就可以脱壳。 PUSHAD （所有寄存器压栈） 代表程序的⼊⼝点，POPAD （出栈） 代表程序的 </font></p>
+<p><font style="color:rgb(38,38,38);">出⼝点。 </font></p>
+<p><font style="color:rgb(38,38,38);">DLL(Dynamic Link Library)⽂件为动态链接库⽂件，很多Windows可执⾏⽂件并不是⼀个可以完整执⾏ </font></p>
+<p><font style="color:rgb(38,38,38);">的⽂件，⽽是被分割成了多个DLL⽂件。当我们执⾏⼀个⽂件的时候，对应的DLL⽂件就会被调⽤。 </font></p>
+<p><font style="color:rgb(89,89,89);">1</font><font style="color:rgb(38,38,38);">ITA(Import Address Table)：导⼊地址表。在不同版本的Windows系统中DLL的版本不同，那么我们需 </font></p>
+<p><font style="color:rgb(38,38,38);">要借助ITA，获取函数的真实地址。 </font></p>
+<p><font style="color:rgb(38,38,38);">分为压缩壳与加密壳 </font></p>
+<h1 id="UPX壳"><a href="#UPX壳" class="headerlink" title="UPX壳"></a><font style="color:rgb(38,38,38);">UPX壳</font></h1><h2 id="文件特征"><a href="#文件特征" class="headerlink" title="文件特征"></a>文件特征</h2><p>4D 5A 90 00开头</p>
+<p><img src="/./img/49277317_2SYZoAfVYMhmv9Sl/1722397048051-ab8719f5-61b4-4079-bcd8-53fd7726d4db-783769.jpeg" srcset="/img/loading.gif" lazyload alt="1722397048051-ab8719f5-61b4-4079-bcd8-53fd7726d4db.jpeg"></p>
+<h2 id="自动脱壳"><a href="#自动脱壳" class="headerlink" title="自动脱壳"></a><font style="color:rgb(38,38,38);">自动脱壳</font></h2><p><font style="color:rgb(38,38,38);">upx -d </font></p>
+<p><font style="color:rgb(38,38,38);">常规</font></p>
+<p><img src="/./img/49277317_2SYZoAfVYMhmv9Sl/1717925027521-60d94ae0-5574-4c90-871c-5560b37e8c8d-685649.png" srcset="/img/loading.gif" lazyload alt="1717925027521-60d94ae0-5574-4c90-871c-5560b37e8c8d.png"></p>
+<p>发现有个upx壳，</p>
+<p>.&#x2F;upx.exe -d attachment-15.attachment-15</p>
+<p><img src="/./img/49277317_2SYZoAfVYMhmv9Sl/1717925197043-63f8fb4c-372a-49ca-835b-1e5341b320c3-336223.png" srcset="/img/loading.gif" lazyload alt="1717925197043-63f8fb4c-372a-49ca-835b-1e5341b320c3.png"></p>
+<p>即可完成脱壳</p>
+<h2 id="手动脱壳"><a href="#手动脱壳" class="headerlink" title="手动脱壳"></a><font style="color:rgb(38,38,38);">手动脱壳</font></h2><p>打开发现有UPX壳</p>
+<p><img src="/./img/49277317_2SYZoAfVYMhmv9Sl/1721461309345-00b8f316-2ad4-4dca-a9fa-0d0e8fd30179-421296.png" srcset="/img/loading.gif" lazyload alt="1721461309345-00b8f316-2ad4-4dca-a9fa-0d0e8fd30179.png"><img src="/./img/49277317_2SYZoAfVYMhmv9Sl/1721461329304-9cab47c2-36be-4905-b848-07da03efeda1-601396.png" srcset="/img/loading.gif" lazyload alt="1721461329304-9cab47c2-36be-4905-b848-07da03efeda1.png"></p>
+<p>放入x64dbg，打开选项勾选入口断点</p>
+<p><img src="/./img/49277317_2SYZoAfVYMhmv9Sl/1721461390116-527415e4-6bff-4682-8d66-591e781c3e48-731924.jpeg" srcset="/img/loading.gif" lazyload alt="1721461390116-527415e4-6bff-4682-8d66-591e781c3e48.jpeg"></p>
+<p>F9 运行程序</p>
+<p>F7 单点过完push</p>
+<p><img src="/./img/49277317_2SYZoAfVYMhmv9Sl/1721461502318-df6429cd-c5bd-47d9-8c04-542daeea7141-248103.jpeg" srcset="/img/loading.gif" lazyload alt="1721461502318-df6429cd-c5bd-47d9-8c04-542daeea7141.jpeg"></p>
+<p>到 push 的下一个指令，右键右边寄存器 RSP 选在内存窗口中转到</p>
+<p><img src="/./img/49277317_2SYZoAfVYMhmv9Sl/1721461688508-423f6a99-51fe-423b-bfd1-dafc3611abec-036555.jpeg" srcset="/img/loading.gif" lazyload alt="1721461688508-423f6a99-51fe-423b-bfd1-dafc3611abec.jpeg"></p>
+<p>在左下内存窗口的阴影处右键选断点 硬件，读取 2字节</p>
+<p><img src="/./img/49277317_2SYZoAfVYMhmv9Sl/1721461751384-f2d17d2c-591d-4107-ae44-333bee788fbd-775143.jpeg" srcset="/img/loading.gif" lazyload alt="1721461751384-f2d17d2c-591d-4107-ae44-333bee788fbd.jpeg"></p>
+<p>再 F9 运行程序</p>
+<p>F7 单点执行到 jmp</p>
+<p><img src="/./img/49277317_2SYZoAfVYMhmv9Sl/1721461791740-4ef68d2c-c364-4676-a6cf-e5c96a6b3db3-038598.jpeg" srcset="/img/loading.gif" lazyload alt="1721461791740-4ef68d2c-c364-4676-a6cf-e5c96a6b3db3.jpeg"></p>
+<p>要多步过几次才能跳出循环，</p>
+<p>然后跳转到这</p>
+<p><img src="/./img/49277317_2SYZoAfVYMhmv9Sl/1721462778032-481f1f2f-c5a9-474b-9d6c-02ae7c3d6fbe-514228.jpeg" srcset="/img/loading.gif" lazyload alt="1721462778032-481f1f2f-c5a9-474b-9d6c-02ae7c3d6fbe.jpeg"></p>
+<p>ctrl+i使用插件</p>
+<p><img src="/./img/49277317_2SYZoAfVYMhmv9Sl/1721462802787-eec10436-a97a-40a5-8e23-248675eebeee-012969.jpeg" srcset="/img/loading.gif" lazyload alt="1721462802787-eec10436-a97a-40a5-8e23-248675eebeee.jpeg"></p>
+<p>自动寻找IAT，然后dump下来</p>
+<p><img src="/./img/49277317_2SYZoAfVYMhmv9Sl/1721462819438-e6cfbfbc-e7ed-4ad6-9352-e22463100816-273933.jpeg" srcset="/img/loading.gif" lazyload alt="1721462819438-e6cfbfbc-e7ed-4ad6-9352-e22463100816.jpeg"></p>
+<p>将 × 的删掉， fix dump 一下</p>
+<p><img src="/./img/49277317_2SYZoAfVYMhmv9Sl/1721462879486-1b695a19-6253-4a45-bca6-fcf1661b9705-943508.jpeg" srcset="/img/loading.gif" lazyload alt="1721462879486-1b695a19-6253-4a45-bca6-fcf1661b9705.jpeg"></p>
+<p><img src="/./img/49277317_2SYZoAfVYMhmv9Sl/1721463089860-6dde9b59-d182-4b86-9afb-22c93f5741f0-763152.jpeg" srcset="/img/loading.gif" lazyload alt="1721463089860-6dde9b59-d182-4b86-9afb-22c93f5741f0.jpeg"></p>
+<p>然后用IDA打开就行</p>
+<p><img src="/./img/49277317_2SYZoAfVYMhmv9Sl/1721463162459-dfbf1f30-0fd4-4780-891f-1c9c0b6ea522-333316.png" srcset="/img/loading.gif" lazyload alt="1721463162459-dfbf1f30-0fd4-4780-891f-1c9c0b6ea522.png"></p>
+<p><img src="/./img/49277317_2SYZoAfVYMhmv9Sl/1721463182729-ee0b5d34-89ec-4552-9cf0-83905cfdf15f-894008.png" srcset="/img/loading.gif" lazyload alt="1721463182729-ee0b5d34-89ec-4552-9cf0-83905cfdf15f.png"></p>
+<p><img src="/./img/49277317_2SYZoAfVYMhmv9Sl/1721463208740-c8802f77-02e3-45f5-88ac-7938a8c2dde9-888022.png" srcset="/img/loading.gif" lazyload alt="1721463208740-c8802f77-02e3-45f5-88ac-7938a8c2dde9.png"></p>
+<p><img src="/./img/49277317_2SYZoAfVYMhmv9Sl/1721463245110-0638e5ee-763c-4281-8224-266c7015efdf-680713.png" srcset="/img/loading.gif" lazyload alt="1721463245110-0638e5ee-763c-4281-8224-266c7015efdf.png"></p>
+<blockquote>
+<p>更新: 2024-11-13 10:36:58<br>原文: <a target="_blank" rel="noopener" href="https://www.yuque.com/chaye-apqbl/vsc85q/ic770vecloxmi8yz">https://www.yuque.com/chaye-apqbl/vsc85q/ic770vecloxmi8yz</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2026/01/19/RE/基础/脱壳/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 19, 2026</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E5%9F%BA%E7%A1%80/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/IDA%E8%B0%83%E8%AF%95elf%E6%96%87%E4%BB%B6/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E5%9F%BA%E7%A1%80/%E7%AB%AF%E5%BA%8F/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

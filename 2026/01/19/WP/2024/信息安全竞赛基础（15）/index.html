@@ -1,0 +1,920 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="信息安全竞赛基础（15）MISC解不完的压缩包这里附上爆破脚本（使用时记得修改初始设置）1234567891011121314151617181920212223242526272829303132import zipfileimport os# 初始设置：压缩包存储目录和初始zip文件名称&quot;&quot;&quot;只要修改路径和需要解压的压缩包即可&quot;&quot;&quot;z">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chaye的博客">
+<meta property="og:url" content="http://example.com/2026/01/19/WP/2024/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%9F%BA%E7%A1%80%EF%BC%8815%EF%BC%89/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="信息安全竞赛基础（15）MISC解不完的压缩包这里附上爆破脚本（使用时记得修改初始设置）1234567891011121314151617181920212223242526272829303132import zipfileimport os# 初始设置：压缩包存储目录和初始zip文件名称&quot;&quot;&quot;只要修改路径和需要解压的压缩包即可&quot;&quot;&quot;z">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727162769582-eb127e25-d6a5-46ac-b6e8-6133526e930f-288673.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727162838854-3e32704b-17d0-4f2a-a939-e926b2803165-552613.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727164516506-a5ae1627-40bb-4b70-83b6-683929ea5824-056608.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727164624552-ae97851f-33a5-426e-a268-1cd29be4b1d5-545694.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727165047993-9d6d430b-742f-4b52-b17d-567c885edd00-538785.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727165248108-cbcf78a9-5410-44ca-a9d8-18c2665233dc-662398.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727167523537-9b568c67-fdf1-411a-8c7e-8d84d47d440d-689860.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727167545963-2d5c13fe-2e85-49ad-bfb1-2a53dbf67907-247619.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727167454933-dd678173-8c34-4d29-83da-b1cfee68e7f5-136363.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727168251957-d17c4a2d-ff0e-411f-8e4e-a8acf25a58b1-818683.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727168212851-04de2979-eb96-48e1-8f5a-fd9449e6a4f0-303611.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727174345421-21bd6add-c6c8-4528-9d50-03afd004a79c-324831.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727174412482-f9b917d8-64a0-4aa9-a371-e0230afaf594-696616.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727174715148-c4347e29-2891-44be-94b6-7254ae174181-340542.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727254464153-46967c9b-23a3-4953-a2ca-2819de5dcfc5-372979.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727254450402-11e9d2da-7452-4dfd-a2a2-16eff5a39360-680190.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727255021162-ef1e5b8d-6bca-4547-91bd-d18077a291d8-032360.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727255452762-51d47fc3-0968-48b6-8d80-a9f25f62674f-681860.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727256719374-7eba993c-c3fa-4ae0-9af1-7f37484d7db7-939384.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727256778393-dbb1eafe-d58d-48e7-8137-9beeba8b078f-570744.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723711338491-709d7522-23a5-40ce-bb3e-d629bd22466e-502469.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723712639959-32079af1-6dd4-47b0-83a3-6ec25848e1f0-279785.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723718995985-32ba81dd-7c62-47d2-94b2-baac03d45509-822300.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723719081989-cbd6dbe2-0c14-4a85-b2ae-c70ff95b07b6-877320.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723715121060-d6f65c17-7358-467d-a682-ea46aa9ddb2c-296654.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723716388658-a2047cef-993d-4fcf-946f-78ac2b10008b-247786.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/jpeg/42988179/1723716519153-5455cc00-e756-47a2-a136-4f594c257acc.jpeg">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723718971683-aa1ec613-1bdb-4841-889a-c5d19ab49252-041223.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723719180069-ca545beb-a635-46a6-a3f0-f8b744840f6a-382003.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723709782600-9660b563-5c41-422a-a520-80ae7c5411ff-112018.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723709789902-41e00339-f363-4a40-b9f8-a83c371f1d31-757359.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723785613300-2ff9675c-5ad5-4703-a36b-54452031df37-168709.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723785259200-bb24c72a-07a5-442e-a0eb-1c32200a36b5-349482.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1724933543672-1cfcab0f-d724-40cf-8b78-7ab89c23824b-119925.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1724933569251-ccb5569a-b138-40d0-bf18-de90bc2ac238-427159.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1724934034599-cb7c55f3-9300-418a-a0c4-2441c812090c-638721.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1724934074769-964e3c0f-1663-4090-96d1-4222eb1e0e14-716228.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1731827198692-23f6d732-4287-4803-afe9-87852056fa8a-437483.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1731828837056-3c43c23d-e2e8-4c46-aada-551d44cc86db-049317.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1731828972818-0f723f40-2b2c-4b8d-9789-c954806dcfb4-847102.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1731829369239-2478770c-2d97-48c4-97c9-447c6d3d8cf9-447247.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1731829404007-f48dc251-dc33-47c1-bffd-a9050eb04a7c-303558.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1729219754928-9bb6e761-5e71-42d4-9b11-6a025866e500-053287.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1729219422264-9504ce79-e161-44bb-86d8-93bd819378df-825265.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1729219430567-6efe6a19-afe5-41b4-9dcb-61d279cfee24-799408.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1729221190200-c1d82b02-8a0e-41ec-9205-08a8989f72a8-856884.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1729221293192-81cec015-f4ea-4589-a6da-2a4a7942e4b3-768707.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1729223301088-fb35ddee-ac94-4fa3-b435-8a1872481dc0-523713.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1729223370400-117495c5-1652-4ed8-990a-83367bee1821-034993.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1729223942190-8d248a45-8dd8-4fae-b42e-8367902518af-840562.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1729224309800-424057da-2621-4b59-97f7-59320be86700-836015.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1729224338523-6a546d58-6e07-4673-9084-213f0d9db700-134879.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1729224750548-493fc2ee-d29b-4516-bbee-15a2a4ba4c90-427459.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1729224835166-4b726f7d-cfc4-499f-965e-7b22849313b9-240086.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1729224875926-91580a7e-50bc-446b-b08e-7231c15ccfa6-810668.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1722405394869-3053321d-2392-4bf1-831a-52ca60e4ea85-867432.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1722405509167-7ac1f6a2-d88f-47b7-870f-52683d7378e6-684452.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1722405565617-1b8e32f8-5cb4-4c41-b73b-3f8503c0b50a-108155.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1722414218554-683f8729-2586-4d4a-8c6c-16ba93b8b717-629688.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1722414251376-5ce7e95f-e361-4c91-970e-5a91af357fef-116017.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1722416548417-646cec90-78b0-4b2b-916a-cecf412d9df2-976597.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1722418852200-7b993f45-1759-460b-83c0-ba5527519a17-771227.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1722418885797-0bb5ed61-03ad-4f1b-82b0-bae001f8c022-503479.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1722419785126-873c394b-a883-44e1-882b-acb89c8cf994-283303.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1717211988557-76dbdf02-6fe4-41b3-bf26-612eda5cc8a0-438149.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1717219211635-446df797-cde5-4357-a0ec-281cffdc817c-678059.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1726649056395-466e38b3-a8b4-477d-8561-ae5fd5960ee7-176212.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1726649033149-d4233996-6fd9-4f88-b4ca-733b43ce3e02-633732.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1726648305354-71c4c6e6-08c4-4a73-9453-0c5904f8df6f-286234.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1726713885657-34c34ae4-bc26-4ea4-8d83-31fb26a56128-955571.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1726713913723-be0ad96f-387a-4153-8da7-4ebaf58ab313-301402.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727011298547-ea72743a-3a21-4235-8e36-5c1653a42c24-263120.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1726714080107-480c1886-1892-4979-8cd1-f99bb9aac24f-764988.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1726714153130-f47be931-3f19-44a0-9b04-fe42ec430fd1-596754.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1726714165241-aeffbd31-3eed-4282-94fb-b0a4f036bcbe-766151.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1726714203277-69ab34f4-de23-48d3-b431-8b82da9ab99b-361821.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727011454324-90ae74df-471b-45e6-8091-3e17f4b0e7cb-984921.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723788922732-8cdc0929-a1fe-4ac2-b28d-23805546930c-025602.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723788908960-1c2fb903-1dbc-4e78-80b4-bf7b773a547a-943041.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723789577517-e99d9957-f220-438a-8ca0-67e581712d40-890175.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723792218249-f2dc7631-e715-4806-8082-109fe46a23e2-910058.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723792234932-c1f630e2-3618-4624-9e59-82e523a49066-213538.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723793117335-90f7fdf9-d544-40a0-9f16-6df23d6f99ef-929429.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723793465236-77f3632f-e936-41b1-876d-a19eefd19df9-876660.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723793619918-61fa78e3-90d2-4264-b5ec-08fd3264848f-813252.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723793726319-06f98ac9-7278-49b7-a3e1-a1951becb0a9-583287.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1723793808260-a92db341-64ba-4d90-aa56-bfcbb256be6a-769450.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1721808648617-db61a13a-5fd8-484a-b5e9-932d510f0534-009062.webp">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1724042980823-00939c02-4eff-42fd-9929-36f5395bc6ba-452820.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1724042938596-0786a2be-f5b2-402d-8ed3-619a9ab39bf0-414518.png">
+<meta property="og:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1724043316235-079eff0b-6067-4002-807c-b972a96ba727-961810.png">
+<meta property="article:published_time" content="2026-01-19T05:29:07.989Z">
+<meta property="article:modified_time" content="2025-11-04T06:29:14.882Z">
+<meta property="article:author" content="chaye">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/49277317_zbkF5bj7FzumpJmW/1727162769582-eb127e25-d6a5-46ac-b6e8-6133526e930f-288673.png">
+  
+  
+  
+  <title>chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-19 13:29" pubdate>
+          January 19, 2026 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.5k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          30 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="信息安全竞赛基础（15）"><a href="#信息安全竞赛基础（15）" class="headerlink" title="信息安全竞赛基础（15）"></a>信息安全竞赛基础（15）</h1><h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="解不完的压缩包"><a href="#解不完的压缩包" class="headerlink" title="解不完的压缩包"></a>解不完的压缩包</h2><h3 id="这里附上爆破脚本（使用时记得修改初始设置）"><a href="#这里附上爆破脚本（使用时记得修改初始设置）" class="headerlink" title="这里附上爆破脚本（使用时记得修改初始设置）"></a>这里附上爆破脚本（使用时记得修改初始设置）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs plain">import zipfile<br>import os<br><br># 初始设置：压缩包存储目录和初始zip文件名称<br>&quot;&quot;&quot;只要修改路径和需要解压的压缩包即可&quot;&quot;&quot;<br>zip_directory = r&#x27;D:\网站下载\taowa&#x27;<br>zip_name = &#x27;999.zip&#x27;<br><br># 循环解压嵌套的压缩包<br>while True:<br>    # 拼接当前的完整压缩包路径<br>    zip_path = os.path.join(zip_directory, zip_name)<br><br>    # 打开当前压缩包<br>    with zipfile.ZipFile(zip_path, &#x27;r&#x27;) as myzip:<br>        # 获取压缩包内文件列表<br>        file_list = myzip.namelist()<br><br>        # 判断是否有zip文件，提取文件名<br>        if not any(&#x27;.zip&#x27; in f for f in file_list):  # 如果文件列表中没有zip文件<br>            print(f&quot;Final unzipped location: &#123;zip_path&#125;&quot;)<br>            # 解压到目标目录<br>            myzip.extractall(os.path.join(zip_directory, &#x27;final&#x27;))<br>            break  # 终止循环<br>        else:<br>            # 如果文件列表中有zip文件，提取其中第一个zip文件<br>            for file_name in file_list:<br>                if file_name.endswith(&#x27;.zip&#x27;):<br>                    zip_name = file_name  # 更新zip_name为内部的zip文件<br>                    break<br>            # 解压当前的zip包到同级目录<br>            myzip.extractall(zip_directory)<br></code></pre></td></tr></table></figure>
+
+<p>拿到1.zip</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727162769582-eb127e25-d6a5-46ac-b6e8-6133526e930f-288673.png" srcset="/img/loading.gif" lazyload alt="1727162769582-eb127e25-d6a5-46ac-b6e8-6133526e930f.png"></p>
+<p>发现解压要密码</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727162838854-3e32704b-17d0-4f2a-a939-e926b2803165-552613.png" srcset="/img/loading.gif" lazyload alt="1727162838854-3e32704b-17d0-4f2a-a939-e926b2803165.png"></p>
+<p>crcexp</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs plain">from binascii import crc32<br>import string<br>import zipfile<br><br>dic = string.printable<br><br><br>def CrackCrc(crc):<br>    for i in dic:<br>        # print (i)<br>        for j in dic:<br>            s = i + j<br>            # print (crc32(bytes(s,&#x27;ascii&#x27;)) &amp; 0xffffffff)<br>            if crc == (crc32(bytes(s, &#x27;ascii&#x27;)) &amp; 0xffffffff):<br>                print(s)<br>                return<br><br><br>def getcrc32(fname):<br>    l = []<br>    file = fname<br>    f = zipfile.ZipFile(file, &#x27;r&#x27;)<br>    global fileList<br>    fileList = f.namelist()<br>    print(fileList)<br>    # print (type(fileList))<br>    for filename in fileList:<br>        Fileinfo = f.getinfo(filename)<br>        # print(Fileinfo)<br>        crc = Fileinfo.CRC<br>        # print (&#x27;crc&#x27;,crc)<br>        l.append(crc)<br>    return l<br><br><br>def main(filename=None):<br>    l = getcrc32(filename)<br>    # print(l)<br>    for i in range(len(l)):<br>        print(fileList[i], end=&#x27;的内容是:&#x27;)<br>        CrackCrc(l[i])<br><br><br>if __name__ == &quot;__main__&quot;:<br>    main(&#x27;cccccccrc.zip&#x27;)<br></code></pre></td></tr></table></figure>
+
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727164516506-a5ae1627-40bb-4b70-83b6-683929ea5824-056608.png" srcset="/img/loading.gif" lazyload alt="1727164516506-a5ae1627-40bb-4b70-83b6-683929ea5824.png"></p>
+<p>密码*m:#P7j0</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727164624552-ae97851f-33a5-426e-a268-1cd29be4b1d5-545694.png" srcset="/img/loading.gif" lazyload alt="1727164624552-ae97851f-33a5-426e-a268-1cd29be4b1d5.png"></p>
+<h2 id="小小套娃"><a href="#小小套娃" class="headerlink" title="小小套娃"></a>小小套娃</h2><p>打开png发现文件出错</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727165047993-9d6d430b-742f-4b52-b17d-567c885edd00-538785.png" srcset="/img/loading.gif" lazyload alt="1727165047993-9d6d430b-742f-4b52-b17d-567c885edd00.png"></p>
+<p>爆破宽高</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727165248108-cbcf78a9-5410-44ca-a9d8-18c2665233dc-662398.png" srcset="/img/loading.gif" lazyload alt="1727165248108-cbcf78a9-5410-44ca-a9d8-18c2665233dc.png"></p>
+<p>拿到kali里面分离一下</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727167523537-9b568c67-fdf1-411a-8c7e-8d84d47d440d-689860.png" srcset="/img/loading.gif" lazyload alt="1727167523537-9b568c67-fdf1-411a-8c7e-8d84d47d440d.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727167545963-2d5c13fe-2e85-49ad-bfb1-2a53dbf67907-247619.png" srcset="/img/loading.gif" lazyload alt="1727167545963-2d5c13fe-2e85-49ad-bfb1-2a53dbf67907.png"></p>
+<p>改成png文件，扫码得到first key 874jfy37yf37y7</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727167454933-dd678173-8c34-4d29-83da-b1cfee68e7f5-136363.png" srcset="/img/loading.gif" lazyload alt="1727167454933-dd678173-8c34-4d29-83da-b1cfee68e7f5.png"></p>
+<p>打开txt文件，发现显示长度与所见长度不合，是txt零宽度隐写</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727168251957-d17c4a2d-ff0e-411f-8e4e-a8acf25a58b1-818683.png" srcset="/img/loading.gif" lazyload alt="1727168251957-d17c4a2d-ff0e-411f-8e4e-a8acf25a58b1.png"></p>
+<p>放入kali里面</p>
+<p>用vi +文件名 命令打开<img src="/./img/49277317_zbkF5bj7FzumpJmW/1727168212851-04de2979-eb96-48e1-8f5a-fd9449e6a4f0-303611.png" srcset="/img/loading.gif" lazyload alt="1727168212851-04de2979-eb96-48e1-8f5a-fd9449e6a4f0.png"></p>
+<p><font style="color:rgb(77, 77, 77);">很明显是零宽度字符</font><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E9%9A%90%E5%86%99&spm=1001.2101.3001.7020">隐写</a><font style="color:rgb(77, 77, 77);">，在上面有找到4种零宽度字符，使用在线解密工具进行解密</font></p>
+<p><a target="_blank" rel="noopener" href="https://www.hanloth.cn/tool/zero-width-secret">零宽文本加解密工具 - 翰络云工具 (hanloth.cn)</a></p>
+<p><font style="color:rgb(77, 77, 77);">有feff、200f、200e、200b、200c</font></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727174345421-21bd6add-c6c8-4528-9d50-03afd004a79c-324831.png" srcset="/img/loading.gif" lazyload alt="1727174345421-21bd6add-c6c8-4528-9d50-03afd004a79c.png"></p>
+<p>拿到密码，解一下佛教</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727174412482-f9b917d8-64a0-4aa9-a371-e0230afaf594-696616.png" srcset="/img/loading.gif" lazyload alt="1727174412482-f9b917d8-64a0-4aa9-a371-e0230afaf594.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727174715148-c4347e29-2891-44be-94b6-7254ae174181-340542.png" srcset="/img/loading.gif" lazyload alt="1727174715148-c4347e29-2891-44be-94b6-7254ae174181.png"></p>
+<h2 id="moejail-lv1"><a href="#moejail-lv1" class="headerlink" title="moejail_lv1"></a><strong>moejail_lv1</strong></h2><p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727254464153-46967c9b-23a3-4953-a2ca-2819de5dcfc5-372979.png" srcset="/img/loading.gif" lazyload alt="1727254464153-46967c9b-23a3-4953-a2ca-2819de5dcfc5.png"></p>
+<p>nc 127.0.0.1 63431</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727254450402-11e9d2da-7452-4dfd-a2a2-16eff5a39360-680190.png" srcset="/img/loading.gif" lazyload alt="1727254450402-11e9d2da-7452-4dfd-a2a2-16eff5a39360.png"></p>
+<p><strong>import</strong>(“os”).system(“ls”)</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727255021162-ef1e5b8d-6bca-4547-91bd-d18077a291d8-032360.png" srcset="/img/loading.gif" lazyload alt="1727255021162-ef1e5b8d-6bca-4547-91bd-d18077a291d8.png"></p>
+<p>看一下main函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><code class="hljs plain">import re<br>CONFIG_USE_FORK = True<br>MOTD = &quot;&quot;&quot;馃構 Welcome to the ez python jail!&quot;&quot;&quot;<br>def my_safe_eval(code):<br>    if re.match(r&quot;os|system|[\\\+]&quot;, code):<br>        return &quot;Hacked By Rx&quot;<br>    return eval(code)<br>def chall(input, print):<br>    code: str = input(&quot;Give me your payload:&quot;)<br>    if len(code) &gt; 100:<br>        print(&quot;Too long code, Sry!&quot;)<br>        return<br>    value = my_safe_eval(code)<br>    print(value)<br>def handle(input, print):<br>    import random<br>    import string<br>    print(<br>        &quot;HTTP/1.1 302 Found\r\nLocation: https://lug.ustc.edu.cn/planet/2019/09/how-to-use-nc/\r\nContent-Length: 0\r\n\r\n===HTTP REQUEST PREVENT===\x00\033c&quot;<br>    )<br>    try:<br>        print(MOTD)<br>        count = 0<br>        while True:<br>            captcha = &quot;&quot;.join(<br>                random.choices(string.ascii_uppercase + string.digits, k=6)<br>            )<br>            captcha2 = &quot;&quot;.join(<br>                random.choices(string.ascii_uppercase + string.digits, k=6)<br>            )<br>            if (<br>                input(<br>                    f&quot;馃え Are you robot? Please enter &#x27;&#123;captcha&#125;&#x27;+&#x27;&#123;captcha2&#125;&#x27;=? to continue: &quot;<br>                )<br>                .strip()<br>                .upper()<br>                != captcha + captcha2<br>            ):<br>                count += 1<br>                print(&quot;馃 Robot detected, try again&quot;)<br>                if count &gt; 5:<br>                    print(&quot;馃 Too many tries, blocked&quot;)<br>                    break<br>                continue<br>            count = 0<br>            try:<br>                chall(input, print)<br>            except Exception as e:<br>                print(f&quot;馃 Error: &#123;e&#125;&quot;)<br>    except Exception as e:<br>        print(<br>            f&quot;\033c ========== Unhandled Error! ==========\n馃ズ  We cannot recover from error: &#123;e&#125;\nChild process exited. Please reconnect or ask administrators for help if error persist&quot;<br>        )<br>def daemon_main():<br>    import os<br>    import socket<br>    import subprocess<br>    print(&quot;[Info] Server starting&quot;)<br>    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)<br>    pwd = os.path.dirname(__file__)<br>    script = open(__file__, &quot;rb&quot;).read()<br>    self_fd = os.memfd_create(&quot;main&quot;)<br>    os.write(self_fd, script)<br>    os.lseek(self_fd, 0, os.SEEK_SET)<br>    os.chmod(self_fd, 0o444)<br>    try:<br>        sock.bind((&quot;0.0.0.0&quot;, 9999))<br>        sock.listen(1)<br>        while True:<br>            try:<br>                conn, addr = sock.accept()<br>                print(f&quot;[Info] Connected with &#123;addr&#125;&quot;)<br>                fd = conn.fileno()<br>                subprocess.Popen(<br>                    [<br>                        &quot;python&quot;,<br>                        &quot;/proc/self/fd/&#123;&#125;&quot;.format(self_fd),<br>                        &quot;fork&quot;,<br>                    ],<br>                    stdin=fd,<br>                    stdout=fd,<br>                    stderr=fd,<br>                    pass_fds=[self_fd],<br>                    cwd=pwd,<br>                    env=os.environ,<br>                )<br>            except Exception as e:<br>                print(f&quot;[Error] &#123;e&#125;&quot;)<br>    except KeyboardInterrupt:<br>        print(&quot;[Info] Server stopped&quot;)<br>    finally:<br>        sock.close()<br>        print(&quot;[Info] Server closed&quot;)<br>if __name__ == &quot;__main__&quot;:<br>    import sys<br>    if len(sys.argv) == 2 and sys.argv[1] == &quot;fork&quot;:<br>        del sys<br>        handle(input, print)<br>    else:<br>        daemon_main()<br></code></pre></td></tr></table></figure>
+
+<p>发现在另一个wrapper.sh里面</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727255452762-51d47fc3-0968-48b6-8d80-a9f25f62674f-681860.png" srcset="/img/loading.gif" lazyload alt="1727255452762-51d47fc3-0968-48b6-8d80-a9f25f62674f.png"></p>
+<p>发现不能超过100个字符</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727256719374-7eba993c-c3fa-4ae0-9af1-7f37484d7db7-939384.png" srcset="/img/loading.gif" lazyload alt="1727256719374-7eba993c-c3fa-4ae0-9af1-7f37484d7db7.png"></p>
+<p>ls &#x2F;tmp -a 显示所有的文件，包括临时文件</p>
+<p>使用通配符*省略后面的字符</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727256778393-dbb1eafe-d58d-48e7-8137-9beeba8b078f-570744.png" srcset="/img/loading.gif" lazyload alt="1727256778393-dbb1eafe-d58d-48e7-8137-9beeba8b078f.png"></p>
+<h2 id="正着看还是反着看呢？"><a href="#正着看还是反着看呢？" class="headerlink" title="正着看还是反着看呢？"></a>正着看还是反着看呢？</h2><p>看到要倒序，注意他这里是两个字节一组进行倒序的</p>
+<p>jpg 文件头 FF D8 FF E0</p>
+<p>文件尾是 FF D9 </p>
+<p>D9FF</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723711338491-709d7522-23a5-40ce-bb3e-d629bd22466e-502469.png" srcset="/img/loading.gif" lazyload alt="1723711338491-709d7522-23a5-40ce-bb3e-d629bd22466e.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723712639959-32079af1-6dd4-47b0-83a3-6ec25848e1f0-279785.png" srcset="/img/loading.gif" lazyload alt="1723712639959-32079af1-6dd4-47b0-83a3-6ec25848e1f0.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723718995985-32ba81dd-7c62-47d2-94b2-baac03d45509-822300.png" srcset="/img/loading.gif" lazyload alt="1723718995985-32ba81dd-7c62-47d2-94b2-baac03d45509.png"></p>
+<p><font style="color:#DF2A3F;">可以发现有个flag.txt的倒序，所以我们整个都复制过去进行处理</font></p>
+<p><font style="color:#DF2A3F;">如果只复制到文件尾的话就会丢失文件，导致隐藏文件的消失</font></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723719081989-cbd6dbe2-0c14-4a85-b2ae-c70ff95b07b6-877320.png" srcset="/img/loading.gif" lazyload alt="1723719081989-cbd6dbe2-0c14-4a85-b2ae-c70ff95b07b6.png"></p>
+<p><font style="color:rgb(77, 77, 77);">选中尾部拉到最底部，然后（编辑→复制为→复制为十六进制文本）然后在桌面创建一个文本文件，ctrl+v直接复制进去，然后编写脚本</font></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 打开并读取原始文件内容<br>with open(r&#x27;D:\网站下载\exppy\1.txt&#x27;, &#x27;rb&#x27;) as f:<br>    a = f.read()<br><br># 去掉原始数据中的换行符、空格等不可见字符<br>a = a.replace(b&#x27;\n&#x27;, b&#x27;&#x27;).replace(b&#x27;\r&#x27;, b&#x27;&#x27;).replace(b&#x27; &#x27;, b&#x27;&#x27;)<br><br># 将内容逆序<br>a = a[::-1]<br><br># 将逆序内容写入新的文件<br>with open(r&#x27;D:\网站下载\exppy\new.txt&#x27;, &#x27;wb&#x27;) as new:<br>    new.write(a)<br><br># 读取逆序后的文件内容<br>with open(r&#x27;D:\网站下载\exppy\new.txt&#x27;, &#x27;rb&#x27;) as f:<br>    b = f.read()<br><br># 将内容转换为可变的字节数组<br>blist = bytearray(b)<br><br># 按两个字节为一组进行交换<br>for i in range(0, len(blist) - 1, 2):<br>    blist[i], blist[i + 1] = blist[i + 1], blist[i]<br><br># 打开目标文件以写入最终内容<br>with open(r&#x27;D:\网站下载\exppy\flag.txt&#x27;, &#x27;wb&#x27;) as flag:<br>    # 将所有处理后的字节内容连续写入文件<br>    flag.write(blist)<br><br># 打印最终处理的内容（以逆序显示）<br>print(blist)<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs plain">def format_hex_data_from_file(input_file, output_file):<br>    # 读取文件内容<br>    with open(input_file, &#x27;r&#x27;) as file:<br>        hex_data = file.read().strip()<br><br>    # 将字符串分成每两个字符一组<br>    grouped_data = [hex_data[i:i + 2] for i in range(0, len(hex_data), 2)]<br><br>    # 以16组为一行，每组之间用空格隔开<br>    formatted_data = &#x27;\n&#x27;.join([&#x27; &#x27;.join(grouped_data[i:i + 16]) for i in range(0, len(grouped_data), 16)])<br><br>    # 将格式化后的数据写入输出文件<br>    with open(output_file, &#x27;w&#x27;) as file:<br>        file.write(formatted_data)<br><br><br># 输入和输出文件路径<br>input_file = r&#x27;D:\网站下载\exppy\flag.txt&#x27;<br>output_file = r&#x27;D:\网站下载\exppy\newflag.txt&#x27;<br><br># 格式化并写入输出文件<br>format_hex_data_from_file(input_file, output_file)<br></code></pre></td></tr></table></figure>
+
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723715121060-d6f65c17-7358-467d-a682-ea46aa9ddb2c-296654.png" srcset="/img/loading.gif" lazyload alt="1723715121060-d6f65c17-7358-467d-a682-ea46aa9ddb2c.png"></p>
+<p><font style="color:#DF2A3F;">导入十六进制，保存，修改后缀名为jpg，</font><font style="color:rgb(77, 77, 77);">（文件→导入十六进制→保存→重命名为flag.jpg)</font></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723716388658-a2047cef-993d-4fcf-946f-78ac2b10008b-247786.png" srcset="/img/loading.gif" lazyload alt="1723716388658-a2047cef-993d-4fcf-946f-78ac2b10008b.png"></p>
+<p>得到照片</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/jpeg/42988179/1723716519153-5455cc00-e756-47a2-a136-4f594c257acc.jpeg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723718971683-aa1ec613-1bdb-4841-889a-c5d19ab49252-041223.png" srcset="/img/loading.gif" lazyload alt="1723718971683-aa1ec613-1bdb-4841-889a-c5d19ab49252.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723719180069-ca545beb-a635-46a6-a3f0-f8b744840f6a-382003.png" srcset="/img/loading.gif" lazyload alt="1723719180069-ca545beb-a635-46a6-a3f0-f8b744840f6a.png"></p>
+<p>打开就可以看到啦</p>
+<p><font style="color:rgb(77, 77, 77);"></font></p>
+<h2 id="你也喜欢圣物吗"><a href="#你也喜欢圣物吗" class="headerlink" title="你也喜欢圣物吗"></a>你也喜欢圣物吗</h2><p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723709782600-9660b563-5c41-422a-a520-80ae7c5411ff-112018.png" srcset="/img/loading.gif" lazyload alt="1723709782600-9660b563-5c41-422a-a520-80ae7c5411ff.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723709789902-41e00339-f363-4a40-b9f8-a83c371f1d31-757359.png" srcset="/img/loading.gif" lazyload alt="1723709789902-41e00339-f363-4a40-b9f8-a83c371f1d31.png"></p>
+<h3 id="lsb隐写"><a href="#lsb隐写" class="headerlink" title="lsb隐写"></a>lsb隐写</h3><p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723785613300-2ff9675c-5ad5-4703-a36b-54452031df37-168709.png" srcset="/img/loading.gif" lazyload alt="1723785613300-2ff9675c-5ad5-4703-a36b-54452031df37.png"></p>
+<p>还可以用zsteg</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723785259200-bb24c72a-07a5-442e-a0eb-1c32200a36b5-349482.png" srcset="/img/loading.gif" lazyload alt="1723785259200-bb24c72a-07a5-442e-a0eb-1c32200a36b5.png"></p>
+<p>拿到key解开zip</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1724933543672-1cfcab0f-d724-40cf-8b78-7ab89c23824b-119925.png" srcset="/img/loading.gif" lazyload alt="1724933543672-1cfcab0f-d724-40cf-8b78-7ab89c23824b.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1724933569251-ccb5569a-b138-40d0-bf18-de90bc2ac238-427159.png" srcset="/img/loading.gif" lazyload alt="1724933569251-ccb5569a-b138-40d0-bf18-de90bc2ac238.png"></p>
+<p>真正的flag在txt下面（wc）</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1724934034599-cb7c55f3-9300-418a-a0c4-2441c812090c-638721.png" srcset="/img/loading.gif" lazyload alt="1724934034599-cb7c55f3-9300-418a-a0c4-2441c812090c.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1724934074769-964e3c0f-1663-4090-96d1-4222eb1e0e14-716228.png" srcset="/img/loading.gif" lazyload alt="1724934074769-964e3c0f-1663-4090-96d1-4222eb1e0e14.png"></p>
+<h2 id="乌龟"><a href="#乌龟" class="headerlink" title="乌龟"></a>乌龟</h2><p><a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2024/wav/42988179/1735026094362-8aa9a0ff-944e-450a-88dd-961a1d5cba90.wav">sunset.wav</a></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1731827198692-23f6d732-4287-4803-afe9-87852056fa8a-437483.png" srcset="/img/loading.gif" lazyload alt="1731827198692-23f6d732-4287-4803-afe9-87852056fa8a.png"></p>
+<p>得到密码Be4uti7ulSun5e7</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1731828837056-3c43c23d-e2e8-4c46-aada-551d44cc86db-049317.png" srcset="/img/loading.gif" lazyload alt="1731828837056-3c43c23d-e2e8-4c46-aada-551d44cc86db.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1731828972818-0f723f40-2b2c-4b8d-9789-c954806dcfb4-847102.png" srcset="/img/loading.gif" lazyload alt="1731828972818-0f723f40-2b2c-4b8d-9789-c954806dcfb4.png"></p>
+<p>是logo语言，找个在线网站运行一下</p>
+<p><a target="_blank" rel="noopener" href="https://www.calormen.com/jslogo/">https://www.calormen.com/jslogo/</a></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1731829369239-2478770c-2d97-48c4-97c9-447c6d3d8cf9-447247.png" srcset="/img/loading.gif" lazyload alt="1731829369239-2478770c-2d97-48c4-97c9-447c6d3d8cf9.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1731829404007-f48dc251-dc33-47c1-bffd-a9050eb04a7c-303558.png" srcset="/img/loading.gif" lazyload alt="1731829404007-f48dc251-dc33-47c1-bffd-a9050eb04a7c.png"></p>
+<p>SYC{TU3T1E_P4INTING}</p>
+<p>（当时一直在想E为什么是反过来的，崩不住了，3第一时间想成反方向的E）</p>
+<p>也是跳出固定思维了</p>
+<h2 id="报告哈基米"><a href="#报告哈基米" class="headerlink" title="报告哈基米"></a>报告哈基米</h2><p>长宽一样</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1729219754928-9bb6e761-5e71-42d4-9b11-6a025866e500-053287.png" srcset="/img/loading.gif" lazyload alt="1729219754928-9bb6e761-5e71-42d4-9b11-6a025866e500.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1729219422264-9504ce79-e161-44bb-86d8-93bd819378df-825265.png" srcset="/img/loading.gif" lazyload alt="1729219422264-9504ce79-e161-44bb-86d8-93bd819378df.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1729219430567-6efe6a19-afe5-41b4-9dcb-61d279cfee24-799408.png" srcset="/img/loading.gif" lazyload alt="1729219430567-6efe6a19-afe5-41b4-9dcb-61d279cfee24.png"></p>
+<p>zsteg看隐写</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1729221190200-c1d82b02-8a0e-41ec-9205-08a8989f72a8-856884.png" srcset="/img/loading.gif" lazyload alt="1729221190200-c1d82b02-8a0e-41ec-9205-08a8989f72a8.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs plain">from PIL import Image<br><br><br>def arnold(infile: str, outfile: str = None, a: int = 1, b: int = 1, shuffle_times: int = 1,<br>           reverse: bool = False) -&gt; None:<br>    &quot;&quot;&quot;<br>    Arnold猫脸变换函数<br><br>    Parameters:<br>        infile - 输入图像路径<br>        outfile - 输出图像路径<br>        a - Anrold 变换参数<br>        b - Anrold 变换参数<br>        shuffle_times - 置乱次数<br>        reverse - 逆变换<br>    &quot;&quot;&quot;<br>    inimg = Image.open(infile)<br>    width, height = inimg.size<br>    indata = inimg.load()<br>    outimg = Image.new(inimg.mode, inimg.size)<br>    outdata = outimg.load()<br><br>    for _ in range(shuffle_times):<br>        for x in range(width):<br>            for y in range(height):<br>                if reverse:<br>                    nx = ((a * b + 1) * x - a * y) % width<br>                    ny = (y - b * x) % height<br>                else:<br>                    nx = (x + a * y) % width<br>                    ny = (b * x + (a * b + 1) * y) % height<br>                outdata[ny, nx] = indata[y, x]<br><br>    outimg.save(outfile if outfile else &quot;arnold_&quot; + infile, inimg.format)<br><br><br>#arnold(&quot;before.png&quot;, &quot;encode.png&quot;, 9, 39, 1)<br>arnold(&quot;1.png&quot;, &quot;decode.png&quot;, 7, 35, 1, True)<br></code></pre></td></tr></table></figure>
+
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1729221293192-81cec015-f4ea-4589-a6da-2a4a7942e4b3-768707.png" srcset="/img/loading.gif" lazyload alt="1729221293192-81cec015-f4ea-4589-a6da-2a4a7942e4b3.png"></p>
+<p>0xGame{hajimi_i5_</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1729223301088-fb35ddee-ac94-4fa3-b435-8a1872481dc0-523713.png" srcset="/img/loading.gif" lazyload alt="1729223301088-fb35ddee-ac94-4fa3-b435-8a1872481dc0.png"></p>
+<p>看到末尾有个zip的反转数据，找一下末尾，然后导出逆向一下</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1729223370400-117495c5-1652-4ed8-990a-83367bee1821-034993.png" srcset="/img/loading.gif" lazyload alt="1729223370400-117495c5-1652-4ed8-990a-83367bee1821.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 打开并读取原始文件内容<br>with open(r&#x27;D:\wangzhanxiazai\exppy\1.txt&#x27;, &#x27;rb&#x27;) as f:<br>    a = f.read()<br><br># 去掉原始数据中的换行符、空格等不可见字符<br>a = a.replace(b&#x27;\n&#x27;, b&#x27;&#x27;).replace(b&#x27;\r&#x27;, b&#x27;&#x27;).replace(b&#x27; &#x27;, b&#x27;&#x27;)<br><br># 将内容逆序<br>a = a[::-1]<br><br># 将逆序内容写入新的文件<br>with open(r&#x27;D:\wangzhanxiazai\exppy\new.txt&#x27;, &#x27;wb&#x27;) as new:<br>    new.write(a)<br><br># 读取逆序后的文件内容<br>with open(r&#x27;D:\wangzhanxiazai\exppy\new.txt&#x27;, &#x27;rb&#x27;) as f:<br>    b = f.read()<br><br># 将内容转换为可变的字节数组<br>blist = bytearray(b)<br><br># 按两个字节为一组进行交换<br>for i in range(0, len(blist) - 1, 2):<br>    blist[i], blist[i + 1] = blist[i + 1], blist[i]<br><br># 打开目标文件以写入最终内容<br>with open(r&#x27;D:\wangzhanxiazai\exppy\flag.txt&#x27;, &#x27;wb&#x27;) as flag:<br>    # 将所有处理后的字节内容连续写入文件<br>    flag.write(blist)<br><br># 打印最终处理的内容（以逆序显示）<br>print(blist)<br>def format_hex_data_from_file(input_file, output_file):<br>    # 读取文件内容<br>    with open(input_file, &#x27;r&#x27;) as file:<br>        hex_data = file.read().strip()<br><br>    # 将字符串分成每两个字符一组<br>    grouped_data = [hex_data[i:i + 2] for i in range(0, len(hex_data), 2)]<br><br>    # 以16组为一行，每组之间用空格隔开<br>    formatted_data = &#x27;\n&#x27;.join([&#x27; &#x27;.join(grouped_data[i:i + 16]) for i in range(0, len(grouped_data), 16)])<br><br>    # 将格式化后的数据写入输出文件<br>    with open(output_file, &#x27;w&#x27;) as file:<br>        file.write(formatted_data)<br><br><br># 输入和输出文件路径<br>input_file = r&#x27;D:\wangzhanxiazai\exppy\flag.txt&#x27;<br>output_file = r&#x27;D:\wangzhanxiazai\exppy\newflag.txt&#x27;<br><br># 格式化并写入输出文件<br>format_hex_data_from_file(input_file, output_file)<br></code></pre></td></tr></table></figure>
+
+
+
+<p>保存为zip文件</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1729223942190-8d248a45-8dd8-4fae-b42e-8367902518af-840562.png" srcset="/img/loading.gif" lazyload alt="1729223942190-8d248a45-8dd8-4fae-b42e-8367902518af.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1729224309800-424057da-2621-4b59-97f7-59320be86700-836015.png" srcset="/img/loading.gif" lazyload alt="1729224309800-424057da-2621-4b59-97f7-59320be86700.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1729224338523-6a546d58-6e07-4673-9084-213f0d9db700-134879.png" srcset="/img/loading.gif" lazyload alt="1729224338523-6a546d58-6e07-4673-9084-213f0d9db700.png"></p>
+<p>也有相关的在线网站可以解</p>
+<h3 id="tupperexp"><a href="#tupperexp" class="headerlink" title="tupperexp"></a>tupperexp</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs plain">import numpy as np<br>import matplotlib.pyplot as plt<br>from PIL import Image<br><br><br>def Tupper_self_referential_formula(k):<br>    aa = np.zeros((17, 106))<br><br>    def f(x, y):<br>        y += k<br>        a1 = 2 ** -(-17 * x - y % 17)<br>        a2 = (y // 17) // a1<br>        return 1 if a2 % 2 &gt; 0.5 else 0<br><br>    for y in range(17):<br>        for x in range(106):<br>            aa[y, x] = f(x, y)<br>    return aa[:, ::-1]<br><br><br>k = 9489414856877039590479997730148554425666925984049232945604842888420596111937489062065081199094002132087091572191187170308560128611026043144427876131133135794969867759108490917632153891963456295991713868378392769549376070709924497237322046334486274987407067993824142187115870972520417207510521083293280152434558803258138899515603807505064799735152359900010019631133734298562293682916239050320580346316026460860919542540955914826806059123630945216006606268974979135253968165822806241305783300650874506602000048154282039485531804337171305656252<br><br><br>aa = Tupper_self_referential_formula(k)<br>plt.figure(figsize=(15, 10))<br>plt.imshow(aa, origin=&#x27;lower&#x27;)<br>plt.savefig(&quot;tupper.png&quot;)<br>img = Image.open(&#x27;tupper.png&#x27;)<br># 翻转<br>dst1 = img.transpose(Image.FLIP_LEFT_RIGHT).rotate(180)<br>plt.imshow(dst1)<br>plt.show()<br></code></pre></td></tr></table></figure>
+
+<p>倒序一下数据再生成照片</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1729224750548-493fc2ee-d29b-4516-bbee-15a2a4ba4c90-427459.png" srcset="/img/loading.gif" lazyload alt="1729224750548-493fc2ee-d29b-4516-bbee-15a2a4ba4c90.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1729224835166-4b726f7d-cfc4-499f-965e-7b22849313b9-240086.png" srcset="/img/loading.gif" lazyload alt="1729224835166-4b726f7d-cfc4-499f-965e-7b22849313b9.png"></p>
+<p>倒过来看一下</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1729224875926-91580a7e-50bc-446b-b08e-7231c15ccfa6-810668.png" srcset="/img/loading.gif" lazyload alt="1729224875926-91580a7e-50bc-446b-b08e-7231c15ccfa6.png"></p>
+<p>Cute_r1ght?}</p>
+<h2 id="Matryoshka"><a href="#Matryoshka" class="headerlink" title="Matryoshka"></a><font style="color:rgb(33, 37, 41);">Matryoshka</font></h2><p>exp</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs plain">import zipfile<br>import os<br>import shutil<br>import uuid<br><br>def extract_zip(zip_path, extract_to):<br>    &quot;&quot;&quot;解压缩指定的 ZIP 文件到指定目录&quot;&quot;&quot;<br>    with zipfile.ZipFile(zip_path, &#x27;r&#x27;) as zip_ref:<br>        zip_ref.extractall(extract_to)<br>    print(f&quot;Extracted: &#123;zip_path&#125; to &#123;extract_to&#125;&quot;)<br><br>def find_and_extract_zips(base_folder, temp_folder, output_folder):<br>    &quot;&quot;&quot;递归查找并解压所有 ZIP 文件&quot;&quot;&quot;<br>    for root, dirs, files in os.walk(base_folder):<br>        for file in files:<br>            file_path = os.path.join(root, file)<br>            if file.endswith(&#x27;.zip&#x27;):<br>                unique_folder = os.path.join(temp_folder, str(uuid.uuid4()))  # 创建唯一的临时文件夹<br>                os.makedirs(unique_folder, exist_ok=True)<br>                extract_zip(file_path, unique_folder)<br>                os.remove(file_path)  # 解压后删除 ZIP 文件<br>                print(f&quot;Deleted: &#123;file_path&#125;&quot;)<br>                # 在新解压出的目录中继续查找 ZIP 文件<br>                find_and_extract_zips(unique_folder, temp_folder, output_folder)<br>            else:<br>                # 将最里面的文件移动到输出文件夹<br>                destination_path = os.path.join(output_folder, file)<br>                shutil.move(file_path, destination_path)<br>                print(f&quot;Moved: &#123;file_path&#125; to &#123;destination_path&#125;&quot;)<br><br>if __name__ == &quot;__main__&quot;:<br>    input_folder = r&quot;D:\网站下载\exppy&quot;  # 指定包含嵌套 ZIP 文件的根目录<br>    temp_folder = r&quot;D:\临时解压文件夹&quot;  # 用于解压的临时目录<br>    output_folder = r&quot;D:\解压后的文件&quot;  # 所有文件提取到的目标文件夹<br>    os.makedirs(temp_folder, exist_ok=True)  # 确保临时目录存在<br>    os.makedirs(output_folder, exist_ok=True)  # 确保输出目录存在<br><br>    find_and_extract_zips(input_folder, temp_folder, output_folder)<br>    print(&quot;所有文件提取完毕&quot;)<br></code></pre></td></tr></table></figure>
+
+<p>然后爆破密码</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1722405394869-3053321d-2392-4bf1-831a-52ca60e4ea85-867432.png" srcset="/img/loading.gif" lazyload alt="1722405394869-3053321d-2392-4bf1-831a-52ca60e4ea85.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1722405509167-7ac1f6a2-d88f-47b7-870f-52683d7378e6-684452.png" srcset="/img/loading.gif" lazyload alt="1722405509167-7ac1f6a2-d88f-47b7-870f-52683d7378e6.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1722405565617-1b8e32f8-5cb4-4c41-b73b-3f8503c0b50a-108155.png" srcset="/img/loading.gif" lazyload alt="1722405565617-1b8e32f8-5cb4-4c41-b73b-3f8503c0b50a.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1722414218554-683f8729-2586-4d4a-8c6c-16ba93b8b717-629688.png" srcset="/img/loading.gif" lazyload alt="1722414218554-683f8729-2586-4d4a-8c6c-16ba93b8b717.png"></p>
+<p>改成zip然后解压缩</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1722414251376-5ce7e95f-e361-4c91-970e-5a91af357fef-116017.png" srcset="/img/loading.gif" lazyload alt="1722414251376-5ce7e95f-e361-4c91-970e-5a91af357fef.png"></p>
+<p>然后就拿到照片不会了</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1722416548417-646cec90-78b0-4b2b-916a-cecf412d9df2-976597.png" srcset="/img/loading.gif" lazyload alt="1722416548417-646cec90-78b0-4b2b-916a-cecf412d9df2.png"></p>
+<p><font style="color:#DF2A3F;">来自周神的万能py（伟大无需多言）</font></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1722418852200-7b993f45-1759-460b-83c0-ba5527519a17-771227.png" srcset="/img/loading.gif" lazyload alt="1722418852200-7b993f45-1759-460b-83c0-ba5527519a17.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1722418885797-0bb5ed61-03ad-4f1b-82b0-bae001f8c022-503479.png" srcset="/img/loading.gif" lazyload alt="1722418885797-0bb5ed61-03ad-4f1b-82b0-bae001f8c022.png">\</p>
+<p>sb0olI</p>
+<p>WkpHU1VDVEZ7ODY1ODYzNkItNDJGMy0zNjQ4LTVCMjUtQUY2Q0RCRjI5NTI5fQ&#x3D;&#x3D;</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1722419785126-873c394b-a883-44e1-882b-acb89c8cf994-283303.png" srcset="/img/loading.gif" lazyload alt="1722419785126-873c394b-a883-44e1-882b-acb89c8cf994.png"></p>
+<h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="Ezphp"><a href="#Ezphp" class="headerlink" title="Ezphp"></a>Ezphp</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;?php <br>    highlight_file(__FILE__);<br>    error_log(0);<br>    include(&#x27;flag.php&#x27;);<br>    if(isset($_GET[&#x27;num&#x27;]))&#123;<br>        $num = $_GET[&#x27;num&#x27;];<br>        if(!preg_match(&#x27;/0/&#x27;, $num))&#123;<br>            if($num===&quot;4476&quot;)&#123;<br>                die(&quot;no no no!&quot;);<br>            &#125;<br>            if(intval($num,0)===4476)&#123;<br>                echo $flag;<br>            &#125;<br>        &#125;<br>    &#125;<br>?&gt;<br></code></pre></td></tr></table></figure>
+
+<p><font style="color:#000000;">因为 intval 在处理以 0x 开头的字符串时会将其解释为十六进制数，所以可以通过传递 0x117c（十六进制的 4476）来绕过 $num&#x3D;&#x3D;&#x3D;”4476” 的检查，同时使 intval($num, 0)&#x3D;&#x3D;&#x3D;4476 成立，从而输出 $flag。</font></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1717211988557-76dbdf02-6fe4-41b3-bf26-612eda5cc8a0-438149.png" srcset="/img/loading.gif" lazyload alt="1717211988557-76dbdf02-6fe4-41b3-bf26-612eda5cc8a0.png"></p>
+<p><font style="color:#000000;">可以通过构造 URL </font><a target="_blank" rel="noopener" href="http://10.21.16.70:8903/"><font style="color:#000000;">http://10.21.16.70:8903/</font></a><font style="color:#000000;">&#x2F;?num&#x3D;0x117c 来利用这个漏洞，绕过类型和内容的检查，并获取 $flag 变量的内容。</font></p>
+<p><font style="color:#000000;">但是本题目会筛选数字字符串的‘0’，而0x包含所以采用另外的方法</font></p>
+<p><font style="color:#000000;"></font></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1717219211635-446df797-cde5-4357-a0ec-281cffdc817c-678059.png" srcset="/img/loading.gif" lazyload alt="1717219211635-446df797-cde5-4357-a0ec-281cffdc817c.png"></p>
+<p><font style="color:rgb(77, 77, 77);">当某个数字被过滤时，</font><font style="color:#DF2A3F;">可以给它增加小数位来绕过</font><font style="color:rgb(77, 77, 77);">。</font></p>
+<h2 id="Web渗透测试与审计入门指北"><a href="#Web渗透测试与审计入门指北" class="headerlink" title="Web渗透测试与审计入门指北"></a>Web渗透测试与审计入门指北</h2><p>安装phpstudy</p>
+<p><a target="_blank" rel="noopener" href="https://old.xp.cn/download.html">Windows版phpstudy下载 - 小皮面板(phpstudy) (xp.cn)</a></p>
+<p>本地搭建网站</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Wk4y1u7As/?spm_id_from=333.337.search-card.all.click&vd_source=076e1e9de2e61963283715e603d3511c">一个视频教会你，如何在本地搭建php网站服务环境_哔哩哔哩_bilibili</a></p>
+<p>创建一个目录，然后将www网站html放入目录中创建本地网站，访问local即可</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1726649056395-466e38b3-a8b4-477d-8561-ae5fd5960ee7-176212.png" srcset="/img/loading.gif" lazyload alt="1726649056395-466e38b3-a8b4-477d-8561-ae5fd5960ee7.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1726649033149-d4233996-6fd9-4f88-b4ca-733b43ce3e02-633732.png" srcset="/img/loading.gif" lazyload alt="1726649033149-d4233996-6fd9-4f88-b4ca-733b43ce3e02.png"></p>
+<h2 id="弗拉格之地的入口"><a href="#弗拉格之地的入口" class="headerlink" title="弗拉格之地的入口"></a>弗拉格之地的入口</h2><p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1726648305354-71c4c6e6-08c4-4a73-9453-0c5904f8df6f-286234.png" srcset="/img/loading.gif" lazyload alt="1726648305354-71c4c6e6-08c4-4a73-9453-0c5904f8df6f.png"></p>
+<p>使用dirsearch扫描不出来</p>
+<p>访问robots.txt</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1726713885657-34c34ae4-bc26-4ea4-8d83-31fb26a56128-955571.png" srcset="/img/loading.gif" lazyload alt="1726713885657-34c34ae4-bc26-4ea4-8d83-31fb26a56128.png"></p>
+<p>访问他给的地址拿到flag</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1726713913723-be0ad96f-387a-4153-8da7-4ebaf58ab313-301402.png" srcset="/img/loading.gif" lazyload alt="1726713913723-be0ad96f-387a-4153-8da7-4ebaf58ab313.png"></p>
+<h2 id="ez-http"><a href="#ez-http" class="headerlink" title="ez_http"></a>ez_http</h2><p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727011298547-ea72743a-3a21-4235-8e36-5c1653a42c24-263120.png" srcset="/img/loading.gif" lazyload alt="1727011298547-ea72743a-3a21-4235-8e36-5c1653a42c24.png"></p>
+<h2 id="垫刀之路01-MoeCTF？启动！（env查看环境变量"><a href="#垫刀之路01-MoeCTF？启动！（env查看环境变量" class="headerlink" title="垫刀之路01: MoeCTF？启动！（env查看环境变量)"></a>垫刀之路01: MoeCTF？启动！（env查看环境变量)</h2><p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1726714080107-480c1886-1892-4979-8cd1-f99bb9aac24f-764988.png" srcset="/img/loading.gif" lazyload alt="1726714080107-480c1886-1892-4979-8cd1-f99bb9aac24f.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1726714153130-f47be931-3f19-44a0-9b04-fe42ec430fd1-596754.png" srcset="/img/loading.gif" lazyload alt="1726714153130-f47be931-3f19-44a0-9b04-fe42ec430fd1.png"></p>
+<p>查看根目录即可</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1726714165241-aeffbd31-3eed-4282-94fb-b0a4f036bcbe-766151.png" srcset="/img/loading.gif" lazyload alt="1726714165241-aeffbd31-3eed-4282-94fb-b0a4f036bcbe.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1726714203277-69ab34f4-de23-48d3-b431-8b82da9ab99b-361821.png" srcset="/img/loading.gif" lazyload alt="1726714203277-69ab34f4-de23-48d3-b431-8b82da9ab99b.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1727011454324-90ae74df-471b-45e6-8091-3e17f4b0e7cb-984921.png" srcset="/img/loading.gif" lazyload alt="1727011454324-90ae74df-471b-45e6-8091-3e17f4b0e7cb.png"></p>
+<h2 id="HTTP-是什么呀"><a href="#HTTP-是什么呀" class="headerlink" title="HTTP 是什么呀"></a>HTTP 是什么呀</h2><p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723788922732-8cdc0929-a1fe-4ac2-b28d-23805546930c-025602.png" srcset="/img/loading.gif" lazyload alt="1723788922732-8cdc0929-a1fe-4ac2-b28d-23805546930c.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723788908960-1c2fb903-1dbc-4e78-80b4-bf7b773a547a-943041.png" srcset="/img/loading.gif" lazyload alt="1723788908960-1c2fb903-1dbc-4e78-80b4-bf7b773a547a.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723789577517-e99d9957-f220-438a-8ca0-67e581712d40-890175.png" srcset="/img/loading.gif" lazyload alt="1723789577517-e99d9957-f220-438a-8ca0-67e581712d40.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723792218249-f2dc7631-e715-4806-8082-109fe46a23e2-910058.png" srcset="/img/loading.gif" lazyload alt="1723792218249-f2dc7631-e715-4806-8082-109fe46a23e2.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723792234932-c1f630e2-3618-4624-9e59-82e523a49066-213538.png" srcset="/img/loading.gif" lazyload alt="1723792234932-c1f630e2-3618-4624-9e59-82e523a49066.png"></p>
+<h2 id="md5绕过欸"><a href="#md5绕过欸" class="headerlink" title="md5绕过欸"></a>md5绕过欸</h2><p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723793117335-90f7fdf9-d544-40a0-9f16-6df23d6f99ef-929429.png" srcset="/img/loading.gif" lazyload alt="1723793117335-90f7fdf9-d544-40a0-9f16-6df23d6f99ef.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723793465236-77f3632f-e936-41b1-876d-a19eefd19df9-876660.png" srcset="/img/loading.gif" lazyload alt="1723793465236-77f3632f-e936-41b1-876d-a19eefd19df9.png"></p>
+<h2 id="upload"><a href="#upload" class="headerlink" title="upload"></a>upload</h2><p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723793619918-61fa78e3-90d2-4264-b5ec-08fd3264848f-813252.png" srcset="/img/loading.gif" lazyload alt="1723793619918-61fa78e3-90d2-4264-b5ec-08fd3264848f.png"></p>
+<h3 id=""><a href="#" class="headerlink" title=""></a><font style="color:#DF2A3F;background-color:#FBDE28;"><?php @eval($_POST['cmd']); ?></font></h3><p><font style="color:#000000;"><?php?>是php的固定规范写法</font></p>
+<p><font style="color:#000000;">@表示后面如果执行错误不会报错</font></p>
+<p><font style="color:#000000;">eval()函数表示</font><font style="color:#000000;background-color:#FBDE28;">括号里的语句字符串为执行代码</font></p>
+<p><font style="color:#000000;">&amp;_POST[‘cmd’]表示从页面中以post方式接受变量cmd</font></p>
+<p><font style="color:#000000;">cmd是蚁剑的连接密码</font></p>
+<p><font style="color:#000000;"></font></p>
+<h3 id="先写一句木马，传入木马文件"><a href="#先写一句木马，传入木马文件" class="headerlink" title="先写一句木马，传入木马文件"></a>先写一句木马，<font style="color:#000000;">传入木马文件</font></h3><p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723793726319-06f98ac9-7278-49b7-a3e1-a1951becb0a9-583287.png" srcset="/img/loading.gif" lazyload alt="1723793726319-06f98ac9-7278-49b7-a3e1-a1951becb0a9.png"></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1723793808260-a92db341-64ba-4d90-aa56-bfcbb256be6a-769450.png" srcset="/img/loading.gif" lazyload alt="1723793808260-a92db341-64ba-4d90-aa56-bfcbb256be6a.png"></p>
+<p>要上传照片，所以改成jpg</p>
+<p>然后用burp抓包截取，将改成php（像这样）</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1721808648617-db61a13a-5fd8-484a-b5e9-932d510f0534-009062.webp" srcset="/img/loading.gif" lazyload alt="1721808648617-db61a13a-5fd8-484a-b5e9-932d510f0534.png"></p>
+<p>传入后连接蚁剑</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1724042980823-00939c02-4eff-42fd-9929-36f5395bc6ba-452820.png" srcset="/img/loading.gif" lazyload alt="1724042980823-00939c02-4eff-42fd-9929-36f5395bc6ba.png"></p>
+<p><font style="color:#DF2A3F;">这里的意思是将传入的文件保存到uploads目录下面</font></p>
+<p><font style="color:#DF2A3F;">注意他这里要访问到传入php的文件地址</font></p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1724042938596-0786a2be-f5b2-402d-8ed3-619a9ab39bf0-414518.png" srcset="/img/loading.gif" lazyload alt="1724042938596-0786a2be-f5b2-402d-8ed3-619a9ab39bf0.png"></p>
+<p>测试连接成功后就可以查找flag了，就在根目录下面</p>
+<p><img src="/./img/49277317_zbkF5bj7FzumpJmW/1724043316235-079eff0b-6067-4002-807c-b972a96ba727-961810.png" srcset="/img/loading.gif" lazyload alt="1724043316235-079eff0b-6067-4002-807c-b972a96ba727.png"></p>
+<h1 id="心得体会"><a href="#心得体会" class="headerlink" title="心得体会"></a>心得体会</h1><p>misc也不是最近学的了，反正也就学了一点东西，东西也特别杂，稍微总结一下：</p>
+<p>基础：文件头格式，文件倒序</p>
+<p>编码：base(16 32 64 85 36 58 91 92 62 <font style="color:#DF2A3F;">2048</font>)，Cimbar,ook,</p>
+<p>加解密：雪加密， zip加密（真伪加密），爆破密钥（自定义密钥），明文攻击</p>
+<p>隐写：</p>
+<p>音频隐写：</p>
+<p>图片隐写：</p>
+<p>misc和web学的东西很杂，特别是misc，而且更新变化的很快，感觉misc打的更多是取证这些，在正规比赛上，一般简单题都只出现在线上那些平台举办的新生赛上，比如moe，base，syc，0xgame这些都是新生赛的难度，misc考的不是很难，之前几年确实还是misc和pwn比较重要，按今年的趋势，可能越发均衡了，密码是保底的关键</p>
+<p>我主要还是re手（不敢说自己是re手）misc和web主要还是平时无聊的时候打一下，因为re学的有时候挺累的，不过还是积累了很多知识，虽然这个方向学了一年了，但在大型的正规比赛上还是拿不了分数，只能说还不够，比如省赛国赛，哈工大的比赛，有时候虽然有思路，但还是没有勇气做下去</p>
+<p>如果要re的题目话，可以拿出来好多，只要misc和web的话比较有质量的题目可能就没那么多了，希望老师体谅一下，</p>
+<blockquote>
+<p>更新: 2025-01-02 11:02:51<br>原文: <a target="_blank" rel="noopener" href="https://www.yuque.com/chaye-apqbl/vsc85q/eptego26gzgchtga">https://www.yuque.com/chaye-apqbl/vsc85q/eptego26gzgchtga</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2026/01/19/WP/2024/信息安全竞赛基础（15）/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 19, 2026</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/01/19/WP/2024/%E6%9A%91%E5%81%87%E5%86%85%E9%83%A8%E8%B5%9B/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/19/WP/2024/Polis_wp%E5%A4%A7%E4%B8%80%E4%B8%8B%E9%9B%86%E8%AE%AD/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,708 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="隐写概念一、前言：最近 5 年恶意软件中利用的隐写技术已有所增多。 攻击者可以利用这些技术成功将恶意软件渗透过防火墙、 Web应用过滤软件、 入侵防御系统 以及其他没有被侦察的网络层的防御系统，基本方法：将数据隐藏到载体文件中  隐写后原始信息被掩盖或者不可见。 在数字隐写术中， 人们通常会使用某种程序将消息或文件嵌入到一个载体文件中， 然后把这个载体文件直接传给接收者或者发布到网站上供接收者下载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chaye的博客">
+<meta property="og:url" content="http://example.com/2026/01/19/MISC/%E9%9A%90%E5%86%99/%E9%9A%90%E5%86%99%E6%A6%82%E5%BF%B5/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="隐写概念一、前言：最近 5 年恶意软件中利用的隐写技术已有所增多。 攻击者可以利用这些技术成功将恶意软件渗透过防火墙、 Web应用过滤软件、 入侵防御系统 以及其他没有被侦察的网络层的防御系统，基本方法：将数据隐藏到载体文件中  隐写后原始信息被掩盖或者不可见。 在数字隐写术中， 人们通常会使用某种程序将消息或文件嵌入到一个载体文件中， 然后把这个载体文件直接传给接收者或者发布到网站上供接收者下载">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/49277317_v2oRw4TQWt61T06K/1715250364779-1a093d50-8bab-4a52-beac-7541012ffaab-288094.png">
+<meta property="og:image" content="http://example.com/img/49277317_v2oRw4TQWt61T06K/1715250375889-895b0828-2f43-40fb-89f2-2811434f8f48-308291.png">
+<meta property="og:image" content="http://example.com/img/49277317_v2oRw4TQWt61T06K/1715250405068-9eebc45c-ef86-40ae-aa96-897b0891c77d-067740.png">
+<meta property="og:image" content="http://example.com/img/49277317_v2oRw4TQWt61T06K/1715250574869-c254801d-37d1-48e4-b585-a3d55f1c3f89-948587.png">
+<meta property="og:image" content="http://example.com/img/49277317_v2oRw4TQWt61T06K/1715250610117-733372bd-eb74-4da9-9da3-4d32da85da75-202970.png">
+<meta property="og:image" content="http://example.com/img/49277317_v2oRw4TQWt61T06K/1715250636633-f680ee56-5dc9-41b1-812d-649f51343afe-410070.png">
+<meta property="og:image" content="http://example.com/img/49277317_v2oRw4TQWt61T06K/1715250649542-5a657c8f-d4ac-404a-9284-75e2e413a086-104433.png">
+<meta property="og:image" content="http://example.com/img/49277317_v2oRw4TQWt61T06K/1715250674079-a6e42a24-ea26-433b-a17b-7e48aabee0ec-527568.png">
+<meta property="og:image" content="http://example.com/img/49277317_v2oRw4TQWt61T06K/1715250688044-a8c60794-826e-4fe6-9c3c-fa6b9da22bd7-455693.png">
+<meta property="article:published_time" content="2026-01-19T05:29:06.337Z">
+<meta property="article:modified_time" content="2025-11-04T06:12:56.903Z">
+<meta property="article:author" content="chaye">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/49277317_v2oRw4TQWt61T06K/1715250364779-1a093d50-8bab-4a52-beac-7541012ffaab-288094.png">
+  
+  
+  
+  <title>chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-19 13:29" pubdate>
+          January 19, 2026 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.7k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          32 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="隐写概念"><a href="#隐写概念" class="headerlink" title="隐写概念"></a>隐写概念</h1><h1 id="一、前言："><a href="#一、前言：" class="headerlink" title="一、前言："></a>一、前言：</h1><p>最近 5 年恶意软件中利用的隐写技术已有所增多。 攻击者可以利用这些技术成功将恶意软件渗透过防火墙、 Web应用过滤软件、 入侵防御系统 以及其他没有被侦察的网络层的防御系统，基本方法：将数据隐藏到载体文件中</p>
+<p> 隐写后原始信息被掩盖或者不可见。 在数字隐写术中， 人们通常会使用某种程序将消息或文件嵌入到一个载体文件中， 然后把这个载体文件直接传给接收者或者发布到网站上供接收者下载。 接收者获取载体文件后， 再用同样的程序把隐藏的消息或文件恢复。 有些隐藏程序会使用密码来保护隐藏消息， 还有些程序除密码外， 还会通过加密来保护隐藏数据。</p>
+<h1 id="二、数字信息的隐藏，-主要分两大类"><a href="#二、数字信息的隐藏，-主要分两大类" class="headerlink" title="二、数字信息的隐藏， 主要分两大类"></a>二、数字信息的隐藏， 主要分两大类</h1><h2 id="2-1、插入："><a href="#2-1、插入：" class="headerlink" title="2.1、插入："></a>2.1、插入：</h2><p>通过插入方法隐藏消息会插入一些额外内容， 除了被隐藏的消息外， 还有文件制作工具的标识， 这入方法隐藏消息会插入一些额外内容， 除了被隐藏的消息外， 还有文件制作工具的标识， 这个标识记录了隐写程序处理隐藏栽荷的地点。 这种方法通常会利用文件格式中的空白部分。</p>
+<h2 id="2-2、替换："><a href="#2-2、替换：" class="headerlink" title="2.2、替换："></a>2.2、替换：</h2><p>通过替换方法隐藏消息会改变消息中的宇节或者交换宇节顺序。 它不会在栽体文 件中增加任何新的内容， 而是通过修改宇节或者调整宇节位置让人们看不到或者听不到文件内容。 例如，LSB (Least Significant Bit, 最低有效位</p>
+<h1 id="三、插入方法"><a href="#三、插入方法" class="headerlink" title="三、插入方法"></a>三、插入方法</h1><h2 id="3-1、插入和隐写的本质区别："><a href="#3-1、插入和隐写的本质区别：" class="headerlink" title="3.1、插入和隐写的本质区别："></a>3.1、插入和隐写的本质区别：</h2><p>在隐写术中， 很重要的一点就是从原始数据或者原始承载文件的角度考虑问题。 使用插入方法， 不会改变原始数据， 而是为文件增加了额外数据。 使用修改方法则恰恰相反： 未增加额外数据， 却改变了原始数据。 对于整个文件来说， 这两个方法都修改了文件；但对千数据而言， 插入方法增加了数据， 而修改方法改变了原始数据。 通过后面内容的学习， 你会很快发现， 不少隐写程序同时应用了这两种方法。</p>
+<h2 id="3-2、追加插入法"><a href="#3-2、追加插入法" class="headerlink" title="3.2、追加插入法"></a>3.2、追加插入法</h2><p> （软件有：JPEGX  <a target="_blank" rel="noopener" href="http://www.nerdlogic.com)/">www.nerdlogic.com）</a></p>
+<p>在文件末尾附加数据应该是数字隐写术里最常用、最简单的方法。</p>
+<p>可以在很多类型的文件后追加数据，却不会导致文件破坏。WinHex是一个16进制的编辑软件，可以通过它查看文件的原始格式，它可以显示文件的所有数据，包括换行符和可执行代码。而且所有的数据都是以两位十六进制格式显示的，中间部分显示的是以十六进制表示的文件数据，左列显示的是计数器和偏移址，用于跟踪不同内容在文件中的位置。右列是以ASCII码格式表示的文件数据</p>
+<p>（由于ASCII码的局限性，并不是所有的十六进制数据都有与之对应的ASCII码）</p>
+<p><img src="/./img/49277317_v2oRw4TQWt61T06K/1715250364779-1a093d50-8bab-4a52-beac-7541012ffaab-288094.png" srcset="/img/loading.gif" lazyload alt="1715250364779-1a093d50-8bab-4a52-beac-7541012ffaab.png"></p>
+<p>正常的JPEG文件末尾有一个标为”OxFF OxD9” 的文件结束符(End oflmage, EOI)。</p>
+<p>使用编辑软件打开并写入语句。用WinHex打开这个修改过的文件就可以看到附加在文件末尾的数据，附加的数据是紧跟在文件结束符OxFFOxD9后面的。</p>
+<p>当浏览文件时，EOI之上的数据隐藏通常会被忽略，但是它通常会表明存在带有隐藏数据的修改过的文件。</p>
+<p><img src="/./img/49277317_v2oRw4TQWt61T06K/1715250375889-895b0828-2f43-40fb-89f2-2811434f8f48-308291.png" srcset="/img/loading.gif" lazyload alt="1715250375889-895b0828-2f43-40fb-89f2-2811434f8f48.png"></p>
+<h2 id="3-3、前置插入法"><a href="#3-3、前置插入法" class="headerlink" title="3.3、前置插入法"></a>3.3、前置插入法</h2><p> 任何可以插入批注内容的文件都可能被插入数据，毫不影响视觉效果。</p>
+<p>例如，HTML文件和JPEG文件都很容易用来嵌入数据。</p>
+<p>以JPEG文件为例，我们最多可以在其中 插入65533个字节的批注信息，而这些内容在浏览图像的时候都是看不到的。JPEG文件被文件标识符分成不同的区域，每个标识符都以OxFF开头。这些标识符标识着文件的布局、格式和其他详细信息，具体如表3.1所示。</p>
+<p><img src="/./img/49277317_v2oRw4TQWt61T06K/1715250405068-9eebc45c-ef86-40ae-aa96-897b0891c77d-067740.png" srcset="/img/loading.gif" lazyload alt="1715250405068-9eebc45c-ef86-40ae-aa96-897b0891c77d.png"></p>
+<h2 id="3-4、JPHS使用方法："><a href="#3-4、JPHS使用方法：" class="headerlink" title="3.4、JPHS使用方法："></a>3.4、JPHS使用方法：</h2><h3 id="3-4-1、-原理："><a href="#3-4-1、-原理：" class="headerlink" title="3.4.1、 原理："></a>3.4.1、 原理：</h3><p>在JPEG文件首部，有很多数据区域可以用来隐藏信息。使用JPHideandSeek修改后的JPEG文件与原始文件的对比图。请注意JPEG应用程序标识符OxFF  OxEO和帧起始标识符OxFFOxCO这两个标识符之间插人和修改的数据。</p>
+<p>JPHideandSeek:(windows界面化下载）</p>
+<p>Download for Free JPHS for Windows 0.5 (scanwith.com)</p>
+<p><a target="_blank" rel="noopener" href="https://www.scanwith.com/JPHS_for_Windows_download.htm#google_vignette">https://www.scanwith.com/JPHS_for_Windows_download.htm#google_vignette</a></p>
+<p>你可以毫不费力地在 JPEG 文件的批注区域 隐藏大量的数据， 尽管在公共区域 最多可以插入65 533个字节的批注信息， 但必须至少插入两个字节。 批注区是数据隐藏的绝好位置，因为在 APPO 标识符的作用下， 解码器（图像浏览器）无法识别的原数据都被忽略掉了， 浏览图像时自然就看不到了。</p>
+<h3 id="3-4-2、使用方法："><a href="#3-4-2、使用方法：" class="headerlink" title="3.4.2、使用方法："></a>3.4.2、使用方法：</h3><p>jphide seek（JPHS） 使用方法,检测提示，附下载地址</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_53079406/article/details/123608345?spm=1001.2014.3001.5501">https://blog.csdn.net/qq_53079406&#x2F;article&#x2F;details&#x2F;123608345?spm&#x3D;1001.2014.3001.5501</a></p>
+<p>（在上面我这个博客里有详细的使用讲解）</p>
+<p><img src="/./img/49277317_v2oRw4TQWt61T06K/1715250574869-c254801d-37d1-48e4-b585-a3d55f1c3f89-948587.png" srcset="/img/loading.gif" lazyload alt="1715250574869-c254801d-37d1-48e4-b585-a3d55f1c3f89.png"></p>
+<p><img src="/./img/49277317_v2oRw4TQWt61T06K/1715250610117-733372bd-eb74-4da9-9da3-4d32da85da75-202970.png" srcset="/img/loading.gif" lazyload alt="1715250610117-733372bd-eb74-4da9-9da3-4d32da85da75.png"></p>
+<h1 id="四、-修改方法"><a href="#四、-修改方法" class="headerlink" title="四、 修改方法"></a>四、 修改方法</h1><h2 id="4-1、原理："><a href="#4-1、原理：" class="headerlink" title="4.1、原理："></a>4.1、原理：</h2><p>最常用的隐写修改方法就是修改文件中 个或者多个字节的最低有效位 基本上就是把0改成1或者把1改成0。 这样修改后生成的图像就有了渲染效果， 把这些比特位重组还原后才可以看到原始的隐藏消息， 而人们仅靠视觉或听觉是不可能发现 这些改动的。</p>
+<h2 id="4-2、LSB修改方法"><a href="#4-2、LSB修改方法" class="headerlink" title="4.2、LSB修改方法"></a>4.2、LSB修改方法</h2><p>最低有效位(LSB)修改法利用的是24位调色板。 调色板中有红、 绿、 蓝三原色， 这一点和电视机分量视频的视频显示原理类似， 分量视频就是使用红、 绿、 蓝三根线把视频信号传输到电视机上的。</p>
+<p>在一个图像的24位调色板中， 每8位表示一个原色， 也就是说红、 绿、 蓝分别有256个色调</p>
+<p>由于人眼只能识别红、 绿、 蓝3种颜色，因此需要通过混合这 3种颜色来指定24位图像的每个像素的颜色。查看图像内容的时候，你会看到3个十六进制数字(3元组），它们分别代表红色、绿色和蓝色。</p>
+<p><img src="/./img/49277317_v2oRw4TQWt61T06K/1715250636633-f680ee56-5dc9-41b1-812d-649f51343afe-410070.png" srcset="/img/loading.gif" lazyload alt="1715250636633-f680ee56-5dc9-41b1-812d-649f51343afe.png"></p>
+<p>在LSB修改法中，8位颜色值的最后一位（最低有效位）由1改为0,由0改为1,或者保待不变</p>
+<p>每个字节的最低有效位的组合表示插入的隐藏内容。如果是文本信息的话，这些最低有效位重新组合后，每8位就代表一个ASCII字符</p>
+<p><img src="/./img/49277317_v2oRw4TQWt61T06K/1715250649542-5a657c8f-d4ac-404a-9284-75e2e413a086-104433.png" srcset="/img/loading.gif" lazyload alt="1715250649542-5a657c8f-d4ac-404a-9284-75e2e413a086.png"></p>
+<p> 这种隐藏方法通过普通的手段几乎是检测不到的。 通常只有通过统计分析方法才能将其以独立的形式被检测到。 LSB修改后的图像产生的颜色， 肉眼基本上看不出两者的差别。</p>
+<p>通过文件中最低有效位传递消息提供了 一个存储信息的隐藏方法， 而且还不会改变文件</p>
+<p>大小。 对比原始文件和修改后的文件可以发现文件被修改过， 但前提是你手上有原始文件。</p>
+<p>这种修改方法适用于24位的图像文件， 例如JPEG文件和24位的BMP文件。 这类文“</p>
+<p>件格式(ROB图像） 也叫做 “真彩色” 文件格式。LSB修改法同样也适用于8位的BMP图</p>
+<p>像文件，和使用ImageHide时的情况样。利用这种隐写修改法的常用程序有：</p>
+<p>(自我经验：百分之90以上好评的，差不多都可以下)</p>
+<p>S-Tools（找了一圈只有csdn里面可以下载）</p>
+<p>ImageHide（这个在网上可以随便搜到）</p>
+<p>Steganos（也可以搜到）</p>
+<h1 id="五、在PDF文件中隐藏信息"><a href="#五、在PDF文件中隐藏信息" class="headerlink" title="五、在PDF文件中隐藏信息"></a>五、在PDF文件中隐藏信息</h1><h2 id="5-1、介绍："><a href="#5-1、介绍：" class="headerlink" title="5.1、介绍："></a>5.1、介绍：</h2><p>wbStego4open  (<a target="_blank" rel="noopener" href="http://wbstego.wbailer.com/">http://wbstego.wbailer.com)</a>) 是一个隐写开源工具， 它支持 Windows 和Linux 平台。 你可以用 wbStego4open 可以把文件隐藏到 BMP、 TXT、 HTM 和 PDF 文件中， 且不会被看出破绽。 还可以用它来创建版权标识文件并嵌入到文件中将其隐藏。 能够允许用户把数据隐藏到 PDF 文件中的隐写程序非常少， 我们打开 wbStego4open 这个隐写程序， 研究下 PDF 文件</p>
+<p><img src="/./img/49277317_v2oRw4TQWt61T06K/1715250674079-a6e42a24-ea26-433b-a17b-7e48aabee0ec-527568.png" srcset="/img/loading.gif" lazyload alt="1715250674079-a6e42a24-ea26-433b-a17b-7e48aabee0ec.png"></p>
+<h2 id="5-2、原理："><a href="#5-2、原理：" class="headerlink" title="5.2、原理："></a>5.2、原理：</h2><p>这个程序利用 PDF 文件头添加额外信息， 这个区域的信息会被 Adobe Acrobat Reader 阅读器忽略。 此外， wbStego 在插入数据时， 充分利用了插入法和 LSB 修改法两种技术。</p>
+<p>首先 ， wbStego4open 会把插入数据中的每一个 ASCII 码转换为二进制形式， 然后把每一个二进制数字再替换为十六进制的20或者09,20代表0, 09代表1。 例如， 在 wbStego4open的版权管理器 (Copyright Manager) 中， 输入一个包含 “Oblivion” 的地址 ， wbStego4open 就会将其由 ASCII 码转换成相应的二进制码， 然后再用Ox20和Ox09替换每个二进制数</p>
+<p><img src="/./img/49277317_v2oRw4TQWt61T06K/1715250688044-a8c60794-826e-4fe6-9c3c-fa6b9da22bd7-455693.png" srcset="/img/loading.gif" lazyload alt="1715250688044-a8c60794-826e-4fe6-9c3c-fa6b9da22bd7.png"></p>
+<p>最后， 这些转换后的十六进制数据被嵌入到PDF 文件中。 查看用 wbStego4open 修改后的文</p>
+<p>件内容， 会发现文件中已混入了很多由20和09组成的8位字节（如图3.13所示）。</p>
+<p>把这些 8 位字节取出来后， 再提取其最低有效位， 组合后即可获得其所代表的 ASCII 码的二进制形式， 然后再把二进制码转换成 ASCII 码就能得到原始消息了。</p>
+<h2 id="5-3、wbStego4open"><a href="#5-3、wbStego4open" class="headerlink" title="5.3、wbStego4open"></a>5.3、wbStego4open</h2><p>wbStego4open 确实支持很多其他隐写程序不支持的文件类型 ， 比如 PDF 文件。 实际上， 前面的例子中的 Adobe PDF 文件是有密码保护的。 注意 ， 虽然该文件是有密码保护的， 我们还是成功地修改了这个文件。 这算不上是一种脆弱性 ， 但确实说明 PDF 的安全保护能力有待提高 ，比如 ， 为 PDF 文件进行数字签名， 就可以让接收者知道文件已经被修改过了。 密码保护主要用来防止打印或者复制AdobePDF文件的内容， 而数字证书则可以防止文件内容被篡改。 拥有数字证书的PDF文件内容其实是可以修改的， 但会提示接收者文件已经被修改过了， 不要相信其中的内容</p>
+<p>wbStego4open使用方法：</p>
+<p>【PDF隐写】wbStego4open，且还包括BMP、 TXT、 HTM文件隐写<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_53079406/article/details/123783006?spm=1001.2014.3001.5501">https://blog.csdn.net/qq_53079406&#x2F;article&#x2F;details&#x2F;123783006?spm&#x3D;1001.2014.3001.5501</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_53079406/article/details/123783006?spm=1001.2014.3001.5501">https://blog.csdn.net/qq_53079406&#x2F;article&#x2F;details&#x2F;123783006?spm&#x3D;1001.2014.3001.5501</a></p>
+<h1 id="六、在可执行文件中隐藏信息"><a href="#六、在可执行文件中隐藏信息" class="headerlink" title="六、在可执行文件中隐藏信息"></a>六、在可执行文件中隐藏信息</h1><p>Hydan</p>
+<h2 id="6-1、介绍："><a href="#6-1、介绍：" class="headerlink" title="6.1、介绍："></a>6.1、介绍：</h2><p>使用Hydan这个工具可以在可执行文件中隐藏数据</p>
+<p>Hydan 有时候会引入运行时错误， 因此它并不是一个完全允许误操作的傻瓜软件， 但它的数据隐藏能力确实不错。 Hydan 隐藏数据的效率并没有那些用来在图像和音频文件中隐藏数据的技术高。 由千二进制文件中插入隐藏内容的机会和空间很小， 因此二进制文件中可用于隐藏的字节比率比图像文件低很多。 然而， 这是可以逃脱一般和受过专业训练的检查人员法眼隐藏数据的唯一方法。  很多隐写分析软件（都没有检测出用 Hydan 在可执行文件中隐藏的数据。</p>
+<h2 id="6-2、原理："><a href="#6-2、原理：" class="headerlink" title="6.2、原理："></a>6.2、原理：</h2><p> Hydan利用二进制代码的反向工程技术来判断在可执行文件中隐藏数据段的最佳位置。 这个过程中还使用了一个x86反编译库： Mammon’s Libdisasm。 二进制文件（可执行文件）中可以用来隐藏数据的空间很小 一个JPEG图像文件中每17个字节中可以隐藏一个字节数据，而二进制文件（可执行文件）中每150字节的代码才可以隐藏一个字节。 可见， 在确保修改后的宿主二进制文件仍然可以完好运行的前提下去修改它是一个非常小心谨慎的过程。</p>
+<p>Hydan可以在很多Linux和FreeBSD的发行版中运行。 像 “tar” 可执行程序使用Hydan在文件中隐藏信息。</p>
+<h2 id="6-3、利用："><a href="#6-3、利用：" class="headerlink" title="6.3、利用："></a>6.3、利用：</h2><p>用 hydan 修改 tar 并生成了一个新的可执行文件 tar. steg, 并通过执行打包命令测试了它的数据隐藏能力， 发现新文件的运行结果和原来的 tar 是一样的。 Hydan 的这个工具不仅展示了它在可执行文件中隐藏数据的有效性， 还展示了它的简单易用性。 此外， Hydan 还能用来附加数字签名、 嵌入水印和修改恶意软件以逃避防病毒软件的检测。</p>
+<h2 id="6-4、官网："><a href="#6-4、官网：" class="headerlink" title="6.4、官网："></a>6.4、官网：</h2><p><a target="_blank" rel="noopener" href="http://www.crazyboy.com/hydan8">http://www.crazyboy.com/hydan8</a>（现在已经没了，打不开了）</p>
+<p>最后更新04年，支持32操作系统</p>
+<h1 id="七、在HTML文件中隐藏信息"><a href="#七、在HTML文件中隐藏信息" class="headerlink" title="七、在HTML文件中隐藏信息"></a>七、在HTML文件中隐藏信息</h1><p>Snow</p>
+<h2 id="7-1、介绍："><a href="#7-1、介绍：" class="headerlink" title="7.1、介绍："></a>7.1、介绍：</h2><p>Snow是 Mattehew Kwan 开发的软件， 它可以在 ASCII 文本的末行隐藏数据， 并且可以通过插入制表位和空格使嵌入的数据在浏览器中不可见。 Snow 支持ICE (Information Concealment Engine) 加密。 最初是为 DOS 开发的， 现在已经成为开源的。</p>
+<p>Snow 的man 手册中讲到 “通过在文本文件末尾追加由制表位隔开的空格可以实现数据隐藏， 最多可以添加 7 个空格， 这使得每 8 列可以嵌入 3 位” 。</p>
+<h2 id="7-2、使用"><a href="#7-2、使用" class="headerlink" title="7.2、使用"></a>7.2、使用</h2><h2 id="安装、使用方法："><a href="#安装、使用方法：" class="headerlink" title="安装、使用方法："></a>安装、使用方法：</h2><p>【HTML中隐写】Snow免安装、网站版，基本使用方法</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_53079406/article/details/123810053?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522165167325616782395311979%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=165167325616782395311979&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-123810053.nonecase&utm_term=snow&spm=1018.2226.3001.4450">https://blog.csdn.net/qq_53079406&#x2F;article&#x2F;details&#x2F;123810053?ops_request_misc&#x3D;%257B%2522request%255Fid%2522%253A%2522165167325616782395311979%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;request_id&#x3D;165167325616782395311979&amp;biz_id&#x3D;0&amp;utm_medium&#x3D;distribute.pc_search_result.none-task-blog-2<del>blog</del>first_rank_ecpm_v1~rank_v31_ecpm-1-123810053.nonecase&amp;utm_term&#x3D;snow&amp;spm&#x3D;1018.2226.3001.4450</a></p>
+<h2 id="从命令行中运行该工具："><a href="#从命令行中运行该工具：" class="headerlink" title="从命令行中运行该工具："></a>从命令行中运行该工具：</h2><p>C:&gt;snow.exe -C -m “aaaaaaaaaaaaaaaa” -p “zzzzzzzz” SpyHunter.htm </p>
+<p>SpyHunterwithsnow.htm </p>
+<p>Compressed by 50.00% </p>
+<p>Message.used approximately 4.18% of available space. </p>
+<p>对比原始HTML文件和嵌入数据的文件，视觉上没有任何差别</p>
+<p>实际上，用HTML浏览器查看文件，也看不出明显的被嵌入数据的痕迹。只有通过文件对比才能发现数据嵌入痕迹，整个文件中会有很多制表位和空格</p>
+<blockquote>
+<p>更新: 2024-05-09 18:31:38<br>原文: <a target="_blank" rel="noopener" href="https://www.yuque.com/chaye-apqbl/vsc85q/sbhosgcrbwpa0ii4">https://www.yuque.com/chaye-apqbl/vsc85q/sbhosgcrbwpa0ii4</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2026/01/19/MISC/隐写/隐写概念/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 19, 2026</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/01/19/MISC/%E9%9A%90%E5%86%99/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/exiftool/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/19/MISC/%E9%9A%90%E5%86%99/%E6%96%87%E6%A1%A3%E9%9A%90%E5%86%99/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,651 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="python字节码逆向从一道CTF题学习python字节码到源码逆向 - nLesxw - 博客园 前文先了解python的字节码结构，如下： 源码行号 | 指令在函数中的偏移 | 指令符号 | 指令参数 | 实际参数值 第一个为源码行号，从上述题目中我们可以了解到，本题只有5行源码，但是只给了从第3行开始的字节码 第二个指令在函数中的偏移和第四个指令参数对于做题来说不是太过重要，我们在做题的时候">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chaye的博客">
+<meta property="og:url" content="http://example.com/2026/01/19/RE/%E5%90%84%E7%A7%8D%E8%AF%AD%E8%A8%80/python%E5%8F%8D%E7%BC%96%E8%AF%91/python%E5%AD%97%E8%8A%82%E7%A0%81%E9%80%86%E5%90%91/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="python字节码逆向从一道CTF题学习python字节码到源码逆向 - nLesxw - 博客园 前文先了解python的字节码结构，如下： 源码行号 | 指令在函数中的偏移 | 指令符号 | 指令参数 | 实际参数值 第一个为源码行号，从上述题目中我们可以了解到，本题只有5行源码，但是只给了从第3行开始的字节码 第二个指令在函数中的偏移和第四个指令参数对于做题来说不是太过重要，我们在做题的时候">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-01-19T05:29:07.453Z">
+<meta property="article:modified_time" content="2025-11-04T06:19:36.348Z">
+<meta property="article:author" content="chaye">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-19 13:29" pubdate>
+          January 19, 2026 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          895 words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          8 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="python字节码逆向"><a href="#python字节码逆向" class="headerlink" title="python字节码逆向"></a>python字节码逆向</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/nLesxw/p/python_bytecode.html">从一道CTF题学习python字节码到源码逆向 - nLesxw - 博客园</a></p>
+<h1 id="前文"><a href="#前文" class="headerlink" title="前文"></a>前文</h1><p><font style="color:rgb(35, 38, 59);">先了解python的字节码结构，如下：</font></p>
+<p><font style="color:rgb(0, 0, 0);">源码行号 | 指令在函数中的偏移 | 指令符号 | 指令参数 | 实际参数值</font></p>
+<p><font style="color:rgb(35, 38, 59);">第一个为源码行号，从上述题目中我们可以了解到，本题只有5行源码，但是只给了从第3行开始的字节码</font></p>
+<p><font style="color:rgb(35, 38, 59);">第二个指令在函数中的偏移和第四个指令参数对于做题来说不是太过重要，我们在做题的时候主要还是看指令符号和实际参数值</font></p>
+<p><font style="color:rgb(35, 38, 59);">在第3行的字节码指令符号中，有LOAD_CONST ，BUILD_LIST ，STORE_FAST 三种类型</font></p>
+<p><font style="color:rgb(35, 38, 59);">LOAD_CONST 加载常量，通常为整数值</font></p>
+<p><font style="color:rgb(35, 38, 59);">BUILD_LIST 创建一个列表</font></p>
+<p><font style="color:rgb(35, 38, 59);">STORE_FAST 一般用于保存值到局部变量</font></p>
+<p><font style="color:rgb(35, 38, 59);">SETUP_LOOP，用于开始循环，括号里的189表示循环退出点（字节码结构中的第二个指令在函数中偏移）</font></p>
+<p><font style="color:rgb(35, 38, 59);">LOAD_GLOBAL，用来加载全局变量，包括指定函数名，类名，模块名等全局符号</font></p>
+<p><font style="color:rgb(35, 38, 59);">CALL_FUNCTION，用来表示前面加载全局变量的参数个数</font></p>
+<p><font style="color:rgb(35, 38, 59);">GET_ITER，FOR_ITER ，获取参数，开始迭代。这两个不需要过多理解，属于for-in结构特有的，它们通常同时出现。</font></p>
+<p><font style="color:rgb(35, 38, 59);">BINARY_SUBSCR ，读取迭代器中某个下标的值</font></p>
+<p><font style="color:rgb(35, 38, 59);">BINARY_RSHIFT，进行右移运算</font></p>
+<p><font style="color:rgb(35, 38, 59);">BINARY_LSHIFT ，左移运算</font></p>
+<p><font style="color:rgb(35, 38, 59);">BINARY_OR，或运算</font></p>
+<p><font style="color:rgb(35, 38, 59);">BINARY_AND ，与运算</font></p>
+<p><font style="color:rgb(35, 38, 59);">STORE_SUBSCR ，修改迭代器中某个下标的值</font></p>
+<p><font style="color:rgb(35, 38, 59);">JUMP_ABSOLUTE ，回到循环起点</font></p>
+<p><font style="color:rgb(35, 38, 59);">RETURN_VALUE  ，函数结束标志</font></p>
+<p><font style="color:rgb(35, 38, 59);">POP_BLOCK，特有的，不用特别理解，对转换回源码不重要，通常和LOAD_CONST               0 (None)一起出现。</font></p>
+<p><font style="color:rgb(35, 38, 59);"></font></p>
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a><font style="color:rgb(35, 38, 59);">例题</font></h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br></pre></td><td class="code"><pre><code class="hljs plain">ezRe (Python 3.9)<br>[Code]<br>    File Name: flag_checker.py<br>    Object Name: &lt;module&gt;<br>    Arg Count: 0<br>    Pos Only Arg Count: 0<br>    KW Only Arg Count: 0<br>    Locals: 0<br>    Stack Size: 7<br>    Flags: 0x00000040 (CO_NOFREE)<br>    [Names]<br>        &#x27;base64&#x27;<br>        &#x27;input&#x27;<br>        &#x27;text&#x27;<br>        &#x27;key&#x27;<br>        &#x27;list&#x27;<br>        &#x27;range&#x27;<br>        &#x27;s&#x27;<br>        &#x27;j&#x27;<br>        &#x27;i&#x27;<br>        &#x27;len&#x27;<br>        &#x27;data&#x27;<br>        &#x27;_&#x27;<br>        &#x27;append&#x27;<br>        &#x27;result&#x27;<br>        &#x27;zip&#x27;<br>        &#x27;c&#x27;<br>        &#x27;k&#x27;<br>        &#x27;chr&#x27;<br>        &#x27;ord&#x27;<br>        &#x27;b64encode&#x27;<br>        &#x27;encode&#x27;<br>        &#x27;decode&#x27;<br>        &#x27;enc&#x27;<br>        &#x27;print&#x27;<br>    [Var Names]<br>    [Free Vars]<br>    [Cell Vars]<br>    [Constants]<br>        0<br>        None<br>        &#x27;Flag: &#x27;<br>        &#x27;7e021a7dd49e4bd0837e22129682551b&#x27;<br>        [Code]<br>            File Name: flag_checker.py<br>            Object Name: &lt;listcomp&gt;<br>            Arg Count: 1<br>            Pos Only Arg Count: 0<br>            KW Only Arg Count: 0<br>            Locals: 2<br>            Stack Size: 4<br>            Flags: 0x00000043 (CO_OPTIMIZED | CO_NEWLOCALS | CO_NOFREE)<br>            [Names]<br>                &#x27;ord&#x27;<br>            [Var Names]<br>                &#x27;.0&#x27;<br>                &#x27;i&#x27;<br>            [Free Vars]<br>            [Cell Vars]<br>            [Constants]<br>                102<br>            [Disassembly]<br>                0       BUILD_LIST                      0<br>                2       LOAD_FAST                       0: .0<br>                4       FOR_ITER                        16 (to 22)<br>                6       STORE_FAST                      1: i<br>                8       LOAD_GLOBAL                     0: ord<br>                10      LOAD_FAST                       1: i<br>                12      CALL_FUNCTION                   1<br>                14      LOAD_CONST                      0: 102<br>                16      BINARY_XOR                      <br>                18      LIST_APPEND                     2<br>                20      JUMP_ABSOLUTE                   4<br>                22      RETURN_VALUE                    <br>        &#x27;&lt;listcomp&gt;&#x27;<br>        256<br>        50<br>        1<br>        &#x27;&#x27;<br>        51<br>        &#x27;w53Cj3HDgzTCsSM5wrg6FMKcw58Qw7RZSFLCljRxwrxbwrVdw4AEwqMjw7/DkMKTw4/Cv8Onw4NGw7jDmSdcwq4GGg==&#x27;<br>        &#x27;yes!&#x27;<br>        &#x27;try again...&#x27;<br>    [Disassembly]<br>        0       LOAD_CONST                      0: 0<br>        2       LOAD_CONST                      1: None<br>        4       JUMP_FORWARD                    0 (to 6)<br>        6       JUMP_FORWARD                    0 (to 8)<br>        8       JUMP_FORWARD                    0 (to 10)<br>        10      IMPORT_NAME                     0: base64<br>        12      STORE_NAME                      0: base64<br>        14      LOAD_NAME                       1: input<br>        16      LOAD_CONST                      2: &#x27;Flag: &#x27;<br>        18      CALL_FUNCTION                   1<br>        20      STORE_NAME                      2: text<br>        22      LOAD_CONST                      3: &#x27;7e021a7dd49e4bd0837e22129682551b&#x27;<br>        24      STORE_NAME                      3: key<br>        26      LOAD_CONST                      4: &lt;CODE&gt; &lt;listcomp&gt;<br>        28      LOAD_CONST                      5: &#x27;&lt;listcomp&gt;&#x27;<br>        30      MAKE_FUNCTION                   0<br>        32      LOAD_NAME                       3: key<br>        34      GET_ITER                        <br>        36      CALL_FUNCTION                   1<br>        38      STORE_NAME                      3: key<br>        40      LOAD_NAME                       4: list<br>        42      LOAD_NAME                       5: range<br>        44      LOAD_CONST                      6: 256<br>        46      CALL_FUNCTION                   1<br>        48      CALL_FUNCTION                   1<br>        50      STORE_NAME                      6: s<br>        52      LOAD_CONST                      0: 0<br>        54      STORE_NAME                      7: j<br>        56      LOAD_NAME                       5: range<br>        58      LOAD_CONST                      6: 256<br>        60      CALL_FUNCTION                   1<br>        62      GET_ITER                        <br>        64      FOR_ITER                        62 (to 128)<br>        66      STORE_NAME                      8: i<br>        68      LOAD_NAME                       7: j<br>        70      LOAD_NAME                       6: s<br>        72      LOAD_NAME                       8: i<br>        74      BINARY_SUBSCR                   <br>        76      BINARY_ADD                      <br>        78      LOAD_NAME                       3: key<br>        80      LOAD_NAME                       8: i<br>        82      LOAD_NAME                       9: len<br>        84      LOAD_NAME                       3: key<br>        86      CALL_FUNCTION                   1<br>        88      BINARY_MODULO                   <br>        90      BINARY_SUBSCR                   <br>        92      BINARY_ADD                      <br>        94      LOAD_CONST                      6: 256<br>        96      BINARY_MODULO                   <br>        98      STORE_NAME                      7: j<br>        100     LOAD_NAME                       6: s<br>        102     LOAD_NAME                       7: j<br>        104     BINARY_SUBSCR                   <br>        106     LOAD_NAME                       6: s<br>        108     LOAD_NAME                       8: i<br>        110     BINARY_SUBSCR                   <br>        112     ROT_TWO                         <br>        114     LOAD_NAME                       6: s<br>        116     LOAD_NAME                       8: i<br>        118     STORE_SUBSCR                    <br>        120     LOAD_NAME                       6: s<br>        122     LOAD_NAME                       7: j<br>        124     STORE_SUBSCR                    <br>        126     JUMP_ABSOLUTE                   64<br>        128     LOAD_CONST                      0: 0<br>        130     DUP_TOP                         <br>        132     STORE_NAME                      8: i<br>        134     STORE_NAME                      7: j<br>        136     BUILD_LIST                      0<br>        138     STORE_NAME                      10: data<br>        140     LOAD_NAME                       5: range<br>        142     LOAD_CONST                      7: 50<br>        144     CALL_FUNCTION                   1<br>        146     GET_ITER                        <br>        148     FOR_ITER                        88 (to 238)<br>        150     STORE_NAME                      11: _<br>        152     LOAD_NAME                       8: i<br>        154     LOAD_CONST                      8: 1<br>        156     BINARY_ADD                      <br>        158     LOAD_CONST                      6: 256<br>        160     BINARY_MODULO                   <br>        162     STORE_NAME                      8: i<br>        164     LOAD_NAME                       7: j<br>        166     LOAD_NAME                       6: s<br>        168     LOAD_NAME                       8: i<br>        170     BINARY_SUBSCR                   <br>        172     BINARY_ADD                      <br>        174     LOAD_CONST                      6: 256<br>        176     BINARY_MODULO                   <br>        178     STORE_NAME                      7: j<br>        180     LOAD_NAME                       6: s<br>        182     LOAD_NAME                       7: j<br>        184     BINARY_SUBSCR                   <br>        186     LOAD_NAME                       6: s<br>        188     LOAD_NAME                       8: i<br>        190     BINARY_SUBSCR                   <br>        192     ROT_TWO                         <br>        194     LOAD_NAME                       6: s<br>        196     LOAD_NAME                       8: i<br>        198     STORE_SUBSCR                    <br>        200     LOAD_NAME                       6: s<br>        202     LOAD_NAME                       7: j<br>        204     STORE_SUBSCR                    <br>        206     LOAD_NAME                       10: data<br>        208     LOAD_METHOD                     12: append<br>        210     LOAD_NAME                       6: s<br>        212     LOAD_NAME                       6: s<br>        214     LOAD_NAME                       8: i<br>        216     BINARY_SUBSCR                   <br>        218     LOAD_NAME                       6: s<br>        220     LOAD_NAME                       7: j<br>        222     BINARY_SUBSCR                   <br>        224     BINARY_ADD                      <br>        226     LOAD_CONST                      6: 256<br>        228     BINARY_MODULO                   <br>        230     BINARY_SUBSCR                   <br>        232     CALL_METHOD                     1<br>        234     POP_TOP                         <br>        236     JUMP_ABSOLUTE                   148<br>        238     LOAD_CONST                      9: &#x27;&#x27;<br>        240     STORE_NAME                      13: result<br>        242     LOAD_NAME                       14: zip<br>        244     LOAD_NAME                       2: text<br>        246     LOAD_NAME                       10: data<br>        248     CALL_FUNCTION                   2<br>        250     GET_ITER                        <br>        252     FOR_ITER                        32 (to 286)<br>        254     UNPACK_SEQUENCE                 2<br>        256     STORE_NAME                      15: c<br>        258     STORE_NAME                      16: k<br>        260     LOAD_NAME                       13: result<br>        262     LOAD_NAME                       17: chr<br>        264     LOAD_NAME                       18: ord<br>        266     LOAD_NAME                       15: c<br>        268     CALL_FUNCTION                   1<br>        270     LOAD_NAME                       16: k<br>        272     BINARY_XOR                      <br>        274     LOAD_CONST                      10: 51<br>        276     BINARY_XOR                      <br>        278     CALL_FUNCTION                   1<br>        280     INPLACE_ADD                     <br>        282     STORE_NAME                      13: result<br>        284     JUMP_ABSOLUTE                   252<br>        286     LOAD_NAME                       0: base64<br>        288     LOAD_METHOD                     19: b64encode<br>        290     LOAD_NAME                       13: result<br>        292     LOAD_METHOD                     20: encode<br>        294     CALL_METHOD                     0<br>        296     CALL_METHOD                     1<br>        298     LOAD_METHOD                     21: decode<br>        300     CALL_METHOD                     0<br>        302     STORE_NAME                      22: enc<br>        304     LOAD_NAME                       22: enc<br>        306     LOAD_CONST                      11: &#x27;w53Cj3HDgzTCsSM5wrg6FMKcw58Qw7RZSFLCljRxwrxbwrVdw4AEwqMjw7/DkMKTw4/Cv8Onw4NGw7jDmSdcwq4GGg==&#x27;<br>        308     COMPARE_OP                      2 (==)<br>        310     POP_JUMP_IF_FALSE               324<br>        314     LOAD_NAME                       23: print<br>        316     LOAD_CONST                      12: &#x27;yes!&#x27;<br>        318     CALL_FUNCTION                   1<br>        320     POP_TOP                         <br>        322     JUMP_FORWARD                    8 (to 332)<br>        324     LOAD_NAME                       23: print<br>        326     LOAD_CONST                      13: &#x27;try again...&#x27;<br>        328     CALL_FUNCTION                   1<br>        330     POP_TOP                         <br>        332     LOAD_CONST                      1: None<br>        334     RETURN_VALUE<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs plain">import base64<br><br># 原始密钥和加密的目标输出<br>key = &#x27;7e021a7dd49e4bd0837e22129682551b&#x27;<br>encoded_target = &#x27;w53Cj3HDgzTCsSM5wrg6FMKcw58Qw7RZSFLCljRxwrxbwrVdw4AEwqMjw7/DkMKTw4/Cv8Onw4NGw7jDmSdcwq4GGg==&#x27;<br><br># 处理密钥<br>processed_key = [ord(i) ^ 102 for i in key]<br><br># RC4 类似的流密码算法构建<br>s = list(range(256))<br>j = 0<br>for i in range(256):<br>    j = (j + s[i] + processed_key[i % len(processed_key)]) % 256<br>    s[i], s[j] = s[j], s[i]<br><br># 生成数据流 `data`<br>i = j = 0<br>data = []<br>for _ in range(50):  # 生成50个密钥流字节<br>    i = (i + 1) % 256<br>    j = (j + s[i]) % 256<br>    s[i], s[j] = s[j], s[i]<br>    data.append(s[(s[i] + s[j]) % 256])<br><br># 解码 `encoded_target` 并转换为原始字符串<br>target_bytes = base64.b64decode(encoded_target).decode()<br>decoded_text = &#x27;&#x27;<br><br># 使用 `data` 对 `target_bytes` 进行解码<br>for c, k in zip(target_bytes, data):<br>    decoded_text += chr((ord(c) ^ k) ^ 51)<br><br>print(&quot;Decoded text (flag):&quot;, decoded_text)<br></code></pre></td></tr></table></figure>
+
+<p><font style="color:rgb(35, 38, 59);"></font></p>
+<blockquote>
+<p>更新: 2024-11-13 15:04:10<br>原文: <a target="_blank" rel="noopener" href="https://www.yuque.com/chaye-apqbl/vsc85q/ufab0dsoga8tbf42">https://www.yuque.com/chaye-apqbl/vsc85q/ufab0dsoga8tbf42</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2026/01/19/RE/各种语言/python反编译/python字节码逆向/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 19, 2026</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E5%90%84%E7%A7%8D%E8%AF%AD%E8%A8%80/python%E5%8F%8D%E7%BC%96%E8%AF%91/python%E9%80%86%E5%90%91%EF%BC%88pyc%E6%96%87%E4%BB%B6%EF%BC%89%E4%BE%8B%E9%A2%98/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E5%90%84%E7%A7%8D%E8%AF%AD%E8%A8%80/python%E5%8F%8D%E7%BC%96%E8%AF%91/index/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

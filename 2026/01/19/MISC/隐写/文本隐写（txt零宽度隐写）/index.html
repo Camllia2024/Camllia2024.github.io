@@ -1,0 +1,666 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="文本隐写（txt零宽度隐写）介绍零宽度字符是一种字节宽度为0的不可打印的Unicode字符, 在浏览器等环境不可见, 但是真是存在, 获取字符串长度时也会占位置, 表示某一种控制功能的字符。 123456789101112零宽空格（zero-width space, ZWSP）用于可能需要换行处。    Unicode: U+200B  HTML: &amp;#8203;零宽不连字 (zero-w">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chaye的博客">
+<meta property="og:url" content="http://example.com/2026/01/19/MISC/%E9%9A%90%E5%86%99/%E6%96%87%E6%9C%AC%E9%9A%90%E5%86%99%EF%BC%88txt%E9%9B%B6%E5%AE%BD%E5%BA%A6%E9%9A%90%E5%86%99%EF%BC%89/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="文本隐写（txt零宽度隐写）介绍零宽度字符是一种字节宽度为0的不可打印的Unicode字符, 在浏览器等环境不可见, 但是真是存在, 获取字符串长度时也会占位置, 表示某一种控制功能的字符。 123456789101112零宽空格（zero-width space, ZWSP）用于可能需要换行处。    Unicode: U+200B  HTML: &amp;#8203;零宽不连字 (zero-w">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/49277317_DpKApp1EsmpU-RZF/1727169730063-ac38b178-af87-4b96-a7e5-824df088a345-767953.png">
+<meta property="og:image" content="http://example.com/img/49277317_DpKApp1EsmpU-RZF/1727169771601-c13d9c9f-e824-4b39-a4bb-dc32997c2495-403751.png">
+<meta property="og:image" content="http://example.com/img/49277317_DpKApp1EsmpU-RZF/1727169779897-bd10d910-2812-4fdc-a278-973cc94228e9-631305.png">
+<meta property="og:image" content="http://example.com/img/49277317_DpKApp1EsmpU-RZF/1727169806784-458d8dc8-1ad2-48a5-9f19-275be57a26c6-305516.png">
+<meta property="og:image" content="http://example.com/img/49277317_DpKApp1EsmpU-RZF/1727170020099-34815226-2a05-432e-84a5-d1d74795feeb-126512.png">
+<meta property="og:image" content="http://example.com/img/49277317_DpKApp1EsmpU-RZF/1727168251957-d17c4a2d-ff0e-411f-8e4e-a8acf25a58b1-717553.png">
+<meta property="og:image" content="http://example.com/img/49277317_DpKApp1EsmpU-RZF/1727168212851-04de2979-eb96-48e1-8f5a-fd9449e6a4f0-487779.png">
+<meta property="og:image" content="http://example.com/img/49277317_DpKApp1EsmpU-RZF/1727174345421-21bd6add-c6c8-4528-9d50-03afd004a79c-204833.png">
+<meta property="og:image" content="http://example.com/img/49277317_DpKApp1EsmpU-RZF/1727174412482-f9b917d8-64a0-4aa9-a371-e0230afaf594-538412.png">
+<meta property="og:image" content="http://example.com/img/49277317_DpKApp1EsmpU-RZF/1727174715148-c4347e29-2891-44be-94b6-7254ae174181-060790.png">
+<meta property="article:published_time" content="2026-01-19T05:29:06.332Z">
+<meta property="article:modified_time" content="2025-11-04T06:13:03.555Z">
+<meta property="article:author" content="chaye">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/49277317_DpKApp1EsmpU-RZF/1727169730063-ac38b178-af87-4b96-a7e5-824df088a345-767953.png">
+  
+  
+  
+  <title>chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-19 13:29" pubdate>
+          January 19, 2026 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          765 words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          7 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="文本隐写（txt零宽度隐写）"><a href="#文本隐写（txt零宽度隐写）" class="headerlink" title="文本隐写（txt零宽度隐写）"></a>文本隐写（txt零宽度隐写）</h1><h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p><font style="color:rgb(77, 77, 77);">零宽度字符是一种字节宽度为0的不可打印的</font><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=Unicode&spm=1001.2101.3001.7020">Unicode</a><font style="color:rgb(77, 77, 77);">字符, 在浏览器等环境不可见, 但是真是存在, 获取字符串长度时也会占位置, 表示某一种控制功能的字符。</font></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs plain">零宽空格（zero-width space, ZWSP）用于可能需要换行处。<br>    Unicode: U+200B  HTML: &amp;#8203;<br>零宽不连字 (zero-width non-joiner，ZWNJ)放在电子文本的两个字符之间，抑制本来会发生的连字，而是以这两个字符原本的字形来绘制。<br>    Unicode: U+200C  HTML: &amp;#8204;<br>零宽连字（zero-width joiner，ZWJ）是一个控制字符，放在某些需要复杂排版语言（如阿拉伯语、印地语）的两个字符之间，使得这两个本不会发生连字的字符产生了连字效果。<br>    Unicode: U+200D  HTML: &amp;#8205;<br>左至右符号（Left-to-right mark，LRM）是一种控制字符，用于计算机的双向文稿排版中。<br>    Unicode: U+200E  HTML: &amp;lrm; &amp;#x200E; 或&amp;#8206;<br>右至左符号（Right-to-left mark，RLM）是一种控制字符，用于计算机的双向文稿排版中。<br>    Unicode: U+200F  HTML: &amp;rlm; &amp;#x200F; 或&amp;#8207;<br>字节顺序标记（byte-order mark，BOM）常被用来当做标示文件是以UTF-8、UTF-16或UTF-32编码的标记。<br>    Unicode: U+FEFF<br></code></pre></td></tr></table></figure>
+
+<p><img src="/./img/49277317_DpKApp1EsmpU-RZF/1727169730063-ac38b178-af87-4b96-a7e5-824df088a345-767953.png" srcset="/img/loading.gif" lazyload alt="1727169730063-ac38b178-af87-4b96-a7e5-824df088a345.png"></p>
+<p><font style="color:rgb(77, 77, 77);">我们能看到的只有六个字，但是显示的length有34，零宽度字符就会产生这个效果，他不影响阅读，但是真实存在，也会占长度。</font></p>
+<p><font style="color:rgb(77, 77, 77);">虽然我们看到的样子是上面这个样子，但是实际上他是下面这个样子~</font></p>
+<p><img src="/./img/49277317_DpKApp1EsmpU-RZF/1727169771601-c13d9c9f-e824-4b39-a4bb-dc32997c2495-403751.png" srcset="/img/loading.gif" lazyload alt="1727169771601-c13d9c9f-e824-4b39-a4bb-dc32997c2495.png"></p>
+<p><img src="/./img/49277317_DpKApp1EsmpU-RZF/1727169779897-bd10d910-2812-4fdc-a278-973cc94228e9-631305.png" srcset="/img/loading.gif" lazyload alt="1727169779897-bd10d910-2812-4fdc-a278-973cc94228e9.png"></p>
+<h2 id="判断"><a href="#判断" class="headerlink" title="判断"></a>判断</h2><p><img src="/./img/49277317_DpKApp1EsmpU-RZF/1727169806784-458d8dc8-1ad2-48a5-9f19-275be57a26c6-305516.png" srcset="/img/loading.gif" lazyload alt="1727169806784-458d8dc8-1ad2-48a5-9f19-275be57a26c6.png"></p>
+<p><font style="color:rgb(77, 77, 77);">蓝色的就是零宽度字符啦</font></p>
+<p><font style="color:rgb(77, 77, 77);"></font></p>
+<p><img src="/./img/49277317_DpKApp1EsmpU-RZF/1727170020099-34815226-2a05-432e-84a5-d1d74795feeb-126512.png" srcset="/img/loading.gif" lazyload alt="1727170020099-34815226-2a05-432e-84a5-d1d74795feeb.png"></p>
+<h2 id="在线解密"><a href="#在线解密" class="headerlink" title="在线解密"></a>在线解密</h2><p><a target="_blank" rel="noopener" href="https://tool.bfw.wiki/tool/1695021695027599.html">https://tool.bfw.wiki/tool/1695021695027599.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.hanloth.cn/tool/zero-width-secret">零宽文本加解密工具 - 翰络云工具 (hanloth.cn)</a>（推荐这个）</p>
+<p><a target="_blank" rel="noopener" href="https://www.mzy0.com/ctftools/zerowidth1/">Unicode Steganography with Zero-Width Characters (mzy0.com)</a>（有200f）</p>
+<p><a target="_blank" rel="noopener" href="http://330k.github.io/misc_tools/unicode_steganography.html">Unicode Steganography with Zero-Width Characters (330k.github.io)</a></p>
+<p><a target="_blank" rel="noopener" href="https://offdev.net/demos/zwsp-steg-js">Offdev.net - Zero-width space steganography javascript demo</a></p>
+<h2 id="自定义零宽-提取一下16进制f3a084和f3a85"><a href="#自定义零宽-提取一下16进制f3a084和f3a85" class="headerlink" title="自定义零宽 提取一下16进制f3a084和f3a85"></a>自定义零宽 提取一下16进制f3a084和f3a85</h2><p><a target="_blank" rel="noopener" href="https://www.yuque.com/attachments/yuque/0/2025/txt/42988179/1748398069884-6b075b74-321f-4a7d-9155-2bd496eddb0a.txt">hidden-word.txt</a></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs markdown">def process<span class="hljs-emphasis">_file(input_</span>file, output<span class="hljs-emphasis">_file):</span><br><span class="hljs-emphasis">    with open(input_</span>file, &#x27;rb&#x27;) as f<span class="hljs-emphasis">_in, open(output_</span>file, &#x27;wb&#x27;) as f<span class="hljs-emphasis">_out:</span><br><span class="hljs-emphasis">        data = f_</span>in.read()<br><span class="hljs-code">        i = 0</span><br><span class="hljs-code">        while i &lt; len(data) - 3:  # 需要至少4字节: f3 a0 (84/85) XX</span><br><span class="hljs-code">            # 检查是否匹配 0xf3 0xa0</span><br><span class="hljs-code">            if data[i] == 0xf3 and data[i+1] == 0xa0:</span><br><span class="hljs-code">                opcode = data[i+2]</span><br><span class="hljs-code">                </span><br><span class="hljs-code">                # 确定要加的值</span><br><span class="hljs-code">                if opcode == 0x85:</span><br><span class="hljs-code">                    add_value = 0xd0</span><br><span class="hljs-code">                elif opcode == 0x84:</span><br><span class="hljs-code">                    add_value = 0x90</span><br><span class="hljs-code">                else:</span><br><span class="hljs-code">                    i += 1</span><br><span class="hljs-code">                    continue</span><br><span class="hljs-code">                </span><br><span class="hljs-code">                # 处理下一个字节</span><br><span class="hljs-code">                if i + 3 &lt; len(data):</span><br><span class="hljs-code">                    original_byte = data[i+3]</span><br><span class="hljs-code">                    result_byte = (original_byte + add_value) % 256  # 防止溢出</span><br><span class="hljs-code">                    f_out.write(bytes([result_byte]))</span><br><span class="hljs-code">                </span><br><span class="hljs-code">                i += 4  # 跳过已处理的4字节</span><br><span class="hljs-code">            else:</span><br><span class="hljs-code">                i += 1</span><br><span class="hljs-code"></span><br>process<span class="hljs-emphasis">_file(&#x27;hidden-word.txt&#x27;, &#x27;flag.txt&#x27;)</span><br><span class="hljs-emphasis">print(&quot;处理完成！结果字节已保存到flag.txt&quot;)</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45927266/article/details/120423818">零宽字符隐写——2021网刃杯CTF 签到_零宽隐写-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Hardworking666/p/15866091.html">零宽度字符隐写（CTF） - Hardworking666 - 博客园 (cnblogs.com)</a></p>
+<h2 id="1、"><a href="#1、" class="headerlink" title="1、"></a>1、</h2><p>发现显示长度与所见长度不合，是txt零宽度隐写</p>
+<p><img src="/./img/49277317_DpKApp1EsmpU-RZF/1727168251957-d17c4a2d-ff0e-411f-8e4e-a8acf25a58b1-717553.png" srcset="/img/loading.gif" lazyload alt="1727168251957-d17c4a2d-ff0e-411f-8e4e-a8acf25a58b1.png"></p>
+<p>放入kali里面</p>
+<p>用vi +文件名 命令打开<img src="/./img/49277317_DpKApp1EsmpU-RZF/1727168212851-04de2979-eb96-48e1-8f5a-fd9449e6a4f0-487779.png" srcset="/img/loading.gif" lazyload alt="1727168212851-04de2979-eb96-48e1-8f5a-fd9449e6a4f0.png"></p>
+<p><font style="color:rgb(77, 77, 77);">很明显是零宽度字符</font><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E9%9A%90%E5%86%99&spm=1001.2101.3001.7020">隐写</a><font style="color:rgb(77, 77, 77);">，在上面有找到4种零宽度字符，使用在线解密工具进行解密</font></p>
+<p><a target="_blank" rel="noopener" href="https://www.hanloth.cn/tool/zero-width-secret">零宽文本加解密工具 - 翰络云工具 (hanloth.cn)</a></p>
+<p><font style="color:rgb(77, 77, 77);">有feff、200f、200e、200b、200c</font></p>
+<p><img src="/./img/49277317_DpKApp1EsmpU-RZF/1727174345421-21bd6add-c6c8-4528-9d50-03afd004a79c-204833.png" srcset="/img/loading.gif" lazyload alt="1727174345421-21bd6add-c6c8-4528-9d50-03afd004a79c.png"></p>
+<p>拿到密码，解一下佛教</p>
+<p><img src="/./img/49277317_DpKApp1EsmpU-RZF/1727174412482-f9b917d8-64a0-4aa9-a371-e0230afaf594-538412.png" srcset="/img/loading.gif" lazyload alt="1727174412482-f9b917d8-64a0-4aa9-a371-e0230afaf594.png"></p>
+<p><img src="/./img/49277317_DpKApp1EsmpU-RZF/1727174715148-c4347e29-2891-44be-94b6-7254ae174181-060790.png" srcset="/img/loading.gif" lazyload alt="1727174715148-c4347e29-2891-44be-94b6-7254ae174181.png"></p>
+<p><font style="color:rgb(77, 77, 77);"></font></p>
+<blockquote>
+<p>更新: 2025-10-31 15:27:15<br>原文: <a target="_blank" rel="noopener" href="https://www.yuque.com/chaye-apqbl/vsc85q/gbn435ihvmwgudak">https://www.yuque.com/chaye-apqbl/vsc85q/gbn435ihvmwgudak</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2026/01/19/MISC/隐写/文本隐写（txt零宽度隐写）/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 19, 2026</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/01/19/MISC/%E9%9A%90%E5%86%99/%E6%96%87%E6%A1%A3%E9%9A%90%E5%86%99/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/19/MISC/%E9%9A%90%E5%86%99/pyc%E9%9A%90%E5%86%99%EF%BC%88kali%E4%B8%8B%E4%BD%BF%E7%94%A8%EF%BC%89/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

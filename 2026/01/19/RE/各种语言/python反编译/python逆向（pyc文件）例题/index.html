@@ -1,0 +1,774 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="python逆向（pyc文件）例题3.8以上用pycdcpycdc配置和使用-CSDN博客 例题Python逆向全版本MagicNumber表_python3.11.4 magicnumber-CSDN博客例题（正常的py逆向）enum PycMagic { MAGIC_1_0 &#x3D; 0x00999902,  MAGIC_1_1 &#x3D; 0x00999903, &#x2F;* Also covers 1.2 *&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chaye的博客">
+<meta property="og:url" content="http://example.com/2026/01/19/RE/%E5%90%84%E7%A7%8D%E8%AF%AD%E8%A8%80/python%E5%8F%8D%E7%BC%96%E8%AF%91/python%E9%80%86%E5%90%91%EF%BC%88pyc%E6%96%87%E4%BB%B6%EF%BC%89%E4%BE%8B%E9%A2%98/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="python逆向（pyc文件）例题3.8以上用pycdcpycdc配置和使用-CSDN博客 例题Python逆向全版本MagicNumber表_python3.11.4 magicnumber-CSDN博客例题（正常的py逆向）enum PycMagic { MAGIC_1_0 &#x3D; 0x00999902,  MAGIC_1_1 &#x3D; 0x00999903, &#x2F;* Also covers 1.2 *&#x2F;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/49277317_ZWCMkHNA8_Mz7yIn/1721203111039-65cd225b-d6e3-4c27-9eb2-48c486bd6637-727804.png">
+<meta property="og:image" content="http://example.com/img/49277317_ZWCMkHNA8_Mz7yIn/1721203317605-5da7ad51-30bf-4077-8f44-1833bc6906bc-998695.png">
+<meta property="og:image" content="http://example.com/img/49277317_ZWCMkHNA8_Mz7yIn/1721203409394-c24b4f93-90a4-4afc-a822-a0f5ad10b6b6-543721.png">
+<meta property="og:image" content="http://example.com/img/49277317_ZWCMkHNA8_Mz7yIn/1721203679615-679c60ba-196e-46c4-8b5d-b3f062c22aea-470800.png">
+<meta property="og:image" content="http://example.com/img/49277317_ZWCMkHNA8_Mz7yIn/1721203698089-38d6150d-8e8a-4c8e-acca-b28d291c2c7e-347538.png">
+<meta property="og:image" content="http://example.com/img/49277317_ZWCMkHNA8_Mz7yIn/1721203938856-2d9e294a-4d6d-4961-b07e-eb3dd4c7f9ce-812198.png">
+<meta property="og:image" content="http://example.com/img/49277317_ZWCMkHNA8_Mz7yIn/1721203953404-33bb6968-a6ff-412f-a8b3-ecdcaef73a5e-716444.png">
+<meta property="og:image" content="http://example.com/img/49277317_ZWCMkHNA8_Mz7yIn/1721203992769-e9d81411-49a0-48d6-9da2-514522922429-487363.png">
+<meta property="og:image" content="http://example.com/img/49277317_ZWCMkHNA8_Mz7yIn/1721204088397-9f95592e-8761-47de-b20b-59c93854b61d-245159.png">
+<meta property="og:image" content="http://example.com/img/49277317_ZWCMkHNA8_Mz7yIn/1721205736322-729d8d9f-3ee6-48bc-8a3e-5845c28de267-763814.png">
+<meta property="og:image" content="http://example.com/img/49277317_ZWCMkHNA8_Mz7yIn/1721465966899-433764e6-e203-43ff-a7e7-d26be87ba859-591089.png">
+<meta property="og:image" content="http://example.com/img/49277317_ZWCMkHNA8_Mz7yIn/1721375296137-1dcae075-511c-4705-b4ac-d60ec5412877-792071.png">
+<meta property="og:image" content="http://example.com/img/49277317_ZWCMkHNA8_Mz7yIn/1721375274170-2bef2aad-83cb-4853-a4d3-5a7c36600af9-844981.png">
+<meta property="og:image" content="http://example.com/img/49277317_ZWCMkHNA8_Mz7yIn/1721376932445-1134c14c-e8b1-4077-ae92-4fe0faab542f-266030.png">
+<meta property="og:image" content="http://example.com/img/49277317_ZWCMkHNA8_Mz7yIn/1721379221167-29daf804-bc14-4573-846d-93f3d344aeb2-017191.png">
+<meta property="og:image" content="http://example.com/img/49277317_ZWCMkHNA8_Mz7yIn/1721446247641-c20b0ad8-b4b2-42fa-af99-e5284d71cba4-293800.png">
+<meta property="og:image" content="http://example.com/img/49277317_ZWCMkHNA8_Mz7yIn/1721446520216-98c3e501-afdb-4bd4-a1e6-b90347021486-961429.png">
+<meta property="article:published_time" content="2026-01-19T05:29:07.454Z">
+<meta property="article:modified_time" content="2025-11-04T06:19:35.861Z">
+<meta property="article:author" content="chaye">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/49277317_ZWCMkHNA8_Mz7yIn/1721203111039-65cd225b-d6e3-4c27-9eb2-48c486bd6637-727804.png">
+  
+  
+  
+  <title>chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-19 13:29" pubdate>
+          January 19, 2026 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.4k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="python逆向（pyc文件）例题"><a href="#python逆向（pyc文件）例题" class="headerlink" title="python逆向（pyc文件）例题"></a>python逆向（pyc文件）例题</h1><h1 id="3-8以上用pycdc"><a href="#3-8以上用pycdc" class="headerlink" title="3.8以上用pycdc"></a>3.8以上用pycdc</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_73644864/article/details/135038499?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522172241258516800225543557%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=172241258516800225543557&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-1-135038499-null-null.142%5Ev100%5Epc_search_result_base6&utm_term=kali%E4%B8%8Apycdc%E5%AE%89%E8%A3%85&spm=1018.2226.3001.4187">pycdc配置和使用-CSDN博客</a></p>
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><h1 id="Python逆向全版本MagicNumber表-python3-11-4-magicnumber-CSDN博客"><a href="#Python逆向全版本MagicNumber表-python3-11-4-magicnumber-CSDN博客" class="headerlink" title="Python逆向全版本MagicNumber表_python3.11.4 magicnumber-CSDN博客"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/OrientalGlass/article/details/134612786">Python逆向全版本MagicNumber表_python3.11.4 magicnumber-CSDN博客</a></h1><h1 id="例题（正常的py逆向）"><a href="#例题（正常的py逆向）" class="headerlink" title="例题（正常的py逆向）"></a><font style="color:#000000;background-color:#FAFAFA;">例题（正常的py逆向）</font></h1><p>enum PycMagic {</p>
+<pre><code class="hljs">MAGIC_1_0 = 0x00999902,
+
+MAGIC_1_1 = 0x00999903, /* Also covers 1.2 */
+
+MAGIC_1_3 = 0x0A0D2E89,
+
+MAGIC_1_4 = 0x0A0D1704,
+
+MAGIC_1_5 = 0x0A0D4E99,
+
+MAGIC_1_6 = 0x0A0DC4FC,
+
+
+
+MAGIC_2_0 = 0x0A0DC687,
+
+MAGIC_2_1 = 0x0A0DEB2A,
+
+MAGIC_2_2 = 0x0A0DED2D,
+
+MAGIC_2_3 = 0x0A0DF23B,
+
+MAGIC_2_4 = 0x0A0DF26D,
+
+MAGIC_2_5 = 0x0A0DF2B3,
+
+MAGIC_2_6 = 0x0A0DF2D1,
+
+MAGIC_2_7 = 0x0A0DF303,
+
+
+
+MAGIC_3_0 = 0x0A0D0C3A,
+
+MAGIC_3_1 = 0x0A0D0C4E,
+
+MAGIC_3_2 = 0x0A0D0C6C,
+
+MAGIC_3_3 = 0x0A0D0C9E,
+
+MAGIC_3_4 = 0x0A0D0CEE,
+
+MAGIC_3_5 = 0x0A0D0D16,
+
+MAGIC_3_5_3 = 0x0A0D0D17,
+
+MAGIC_3_6 = 0x0A0D0D33,
+
+MAGIC_3_7 = 0x0A0D0D42,
+
+MAGIC_3_8 = 0x0A0D0D55,
+
+MAGIC_3_9 = 0x0A0D0D61,
+
+MAGIC_3_10 = 0x0A0D0D6F,
+
+MAGIC_3_11 = 0x0A0D0DA7,
+
+MAGIC_3_12 = 0x0A0D0DCB,
+
+
+
+INVALID = 0,
+</code></pre>
+<p>};</p>
+<h2 id="1、ezpy"><a href="#1、ezpy" class="headerlink" title="1、ezpy"></a>1、ezpy</h2><p><font style="color:#000000;background-color:#FAFAFA;">exeinfope查壳，观察到pyinstaller字眼</font></p>
+<p><img src="/./img/49277317_ZWCMkHNA8_Mz7yIn/1721203111039-65cd225b-d6e3-4c27-9eb2-48c486bd6637-727804.png" srcset="/img/loading.gif" lazyload alt="1721203111039-65cd225b-d6e3-4c27-9eb2-48c486bd6637.png"></p>
+<p>python逆向</p>
+<p><font style="color:rgb(77, 77, 77);">pyinstxtractor下载链接-&gt;</font><a target="_blank" rel="noopener" href="https://github.com/extremecoders-re/pyinstxtractor">GitHub - extremecoders-re&#x2F;pyinstxtractor: PyInstaller Extractor</a></p>
+<p><font style="color:rgb(77, 77, 77);">uncompyle6库下载命令-&gt;cmd窗口输入【</font><strong><font style="color:rgb(77, 77, 77);">pip install uncompyle6</font></strong><font style="color:rgb(77, 77, 77);">】</font></p>
+<p><font style="color:rgb(77, 77, 77);">这里已经下载完成了</font></p>
+<p><img src="/./img/49277317_ZWCMkHNA8_Mz7yIn/1721203317605-5da7ad51-30bf-4077-8f44-1833bc6906bc-998695.png" srcset="/img/loading.gif" lazyload alt="1721203317605-5da7ad51-30bf-4077-8f44-1833bc6906bc.png"></p>
+<p>然后进行反编译，<font style="color:rgb(77, 77, 77);">在cmd窗口中输入命令【</font><strong><font style="color:rgb(77, 77, 77);">python pyinstxtractor.py 文件路径</font></strong><font style="color:rgb(77, 77, 77);">】</font></p>
+<p><font style="color:rgb(77, 77, 77);">这里懒得输文件路径，索性直接拿到源代码文件下面</font></p>
+<p><img src="/./img/49277317_ZWCMkHNA8_Mz7yIn/1721203409394-c24b4f93-90a4-4afc-a822-a0f5ad10b6b6-543721.png" srcset="/img/loading.gif" lazyload alt="1721203409394-c24b4f93-90a4-4afc-a822-a0f5ad10b6b6.png"></p>
+<p>可以得到一个文件夹</p>
+<p><img src="/./img/49277317_ZWCMkHNA8_Mz7yIn/1721203679615-679c60ba-196e-46c4-8b5d-b3f062c22aea-470800.png" srcset="/img/loading.gif" lazyload alt="1721203679615-679c60ba-196e-46c4-8b5d-b3f062c22aea.png"></p>
+<p><font style="color:rgb(77, 77, 77);">此时在同目录下产生一个【</font><strong><font style="color:rgb(77, 77, 77);">xx.exe_extracted</font></strong><font style="color:rgb(77, 77, 77);">】文件夹，双击进入此文件夹，找到一个pyc文件（此处有两个文件，我们关注的是除struct.pyc外的另一个pyc文件，如下图红圈）</font></p>
+<p><img src="/./img/49277317_ZWCMkHNA8_Mz7yIn/1721203698089-38d6150d-8e8a-4c8e-acca-b28d291c2c7e-347538.png" srcset="/img/loading.gif" lazyload alt="1721203698089-38d6150d-8e8a-4c8e-acca-b28d291c2c7e.png"></p>
+<p>然后我们忽略那个struct.pyc ,对另外一个pyc进行反编译</p>
+<p><font style="color:rgb(77, 77, 77);">在此处再次打开终端，输入命令【</font><strong><font style="color:rgb(77, 77, 77);">uncompyle6 src.pyc &gt; src.py</font></strong><font style="color:rgb(77, 77, 77);">】之后即可在同目录下生成反编译的python文件</font></p>
+<p><img src="/./img/49277317_ZWCMkHNA8_Mz7yIn/1721203938856-2d9e294a-4d6d-4961-b07e-eb3dd4c7f9ce-812198.png" srcset="/img/loading.gif" lazyload alt="1721203938856-2d9e294a-4d6d-4961-b07e-eb3dd4c7f9ce.png"><img src="/./img/49277317_ZWCMkHNA8_Mz7yIn/1721203953404-33bb6968-a6ff-412f-a8b3-ecdcaef73a5e-716444.png" srcset="/img/loading.gif" lazyload alt="1721203953404-33bb6968-a6ff-412f-a8b3-ecdcaef73a5e.png"></p>
+<p>然后就可以看到反编译成功的py文件啦</p>
+<p><img src="/./img/49277317_ZWCMkHNA8_Mz7yIn/1721203992769-e9d81411-49a0-48d6-9da2-514522922429-487363.png" srcset="/img/loading.gif" lazyload alt="1721203992769-e9d81411-49a0-48d6-9da2-514522922429.png">只要令flag&#x3D;decrypt2(“AAAAAAAAAAAfFwwRSAIWWQ&#x3D;&#x3D;”, key),key也已经说明</p>
+<p>即可获得flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs plain"># uncompyle6 version 3.9.1<br># Python bytecode version base 3.4 (3310)<br># Decompiled from: Python 3.10.9 | packaged by Anaconda, Inc. | (main, Mar  1 2023, 18:18:15) [MSC v.1916 64 bit (AMD64)]<br># Embedded file name: src.py<br>import rsa, base64<br>key1 = rsa.PrivateKey.load_pkcs1(base64.b64decode(&quot;LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcVFJQkFBS0NBUUVBcVJUZ0xQU3BuT0ZDQnJvNHR1K1FBWXFhTjI2Uk42TzY1bjBjUURGRy9vQ1NJSU00ClNBeEVWaytiZHpSN2FucVNtZ1l5MEhRWGhDZTM2U2VGZTF0ejlrd0taL3UzRUpvYzVBSzR1NXZ4UW5QOWY1cTYKYVFsbVAvVjJJTXB5NFFRNlBjbUVoNEtkNm81ZWRJUlB2SHd6V0dWS09OQ3BpL0taQ082V0tWYkpXcWh3WGpEQgpsSDFNVURzZ1gyVUM4b3Bodnk5dXIyek9kTlBocElJZHdIc1o5b0ZaWWtaMUx5Q0lRRXRZRmlKam1GUzJFQ1RVCkNvcU9acnQxaU5jNXVhZnFvZlB4eHlPb2wwYVVoVGhiaHE4cEpXL3FPSFdYd0xJbXdtNk96YXFVeks4NEYyY3UKYWRiRE5zeVNvaElHaHYzd0lBVThNSlFnOEthd1Z3ZHBzRWhlSXdJREFRQUJBb0lCQURBazdwUStjbEZtWHF1Vgp1UEoyRWxZdUJpMkVnVHNMbHZ0c1ltL3cyQnM5dHQ0bEh4QjgxYlNSNUYyMEJ2UlJ4STZ3OXlVZCtWZzdDd1lMCnA5bHhOL3JJdWluVHBkUEhYalNhaGNsOTVOdWNOWEZ4T0dVU05SZy9KNHk4dUt0VHpkV3NITjJORnJRa0o4Y2IKcWF5czNOM3RzWTJ0OUtrUndjbUJGUHNJalNNQzB5UkpQVEE4cmNqOFkranV3SHZjbUJPNHVFWXZXeXh0VHR2UQova0RQelBqdTBuakhkR055RytkSDdkeHVEV2Jxb3VZQnRMdzllZGxXdmIydTJ5YnZzTXl0NWZTOWF1a01NUjNoCnBhaDRMcU1LbC9ETTU3cE44Vms0ZTU3WE1zZUJLWm1hcEptcVNnSGdjajRPNWE2R1RvelN1TEVoTmVGY0l2Tm8KWFczTEFHRUNnWWtBc0J0WDNVcFQ3aUcveE5BZDdSWER2MENOY1k1QnNZOGY4NHQ3dGx0U2pjSWdBKy9nUjFMZQpzb2gxY1RRd1RadUYyRTJXL1hHU3orQmJDTVVySHNGWmh1bXV6aTBkbElNV3ZhU0dvSlV1OGpNODBlUjRiVTRyCmdYQnlLZVZqelkzNVlLejQ5TEVBcFRQcTZRYTVQbzhRYkF6czhuVjZtNXhOQkNPc0pQQ29zMGtCclFQaGo5M0cKOFFKNUFQWEpva0UrMmY3NXZlazZNMDdsaGlEUXR6LzRPYWRaZ1MvUVF0eWRLUmg2V3VEeGp3MytXeXc5ZjNUcAp5OXc0RmtLRzhqNVRpd1RzRmdzem94TGo5TmpSUWpqb3cyVFJGLzk3b2NxMGNwY1orMUtsZTI1cEJ3bk9yRDJBCkVpMUVkMGVEV3dJR2gzaFhGRmlRSzhTOG5remZkNGFMa1ZxK1V3S0JpRXRMSllIamFZY0N2dTd5M0JpbG1ZK0gKbGZIYkZKTkowaXRhazRZZi9XZkdlOUd6R1h6bEhYblBoZ2JrZlZKeEVBU3ZCOE5NYjZ5WkM5THdHY09JZnpLRApiczJQMUhuT29rWnF0WFNxMCt1UnBJdEkxNFJFUzYySDJnZTNuN2dlMzJSS0VCYnVKb3g3YWhBL1k2d3ZscUhiCjFPTEUvNnJRWk0xRVF6RjRBMmpENmdlREJVbHhWTUVDZVFDQjcyUmRoYktNL3M0TSsvMmYyZXI4Y2hwT01SV1oKaU5Hb3l6cHRrby9sSnRuZ1RSTkpYSXdxYVNCMldCcXpndHNSdEhGZnpaNlNyWlJCdTd5Y0FmS3dwSCtUd2tsNQpoS2hoSWFTNG1vaHhwUVNkL21td1JzbTN2NUNDdXEvaFNtNmNXYTdFOVZxc25heGQzV21tQ2VqTnp0MUxQWUZNCkxZMENnWWdKUHhpVTVraGs5cHB6TVAwdWU0clA0Z2YvTENldEdmQjlXMkIyQU03eW9VM2VsMWlCSEJqOEZ3UFQKQUhKUWtCeTNYZEh3SUpGTUV1RUZSSFFzcUFkSTlYVDBzL2V0QTg1Y3grQjhjUmt3bnFHakFseW1PdmJNOVNrMgptMnRwRi8rYm56ZVhNdFA3c0ZoR3NHOXJ5SEZ6UFNLY3NDSDhXWWx0Y1pTSlNDZHRTK21qblAwelArSjMKLS0tLS1FTkQgUlNBIFBSSVZBVEUgS0VZLS0tLS0K&quot;))<br>key2 = rsa.PublicKey.load_pkcs1(base64.b64decode(&quot;LS0tLS1CRUdJTiBSU0EgUFVCTElDIEtFWS0tLS0tCk1JSUJDZ0tDQVFFQXFSVGdMUFNwbk9GQ0JybzR0dStRQVlxYU4yNlJONk82NW4wY1FERkcvb0NTSUlNNFNBeEUKVmsrYmR6UjdhbnFTbWdZeTBIUVhoQ2UzNlNlRmUxdHo5a3dLWi91M0VKb2M1QUs0dTV2eFFuUDlmNXE2YVFsbQpQL1YySU1weTRRUTZQY21FaDRLZDZvNWVkSVJQdkh3eldHVktPTkNwaS9LWkNPNldLVmJKV3Fod1hqREJsSDFNClVEc2dYMlVDOG9waHZ5OXVyMnpPZE5QaHBJSWR3SHNaOW9GWllrWjFMeUNJUUV0WUZpSmptRlMyRUNUVUNvcU8KWnJ0MWlOYzV1YWZxb2ZQeHh5T29sMGFVaFRoYmhxOHBKVy9xT0hXWHdMSW13bTZPemFxVXpLODRGMmN1YWRiRApOc3lTb2hJR2h2M3dJQVU4TUpRZzhLYXdWd2Rwc0VoZUl3SURBUUFCCi0tLS0tRU5EIFJTQSBQVUJMSUMgS0VZLS0tLS0K&quot;))<br><br>def encrypt1(message):<br>    crypto_text = rsa.encrypt(message.encode(), key2)<br>    return crypto_text<br><br><br>def decrypt1(message):<br>    message_str = rsa.decrypt(message, key1).decode()<br>    return message_str<br><br><br>def encrypt2(tips, key):<br>    ltips = len(tips)<br>    lkey = len(key)<br>    secret = []<br>    num = 0<br>    for each in tips:<br>        if num &gt;= lkey:<br>            num = num % lkey<br>        secret.append(chr(ord(each) ^ ord(key[num])))<br>        num += 1<br><br>    return base64.b64encode(&quot;&quot;.join(secret).encode()).decode()<br><br><br>def decrypt2(secret, key):<br>    tips = base64.b64decode(secret.encode()).decode()<br>    ltips = len(tips)<br>    lkey = len(key)<br>    secret = []<br>    num = 0<br>    for each in tips:<br>        if num &gt;= lkey:<br>            num = num % lkey<br>        secret.append(chr(ord(each) ^ ord(key[num])))<br>        num += 1<br><br>    return &quot;&quot;.join(secret)<br><br><br>flag = &quot;IAMrG1EOPkM5NRI1cChQDxEcGDZMURptPzgHJHUiN0ASDgUYUB4LGQMUGAtLCQcJJywcFmddNno/PBtQbiMWNxsGLiFuLwpiFlkyP084Ng0lKj8GUBMXcwEXPTJrRDMdNwMiHVkCBFklHgIAWQwgCz8YQhp6E1xUHgUELxMtSh0xXzxBEisbUyYGOx1DBBZWPg1CXFkvJEcxO0ADeBwzChIOQkdwXQRpQCJHCQsaFE4CIjMDcwswTBw4BS9mLVMLLDs8HVgeQkscGBEBFSpQFQQgPTVRAUpvHyAiV1oPE0kyADpDbF8AbyErBjNkPh9PHiY7O1ZaGBADMB0PEVwdCxI+MCcXARZiPhwfH1IfKitGOF42FV8FTxwqPzBPAVUUOAEKAHEEP2QZGjQVV1oIS0QBJgBDLx1jEAsWKGk5Nw03MVgmWSE4Qy5LEghoHDY+OQ9dXE44Th0=&quot;<br>key = &quot;this is key&quot;<br><br>result = decrypt2(&quot;AAAAAAAAAAAfFwwRSAIWWQ==&quot;, key)<br>print(decrypt1(base64.b64decode(decrypt2(flag, result))))<br></code></pre></td></tr></table></figure>
+
+<h2 id=""><a href="#" class="headerlink" title=""></a><img src="/./img/49277317_ZWCMkHNA8_Mz7yIn/1721204088397-9f95592e-8761-47de-b20b-59c93854b61d-245159.png" srcset="/img/loading.gif" lazyload alt="1721204088397-9f95592e-8761-47de-b20b-59c93854b61d.png"></h2><h2 id="2、字符与长整型的转换"><a href="#2、字符与长整型的转换" class="headerlink" title="2、字符与长整型的转换"></a>2、字符与长整型的转换</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plain"># uncompyle6 version 3.9.1<br># Python bytecode version base 3.7.0 (3394)<br># Decompiled from: Python 3.10.9 | packaged by Anaconda, Inc. | (main, Mar  1 2023, 18:18:15) [MSC v.1916 64 bit (AMD64)]<br># Embedded file name: .\ezPython.py<br># Compiled at: 2022-09-03 23:53:44<br># Size of source mod 2**32: 444 bytes<br>from Crypto.Util.number import *<br>import base64, base58<br>password = open(&quot;password.txt&quot;, &quot;r&quot;).read()<br>tmp = bytes_to_long(password.encode(&quot;utf-8&quot;))<br>ans = base64.b64encode(base58.b58encode(str(tmp))).decode()<br>print(&quot;I&#x27;ve forgot my password,could you please help me find the password?&quot;)<br>if ans == &quot;M0hBajFITHVLcWV6R1BOcEM5MTR0R0J3eGZVODV6MTJjZUhGZFNHQw==&quot;:<br>    print(&quot;You get the password!&quot;)<br>else:<br>    print(&quot;Wrong! try again&quot;)<br><br># okay decompiling ezPython.pyc<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs plain">import base64<br>import hashlib<br><br>import base58<br>from Crypto.Util.number import long_to_bytes<br><br>flag = &quot;M0hBajFITHVLcWV6R1BOcEM5MTR0R0J3eGZVODV6MTJjZUhGZFNHQw==&quot;<br>flag = base64.b64decode(flag)<br>print(flag)<br>flag = base58.b58decode(flag)<br>print(flag)<br>flag = long_to_bytes(int(flag))<br>print(flag)<br>print(type(flag))<br>#Plain Text<br>flag = flag.decode()<br>#这⾥需要将值的类型从bytes转换成str<br>flag = hashlib.md5(flag.encode(&quot;utf-8&quot;))<br>print(flag.hexdigest())<br></code></pre></td></tr></table></figure>
+
+<p><font style="color:#000000;">简单的来叙述一下这个exp。<br></font><font style="color:#000000;">首先因为他加密的时候是先套base58再套base64，所以我们解密的时候就要先解开base64再解base58。因为他在加密base58的时候有转换数据类型为str（字符串）。所以我们在解密base58的时候要转换数据类型为int（整数）。<br></font><font style="color:#000000;">第一步做完了。<br></font><font style="color:#000000;">第二步因为他在加密的时候使用了字节型转长整型。<br></font><font style="color:#000000;">所以我们解密的时候就要反过来把长整型转换成字节型。</font></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain">number = 22385992650816784030032474165<br><br># 将整数转换为字节数组，使用大端（big-endian）字节序<br>number_bytes = number.to_bytes((number.bit_length() + 7) // 8, byteorder=&#x27;big&#x27;)<br><br># 将字节数组转换为字符串<br>number_str = number_bytes.decode(&#x27;latin1&#x27;)  # 使用 latin1 编码确保每个字节直接映射到字符<br>print(number_str)<br></code></pre></td></tr></table></figure>
+
+<font style="color:#000000;">  
+</font><font style="color:#000000;">其实这一步做完之后我们已经把整个程序都解析完毕得到了flag为：HUBUCTF@1405  
+</font><font style="color:#000000;">但是题目要求我们的最终flag还要进行一层md5加密。  
+</font><font style="color:#000000;">所以我们得把HUBUCTF@1405进行md5加密一下，这里简单的方法可以使用在线网站直接加密。</font>
+
+<p><img src="/./img/49277317_ZWCMkHNA8_Mz7yIn/1721205736322-729d8d9f-3ee6-48bc-8a3e-5845c28de267-763814.png" srcset="/img/loading.gif" lazyload alt="1721205736322-729d8d9f-3ee6-48bc-8a3e-5845c28de267.png"><font style="color:#000000;"><br></font><font style="color:#000000;">或者就是用我exp里的办法python里的库函数进行python脚本里的md5加密。<br></font><font style="color:#000000;">最终的flag为：fd78ee3399dd6a3c1d0b637fdca0c075<br></font><font style="color:#000000;">最后这里附带上python脚本的运行结果：</font></p>
+<p><img src="/./img/49277317_ZWCMkHNA8_Mz7yIn/1721465966899-433764e6-e203-43ff-a7e7-d26be87ba859-591089.png" srcset="/img/loading.gif" lazyload alt="1721465966899-433764e6-e203-43ff-a7e7-d26be87ba859.png"></p>
+<h2 id="3、nssctf2433"><a href="#3、nssctf2433" class="headerlink" title="3、nssctf2433"></a><font style="color:#000000;">3、nssctf2433</font></h2><p><font style="color:#000000;">前面还是正常的python逆向</font></p>
+<p><font style="color:#000000;">得到python文件<br></font></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs plain"># uncompyle6 version 3.9.1<br># Python bytecode version base 3.7.0 (3394)<br># Decompiled from: Python 3.10.9 | packaged by Anaconda, Inc. | (main, Mar  1 2023, 18:18:15) [MSC v.1916 64 bit (AMD64)]<br># Embedded file name: 1.py<br><br><br>def check():<br>    a = input(&quot;plz input your flag:&quot;)<br>    c = [144, 163, 158, 177, 121, 39, 58, 58, 91, 111, 25, 158, 72, 53, 152, <br>     78, 171, 12, 53, 105, 45, 12, 12, 53, 12, 171, 111, 91, 53, <br>     152, 105, 45, 152, 144, 39, 171, 45, 91, 78, 45, 158, 8]<br>    if len(a) != 42:<br>        print(&quot;wrong length&quot;)<br>        return 0<br>    b = 179<br>    for i in range(len(a)):<br>        if ord(a[i]) * 33 % b != c[i]:<br>            print(&quot;wrong&quot;)<br>            return<br><br>    print(&quot;win&quot;)<br><br><br>check()<br><br># okay decompiling 1.pyc<br></code></pre></td></tr></table></figure>
+
+<p>exp</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs plain">c = [144, 163, 158, 177, 121, 39, 58, 58, 91, 111, 25, 158, 72, 53, 152,<br>     78, 171, 12, 53, 105, 45, 12, 12, 53, 12, 171, 111, 91, 53,<br>     152, 105, 45, 152, 144, 39, 171, 45, 91, 78, 45, 158, 8]<br>b = 179<br>a = &#x27;&#x27;<br>for i in range(len(c)):<br>    for j in range(100):<br>        temp=c[i]+j*b<br>        num = chr((c[i] + j * b) // 33)<br>        if (ord(num) &gt;= 33 and ord(num) &lt;= 127 and temp%33==0):<br>            a += num<br>            break<br><br>print(a)<br></code></pre></td></tr></table></figure>
+
+<h2 id="Python逆向基本操作步骤详解——以杭电新生赛hgame-week2-reverse-stream-python3-10逆向-为例-CSDN博客magic-number"><a href="#Python逆向基本操作步骤详解——以杭电新生赛hgame-week2-reverse-stream-python3-10逆向-为例-CSDN博客magic-number" class="headerlink" title="Python逆向基本操作步骤详解——以杭电新生赛hgame week2 reverse stream(python3.10逆向)为例-CSDN博客magic number"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/OrientalGlass/article/details/128693889?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522172240978816800172528432%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=172240978816800172528432&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_click~default-2-128693889-null-null.142%5Ev100%5Epc_search_result_base6&utm_term=python%E9%80%86%E5%90%91&spm=1018.2226.3001.4187">Python逆向基本操作步骤详解——以杭电新生赛hgame week2 reverse stream(python3.10逆向)为例-CSDN博客</a>magic number</h2><h1 id="3-8以下用compyle6"><a href="#3-8以下用compyle6" class="headerlink" title="3.8以下用compyle6"></a>3.8以下用compyle6</h1><h1 id="例题（修改文件头）"><a href="#例题（修改文件头）" class="headerlink" title="例题（修改文件头）"></a><font style="color:#000000;">例题（修改文件头）</font></h1><p>先对pyc反编译</p>
+<p><img src="/./img/49277317_ZWCMkHNA8_Mz7yIn/1721375296137-1dcae075-511c-4705-b4ac-d60ec5412877-792071.png" srcset="/img/loading.gif" lazyload alt="1721375296137-1dcae075-511c-4705-b4ac-d60ec5412877.png"><img src="/./img/49277317_ZWCMkHNA8_Mz7yIn/1721375274170-2bef2aad-83cb-4853-a4d3-5a7c36600af9-844981.png" srcset="/img/loading.gif" lazyload alt="1721375274170-2bef2aad-83cb-4853-a4d3-5a7c36600af9.png"></p>
+<p>使用010工具把struct的头八字节替换到1.pyc的最上面，为什么要替换？<br>因为用 PyInstaller 打包后，pyc 文件的前 8 个字节会被抹掉，所以最后要自己添加回去。前四个字节为 python 编译的版本，后四个字节为时间戳。想要获得编译版本可以查看打包文件里 struct 的信息，我这里还是提取出 struct 这个文件，有 struct 作为对照就方便多了，不用特定下载对应版本的 python 来生成特定的 pyc 文件来取前 8 个字节：</p>
+<p><img src="/./img/49277317_ZWCMkHNA8_Mz7yIn/1721376932445-1134c14c-e8b1-4077-ae92-4fe0faab542f-266030.png" srcset="/img/loading.gif" lazyload alt="1721376932445-1134c14c-e8b1-4077-ae92-4fe0faab542f.png"></p>
+<p>然后save，用在线的py反编译一下</p>
+<p><img src="/./img/49277317_ZWCMkHNA8_Mz7yIn/1721379221167-29daf804-bc14-4573-846d-93f3d344aeb2-017191.png" srcset="/img/loading.gif" lazyload alt="1721379221167-29daf804-bc14-4573-846d-93f3d344aeb2.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br></pre></td><td class="code"><pre><code class="hljs plain">#!/usr/bin/env python<br># visit https://tool.lu/pyc/ for more information<br># Version: Python 3.7<br><br>&#x27;&#x27;&#x27;贪吃蛇&#x27;&#x27;&#x27;<br>import random<br>import sys<br>import time<br>import pygame<br>from pygame.locals import *<br>from collections import deque<br><br>SCREEN_WIDTH = 600<br>SCREEN_HEIGHT = 480<br>SIZE = 20<br>LINE_WIDTH = 1<br>SCOPE_X = (0, SCREEN_WIDTH // SIZE - 1)<br>SCOPE_Y = (2, SCREEN_HEIGHT // SIZE - 1)<br>FOOD_STYLE_LIST = [<br>    (10, (255, 100, 100)),<br>    (20, (100, 255, 100)),<br>    (30, (100, 100, 255))]<br>LIGHT = (100, 100, 100)<br>DARK = (200, 200, 200)<br>BLACK = (0, 0, 0)<br>RED = (200, 30, 30)<br>BGCOLOR = (40, 40, 60)<br><br><br>def print_text(screen, font, x, y, text, fcolor=((255, 255, 255),)):<br>    imgText = font.render(text, True, fcolor)<br>    screen.blit(imgText, (x, y))<br><br><br>def init_snake():<br>    snake = deque()<br>    snake.append((2, SCOPE_Y[0]))<br>    snake.append((1, SCOPE_Y[0]))<br>    snake.append((0, SCOPE_Y[0]))<br>    return snake<br><br><br>def create_food(snake):<br>    food_x = random.randint(SCOPE_X[0], SCOPE_X[1])<br>    food_y = random.randint(SCOPE_Y[0], SCOPE_Y[1])<br>    while (food_x, food_y) in snake:<br>        food_x = random.randint(SCOPE_X[0], SCOPE_X[1])<br>        food_y = random.randint(SCOPE_Y[0], SCOPE_Y[1])<br>    return (food_x, food_y)<br><br><br>def get_food_style():<br>    return FOOD_STYLE_LIST[random.randint(0, 2)]<br><br><br>def main():<br>    pygame.init()<br>    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))<br>    pygame.display.set_caption(&#x27;贪吃蛇&#x27;)<br>    font1 = pygame.font.SysFont(&#x27;SimHei&#x27;, 24)<br>    font2 = pygame.font.Font(None, 72)<br>    (fwidth, fheight) = font2.size(&#x27;GAME OVER&#x27;)<br>    b = True<br>    snake = init_snake()<br>    food = create_food(snake)<br>    food_style = get_food_style()<br>    pos = (1, 0)<br>    game_over = True<br>    start = False<br>    score = 0<br>    orispeed = 0.5<br>    speed = orispeed<br>    last_move_time = None<br>    pause = False<br>    while None:<br>        for event in pygame.event.get():<br>            if event.type == QUIT:<br>                sys.exit()<br>                continue<br>            if event.type == KEYDOWN or event.key == K_RETURN or game_over:<br>                start = True<br>                game_over = False<br>                b = True<br>                snake = init_snake()<br>                food = create_food(snake)<br>                food_style = get_food_style()<br>                pos = (1, 0)<br>                score = 0<br>                last_move_time = time.time()<br>                continue<br>                if not event.key == K_SPACE or game_over:<br>                    pause = not pause<br>                    continue<br>                    if not (event.key in (K_w, K_UP) or b) and pos[1]:<br>                        pos = (0, -1)<br>                        b = False<br>                        continue<br>                        if not (event.key in (K_s, K_DOWN) or b) and pos[1]:<br>                            pos = (0, 1)<br>                            b = False<br>                            continue<br>                            if not (event.key in (K_a, K_LEFT) or b) and pos[0]:<br>                                pos = (-1, 0)<br>                                b = False<br>                                continue<br>                                if not event.key in (K_d, K_RIGHT) and b and pos[0]:<br>                                    pos = (1, 0)<br>                                    b = False<br>                                screen.fill(BGCOLOR)<br>                                for x in range(SIZE, SCREEN_WIDTH, SIZE):<br>                                    pygame.draw.line(screen, BLACK, (x, SCOPE_Y[0] * SIZE), (x, SCREEN_HEIGHT),<br>                                                     LINE_WIDTH)<br><br>        for y in range(SCOPE_Y[0] * SIZE, SCREEN_HEIGHT, SIZE):<br>            pygame.draw.line(screen, BLACK, (0, y), (SCREEN_WIDTH, y), LINE_WIDTH)<br><br>        if not game_over:<br>            curTime = time.time()<br>            if not curTime - last_move_time &gt; speed and pause:<br>                b = True<br>                last_move_time = curTime<br>                next_s = (snake[0][0] + pos[0], snake[0][1] + pos[1])<br>                if next_s == food:<br>                    snake.appendleft(next_s)<br>                    score += food_style[0]<br>                    speed = orispeed - 0.03 * (score // 100)<br>                    food = create_food(snake)<br>                    food_style = get_food_style()<br>                elif next_s[0] &lt;= next_s[0] or next_s[0] &lt;= SCOPE_X[1]:<br>                    pass<br>                else:<br>                    SCOPE_X[0]<br>            elif next_s[1] &lt;= next_s[1] or next_s[1] &lt;= SCOPE_Y[1]:<br>                pass<br>            else:<br>                SCOPE_Y[0]<br>        elif next_s not in snake:<br>            snake.appendleft(next_s)<br>            snake.pop()<br>        else:<br>            game_over = True<br>        if not game_over:<br>            pygame.draw.rect(screen, food_style[1], (food[0] * SIZE, food[1] * SIZE, SIZE, SIZE), 0)<br>        for s in snake:<br>            pygame.draw.rect(screen, DARK, (<br>            s[0] * SIZE + LINE_WIDTH, s[1] * SIZE + LINE_WIDTH, SIZE - LINE_WIDTH * 2, SIZE - LINE_WIDTH * 2), 0)<br><br>        print_text(screen, font1, 450, 7, f&#x27;&#x27;&#x27;得分: &#123;score&#125;&#x27;&#x27;&#x27;)<br>        if score &gt; 1000:<br>            flag = [ 30, 196, 52, 252, 49, 220, 7, 243, 3, 241, 24, 224, 40, 230, 25, 251, 28, 233, 40, 237, 4, 225, 4, 215, 40, 231, 22, 237, 14, 251, 10, 169]<br>            for i in range(0, len(flag), 2):<br>                flag[i] = flag[i + 1] ^ 136<br>                flag[i + 1] = flag[i] ^ 119<br><br>            print_text(screen, font2, (SCREEN_WIDTH - fwidth) // 2, (SCREEN_HEIGHT - fheight) // 2,<br>                       bytes(flag).decode(), RED)<br>            pygame.display.update()<br>        if game_over and start:<br>            print_text(screen, font2, (SCREEN_WIDTH - fwidth) // 2, (SCREEN_HEIGHT - fheight) // 2, &#x27;GAME OVER&#x27;, RED)<br>        pygame.display.update()<br><br><br>if __name__ == &#x27;__main__&#x27;:<br>    main()<br></code></pre></td></tr></table></figure>
+
+<p>看到flag代码提取出来，注意这里要同时异或</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">flag = [ 30, 196, 52, 252, 49, 220, 7, 243, 3, 241, 24, 224, 40, 230, 25, 251, 28, 233, 40, 237, 4, 225, 4, 215, 40, 231, 22, 237, 14, 251, 10, 169]<br>for i in range(0, len(flag), 2):<br>        flag[i],flag[i+1]= flag[i + 1] ^ 136,flag[i]^119<br>for i in range(len(flag)):<br>    print(chr(flag[i]),end=&#x27;&#x27;)<br></code></pre></td></tr></table></figure>
+
+<h1 id="3、如果python版本不一样，那么反编译出来的py就不一样，所以得在线网站反编译"><a href="#3、如果python版本不一样，那么反编译出来的py就不一样，所以得在线网站反编译" class="headerlink" title="3、如果python版本不一样，那么反编译出来的py就不一样，所以得在线网站反编译"></a>3、如果python版本不一样，那么反编译出来的py就不一样，所以得在线网站反编译</h1><p><img src="/./img/49277317_ZWCMkHNA8_Mz7yIn/1721446247641-c20b0ad8-b4b2-42fa-af99-e5284d71cba4-293800.png" srcset="/img/loading.gif" lazyload alt="1721446247641-c20b0ad8-b4b2-42fa-af99-e5284d71cba4.png"></p>
+<h3 id="可以用在线网站查看python文件的版本"><a href="#可以用在线网站查看python文件的版本" class="headerlink" title="可以用在线网站查看python文件的版本"></a>可以用在线网站查看python文件的版本</h3><p><img src="/./img/49277317_ZWCMkHNA8_Mz7yIn/1721446520216-98c3e501-afdb-4bd4-a1e6-b90347021486-961429.png" srcset="/img/loading.gif" lazyload alt="1721446520216-98c3e501-afdb-4bd4-a1e6-b90347021486.png"></p>
+<h3 id="3-10-9的python反编译2-7的py就会出错的"><a href="#3-10-9的python反编译2-7的py就会出错的" class="headerlink" title="3.10.9的python反编译2.7的py就会出错的"></a>3.10.9的python反编译2.7的py就会出错的</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs plain"># uncompyle6 version 3.9.1<br># Python bytecode version base 2.7 (62211)<br># Decompiled from: Python 3.10.9 | packaged by Anaconda, Inc. | (main, Mar  1 2023, 18:18:15) [MSC v.1916 64 bit (AMD64)]<br># Embedded file name: encode.py<br># Compiled at: 2019-08-19 21:01:57<br>print &#x27;Welcome to Re World!&#x27;<br>print &#x27;Your input1 is your flag~&#x27;<br>l = len(input1)<br>for i in range(l):<br>    num = ((input1[i] + i) % 128 + 128) % 128<br>    code += num<br><br>for i in range(l - 1):<br>    code[i] = code[i] ^ code[i + 1]<br><br>print code<br>code = [4, 5, 6, 7, 8, 9, 10, 11, 12, 9, 13, 14, 15, 16, 17, 18, 19, 20, <br> 10, 21, 22, 23, 24]<br><br># okay decompiling encode.pyc<br></code></pre></td></tr></table></figure>
+
+<p>这是在线网站编译出来的正确文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs plain">#!/usr/bin/env python<br># visit https://tool.lu/pyc/ for more information<br># Version: Python 2.7<br><br>print &#x27;Welcome to Re World!&#x27;<br>print &#x27;Your input1 is your flag~&#x27;<br>l = len(input1)<br>for i in range(l):<br>    num = ((input1[i] + i) % 128 + 128) % 128<br>    code += num<br><br>for i in range(l - 1):<br>    code[i] = code[i] ^ code[i + 1]<br><br>print code<br>code = [<br>    &#x27;%1f&#x27;,<br>    &#x27;%12&#x27;,<br>    &#x27;%1d&#x27;,<br>    &#x27;(&#x27;,<br>    &#x27;0&#x27;,<br>    &#x27;4&#x27;,<br>    &#x27;%01&#x27;,<br>    &#x27;%06&#x27;,<br>    &#x27;%14&#x27;,<br>    &#x27;4&#x27;,<br>    &#x27;,&#x27;,<br>    &#x27;%1b&#x27;,<br>    &#x27;U&#x27;,<br>    &#x27;?&#x27;,<br>    &#x27;o&#x27;,<br>    &#x27;6&#x27;,<br>    &#x27;*&#x27;,<br>    &#x27;:&#x27;,<br>    &#x27;%01&#x27;,<br>    &#x27;D&#x27;,<br>    &#x27;;&#x27;,<br>    &#x27;%&#x27;,<br>    &#x27;%13&#x27;]<br></code></pre></td></tr></table></figure>
+
+<p><font style="color:#DF2A3F;">附上re代码，</font></p>
+<h3 id="取余考查过很多次了记录一下，要保证在字符的范围内"><a href="#取余考查过很多次了记录一下，要保证在字符的范围内" class="headerlink" title="取余考查过很多次了记录一下，要保证在字符的范围内"></a><font style="color:#DF2A3F;">取余考查过很多次了记录一下，要保证在字符的范围内</font></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs plain">code = [&#x27;\x1f&#x27;, &#x27;\x12&#x27;, &#x27;\x1d&#x27;, &#x27;(&#x27;, &#x27;0&#x27;, &#x27;4&#x27;, &#x27;\x01&#x27;, &#x27;\x06&#x27;, &#x27;\x14&#x27;, &#x27;4&#x27;, &#x27;,&#x27;, &#x27;\x1b&#x27;, &#x27;U&#x27;, &#x27;?&#x27;, &#x27;o&#x27;, &#x27;6&#x27;, &#x27;*&#x27;, &#x27;:&#x27;, &#x27;\x01&#x27;, &#x27;D&#x27;, &#x27;;&#x27;, &#x27;%&#x27;, &#x27;\x13&#x27;]<br><br>code = [ord(i)for(i)in(code)]<br>flag=&#x27;&#x27;<br>l=len(code)<br>print(l)<br>for x in range(l-2,-1,-1):<br>    code[x]=code[x]^code[x+1]<br>for i in range(l):<br>   for j in range(5):<br>       num=code[i]+j*128-i<br>       if num&gt;=33 and num&lt;=127:<br>           flag+=chr(num)<br>           break<br>print(flag)<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<blockquote>
+<p>更新: 2024-11-02 15:25:25<br>原文: <a target="_blank" rel="noopener" href="https://www.yuque.com/chaye-apqbl/vsc85q/tyngvzcc3yr2xobu">https://www.yuque.com/chaye-apqbl/vsc85q/tyngvzcc3yr2xobu</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2026/01/19/RE/各种语言/python反编译/python逆向（pyc文件）例题/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 19, 2026</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E5%90%84%E7%A7%8D%E8%AF%AD%E8%A8%80/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/index/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E5%90%84%E7%A7%8D%E8%AF%AD%E8%A8%80/python%E5%8F%8D%E7%BC%96%E8%AF%91/python%E5%AD%97%E8%8A%82%E7%A0%81%E9%80%86%E5%90%91/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

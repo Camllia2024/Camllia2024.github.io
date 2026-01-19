@@ -1,0 +1,706 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="python反编译  出题  https:&#x2F;&#x2F;www.nssctf.cn&#x2F;problem&#x2F;2038  参考链接：https:&#x2F;&#x2F;www.nssctf.cn&#x2F;note&#x2F;set&#x2F;1517  背景 pyc⽂件格式  magic number + 源代码⽂件信息 + PyCodeObject  4 个字节的 magic number  12 个字节的源代码⽂件信息（不同版本的 Python 包含的⻓度和信">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chaye的博客">
+<meta property="og:url" content="http://example.com/2026/01/19/RE/%E5%90%84%E7%A7%8D%E8%AF%AD%E8%A8%80/python%E5%8F%8D%E7%BC%96%E8%AF%91/index/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="python反编译  出题  https:&#x2F;&#x2F;www.nssctf.cn&#x2F;problem&#x2F;2038  参考链接：https:&#x2F;&#x2F;www.nssctf.cn&#x2F;note&#x2F;set&#x2F;1517  背景 pyc⽂件格式  magic number + 源代码⽂件信息 + PyCodeObject  4 个字节的 magic number  12 个字节的源代码⽂件信息（不同版本的 Python 包含的⻓度和信">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/49277317_1IzarV8UyXZsp7of/1715258388561-53814a84-a349-4923-ba8f-e226a50378d3-137374.png">
+<meta property="og:image" content="http://example.com/img/49277317_1IzarV8UyXZsp7of/1715258505023-1668a2fb-5c28-42d4-8e8e-4471fb6c7079-121638.png">
+<meta property="og:image" content="http://example.com/img/49277317_1IzarV8UyXZsp7of/1715258624795-2086050d-a431-413e-8f1c-1b97eab74e67-248488.png">
+<meta property="og:image" content="http://example.com/img/49277317_1IzarV8UyXZsp7of/1715258642956-9f079c6b-76d4-4507-a9fe-2a9e47eae62a-806634.png">
+<meta property="og:image" content="http://example.com/img/49277317_1IzarV8UyXZsp7of/1715258655829-7d5b192e-bef9-4686-8e66-0894531f5c4c-998362.png">
+<meta property="og:image" content="http://example.com/img/49277317_1IzarV8UyXZsp7of/1715258675431-342e6ef3-b699-4772-8655-1558dd19811e-471404.png">
+<meta property="og:image" content="http://example.com/img/49277317_1IzarV8UyXZsp7of/1715259152965-d1e2718e-9293-4e9f-ba36-c39dca615380-109381.png">
+<meta property="og:image" content="http://example.com/img/49277317_1IzarV8UyXZsp7of/1715259278773-3ff92c0e-1239-4d85-a7eb-098a2fd71a44-575333.png">
+<meta property="og:image" content="http://example.com/img/49277317_1IzarV8UyXZsp7of/1715259329466-ce0288d1-ef6f-4566-9dca-5a8e01d332b3-864182.png">
+<meta property="og:image" content="http://example.com/img/49277317_1IzarV8UyXZsp7of/1715259353666-2218578a-8ca7-40eb-86ee-452d8e5c359a-783858.png">
+<meta property="og:image" content="http://example.com/img/49277317_1IzarV8UyXZsp7of/1715259365833-f9bb93a6-7f58-40de-9858-4df0b40dc823-235691.png">
+<meta property="article:published_time" content="2026-01-19T05:29:07.451Z">
+<meta property="article:modified_time" content="2025-11-04T06:19:34.519Z">
+<meta property="article:author" content="chaye">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/49277317_1IzarV8UyXZsp7of/1715258388561-53814a84-a349-4923-ba8f-e226a50378d3-137374.png">
+  
+  
+  
+  <title>chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-19 13:29" pubdate>
+          January 19, 2026 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          958 words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          8 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="python反编译"><a href="#python反编译" class="headerlink" title="python反编译"></a>python反编译</h1><p><font style="color:rgb(0,0,0);"> </font></p>
+<p><font style="color:rgb(17,124,238);">出题 </font></p>
+<p><font style="color:rgb(17,124,238);"><a target="_blank" rel="noopener" href="https://www.nssctf.cn/problem/2038">https://www.nssctf.cn/problem/2038</a> </font></p>
+<p><font style="color:rgb(38,38,38);">参考链接：</font><font style="color:rgb(17,124,238);"><a target="_blank" rel="noopener" href="https://www.nssctf.cn/note/set/1517">https://www.nssctf.cn/note/set/1517</a> </font></p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景 "></a><font style="color:rgb(38,38,38);">背景 </font></h2><p><font style="color:rgb(38,38,38);">pyc⽂件格式 </font></p>
+<p><font style="color:rgb(38,38,38);">magic number + 源代码⽂件信息 + PyCodeObject </font></p>
+<p><font style="color:rgb(38,38,38);">4 个字节的 magic number </font></p>
+<p><font style="color:rgb(38,38,38);">12 个字节的源代码⽂件信息（不同版本的 Python 包含的⻓度和信息都不⼀样） </font></p>
+<p><font style="color:rgb(38,38,38);">序列化之后的 PyCodeObject </font></p>
+<p><img src="/./img/49277317_1IzarV8UyXZsp7of/1715258388561-53814a84-a349-4923-ba8f-e226a50378d3-137374.png" srcset="/img/loading.gif" lazyload alt="1715258388561-53814a84-a349-4923-ba8f-e226a50378d3.png"></p>
+<p><font style="color:rgb(18,18,18);">Python 是⼀种解释型语⾔，它不像编译型语⾔那样将源代码直接编译成机器码执⾏。Python 的解释器 </font></p>
+<p><font style="color:rgb(18,18,18);">会在运⾏代码之前先将源代码编译成字节码，然后将字节码解释执⾏。pyc ⽂件就是这个过程中⽣成的 </font></p>
+<p><font style="color:rgb(18,18,18);">字节码⽂件。 </font></p>
+<p><font style="color:rgb(18,18,18);">当 Python 解释器⾸次执⾏⼀个 .py ⽂件时，它会在同⼀⽬录下⽣成⼀个对应的 pyc ⽂件，以便于下次 </font></p>
+<p><font style="color:rgb(18,18,18);">加载该⽂件时可以更快地执⾏。如果源⽂件在修改之后被重新加载，解释器会重新⽣成pyc ⽂件以更新 </font></p>
+<p><font style="color:rgb(18,18,18);">缓存的字节码 </font></p>
+<p><font style="color:rgb(38,38,38);">⼀般需要反编译的附件查壳都会有如下红⾊标志</font></p>
+<p><img src="/./img/49277317_1IzarV8UyXZsp7of/1715258505023-1668a2fb-5c28-42d4-8e8e-4471fb6c7079-121638.png" srcset="/img/loading.gif" lazyload alt="1715258505023-1668a2fb-5c28-42d4-8e8e-4471fb6c7079.png"></p>
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><h3 id="本地"><a href="#本地" class="headerlink" title="本地"></a>本地</h3><p><font style="color:rgb(38,38,38);">uncompyle6 现仅适⽤于 Python 2.4 到 3.8 版本，3.8 及以上版本使⽤ pycdc ，3.8左右版本两者都可 </font></p>
+<p><font style="color:rgb(38,38,38);">以试试 </font></p>
+<p><font style="color:rgb(38,38,38);">uncompyle6安装要python版本对应（不能太⾼），我⽤anaconda创建虚拟环境 </font></p>
+<p><font style="color:rgb(38,38,38);">uncompyle： </font><font style="color:rgb(38,38,38);">uncompyle6 </font></p>
+<p><font style="color:rgb(38,38,38);">⽂件名</font><font style="color:rgb(38,38,38);">.pyc &gt; </font><font style="color:rgb(38,38,38);">⽂件名</font><font style="color:rgb(38,38,38);">.py </font></p>
+<p><font style="color:rgb(38,38,38);">pycdc： </font><font style="color:rgb(38,38,38);">.&#x2F;pycdc.exe </font><font style="color:rgb(38,38,38);">⽂件名 </font></p>
+<p><font style="color:rgb(17,124,238);"><a target="_blank" rel="noopener" href="https://github.com/extremecoders-re/decompyle-builds/releases/tag/build-14-Nov-2023-">https://github.com/extremecoders-re/decompyle-builds/releases/tag/build-14-Nov-2023-</a> </font></p>
+<p><font style="color:rgb(17,124,238);">5936412 </font></p>
+<p><font style="color:rgb(38,38,38);">下载地址如上 </font></p>
+<h3 id="在线"><a href="#在线" class="headerlink" title="在线"></a><font style="color:rgb(38,38,38);">在线</font></h3><p><font style="color:rgb(38,38,38);">贴两个⽐较好⽤的在线⽹站 </font></p>
+<p><font style="color:rgb(17,124,238);"><a target="_blank" rel="noopener" href="https://www.toolkk.com/tools/pyc-decomplie#google_vignette">https://www.toolkk.com/tools/pyc-decomplie#google_vignette</a> </font></p>
+<p><font style="color:rgb(17,124,238);"><a target="_blank" rel="noopener" href="https://tool.lu/pyc">https://tool.lu/pyc</a> </font></p>
+<h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a><font style="color:#000000;">目标</font></h2><h3 id="1-exe⽂件变成pyc⽂件"><a href="#1-exe⽂件变成pyc⽂件" class="headerlink" title="1.exe⽂件变成pyc⽂件 "></a><font style="color:rgb(38,38,38);">1.exe⽂件变成pyc⽂件 </font></h3><p><font style="color:rgb(38,38,38);">⾸先，先将 pyinstxtractor.py ⼯具与我们要反编译的 .exe ⽂件放⼊同⼀个⼯作⽬录下： </font></p>
+<p><font style="color:rgb(38,38,38);">在上述⽬录打开终端： </font><font style="color:rgb(38,38,38);">python pyinstxtractor.py </font><font style="color:rgb(38,38,38);">⽂件名</font><font style="color:rgb(38,38,38);">.exe </font></p>
+<p><font style="color:rgb(38,38,38);">有些附件不清楚格式可以到kali下file命令查看或者⽤IDA打开发现如下字样，也暗示要反编译 </font></p>
+<p><font style="color:rgb(38,38,38);"></font></p>
+<p><img src="/./img/49277317_1IzarV8UyXZsp7of/1715258624795-2086050d-a431-413e-8f1c-1b97eab74e67-248488.png" srcset="/img/loading.gif" lazyload alt="1715258624795-2086050d-a431-413e-8f1c-1b97eab74e67.png"></p>
+<p><font style="color:rgb(38,38,38);">说明版本是python3.7的 </font></p>
+<p><img src="/./img/49277317_1IzarV8UyXZsp7of/1715258642956-9f079c6b-76d4-4507-a9fe-2a9e47eae62a-806634.png" srcset="/img/loading.gif" lazyload alt="1715258642956-9f079c6b-76d4-4507-a9fe-2a9e47eae62a.png"></p>
+<p><font style="color:rgb(38,38,38);">运⾏完成后，在此⽂件夹下我们会发现多了⼀个 ⽂件名.exe_extracted 的⽂件夹 </font></p>
+<p><img src="/./img/49277317_1IzarV8UyXZsp7of/1715258655829-7d5b192e-bef9-4686-8e66-0894531f5c4c-998362.png" srcset="/img/loading.gif" lazyload alt="1715258655829-7d5b192e-bef9-4686-8e66-0894531f5c4c.png"></p>
+<p><font style="color:rgb(38,38,38);">⽬录⾥有两个没有后缀的⽂件，这就是反编译的重点 </font></p>
+<p><font style="color:rgb(38,38,38);">总体上还是找那些没有后缀的⽂件 </font></p>
+<p><font style="color:rgb(38,38,38);">为src⽂件添加.pyc的后缀，并⽤winhex打开src和struct⽂件 </font></p>
+<p><img src="/./img/49277317_1IzarV8UyXZsp7of/1715258675431-342e6ef3-b699-4772-8655-1558dd19811e-471404.png" srcset="/img/loading.gif" lazyload alt="1715258675431-342e6ef3-b699-4772-8655-1558dd19811e.png"></p>
+<p><font style="color:rgb(89,89,89);"></font><font style="color:rgb(38,38,38);">注意，直接将src添加.pyc后缀后所编译的py⽂件是缺少Magic Number的，所以我们要⽤struct⽂件的 </font></p>
+<p><font style="color:rgb(38,38,38);">⽂件头来修复src⽂件的⽂件头 </font></p>
+<p><font style="color:rgb(38,38,38);">由于src⽂件直接是以E3开头的，所以我们这⾥直接将struct⽂件E3前⾯的11字节复制到src⽂件的⽂件头 </font></p>
+<p><font style="color:rgb(38,38,38);">就可以了；如果不是直接以E3开头，就⽐较两个⽂件E3前⾯的字节，将src⽂件E3前⾯的字节改为struct </font></p>
+<p><font style="color:rgb(38,38,38);">⽂件E3前⾯的字节即可（这⾥只是针对这道题，其他题⽂件头通常都不⼀样） </font></p>
+<h3 id="2-pyc⽂件变成py⽂件"><a href="#2-pyc⽂件变成py⽂件" class="headerlink" title="2.pyc⽂件变成py⽂件 "></a><font style="color:rgb(38,38,38);">2.pyc⽂件变成py⽂件 </font></h3><p><font style="color:rgb(38,38,38);">开启虚拟环境： </font><font style="color:rgb(38,38,38);">uncompyle6 </font><font style="color:rgb(38,38,38);">⽂件名</font><font style="color:rgb(38,38,38);">.pyc &gt; </font><font style="color:rgb(38,38,38);">⽂件名</font><font style="color:rgb(38,38,38);">.py </font></p>
+<p><font style="color:rgb(38,38,38);">前提python版本要⼀样 </font></p>
+<h2 id="magic修复"><a href="#magic修复" class="headerlink" title="magic修复 "></a><font style="color:rgb(89,89,89);"></font><font style="color:rgb(38,38,38);">magic修复 </font></h2><p><font style="color:rgb(38,38,38);">适合已知</font><font style="color:rgb(38,38,38);">python</font><font style="color:rgb(38,38,38);">版本的题⽬ </font></p>
+<p><font style="color:rgb(38,38,38);">放到winhex⾥可以发现E3前⾯全是0，正常的pyc⽂件E3前⾯包含Magic Number和时间戳 </font></p>
+<p><font style="color:rgb(38,38,38);">1.Python3.3以下的版本中，只有Magic Number和四位时间戳 </font></p>
+<p><font style="color:rgb(38,38,38);">2.Python3.3到Python3.7（不包含3.7）版本中，只有Magic Number和⼋位时间戳 + ⼤⼩信息 </font></p>
+<p><font style="color:rgb(38,38,38);">3.Python3.7及以上版本的编译后⼆进制⽂件中，头部除了四字节Magic Number，还有四个字节的空位 </font></p>
+<p><font style="color:rgb(38,38,38);">和⼋个字节的时间戳 + ⼤⼩信息，时间戳填充0即可 </font></p>
+<p><img src="/./img/49277317_1IzarV8UyXZsp7of/1715259152965-d1e2718e-9293-4e9f-ba36-c39dca615380-109381.png" srcset="/img/loading.gif" lazyload alt="1715259152965-d1e2718e-9293-4e9f-ba36-c39dca615380.png"></p>
+<h2 id="pyc版本号参考"><a href="#pyc版本号参考" class="headerlink" title="pyc版本号参考 "></a><font style="color:rgb(38,38,38);">pyc版本号参考 </font></h2><p><font style="color:rgb(38,38,38);">补全的时候是⼩端序，记得颠倒过来，只改前四个字节就可以，⽐如3.7版本先42再0A </font></p>
+<p><font style="color:rgb(38,38,38);">这⾥抄⼀下⽹上的magic number </font></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">PycMagic</span> &#123;</span><br> MAGIC_1_0 = <span class="hljs-number">0x00999902</span>,<br> MAGIC_1_1 = <span class="hljs-number">0x00999903</span>, <span class="hljs-comment">/* Also covers 1.2 */</span><br> MAGIC_1_3 = <span class="hljs-number">0x0A0D2E89</span>,<br> MAGIC_1_4 = <span class="hljs-number">0x0A0D1704</span>,<br> MAGIC_1_5 = <span class="hljs-number">0x0A0D4E99</span>,<br> MAGIC_1_6 = <span class="hljs-number">0x0A0DC4FC</span>,<br> MAGIC_2_0 = <span class="hljs-number">0x0A0DC687</span>,<br> MAGIC_2_1 = <span class="hljs-number">0x0A0DEB2A</span>,<br> MAGIC_2_2 = <span class="hljs-number">0x0A0DED2D</span>,<br> MAGIC_2_3 = <span class="hljs-number">0x0A0DF23B</span>,<br> MAGIC_2_4 = <span class="hljs-number">0x0A0DF26D</span>,<br> MAGIC_2_5 = <span class="hljs-number">0x0A0DF2B3</span>,<br> MAGIC_2_6 = <span class="hljs-number">0x0A0DF2D1</span>,<br> MAGIC_2_7 = <span class="hljs-number">0x0A0DF303</span>,<br> MAGIC_3_0 = <span class="hljs-number">0x0A0D0C3A</span>,<br> MAGIC_3_1 = <span class="hljs-number">0x0A0D0C4E</span>,<br> MAGIC_3_2 = <span class="hljs-number">0x0A0D0C6C</span>,<br> MAGIC_3_3 = <span class="hljs-number">0x0A0D0C9E</span>,<br> MAGIC_3_4 = <span class="hljs-number">0x0A0D0CEE</span>,<br> MAGIC_3_5 = <span class="hljs-number">0x0A0D0D16</span>,<br> MAGIC_3_5_3 = <span class="hljs-number">0x0A0D0D17</span>,<br> MAGIC_3_6 = <span class="hljs-number">0x0A0D0D33</span>,<br> MAGIC_3_7 = <span class="hljs-number">0x0A0D0D42</span>,<br> MAGIC_3_8 = <span class="hljs-number">0x0A0D0D55</span>,<br> MAGIC_3_9 = <span class="hljs-number">0x0A0D0D61</span>,<br> MAGIC_3_10 = <span class="hljs-number">0x0A0D0D6F</span>,<br> MAGIC_3_11 = <span class="hljs-number">0x0A0D0DA7</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><font style="color:rgb(38,38,38);">可以看已有版本的magic number</font></p>
+<p><img src="/./img/49277317_1IzarV8UyXZsp7of/1715259278773-3ff92c0e-1239-4d85-a7eb-098a2fd71a44-575333.png" srcset="/img/loading.gif" lazyload alt="1715259278773-3ff92c0e-1239-4d85-a7eb-098a2fd71a44.png"></p>
+<p><font style="color:rgb(38,38,38);">import importlib </font></p>
+<p><font style="color:rgb(38,38,38);">importlib.util.MAGIC_NUMBER.hex()</font></p>
+<h1 id="出题"><a href="#出题" class="headerlink" title="出题 "></a><font style="color:rgb(140,140,140);"></font><font style="color:rgb(38,38,38);">出题 </font></h1><p><font style="color:rgb(18,18,18);">⽣成pyc： </font><font style="color:rgb(18,18,18);">python -m </font><font style="color:rgb(18,18,18);">⽂件名 </font></p>
+<p><font style="color:rgb(18,18,18);">即使有报错也能⽣成 </font></p>
+<p><img src="/./img/49277317_1IzarV8UyXZsp7of/1715259329466-ce0288d1-ef6f-4566-9dca-5a8e01d332b3-864182.png" srcset="/img/loading.gif" lazyload alt="1715259329466-ce0288d1-ef6f-4566-9dca-5a8e01d332b3.png"></p>
+<p><font style="color:rgb(38,38,38);">如果是另外python版本可以⽤下⾯这种 </font></p>
+<p><img src="/./img/49277317_1IzarV8UyXZsp7of/1715259353666-2218578a-8ca7-40eb-86ee-452d8e5c359a-783858.png" srcset="/img/loading.gif" lazyload alt="1715259353666-2218578a-8ca7-40eb-86ee-452d8e5c359a.png"></p>
+<p><font style="color:rgb(89,89,89);"></font><font style="color:rgb(38,38,38);">⽣成exe： pyinstaller -F tmp.py </font></p>
+<p><img src="/./img/49277317_1IzarV8UyXZsp7of/1715259365833-f9bb93a6-7f58-40de-9858-4df0b40dc823-235691.png" srcset="/img/loading.gif" lazyload alt="1715259365833-f9bb93a6-7f58-40de-9858-4df0b40dc823.png"></p>
+<p><font style="color:rgb(89,89,89);"></font></p>
+<blockquote>
+<p>更新: 2024-05-09 20:56:20<br>原文: <a target="_blank" rel="noopener" href="https://www.yuque.com/chaye-apqbl/vsc85q/svmmqlvdm0b8tzyu">https://www.yuque.com/chaye-apqbl/vsc85q/svmmqlvdm0b8tzyu</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2026/01/19/RE/各种语言/python反编译/index/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 19, 2026</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E5%90%84%E7%A7%8D%E8%AF%AD%E8%A8%80/python%E5%8F%8D%E7%BC%96%E8%AF%91/python%E5%AD%97%E8%8A%82%E7%A0%81%E9%80%86%E5%90%91/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E5%90%84%E7%A7%8D%E8%AF%AD%E8%A8%80/python%E5%8F%8D%E7%BC%96%E8%AF%91/conda%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,693 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="easyrebase64加密的反编译代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253__int64 __fastcall encode_one(char *a1, int a2, char *a3, int *a4)&#123;  int v5; &#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chaye的博客">
+<meta property="og:url" content="http://example.com/2026/01/19/RE/%E4%BE%8B%E9%A2%98/NSSCTF/easyre/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="easyrebase64加密的反编译代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253__int64 __fastcall encode_one(char *a1, int a2, char *a3, int *a4)&#123;  int v5; &#x2F;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/49277317_pdbh26fxJXiXuxOX/1717937134032-d68b3536-93ff-4c10-87b0-c751d06e5e85-950032.png">
+<meta property="og:image" content="http://example.com/img/49277317_pdbh26fxJXiXuxOX/1717917201454-ae1d224f-b664-4a0d-9ec5-7aa8aa6d5cea-765973.png">
+<meta property="og:image" content="http://example.com/img/49277317_pdbh26fxJXiXuxOX/1717917171822-b04d7864-bdcf-4d04-b852-4e230b6eacff-810275.png">
+<meta property="og:image" content="http://example.com/img/49277317_pdbh26fxJXiXuxOX/1717917305894-9f2ff6d7-171f-4c8f-acb3-cfd4d8d294bf-793898.png">
+<meta property="og:image" content="http://example.com/img/49277317_pdbh26fxJXiXuxOX/1721443980982-eaaa5ee9-dfba-4997-86c1-224994b7226b-059870.png">
+<meta property="og:image" content="http://example.com/img/49277317_pdbh26fxJXiXuxOX/1721444087788-ca6aecf2-1811-4fa9-9712-834ba3952f38-985126.png">
+<meta property="og:image" content="http://example.com/img/49277317_pdbh26fxJXiXuxOX/1721444242795-467870c3-f283-4c0b-928a-a362eaeca2a6-152723.png">
+<meta property="og:image" content="http://example.com/img/49277317_pdbh26fxJXiXuxOX/1721444293768-1f348d88-1f78-4382-811c-5bb40cdd2690-132801.png">
+<meta property="og:image" content="http://example.com/img/49277317_pdbh26fxJXiXuxOX/1721444484321-cf89244e-2daf-422b-a3ed-89e71fefe60e-957333.png">
+<meta property="og:image" content="http://example.com/img/49277317_pdbh26fxJXiXuxOX/1721460339801-09eef6d1-3520-4ef4-9bb8-c010024c0d86-989820.png">
+<meta property="og:image" content="http://example.com/img/49277317_pdbh26fxJXiXuxOX/1721460396040-f629698d-b0ed-4069-8137-831fca288b0f-546584.png">
+<meta property="article:published_time" content="2026-01-19T05:29:07.021Z">
+<meta property="article:modified_time" content="2025-11-04T06:22:49.906Z">
+<meta property="article:author" content="chaye">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/49277317_pdbh26fxJXiXuxOX/1717937134032-d68b3536-93ff-4c10-87b0-c751d06e5e85-950032.png">
+  
+  
+  
+  <title>chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-19 13:29" pubdate>
+          January 19, 2026 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="easyre"><a href="#easyre" class="headerlink" title="easyre"></a>easyre</h1><h1 id="base64加密的反编译代码"><a href="#base64加密的反编译代码" class="headerlink" title="base64加密的反编译代码"></a>base64加密的反编译代码</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs php">__int64 __fastcall <span class="hljs-title function_ invoke__">encode_one</span>(char *a1, <span class="hljs-keyword">int</span> a2, char *a3, <span class="hljs-keyword">int</span> *a4)<br>&#123;<br>  <span class="hljs-keyword">int</span> v5; <span class="hljs-comment">// esi</span><br>  <span class="hljs-keyword">int</span> v6; <span class="hljs-comment">// esi</span><br>  <span class="hljs-keyword">int</span> v7; <span class="hljs-comment">// esi</span><br>  <span class="hljs-keyword">int</span> v8; <span class="hljs-comment">// [rsp+34h] [rbp-1Ch]</span><br>  <span class="hljs-keyword">int</span> v9; <span class="hljs-comment">// [rsp+38h] [rbp-18h]</span><br>  <span class="hljs-keyword">int</span> v11; <span class="hljs-comment">// [rsp+48h] [rbp-8h]</span><br>  <span class="hljs-keyword">int</span> i; <span class="hljs-comment">// [rsp+4Ch] [rbp-4h]</span><br>  unsigned __int8 *v13; <span class="hljs-comment">// [rsp+70h] [rbp+20h]</span><br><br>  v13 = (unsigned __int8 *)a1;<br>  <span class="hljs-keyword">if</span> ( !a1 || !a2 )<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>xFFFFFFFFi64;<br>  v11 = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">if</span> ( a2 % <span class="hljs-number">3</span> )<br>    v11 = <span class="hljs-number">3</span> - a2 % <span class="hljs-number">3</span>;<br>  v9 = a2 + v11;<br>  v8 = <span class="hljs-number">8</span> * (a2 + v11) / <span class="hljs-number">6</span>;<br>  <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt; v9; i += <span class="hljs-number">3</span> )<br>  &#123;<br>    *a3 = alphabet[(char)*v13 &gt;&gt; <span class="hljs-number">2</span>];<br>    <span class="hljs-keyword">if</span> ( a2 + v11 - <span class="hljs-number">3</span> == i &amp;&amp; v11 )<br>    &#123;<br>      <span class="hljs-keyword">if</span> ( v11 == <span class="hljs-number">1</span> )<br>      &#123;<br>        v5 = (char)<span class="hljs-title function_ invoke__">cmove_bits</span>(*v13, <span class="hljs-number">6</span>u, <span class="hljs-number">2</span>u);<br>        a3[<span class="hljs-number">1</span>] = alphabet[v5 + (char)<span class="hljs-title function_ invoke__">cmove_bits</span>(v13[<span class="hljs-number">1</span>], <span class="hljs-number">0</span>, <span class="hljs-number">4</span>u)];<br>        a3[<span class="hljs-number">2</span>] = alphabet[(char)<span class="hljs-title function_ invoke__">cmove_bits</span>(v13[<span class="hljs-number">1</span>], <span class="hljs-number">4</span>u, <span class="hljs-number">2</span>u)];<br>        a3[<span class="hljs-number">3</span>] = <span class="hljs-number">61</span>;<br>      &#125;<br>      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( v11 == <span class="hljs-number">2</span> )<br>      &#123;<br>        a3[<span class="hljs-number">1</span>] = alphabet[(char)<span class="hljs-title function_ invoke__">cmove_bits</span>(*v13, <span class="hljs-number">6</span>u, <span class="hljs-number">2</span>u)];<br>        a3[<span class="hljs-number">2</span>] = <span class="hljs-number">61</span>;<br>        a3[<span class="hljs-number">3</span>] = <span class="hljs-number">61</span>;<br>      &#125;<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    &#123;<br>      v6 = (char)<span class="hljs-title function_ invoke__">cmove_bits</span>(*v13, <span class="hljs-number">6</span>u, <span class="hljs-number">2</span>u);<br>      a3[<span class="hljs-number">1</span>] = alphabet[v6 + (char)<span class="hljs-title function_ invoke__">cmove_bits</span>(v13[<span class="hljs-number">1</span>], <span class="hljs-number">0</span>, <span class="hljs-number">4</span>u)];<br>      v7 = (char)<span class="hljs-title function_ invoke__">cmove_bits</span>(v13[<span class="hljs-number">1</span>], <span class="hljs-number">4</span>u, <span class="hljs-number">2</span>u);<br>      a3[<span class="hljs-number">2</span>] = alphabet[v7 + (char)<span class="hljs-title function_ invoke__">cmove_bits</span>(v13[<span class="hljs-number">2</span>], <span class="hljs-number">0</span>, <span class="hljs-number">6</span>u)];<br>      a3[<span class="hljs-number">3</span>] = alphabet[v13[<span class="hljs-number">2</span>] &amp; <span class="hljs-number">0x3F</span>];<br>    &#125;<br>    a3 += <span class="hljs-number">4</span>;<br>    v13 += <span class="hljs-number">3</span>;<br>  &#125;<br>  <span class="hljs-keyword">if</span> ( a4 )<br>    *a4 = v8;<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>i64;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="404"><a href="#404" class="headerlink" title="404"></a>404</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs plain">import base64,urllib.parse<br>key = &quot;HereIsFlagggg&quot;<br>flag = &quot;xxxxxxxxxxxxxxxxxxx&quot;<br><br>s_box = list(range(256))<br>j = 0<br>for i in range(256):<br>    j = (j + s_box[i] + ord(key[i % len(key)])) % 256<br>    s_box[i], s_box[j] = s_box[j], s_box[i]<br>res = []<br>i = j = 0<br>for s in flag:<br>    i = (i + 1) % 256<br>    j = (j + s_box[i]) % 256<br>    s_box[i], s_box[j] = s_box[j], s_box[i]<br>    t = (s_box[i] + s_box[j]) % 256<br>    k = s_box[t]<br>    res.append(chr(ord(s) ^ k))<br>cipher = &quot;&quot;.join(res)<br>crypt = (str(base64.b64encode(cipher.encode(&#x27;utf-8&#x27;)), &#x27;utf-8&#x27;))<br>enc = str(base64.b64decode(crypt),&#x27;utf-8&#x27;)<br>enc = urllib.parse.quote(enc)<br>print(enc)<br># enc = %C2%A6n%C2%87Y%1Ag%3F%C2%A01.%C2%9C%C3%B7%C3%8A%02%C3%80%C2%92W%C3%8C%C3%BA<br></code></pre></td></tr></table></figure>
+
+<p><img src="/./img/49277317_pdbh26fxJXiXuxOX/1717937134032-d68b3536-93ff-4c10-87b0-c751d06e5e85-950032.png" srcset="/img/loading.gif" lazyload alt="1717937134032-d68b3536-93ff-4c10-87b0-c751d06e5e85.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs plain">import base64,urllib.parse<br>key = &quot;HereIsFlagggg&quot;<br>enc = &quot;%C2%A6n%C2%87Y%1Ag%3F%C2%A01.%C2%9C%C3%B7%C3%8A%02%C3%80%C2%92W%C3%8C%C3%BA&quot;<br>enc = urllib.parse.unquote(enc)<br>s_box = list(range(256))<br>j = 0<br><br>for i in range(256):<br>    j = (j + s_box[i] + ord(key[i % len(key)])) % 256<br>    s_box[i], s_box[j] = s_box[j], s_box[i]<br>res = []<br>i = j = 0<br><br>for s in enc:<br>    i = (i + 1) % 256<br>    j = (j + s_box[i]) % 256<br>    s_box[i], s_box[j] = s_box[j], s_box[i]<br>    t = (s_box[i] + s_box[j]) % 256<br>    k = s_box[t]<br>    res.append(chr(ord(s) ^ k))<br>cipher = &quot;&quot;.join(res)<br>print(cipher)<br></code></pre></td></tr></table></figure>
+
+<h1 id="405-简单逆向"><a href="#405-简单逆向" class="headerlink" title="405 简单逆向"></a>405 简单逆向</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain">flag = &#x27;xxxxxxxxxxxxxxxxxxxxx&#x27;<br>s = &#x27;wesyvbniazxchjko1973652048@$+-&amp;*&lt;&gt;&#x27;<br>result = &#x27;&#x27;<br>for i in range(len(flag)):<br>    s1 = ord(flag[i])//17<br>    s2 = ord(flag[i])%17<br>    result += s[(s1+i)%34]+s[-(s2+i+1)%34]<br>print(result)<br># result = &#x27;v0b9n1nkajz@j0c4jjo3oi1h1i937b395i5y5e0e$i&#x27;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs plain">s =&#x27;wesyvbniazxchjko1973652048@$+-&amp;*&lt;&gt;&#x27;<br>result = &#x27;v0b9n1nkajz@j0c4jjo3oi1h1i937b395i5y5e0e$i&#x27;<br>flag= &#x27;&#x27;<br>for i in range(len(result)//2):<br>    char1 = result[2*i]//两个一组为一个flag<br>    char2 = result[2*i+1]<br><br>    s1=s.index(char1)%34-i<br>    s2=-(s.index(char2)+i+1)%34<br>    for j in range(32, 128):<br>        if j // 17 == s1 and j % 17 == s2:<br>            flag += chr(j)<br>print(flag)<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="445"><a href="#445" class="headerlink" title="445"></a>445</h1><p><img src="/./img/49277317_pdbh26fxJXiXuxOX/1717917201454-ae1d224f-b664-4a0d-9ec5-7aa8aa6d5cea-765973.png" srcset="/img/loading.gif" lazyload alt="1717917201454-ae1d224f-b664-4a0d-9ec5-7aa8aa6d5cea.png"></p>
+<p>查壳看到是64位程序，放入64ida</p>
+<p><img src="/./img/49277317_pdbh26fxJXiXuxOX/1717917171822-b04d7864-bdcf-4d04-b852-4e230b6eacff-810275.png" srcset="/img/loading.gif" lazyload alt="1717917171822-b04d7864-bdcf-4d04-b852-4e230b6eacff.png"></p>
+<p>观察主要函数是一个循环，编写逆向脚本</p>
+<p><font style="color:#DF2A3F;">注意，因为a为执行过后的字符串，所以要修改判断的范围，</font></p>
+<p><font style="color:#000000;">if ( (Str[i] &lt;&#x3D; 96 || Str[i] &gt; 98) &amp;&amp; (Str[i] &lt;&#x3D; 64 || Str[i] &gt; 66) )</font></p>
+<p><font style="color:#000000;">要改成if ((ord(char) &lt;&#x3D; </font><font style="color:#DF2A3F;">94</font><font style="color:#117CEE;"> </font><font style="color:#000000;">or ord(char) &gt; </font><font style="color:#DF2A3F;">96)</font><font style="color:#000000;"> and (ord(char) &lt;&#x3D; </font><font style="color:#DF2A3F;">62</font><font style="color:#000000;"> or ord(char) &gt; </font><font style="color:#DF2A3F;">64</font><font style="color:#000000;">)):</font></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain">a = &quot;ylqq]aycqyp&#123;&quot;<br><br>for char in a:<br>    if ((ord(char) &lt;= 94 or ord(char) &gt; 96) and (ord(char) &lt;= 62 or ord(char) &gt; 64)):<br>        char = chr(ord(char)+2)<br>        print(char,end = &#x27;&#x27;);<br>    else:<br>        char = chr(ord(char)-24)<br>        print(char,end = &#x27;&#x27;);<br></code></pre></td></tr></table></figure>
+
+<p>得到{nss_c{es{r}</p>
+<p><img src="/./img/49277317_pdbh26fxJXiXuxOX/1717917305894-9f2ff6d7-171f-4c8f-acb3-cfd4d8d294bf-793898.png" srcset="/img/loading.gif" lazyload alt="1717917305894-9f2ff6d7-171f-4c8f-acb3-cfd4d8d294bf.png"></p>
+<p>**提交flag也不成功，看了一下评论区说程序里a可以用{代替所以flag就是：NSSCTF{nss_caesar} **</p>
+<h1 id="1416"><a href="#1416" class="headerlink" title="1416"></a>1416</h1><p><img src="/./img/49277317_pdbh26fxJXiXuxOX/1721443980982-eaaa5ee9-dfba-4997-86c1-224994b7226b-059870.png" srcset="/img/loading.gif" lazyload alt="1721443980982-eaaa5ee9-dfba-4997-86c1-224994b7226b.png"></p>
+<p>看到明文和三个加密函数</p>
+<p>第一个是base64加密</p>
+<p>第二个是字符串顺序打乱</p>
+<p>第三个是自定义加密</p>
+<p><img src="/./img/49277317_pdbh26fxJXiXuxOX/1721444087788-ca6aecf2-1811-4fa9-9712-834ba3952f38-985126.png" srcset="/img/loading.gif" lazyload alt="1721444087788-ca6aecf2-1811-4fa9-9712-834ba3952f38.png"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs php">__int64 __fastcall <span class="hljs-title function_ invoke__">encode_one</span>(char *a1, <span class="hljs-keyword">int</span> a2, char *a3, <span class="hljs-keyword">int</span> *a4)<br>&#123;<br>  <span class="hljs-keyword">int</span> v5; <span class="hljs-comment">// esi</span><br>  <span class="hljs-keyword">int</span> v6; <span class="hljs-comment">// esi</span><br>  <span class="hljs-keyword">int</span> v7; <span class="hljs-comment">// esi</span><br>  <span class="hljs-keyword">int</span> v8; <span class="hljs-comment">// [rsp+34h] [rbp-1Ch]</span><br>  <span class="hljs-keyword">int</span> v9; <span class="hljs-comment">// [rsp+38h] [rbp-18h]</span><br>  <span class="hljs-keyword">int</span> v11; <span class="hljs-comment">// [rsp+48h] [rbp-8h]</span><br>  <span class="hljs-keyword">int</span> i; <span class="hljs-comment">// [rsp+4Ch] [rbp-4h]</span><br>  unsigned __int8 *v13; <span class="hljs-comment">// [rsp+70h] [rbp+20h]</span><br><br>  v13 = (unsigned __int8 *)a1;<br>  <span class="hljs-keyword">if</span> ( !a1 || !a2 )<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>xFFFFFFFFi64;<br>  v11 = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">if</span> ( a2 % <span class="hljs-number">3</span> )<br>    v11 = <span class="hljs-number">3</span> - a2 % <span class="hljs-number">3</span>;<br>  v9 = a2 + v11;<br>  v8 = <span class="hljs-number">8</span> * (a2 + v11) / <span class="hljs-number">6</span>;<br>  <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt; v9; i += <span class="hljs-number">3</span> )<br>  &#123;<br>    *a3 = alphabet[(char)*v13 &gt;&gt; <span class="hljs-number">2</span>];<br>    <span class="hljs-keyword">if</span> ( a2 + v11 - <span class="hljs-number">3</span> == i &amp;&amp; v11 )<br>    &#123;<br>      <span class="hljs-keyword">if</span> ( v11 == <span class="hljs-number">1</span> )<br>      &#123;<br>        v5 = (char)<span class="hljs-title function_ invoke__">cmove_bits</span>(*v13, <span class="hljs-number">6</span>u, <span class="hljs-number">2</span>u);<br>        a3[<span class="hljs-number">1</span>] = alphabet[v5 + (char)<span class="hljs-title function_ invoke__">cmove_bits</span>(v13[<span class="hljs-number">1</span>], <span class="hljs-number">0</span>, <span class="hljs-number">4</span>u)];<br>        a3[<span class="hljs-number">2</span>] = alphabet[(char)<span class="hljs-title function_ invoke__">cmove_bits</span>(v13[<span class="hljs-number">1</span>], <span class="hljs-number">4</span>u, <span class="hljs-number">2</span>u)];<br>        a3[<span class="hljs-number">3</span>] = <span class="hljs-number">61</span>;<br>      &#125;<br>      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( v11 == <span class="hljs-number">2</span> )<br>      &#123;<br>        a3[<span class="hljs-number">1</span>] = alphabet[(char)<span class="hljs-title function_ invoke__">cmove_bits</span>(*v13, <span class="hljs-number">6</span>u, <span class="hljs-number">2</span>u)];<br>        a3[<span class="hljs-number">2</span>] = <span class="hljs-number">61</span>;<br>        a3[<span class="hljs-number">3</span>] = <span class="hljs-number">61</span>;<br>      &#125;<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    &#123;<br>      v6 = (char)<span class="hljs-title function_ invoke__">cmove_bits</span>(*v13, <span class="hljs-number">6</span>u, <span class="hljs-number">2</span>u);<br>      a3[<span class="hljs-number">1</span>] = alphabet[v6 + (char)<span class="hljs-title function_ invoke__">cmove_bits</span>(v13[<span class="hljs-number">1</span>], <span class="hljs-number">0</span>, <span class="hljs-number">4</span>u)];<br>      v7 = (char)<span class="hljs-title function_ invoke__">cmove_bits</span>(v13[<span class="hljs-number">1</span>], <span class="hljs-number">4</span>u, <span class="hljs-number">2</span>u);<br>      a3[<span class="hljs-number">2</span>] = alphabet[v7 + (char)<span class="hljs-title function_ invoke__">cmove_bits</span>(v13[<span class="hljs-number">2</span>], <span class="hljs-number">0</span>, <span class="hljs-number">6</span>u)];<br>      a3[<span class="hljs-number">3</span>] = alphabet[v13[<span class="hljs-number">2</span>] &amp; <span class="hljs-number">0x3F</span>];<br>    &#125;<br>    a3 += <span class="hljs-number">4</span>;<br>    v13 += <span class="hljs-number">3</span>;<br>  &#125;<br>  <span class="hljs-keyword">if</span> ( a4 )<br>    *a4 = v8;<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>i64;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>切割字符串然后拼接，反过来拼接就行</p>
+<p>flag+&#x3D;tmp[13:26]+tmp[39:52]+tmp[0:13]+tmp[26:39]</p>
+<p><font style="color:#DF2A3F;">第一个参数的变化可以得知每次截取的长度为13，第二个参数即为原来str的起始位置</font></p>
+<p><img src="/./img/49277317_pdbh26fxJXiXuxOX/1721444242795-467870c3-f283-4c0b-928a-a362eaeca2a6-152723.png" srcset="/img/loading.gif" lazyload alt="1721444242795-467870c3-f283-4c0b-928a-a362eaeca2a6.png"></p>
+<p><img src="/./img/49277317_pdbh26fxJXiXuxOX/1721444293768-1f348d88-1f78-4382-811c-5bb40cdd2690-132801.png" srcset="/img/loading.gif" lazyload alt="1721444293768-1f348d88-1f78-4382-811c-5bb40cdd2690.png"></p>
+<p>修改一下看会轻松的多</p>
+<p><img src="/./img/49277317_pdbh26fxJXiXuxOX/1721444484321-cf89244e-2daf-422b-a3ed-89e71fefe60e-957333.png" srcset="/img/loading.gif" lazyload alt="1721444484321-cf89244e-2daf-422b-a3ed-89e71fefe60e.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> base64<br>a=<span class="hljs-string">&#x27;EmBmP5Pmn7QcPU4gLYKv5QcMmB3PWHcP5YkPq3=cT6QckkPckoRG&#x27;</span><br>flag=<span class="hljs-string">&#x27;&#x27;</span><br>tmp=<span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> a:<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">ord</span>(i)&lt;=<span class="hljs-number">64</span> <span class="hljs-keyword">or</span> <span class="hljs-built_in">ord</span>(i)&gt;<span class="hljs-number">90</span>):<br>        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">ord</span>(i)&lt;=<span class="hljs-number">94</span> <span class="hljs-keyword">or</span> <span class="hljs-built_in">ord</span>(i)&gt;<span class="hljs-number">122</span>):<br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">ord</span>(i)&lt;=<span class="hljs-number">47</span> <span class="hljs-keyword">or</span> <span class="hljs-built_in">ord</span>(i)&gt;<span class="hljs-number">57</span>):<br>                tmp+=i<br>            <span class="hljs-keyword">else</span>:<br>                tmp+=<span class="hljs-built_in">chr</span>((<span class="hljs-built_in">ord</span>(i)-<span class="hljs-number">48</span>-<span class="hljs-number">3</span>)%<span class="hljs-number">10</span>+<span class="hljs-number">48</span>)<br>        <span class="hljs-keyword">else</span>:<br>            tmp+=<span class="hljs-built_in">chr</span>((<span class="hljs-built_in">ord</span>(i)-<span class="hljs-number">97</span>-<span class="hljs-number">3</span>)%<span class="hljs-number">26</span>+<span class="hljs-number">97</span>)<br>    <span class="hljs-keyword">else</span>:<br>        tmp+=<span class="hljs-built_in">chr</span>((<span class="hljs-built_in">ord</span>(i)-<span class="hljs-number">65</span>-<span class="hljs-number">3</span>)%<span class="hljs-number">26</span>+<span class="hljs-number">65</span>)<br><span class="hljs-built_in">print</span>(tmp)<br>flag=tmp[<span class="hljs-number">13</span>:<span class="hljs-number">26</span>]+tmp[<span class="hljs-number">39</span>:<span class="hljs-number">52</span>]+tmp[:<span class="hljs-number">13</span>]+tmp[<span class="hljs-number">26</span>:<span class="hljs-number">39</span>]<br><span class="hljs-built_in">print</span>(base64.b64decode(flag))<br></code></pre></td></tr></table></figure>
+
+<h1 id="encode"><a href="#encode" class="headerlink" title="encode"></a>encode</h1><p><font style="color:#000000;">发现加密函数<br></font><font style="color:#000000;">所以是需要找到密文即可解出flag。<br></font><font style="color:#000000;">可以看出密文就是dword_404000。在该内存空间中找，找到100个数据即为密文。<br></font><font style="color:#000000;">根据加密逻辑，可以看出没两个数据中高位是ASCII码的高。低位是ASCII码的低位，编写脚本解出</font></p>
+<p><font style="color:#000000;"></font></p>
+<p><img src="/./img/49277317_pdbh26fxJXiXuxOX/1721460339801-09eef6d1-3520-4ef4-9bb8-c010024c0d86-989820.png" srcset="/img/loading.gif" lazyload alt="1721460339801-09eef6d1-3520-4ef4-9bb8-c010024c0d86.png"></p>
+<p><img src="/./img/49277317_pdbh26fxJXiXuxOX/1721460396040-f629698d-b0ed-4069-8137-831fca288b0f-546584.png" srcset="/img/loading.gif" lazyload alt="1721460396040-f629698d-b0ed-4069-8137-831fca288b0f.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs plain">a = [<br>  8, 6, 7, 6, 1, 6, 13, 6, 5, 6, 11, 7, 5, 6, 14, 6, 3, 6, 15, 6, 4, 6,<br>  5, 6, 15, 5, 9, 6, 3, 7, 15, 5, 5, 6, 1, 6, 3, 7, 9, 7, 15, 5, 6, 6,<br>  15, 6, 2, 7, 15, 5, 1, 6, 15, 5, 2, 7, 5, 6, 6, 7, 5, 6, 2, 7, 3, 7,<br>  5, 6, 15, 5, 5, 6, 14, 6, 7, 6, 9, 6, 14, 6, 5, 6, 5, 6, 2, 7, 13, 7,<br>  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0<br>]<br>b=&#x27;&#x27;<br>for i in range(50):<br>    f1=a[i*2]&amp;0xF<br>    f2=(a[i*2+1]&amp;0xF) &lt;&lt; 4<br>    flag=f1 | f2<br>    b+=chr(flag)<br>print(b)<br><br></code></pre></td></tr></table></figure>
+
+<p>exp2</p>
+<p><font style="color:#000000;">根据加密逻辑，可以看出没两个数据中高位是ASCII码的高。低位是ASCII码的低位，编写脚本解出</font></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs plain">a=[8, 6, 7, 6, 1, 6, 13, 6, 5, 6,11, 7, 5, 6,14,<br>6, 3, 6,15, 6, 4, 6, 5, 6, 15, 5, 9, 6, 3,7 ,15,5,5<br>,6, 1, 6, 3, 7, 9, 7,15, 5,6,6,15,<br>6, 2, 7,15, 5, 1, 6,15, 5, 2, 7, 5,6,6, 7, 5,<br>6, 2, 7, 3, 7, 5, 6,15,5,5, 6,14, 6, 7, 6, 9, 6,14,<br>6, 5, 6, 5, 6, 2,7,13,7]<br>b=[0 for i in range(100)]<br>res=&quot;&quot;<br>for i in range(44):<br>    c1=a[2*i]<br>    c2=a[2*i+1]<br>    res+=chr(c2*16+c1)<br>print(res)<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<blockquote>
+<p>更新: 2025-06-29 18:49:19<br>原文: <a target="_blank" rel="noopener" href="https://www.yuque.com/chaye-apqbl/vsc85q/firbpo49ggcotccz">https://www.yuque.com/chaye-apqbl/vsc85q/firbpo49ggcotccz</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2026/01/19/RE/例题/NSSCTF/easyre/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 19, 2026</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E4%BE%8B%E9%A2%98/NSSCTF/esaypyc/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E4%BE%8B%E9%A2%98/moe%E5%BA%B7%E5%A4%8D%E8%AE%AD%E7%BB%83/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

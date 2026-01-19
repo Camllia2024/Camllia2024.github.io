@@ -1,0 +1,700 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="端序什么是字节序（端序、低端字节序、高端字节序、网络字节序）-CSDN博客 前言一个内容为12（字符串）的文本文件，它的第一个字节是什么（小端序）？如果你的回答是0x32，那你真的应该好好理解下字节序了。如下图所示，我这里的正确答案是0x31。当然如果你的回答是不一定，这似乎也是对的。背后的原因比较复杂。  什么是字节序首先，字节序又称端序，顾名思义“字节的顺序”。你可能会奇怪：字节还有顺序？让我">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chaye的博客">
+<meta property="og:url" content="http://example.com/2026/01/19/RE/%E5%9F%BA%E7%A1%80/%E7%AB%AF%E5%BA%8F/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="端序什么是字节序（端序、低端字节序、高端字节序、网络字节序）-CSDN博客 前言一个内容为12（字符串）的文本文件，它的第一个字节是什么（小端序）？如果你的回答是0x32，那你真的应该好好理解下字节序了。如下图所示，我这里的正确答案是0x31。当然如果你的回答是不一定，这似乎也是对的。背后的原因比较复杂。  什么是字节序首先，字节序又称端序，顾名思义“字节的顺序”。你可能会奇怪：字节还有顺序？让我">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/49277317_kdhn-uWnm_JKCqMR/1723706782004-973f6c61-6556-4e2d-aa61-021572968baa-866867.jpeg">
+<meta property="og:image" content="http://example.com/img/49277317_kdhn-uWnm_JKCqMR/1723706802115-3d78b1aa-ecaf-4412-af59-77cc883e8431-340131.png">
+<meta property="og:image" content="http://example.com/img/49277317_kdhn-uWnm_JKCqMR/1723706810456-669f10dd-604d-47ed-b713-a43527885581-575669.png">
+<meta property="og:image" content="http://example.com/img/49277317_kdhn-uWnm_JKCqMR/1723706810599-a079363f-68bb-4317-bc8b-1a6643673cd3-724411.png">
+<meta property="og:image" content="http://example.com/img/49277317_kdhn-uWnm_JKCqMR/1723706861152-ad03275a-6a5b-4397-a5ce-a7ab2f89a33f-580461.png">
+<meta property="og:image" content="http://example.com/img/49277317_kdhn-uWnm_JKCqMR/1723706934575-b59c415d-3589-41ea-b6ca-461d7e34af53-699463.png">
+<meta property="og:image" content="http://example.com/img/49277317_kdhn-uWnm_JKCqMR/1723706958726-e206e811-0b4c-402b-b54e-e2fd458de96b-170706.png">
+<meta property="og:image" content="http://example.com/img/49277317_kdhn-uWnm_JKCqMR/1723706972220-41b281b5-79a4-445b-9866-1193f3158ac3-932101.png">
+<meta property="og:image" content="http://example.com/img/49277317_kdhn-uWnm_JKCqMR/1723707133718-b904945b-aef2-4618-a9c0-61e2825941e6-483019.jpeg">
+<meta property="og:image" content="http://example.com/img/49277317_kdhn-uWnm_JKCqMR/1723707149315-9660d60c-86c4-491c-b0d1-1b05152cba1a-938495.png">
+<meta property="og:image" content="http://example.com/img/49277317_kdhn-uWnm_JKCqMR/1723707162582-c3ed46c8-eebe-46fb-807c-89a216510e5d-234647.png">
+<meta property="og:image" content="http://example.com/img/49277317_kdhn-uWnm_JKCqMR/1723707197419-3eae1b16-8402-4b2b-9ab5-ff1e521fa3dd-327489.png">
+<meta property="og:image" content="http://example.com/img/49277317_kdhn-uWnm_JKCqMR/1727319130315-0c1a6aed-2fcd-4db6-b066-b1950bfa824b-004081.png">
+<meta property="og:image" content="http://example.com/img/49277317_kdhn-uWnm_JKCqMR/1727319515665-92b48750-5ba5-4efa-af18-233be95a278b-296913.png">
+<meta property="og:image" content="http://example.com/img/49277317_kdhn-uWnm_JKCqMR/1727319798058-8bc4fef3-2949-4f66-a04d-6ed1456d8334-763142.png">
+<meta property="og:image" content="http://example.com/img/49277317_kdhn-uWnm_JKCqMR/1722055803247-78547ac8-f1ff-4ea9-8777-ae5722d3729d-654178.png">
+<meta property="og:image" content="http://example.com/img/49277317_kdhn-uWnm_JKCqMR/1722055779926-9a7c3931-dbbc-41a2-9f91-aed6e672864c-071517.png">
+<meta property="article:published_time" content="2026-01-19T05:29:07.632Z">
+<meta property="article:modified_time" content="2025-11-04T06:19:26.935Z">
+<meta property="article:author" content="chaye">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/49277317_kdhn-uWnm_JKCqMR/1723706782004-973f6c61-6556-4e2d-aa61-021572968baa-866867.jpeg">
+  
+  
+  
+  <title>chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-19 13:29" pubdate>
+          January 19, 2026 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="端序"><a href="#端序" class="headerlink" title="端序"></a>端序</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_30576521/article/details/126684004?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522172370670416800226592539%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=172370670416800226592539&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-126684004-null-null.142%5Ev100%5Epc_search_result_base6&utm_term=%E7%AB%AF%E5%BA%8F&spm=1018.2226.3001.4187">什么是字节序（端序、低端字节序、高端字节序、网络字节序）-CSDN博客</a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font style="color:rgb(79, 79, 79);">前言</font></h2><p><font style="color:rgb(77, 77, 77);">一个内容为12（</font><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%AD%97%E7%AC%A6%E4%B8%B2&spm=1001.2101.3001.7020"><font style="color:rgb(77, 77, 77);">字符串</font></a><font style="color:rgb(77, 77, 77);">）的文本文件，它的第一个字节是什么（小端序）？如果你的回答是0x32，那你真的应该好好理解下字节序了。如下图所示，我这里的正确答案是0x31。当然如果你的回答是不一定，这似乎也是对的。背后的原因比较复杂。</font></p>
+<p><img src="/./img/49277317_kdhn-uWnm_JKCqMR/1723706782004-973f6c61-6556-4e2d-aa61-021572968baa-866867.jpeg" srcset="/img/loading.gif" lazyload alt="1723706782004-973f6c61-6556-4e2d-aa61-021572968baa.jpeg"></p>
+<h1 id="什么是字节序"><a href="#什么是字节序" class="headerlink" title="什么是字节序"></a>什么是字节序</h1><p>首先，字节序又称端序，顾名思义“字节的顺序”。你可能会奇怪：字节还有顺序？让我们从生活中常见概念入手吧。</p>
+<h2 id="生活中的数"><a href="#生活中的数" class="headerlink" title="生活中的数"></a>生活中的数</h2><p>123456，如果让你把这串数读出来的话你肯定会说：“十二万三千四百五十六。”你瞧，从左往右，这就是我们读数字时的顺序。</p>
+<p>那有没有从右往左看数字的时候呢？当然有！如果我让你计算123456+134659你肯定会先从个位算起（除非你想给自己找麻烦）。</p>
+<h2 id="把数存入内存"><a href="#把数存入内存" class="headerlink" title="把数存入内存"></a>把数存入内存</h2><p>计算机不是神仙，它和你没有心灵感应。因此为了使CPU可以读取数据，我们要先把数据存入内存再让CPU读取。内存是按地址进行访问的存储器件。在内存中，每个字节都有它对应的地址。</p>
+<p>那么，你要如何把数0x12345678存入内存呢？</p>
+<p><img src="/./img/49277317_kdhn-uWnm_JKCqMR/1723706802115-3d78b1aa-ecaf-4412-af59-77cc883e8431-340131.png" srcset="/img/loading.gif" lazyload alt="1723706802115-3d78b1aa-ecaf-4412-af59-77cc883e8431.png"></p>
+<p><font style="color:rgb(77, 77, 77);">一种存储方式如下所示。</font><br><img src="/./img/49277317_kdhn-uWnm_JKCqMR/1723706810456-669f10dd-604d-47ed-b713-a43527885581-575669.png" srcset="/img/loading.gif" lazyload alt="1723706810456-669f10dd-604d-47ed-b713-a43527885581.png"><br><font style="color:rgb(77, 77, 77);">当然你也可以选择另外一种存储方式。</font><br><img src="/./img/49277317_kdhn-uWnm_JKCqMR/1723706810599-a079363f-68bb-4317-bc8b-1a6643673cd3-724411.png" srcset="/img/loading.gif" lazyload alt="1723706810599-a079363f-68bb-4317-bc8b-1a6643673cd3.png"><br><font style="color:rgb(77, 77, 77);">以上两种方式没有对错之分，只要在存储和读取时保持一致即可。Intel公司的CPU普遍采用第二种方式。</font></p>
+<h2 id="字节序的小端序与大端序"><a href="#字节序的小端序与大端序" class="headerlink" title="字节序的小端序与大端序"></a><font style="color:rgb(77, 77, 77);">字节序的小端序与大端序</font></h2><p><font style="color:rgb(77, 77, 77);">像Intel这样把数的低字节存在内存低地址处的方案，我们称作小端序（Little-Endian），全称字节序的小端序，又称低（小）端字节序等。</font></p>
+<p><font style="color:rgb(77, 77, 77);">反之，像第一种把数的高字节存在内存低地址处的方案，我们称作大端序（Big-Endian），全称字节序的大端序，又称高（大）端字节序等。</font></p>
+<h2 id="端序-1"><a href="#端序-1" class="headerlink" title="端序"></a><font style="color:rgb(77, 77, 77);">端序</font></h2><p><font style="color:rgb(77, 77, 77);">你肯定要迫不及待地问，前文一直在说的端究竟是什么呢？顾名思义，端（end）就是一边、一头、一端的意思：</font></p>
+<p><font style="color:rgb(77, 77, 77);">在内存中，我们以低地址为端；</font></p>
+<p><font style="color:rgb(77, 77, 77);">网络传输中，我们以0时刻发送的数据为端。</font></p>
+<p><font style="color:rgb(77, 77, 77);">因此字节序的大端序更精确的定义为：位置更高（重要，significant）的字节在端；相反，字节的小端序更精确的定义为位置更低（不重要）的字节在端。</font></p>
+<p><font style="color:rgb(77, 77, 77);">大端序和小端序是两种不同的端序。现在Intel公司的CPU普遍采用字节小端序（字节序的小端序）。</font></p>
+<p><font style="color:rgb(77, 77, 77);">因此下图以字节小端序读取的结果是0x78563412，以字节大端序读取的结果是0x12345678.</font></p>
+<p><img src="/./img/49277317_kdhn-uWnm_JKCqMR/1723706861152-ad03275a-6a5b-4397-a5ce-a7ab2f89a33f-580461.png" srcset="/img/loading.gif" lazyload alt="1723706861152-ad03275a-6a5b-4397-a5ce-a7ab2f89a33f.png"></p>
+<p><font style="color:rgb(77, 77, 77);"></font></p>
+<p><font style="color:rgb(77, 77, 77);">注意： 当数据按上图在内存中存储时，不存在（至少据我所知，不存在） 0x87654321或者0x21345678这样的读取顺序.这是因为内存是以字节为最小单位进行存取的，所以字节内比特（位）的顺序总是固定不变的。当数据在网络中传输时就会涉及到字节内位的顺序。</font></p>
+<p><font style="color:rgb(77, 77, 77);"></font></p>
+<h1 id="数据在网络中传输"><a href="#数据在网络中传输" class="headerlink" title="数据在网络中传输"></a><font style="color:rgb(77, 77, 77);">数据在网络中传输</font></h1><h2 id="网络字节序"><a href="#网络字节序" class="headerlink" title="网络字节序"></a><font style="color:rgb(77, 77, 77);">网络字节序</font></h2><p><font style="color:rgb(77, 77, 77);">根据RFC791，网络传输时（精确地说是使用IP协议进行网络传输时）以太网采用大端字节序，即先发送位置更高（重要，significant）的字节。对于0x78563412来说0x78位置更高，因此应先发送0x78。</font></p>
+<p><font style="color:rgb(77, 77, 77);">但是由此引发了一个问题，不管CPU是大端还是小端，根据RFC791 Figure 10，只要低地址0x34存着数据0x12，就应当先发送数据0x12（实际上，网卡发送数据时也都是从低字节处开始发送，不论端序如何）。而当在小端系统中存储0x78563412时，其在内存中的表示如下图所示。按照RFC791，将发送0x12，但是按照大端序，却应对先发送0x78. 因此C语言提供了htonl和ntohl这两个函数来帮我们解决主机字节序与网络字节序之间的转换问题。在发送数据前和接收数据后先通过这两个函数对字节序进行转换。</font></p>
+<p><img src="/./img/49277317_kdhn-uWnm_JKCqMR/1723706934575-b59c415d-3589-41ea-b6ca-461d7e34af53-699463.png" srcset="/img/loading.gif" lazyload alt="1723706934575-b59c415d-3589-41ea-b6ca-461d7e34af53.png"></p>
+<h2 id="网络比特序"><a href="#网络比特序" class="headerlink" title="网络比特序"></a>网络比特序</h2><p>以太网是串行传输数据的，即一次只能发送一个比特位。这样就引出了一个问题：我们知道，要想传输0x1234，需要先发送0x12这个字节，可是对于0x12我们应该先发送哪一位呢？</p>
+<p>0x12的二进制写法是00010010B，因此有两种发送顺序。即，按照时间顺序依次发送0-0-0-1-0-0-1-0，或者反过来，发送0-1-0-0-1-0-0-0. 网络以0时刻为端，在发送0-0-0-1-0-0-1-0时比特的高位（重要的那一位）在端，我们称之为大端比特序；反之发送0-1-0-0-1-0-0-0时比特的低位（不那么重要的位）在端，我们称之为小端比特序。那么网络比特序是大端序还是小端序呢？</p>
+<p>至于以太网在硬件层面是否真的是严格串行传输的，我并不清楚。因为ISO&#x2F;IEC&#x2F;IEEE 8802-3:2021居然有5千多页，鄙人才疏学浅，找不出来。</p>
+<p><img src="/./img/49277317_kdhn-uWnm_JKCqMR/1723706958726-e206e811-0b4c-402b-b54e-e2fd458de96b-170706.png" srcset="/img/loading.gif" lazyload alt="1723706958726-e206e811-0b4c-402b-b54e-e2fd458de96b.png"></p>
+<p><img src="/./img/49277317_kdhn-uWnm_JKCqMR/1723706972220-41b281b5-79a4-445b-9866-1193f3158ac3-932101.png" srcset="/img/loading.gif" lazyload alt="1723706972220-41b281b5-79a4-445b-9866-1193f3158ac3.png"></p>
+<p>在RFC791和Linux内核中对于IP头部的定义如上图所示。可以发现，Linux为大端序和小端序提供的不同的定义。对于C的位域来说，先定义的成员位于低比特为，即0bit。对于小端系统，bit0至bit3为ihl，bit4至bit7为version。对于大端系统则反过来。根据RFC791要求，应当先发送version字段。对于网卡来说，先发送比特的高位（重要的那一位），再发送比特的低位（不重要的那一位）；网卡在接收bit数据的时候，同样认为先收到MSB(Most Significant Bit)，最后收到的位LSB(Least Significant Bit). 在小端系统中，MSB为bit7, LSB为bit0；在大端系统中，MSB为bit0, LSB为bit7.</p>
+<p>综上所述，网卡会自动帮我们处理网络传输中的比特序问题。数据存取的最小单位通常是字节，而非比特，因此在一般的编程中，我们不必纠结于比特序的问题。</p>
+<p>参考 <a target="_blank" rel="noopener" href="https://blog.csdn.net/shaohui973/article/details/115766497">https://blog.csdn.net/shaohui973/article/details/115766497</a></p>
+<h1 id="考考你"><a href="#考考你" class="headerlink" title="考考你"></a>考考你</h1><p>为了确保你真的懂了，现在考虑一个问题。假设有多字节数0x55AA需要发送，那么应该先发送哪一位或者哪一比特呢？</p>
+<h2 id="从字节序的角度"><a href="#从字节序的角度" class="headerlink" title="从字节序的角度"></a>从字节序的角度</h2><p>以太网是字节序的大端序，因此对于0x55AA，先发送MSB，即0x55. 在小端系统中，0x55位于高字节，需经过htonl转换后再发送。</p>
+<h2 id="从比特序的角度"><a href="#从比特序的角度" class="headerlink" title="从比特序的角度"></a>从比特序的角度</h2><p>首先明确肯定会先发送0x55这个字节（高端字节序）。0x55&#x3D;01010101B. MSB为0，因此发送顺序为0-1-0-1-0-1-0-1. 在大端系统中，0位于bit0,1位于bit7；在小端系统中，1位于bit0，0位于bit7. 无论大端小端，网卡都会先发送MSB。</p>
+<h1 id="开头的问题"><a href="#开头的问题" class="headerlink" title="开头的问题"></a><font style="color:rgb(79, 79, 79);">开头的问题</font></h1><p><img src="/./img/49277317_kdhn-uWnm_JKCqMR/1723707133718-b904945b-aef2-4618-a9c0-61e2825941e6-483019.jpeg" srcset="/img/loading.gif" lazyload alt="1723707133718-b904945b-aef2-4618-a9c0-61e2825941e6.jpeg"></p>
+<p><font style="color:rgb(77, 77, 77);">严格地说，文件中没有“大小端序”这个概念，不然，文件在不同端序CPU的系统上将无法通用，这肯定是我们不希望看到的。</font><br><strong><font style="color:rgb(77, 77, 77);">在C#中，文件是按字节写入，因此不存在端序的问题</font></strong><font style="color:rgb(77, 77, 77);">——你想写什么就写什么。</font></p>
+<p><img src="/./img/49277317_kdhn-uWnm_JKCqMR/1723707149315-9660d60c-86c4-491c-b0d1-1b05152cba1a-938495.png" srcset="/img/loading.gif" lazyload alt="1723707149315-9660d60c-86c4-491c-b0d1-1b05152cba1a.png"></p>
+<p><font style="color:rgb(77, 77, 77);">在test1文件中，由于使用的是小端序CPU，变量的第一个字节自然是0x78，第二个字节是0x56……C#会直接把这个数组原封不动地写入文件。至于test2，字符1的utf-8编码是0x31，2是0x32……C#也会将他们原样写入文件。很多高级语言都是这样。</font></p>
+<p><img src="/./img/49277317_kdhn-uWnm_JKCqMR/1723707162582-c3ed46c8-eebe-46fb-807c-89a216510e5d-234647.png" srcset="/img/loading.gif" lazyload alt="1723707162582-c3ed46c8-eebe-46fb-807c-89a216510e5d.png"></p>
+<p>需要特别注意：在计算机中，字节序的概念被限制在CPU中，对于字节序的讨论应该和CPU息息相关。例如，汇编语言、操作系统等。 同理，关于比特序的讨论应该被限制在需要它的地方——网络的物理层&#x2F;数据链路层的底</p>
+<p>部。像内存、硬盘这些设备只要符合规范，就可以在任何端序的CPU中使用。换句话说，它们本身都没有字节序的概念。</p>
+<p>所以如果你拿着wireshark的截图问我：为啥在小端的CPU中出现了大端序，这个……我只能说它编程时就是这么设计的。毕竟这样你用起来更舒服。</p>
+<p><img src="/./img/49277317_kdhn-uWnm_JKCqMR/1723707197419-3eae1b16-8402-4b2b-9ab5-ff1e521fa3dd-327489.png" srcset="/img/loading.gif" lazyload alt="1723707197419-3eae1b16-8402-4b2b-9ab5-ff1e521fa3dd.png"></p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>CPU是个傻瓜，它并不清楚你的意图，只是按照你的指示做事。你要做什么，你自己是最清楚的。</p>
+<p>好比我问你10100001B到底是有符号数还是无符号数，答案是：它既是无符号数161也是有符号数-95. 至于怎么解释完全取决于你自己。</p>
+<p>书是从左往右读的，但古代的书都是从右往左读。这并不会影响书籍的内容，只要写和读的时候顺序一致即可。</p>
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><h2 id="1、easyenc"><a href="#1、easyenc" class="headerlink" title="1、easyenc"></a>1、easyenc</h2><p><img src="/./img/49277317_kdhn-uWnm_JKCqMR/1727319130315-0c1a6aed-2fcd-4db6-b066-b1950bfa824b-004081.png" srcset="/img/loading.gif" lazyload alt="1727319130315-0c1a6aed-2fcd-4db6-b066-b1950bfa824b.png"></p>
+<p><img src="/./img/49277317_kdhn-uWnm_JKCqMR/1727319515665-92b48750-5ba5-4efa-af18-233be95a278b-296913.png" srcset="/img/loading.gif" lazyload alt="1727319515665-92b48750-5ba5-4efa-af18-233be95a278b.png"></p>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs plain">#include&lt;stdio.h&gt;<br>#include&lt;string.h&gt;<br>int main()<br>&#123;<br>    char a[]=&#123;0x04,0xff,0xfd,0x09,0x01,0xf3,0xb0,0x00,0x00,0x05,0xf0,0xad,0x07,0x06,0x17,0x05,0xeb,0x17,0xfd,0x17,0xea,0x01,0xee,0x01,0xea,0xb1,0x05,0xfa,0x08,0x01,0x17,0xac,0xec,0x01,0xea,0xfd,0xf0,0x05,0x07,0x06&#125;;<br>    for(int i=0;i&lt;40;i++)<br>    &#123;<br>       printf(&quot;%c&quot;,(a[i]+86)^0x32);<br>    &#125;<br>    return 0;<br> &#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/./img/49277317_kdhn-uWnm_JKCqMR/1727319798058-8bc4fef3-2949-4f66-a04d-6ed1456d8334-763142.png" srcset="/img/loading.gif" lazyload alt="1727319798058-8bc4fef3-2949-4f66-a04d-6ed1456d8334.png"></p>
+<h1 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h1><p><img src="/./img/49277317_kdhn-uWnm_JKCqMR/1722055803247-78547ac8-f1ff-4ea9-8777-ae5722d3729d-654178.png" srcset="/img/loading.gif" lazyload alt="1722055803247-78547ac8-f1ff-4ea9-8777-ae5722d3729d.png"></p>
+<h2 id="data"><a href="#data" class="headerlink" title="data"></a>data</h2><p><img src="/./img/49277317_kdhn-uWnm_JKCqMR/1722055779926-9a7c3931-dbbc-41a2-9f91-aed6e672864c-071517.png" srcset="/img/loading.gif" lazyload alt="1722055779926-9a7c3931-dbbc-41a2-9f91-aed6e672864c.png"></p>
+<h2 id="epx"><a href="#epx" class="headerlink" title="epx"></a>epx</h2><h3 id="c"><a href="#c" class="headerlink" title="c"></a>c</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs plain">#include&lt;stdio.h&gt;<br>#include&lt;string.h&gt;<br>#include&lt;math.h&gt;<br><br>int main() &#123;<br>int enc[6] = &#123; 0x51670536,0x5E4F102C,0x7E402211,0x7C71094B,0x7C553F1C,0x6F5A3816 &#125;;<br>int flag[6];<br>for (int i = 0; i &lt; 6; i++) &#123;<br>flag[i] = enc[i] ^ 0x12345678;<br>&#125;<br>for (int i = 0; i &lt; 6; i++)<br>&#123;<br>for (int j = 0; j &lt;= 3; j++)<br>&#123;<br>    printf(&quot;%c&quot;, (flag[i] &gt;&gt; (j * 8)) &amp; 0xFF);<br>&#125;<br>&#125;<br><br>return 0;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="python"><a href="#python" class="headerlink" title="python"></a>python</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">enc = [1365706038, 1582239788, 2118132241, 2087782731, 2085961500, 1868183574]<br>for i in enc:<br>    x = i ^ 0x12345678<br>    t = x.to_bytes(4, byteorder=&#x27;little&#x27;)<br>    y = t.decode(&#x27;utf-8&#x27;)<br>    print(y, end=&#x27;&#x27;)<br></code></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>更新: 2024-11-13 14:46:00<br>原文: <a target="_blank" rel="noopener" href="https://www.yuque.com/chaye-apqbl/vsc85q/zwrl0m2023th2b7a">https://www.yuque.com/chaye-apqbl/vsc85q/zwrl0m2023th2b7a</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2026/01/19/RE/基础/端序/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 19, 2026</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E5%9F%BA%E7%A1%80/%E8%84%B1%E5%A3%B3/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E5%9F%BA%E7%A1%80/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

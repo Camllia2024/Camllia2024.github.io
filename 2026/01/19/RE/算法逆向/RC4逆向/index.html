@@ -1,0 +1,665 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="RC4逆向详细了解RC4加密算法-CSDN博客 算法在密码学中，RC4（来自 Rivest Cipher 4 的缩写）是一种流加密算法，密钥长度可变。它加解密使用相同的密钥，因此也属于对称加密算法。RC4 是有线等效加密（WEP）中采用的加密算法，也曾经是 TLS 可采用的算法之一。 1234567891011121314151617181920212223242526272829303132vo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chaye的博客">
+<meta property="og:url" content="http://example.com/2026/01/19/RE/%E7%AE%97%E6%B3%95%E9%80%86%E5%90%91/RC4%E9%80%86%E5%90%91/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="RC4逆向详细了解RC4加密算法-CSDN博客 算法在密码学中，RC4（来自 Rivest Cipher 4 的缩写）是一种流加密算法，密钥长度可变。它加解密使用相同的密钥，因此也属于对称加密算法。RC4 是有线等效加密（WEP）中采用的加密算法，也曾经是 TLS 可采用的算法之一。 1234567891011121314151617181920212223242526272829303132vo">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/49277317_PudqdKFXb4knYd2T/1715257489252-70021488-e008-4052-b81f-5e691514019c-011289.webp">
+<meta property="og:image" content="http://example.com/img/49277317_PudqdKFXb4knYd2T/1726985624038-95ebd59e-44f5-46cc-bddf-919007a294ac-669966.png">
+<meta property="article:published_time" content="2026-01-19T05:29:07.883Z">
+<meta property="article:modified_time" content="2025-11-04T06:19:40.716Z">
+<meta property="article:author" content="chaye">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/49277317_PudqdKFXb4knYd2T/1715257489252-70021488-e008-4052-b81f-5e691514019c-011289.webp">
+  
+  
+  
+  <title>chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-19 13:29" pubdate>
+          January 19, 2026 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="RC4逆向"><a href="#RC4逆向" class="headerlink" title="RC4逆向"></a>RC4逆向</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Jsy050906/article/details/137167432?ops_request_misc=%257B%2522request%255Fid%2522%253A%252238E31D7F-6C34-4148-BF0E-3D27CE346A88%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=38E31D7F-6C34-4148-BF0E-3D27CE346A88&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_click~default-2-137167432-null-null.142%5Ev100%5Epc_search_result_base6&utm_term=rc4%E7%AE%97%E6%B3%95&spm=1018.2226.3001.4187">详细了解RC4加密算法-CSDN博客</a></p>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><p><font style="color:rgba(0, 0, 0, 0.87);">在</font><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%AF%86%E7%A2%BC%E5%AD%B8">密码学</a><font style="color:rgba(0, 0, 0, 0.87);">中，</font><strong><font style="color:rgba(0, 0, 0, 0.87);">RC4</font></strong><font style="color:rgba(0, 0, 0, 0.87);">（来自 Rivest Cipher 4 的缩写）是一种</font><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%B5%81%E5%8A%A0%E5%AF%86">流加密</a><font style="color:rgba(0, 0, 0, 0.87);">算法，</font><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%AF%86%E9%92%A5">密钥</a><font style="color:rgba(0, 0, 0, 0.87);">长度可变。它加解密使用相同的密钥，因此也属于</font><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86">对称加密算法</a><font style="color:rgba(0, 0, 0, 0.87);">。RC4 是</font><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%9C%89%E7%B7%9A%E7%AD%89%E6%95%88%E5%8A%A0%E5%AF%86">有线等效加密</a><font style="color:rgba(0, 0, 0, 0.87);">（WEP）中采用的加密算法，也曾经是 </font><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BC%A0%E8%BE%93%E5%B1%82%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE">TLS</a><font style="color:rgba(0, 0, 0, 0.87);"> 可采用的算法之一。</font></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">rc4_init</span><span class="hljs-params">(<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> *s, <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> *key, <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> Len)</span> <span class="hljs-comment">//初始化函数</span><br>&#123;<br>    <span class="hljs-type">int</span> i =<span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>;<br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> k[<span class="hljs-number">256</span>] = &#123;<span class="hljs-number">0</span>&#125;; <span class="hljs-comment">// 必须为无符号类型，否则会导致密文部分错误</span><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> tmp = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">256</span>;i++) &#123;<br>        s[i] = i;<br>        k[i] = key[i%Len];<br>    &#125;<br>    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">256</span>; i++) &#123;<br>        j=(j+s[i]+k[i])%<span class="hljs-number">256</span>;<br>        tmp = s[i];<br>        s[i] = s[j]; <span class="hljs-comment">//交换s[i]和s[j]</span><br>        s[j] = tmp;<br>    &#125;<br> &#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">rc4_crypt</span><span class="hljs-params">(<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> *s, <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> *Data, <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> Len)</span> <span class="hljs-comment">//加解密</span><br>&#123;<br>    <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>, t = <span class="hljs-number">0</span>;<br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> k = <span class="hljs-number">0</span>;<br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> tmp;<br>    <span class="hljs-keyword">for</span>(k=<span class="hljs-number">0</span>;k&lt;Len;k++) &#123;<br>        i=(i+<span class="hljs-number">1</span>)%<span class="hljs-number">256</span>;<br>        j=(j+s[i])%<span class="hljs-number">256</span>;<br>        tmp = s[i];<br>        s[i] = s[j]; <span class="hljs-comment">//交换s[x]和s[y]</span><br>        s[j] = tmp;<br>        t=(s[i]+s[j])%<span class="hljs-number">256</span>;<br>        Data[k] ^= s[t];<br>     &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><font style="color:rgba(0, 0, 0, 0.87);">其伪代码表示为：</font></p>
+<p><font style="color:rgba(0, 0, 0, 0.87);">初始化长度为 256 的 </font><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/S%E7%9B%92"><font style="color:rgba(0, 0, 0, 0.87);">S 盒</font></a><font style="color:rgba(0, 0, 0, 0.87);">。第一个 for 循环将 0 到 255 的互不重复的元素装入 S 盒。第二个 for 循环根据密钥打乱 S 盒。</font></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">for</span> i from <span class="hljs-number">0</span> to <span class="hljs-number">255</span><br>     S[i] := i<br> endfor<br> j := <span class="hljs-number">0</span><br> <span class="hljs-keyword">for</span>( i=<span class="hljs-number">0</span> ; i&lt;<span class="hljs-number">256</span> ; i++)<br>     j := (j + S[i] + key[i mod keylength]) % <span class="hljs-number">256</span><br>     swap values of S[i] and S[j]<br> endfor<br></code></pre></td></tr></table></figure>
+
+<p><font style="color:rgba(0, 0, 0, 0.87);">下面 i,j 是两个指针。每收到一个字节，就进行 while 循环。通过一定的算法（(a),(b)）定位 S 盒中的一个元素，并与输入字节异或，得到 k。循环中还改变了 S 盒（</font><font style="color:rgba(0, 0, 0, 0.87);">©</font><font style="color:rgba(0, 0, 0, 0.87);">）。如果输入的是</font><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%98%8E%E6%96%87">明文</a><font style="color:rgba(0, 0, 0, 0.87);">，输出的就是</font><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%AF%86%E6%96%87">密文</a><font style="color:rgba(0, 0, 0, 0.87);">；如果输入的是密文，输出的就是明文。</font></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c">i := <span class="hljs-number">0</span><br> j := <span class="hljs-number">0</span><br> <span class="hljs-keyword">while</span> GeneratingOutput:<br>     i := (i + <span class="hljs-number">1</span>) mod <span class="hljs-number">256</span>   <span class="hljs-comment">//a</span><br>     j := (j + S[i]) mod <span class="hljs-number">256</span> <span class="hljs-comment">//b</span><br>     swap values of S[i] and S[j]  <span class="hljs-comment">//c</span><br>     k := inputByte ^ S[(S[i] + S[j]) % <span class="hljs-number">256</span>]<br>     output K<br> endwhile<br></code></pre></td></tr></table></figure>
+
+<p><font style="color:rgba(0, 0, 0, 0.87);">此算法保证每 256 次循环中 S 盒的每个元素至少被交换过一次</font></p>
+<h2 id="pyexp"><a href="#pyexp" class="headerlink" title="pyexp"></a>pyexp</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs plain">def rc4_init(key):<br>    s = list(range(256))  # 初始化 s 为 0 到 255 的列表<br>    j = 0<br>    k = bytearray(256)  # 必须为无符号字节数组<br>    key_len = len(key)<br><br>    # 填充 k 并执行密钥调度算法（KSA）<br>    for i in range(256):<br>        k[i] = key[i % key_len]<br><br>    for i in range(256):<br>        j = (j + s[i] + k[i]) % 256<br>        s[i], s[j] = s[j], s[i]  # 交换 s[i] 和 s[j]<br><br>    return s  # 返回初始化后的状态数组 s<br><br><br>def rc4_crypt(s, data):<br>    i = 0<br>    j = 0<br>    result = bytearray(len(data))  # 用于存储加密/解密结果<br><br>    # 加解密过程<br>    for k in range(len(data)):<br>        i = (i + 1) % 256<br>        j = (j + s[i]) % 256<br>        s[i], s[j] = s[j], s[i]  # 交换 s[i] 和 s[j]<br>        t = (s[i] + s[j]) % 256<br>        result[k] = data[k] ^ s[t]  # 进行按位异或操作<br><br>    return result  # 返回加密/解密后的字节数组<br><br><br># 示例用法<br>key = b&quot;mysecretkey&quot;  # 秘钥<br>data = bytearray(b&quot;Hello, RC4!&quot;)  # 加密数据<br><br># 初始化 RC4 状态<br>s = rc4_init(key)<br><br># 加密或解密<br>encrypted_data = rc4_crypt(s.copy(), data)  # 需要传递 s 的副本<br>print(&quot;加密后：&quot;, encrypted_data)<br><br># 再次初始化 RC4 状态<br>s = rc4_init(key)<br><br># 使用相同的状态解密<br>decrypted_data = rc4_crypt(s.copy(), encrypted_data)<br>print(&quot;解密后：&quot;, decrypted_data.decode(&#x27;utf-8&#x27;))<br></code></pre></td></tr></table></figure>
+
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><h2 id="1、"><a href="#1、" class="headerlink" title="1、"></a>1、</h2><p><img src="/./img/49277317_PudqdKFXb4knYd2T/1715257489252-70021488-e008-4052-b81f-5e691514019c-011289.webp" srcset="/img/loading.gif" lazyload alt="1715257489252-70021488-e008-4052-b81f-5e691514019c.png"></p>
+<h2 id="2、"><a href="#2、" class="headerlink" title="2、"></a>2、</h2><p><img src="/./img/49277317_PudqdKFXb4knYd2T/1726985624038-95ebd59e-44f5-46cc-bddf-919007a294ac-669966.png" srcset="/img/loading.gif" lazyload alt="1726985624038-95ebd59e-44f5-46cc-bddf-919007a294ac.png"></p>
+<h2 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs plain">from Crypto.Cipher import ARC4<br>import binascii<br><br># 十六进制字符串<br>hex_data = &quot;A71A68ECD82711CC8C9B16155CD2673E82ADCE75D4BC5756C28A52B86BD6CCF8A4BA722FE05715B92411&quot;<br><br># 将十六进制字符串转换为字节<br>ciphertext = binascii.unhexlify(hex_data)<br><br># RC4 密钥（假设你知道密钥）<br>key = b&#x27;RC4_1s_4w3s0m3&#x27;  # 替换为你的RC4密钥<br><br># 创建 RC4 解密对象<br>cipher = ARC4.new(key)<br><br># 解密数据<br>plaintext = cipher.decrypt(ciphertext)<br><br># 输出解密后的内容<br>print(plaintext.decode(&#x27;utf-8&#x27;, errors=&#x27;ignore&#x27;))<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="2024省赛初赛复现"><a href="#2024省赛初赛复现" class="headerlink" title="2024省赛初赛复现"></a><font style="color:rgb(35, 38, 59);">2024省赛初赛复现</font></h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br></pre></td><td class="code"><pre><code class="hljs plain">ezRe (Python 3.9)<br>[Code]<br>    File Name: flag_checker.py<br>    Object Name: &lt;module&gt;<br>    Arg Count: 0<br>    Pos Only Arg Count: 0<br>    KW Only Arg Count: 0<br>    Locals: 0<br>    Stack Size: 7<br>    Flags: 0x00000040 (CO_NOFREE)<br>    [Names]<br>        &#x27;base64&#x27;<br>        &#x27;input&#x27;<br>        &#x27;text&#x27;<br>        &#x27;key&#x27;<br>        &#x27;list&#x27;<br>        &#x27;range&#x27;<br>        &#x27;s&#x27;<br>        &#x27;j&#x27;<br>        &#x27;i&#x27;<br>        &#x27;len&#x27;<br>        &#x27;data&#x27;<br>        &#x27;_&#x27;<br>        &#x27;append&#x27;<br>        &#x27;result&#x27;<br>        &#x27;zip&#x27;<br>        &#x27;c&#x27;<br>        &#x27;k&#x27;<br>        &#x27;chr&#x27;<br>        &#x27;ord&#x27;<br>        &#x27;b64encode&#x27;<br>        &#x27;encode&#x27;<br>        &#x27;decode&#x27;<br>        &#x27;enc&#x27;<br>        &#x27;print&#x27;<br>    [Var Names]<br>    [Free Vars]<br>    [Cell Vars]<br>    [Constants]<br>        0<br>        None<br>        &#x27;Flag: &#x27;<br>        &#x27;7e021a7dd49e4bd0837e22129682551b&#x27;<br>        [Code]<br>            File Name: flag_checker.py<br>            Object Name: &lt;listcomp&gt;<br>            Arg Count: 1<br>            Pos Only Arg Count: 0<br>            KW Only Arg Count: 0<br>            Locals: 2<br>            Stack Size: 4<br>            Flags: 0x00000043 (CO_OPTIMIZED | CO_NEWLOCALS | CO_NOFREE)<br>            [Names]<br>                &#x27;ord&#x27;<br>            [Var Names]<br>                &#x27;.0&#x27;<br>                &#x27;i&#x27;<br>            [Free Vars]<br>            [Cell Vars]<br>            [Constants]<br>                102<br>            [Disassembly]<br>                0       BUILD_LIST                      0<br>                2       LOAD_FAST                       0: .0<br>                4       FOR_ITER                        16 (to 22)<br>                6       STORE_FAST                      1: i<br>                8       LOAD_GLOBAL                     0: ord<br>                10      LOAD_FAST                       1: i<br>                12      CALL_FUNCTION                   1<br>                14      LOAD_CONST                      0: 102<br>                16      BINARY_XOR                      <br>                18      LIST_APPEND                     2<br>                20      JUMP_ABSOLUTE                   4<br>                22      RETURN_VALUE                    <br>        &#x27;&lt;listcomp&gt;&#x27;<br>        256<br>        50<br>        1<br>        &#x27;&#x27;<br>        51<br>        &#x27;w53Cj3HDgzTCsSM5wrg6FMKcw58Qw7RZSFLCljRxwrxbwrVdw4AEwqMjw7/DkMKTw4/Cv8Onw4NGw7jDmSdcwq4GGg==&#x27;<br>        &#x27;yes!&#x27;<br>        &#x27;try again...&#x27;<br>    [Disassembly]<br>        0       LOAD_CONST                      0: 0<br>        2       LOAD_CONST                      1: None<br>        4       JUMP_FORWARD                    0 (to 6)<br>        6       JUMP_FORWARD                    0 (to 8)<br>        8       JUMP_FORWARD                    0 (to 10)<br>        10      IMPORT_NAME                     0: base64<br>        12      STORE_NAME                      0: base64<br>        14      LOAD_NAME                       1: input<br>        16      LOAD_CONST                      2: &#x27;Flag: &#x27;<br>        18      CALL_FUNCTION                   1<br>        20      STORE_NAME                      2: text<br>        22      LOAD_CONST                      3: &#x27;7e021a7dd49e4bd0837e22129682551b&#x27;<br>        24      STORE_NAME                      3: key<br>        26      LOAD_CONST                      4: &lt;CODE&gt; &lt;listcomp&gt;<br>        28      LOAD_CONST                      5: &#x27;&lt;listcomp&gt;&#x27;<br>        30      MAKE_FUNCTION                   0<br>        32      LOAD_NAME                       3: key<br>        34      GET_ITER                        <br>        36      CALL_FUNCTION                   1<br>        38      STORE_NAME                      3: key<br>        40      LOAD_NAME                       4: list<br>        42      LOAD_NAME                       5: range<br>        44      LOAD_CONST                      6: 256<br>        46      CALL_FUNCTION                   1<br>        48      CALL_FUNCTION                   1<br>        50      STORE_NAME                      6: s<br>        52      LOAD_CONST                      0: 0<br>        54      STORE_NAME                      7: j<br>        56      LOAD_NAME                       5: range<br>        58      LOAD_CONST                      6: 256<br>        60      CALL_FUNCTION                   1<br>        62      GET_ITER                        <br>        64      FOR_ITER                        62 (to 128)<br>        66      STORE_NAME                      8: i<br>        68      LOAD_NAME                       7: j<br>        70      LOAD_NAME                       6: s<br>        72      LOAD_NAME                       8: i<br>        74      BINARY_SUBSCR                   <br>        76      BINARY_ADD                      <br>        78      LOAD_NAME                       3: key<br>        80      LOAD_NAME                       8: i<br>        82      LOAD_NAME                       9: len<br>        84      LOAD_NAME                       3: key<br>        86      CALL_FUNCTION                   1<br>        88      BINARY_MODULO                   <br>        90      BINARY_SUBSCR                   <br>        92      BINARY_ADD                      <br>        94      LOAD_CONST                      6: 256<br>        96      BINARY_MODULO                   <br>        98      STORE_NAME                      7: j<br>        100     LOAD_NAME                       6: s<br>        102     LOAD_NAME                       7: j<br>        104     BINARY_SUBSCR                   <br>        106     LOAD_NAME                       6: s<br>        108     LOAD_NAME                       8: i<br>        110     BINARY_SUBSCR                   <br>        112     ROT_TWO                         <br>        114     LOAD_NAME                       6: s<br>        116     LOAD_NAME                       8: i<br>        118     STORE_SUBSCR                    <br>        120     LOAD_NAME                       6: s<br>        122     LOAD_NAME                       7: j<br>        124     STORE_SUBSCR                    <br>        126     JUMP_ABSOLUTE                   64<br>        128     LOAD_CONST                      0: 0<br>        130     DUP_TOP                         <br>        132     STORE_NAME                      8: i<br>        134     STORE_NAME                      7: j<br>        136     BUILD_LIST                      0<br>        138     STORE_NAME                      10: data<br>        140     LOAD_NAME                       5: range<br>        142     LOAD_CONST                      7: 50<br>        144     CALL_FUNCTION                   1<br>        146     GET_ITER                        <br>        148     FOR_ITER                        88 (to 238)<br>        150     STORE_NAME                      11: _<br>        152     LOAD_NAME                       8: i<br>        154     LOAD_CONST                      8: 1<br>        156     BINARY_ADD                      <br>        158     LOAD_CONST                      6: 256<br>        160     BINARY_MODULO                   <br>        162     STORE_NAME                      8: i<br>        164     LOAD_NAME                       7: j<br>        166     LOAD_NAME                       6: s<br>        168     LOAD_NAME                       8: i<br>        170     BINARY_SUBSCR                   <br>        172     BINARY_ADD                      <br>        174     LOAD_CONST                      6: 256<br>        176     BINARY_MODULO                   <br>        178     STORE_NAME                      7: j<br>        180     LOAD_NAME                       6: s<br>        182     LOAD_NAME                       7: j<br>        184     BINARY_SUBSCR                   <br>        186     LOAD_NAME                       6: s<br>        188     LOAD_NAME                       8: i<br>        190     BINARY_SUBSCR                   <br>        192     ROT_TWO                         <br>        194     LOAD_NAME                       6: s<br>        196     LOAD_NAME                       8: i<br>        198     STORE_SUBSCR                    <br>        200     LOAD_NAME                       6: s<br>        202     LOAD_NAME                       7: j<br>        204     STORE_SUBSCR                    <br>        206     LOAD_NAME                       10: data<br>        208     LOAD_METHOD                     12: append<br>        210     LOAD_NAME                       6: s<br>        212     LOAD_NAME                       6: s<br>        214     LOAD_NAME                       8: i<br>        216     BINARY_SUBSCR                   <br>        218     LOAD_NAME                       6: s<br>        220     LOAD_NAME                       7: j<br>        222     BINARY_SUBSCR                   <br>        224     BINARY_ADD                      <br>        226     LOAD_CONST                      6: 256<br>        228     BINARY_MODULO                   <br>        230     BINARY_SUBSCR                   <br>        232     CALL_METHOD                     1<br>        234     POP_TOP                         <br>        236     JUMP_ABSOLUTE                   148<br>        238     LOAD_CONST                      9: &#x27;&#x27;<br>        240     STORE_NAME                      13: result<br>        242     LOAD_NAME                       14: zip<br>        244     LOAD_NAME                       2: text<br>        246     LOAD_NAME                       10: data<br>        248     CALL_FUNCTION                   2<br>        250     GET_ITER                        <br>        252     FOR_ITER                        32 (to 286)<br>        254     UNPACK_SEQUENCE                 2<br>        256     STORE_NAME                      15: c<br>        258     STORE_NAME                      16: k<br>        260     LOAD_NAME                       13: result<br>        262     LOAD_NAME                       17: chr<br>        264     LOAD_NAME                       18: ord<br>        266     LOAD_NAME                       15: c<br>        268     CALL_FUNCTION                   1<br>        270     LOAD_NAME                       16: k<br>        272     BINARY_XOR                      <br>        274     LOAD_CONST                      10: 51<br>        276     BINARY_XOR                      <br>        278     CALL_FUNCTION                   1<br>        280     INPLACE_ADD                     <br>        282     STORE_NAME                      13: result<br>        284     JUMP_ABSOLUTE                   252<br>        286     LOAD_NAME                       0: base64<br>        288     LOAD_METHOD                     19: b64encode<br>        290     LOAD_NAME                       13: result<br>        292     LOAD_METHOD                     20: encode<br>        294     CALL_METHOD                     0<br>        296     CALL_METHOD                     1<br>        298     LOAD_METHOD                     21: decode<br>        300     CALL_METHOD                     0<br>        302     STORE_NAME                      22: enc<br>        304     LOAD_NAME                       22: enc<br>        306     LOAD_CONST                      11: &#x27;w53Cj3HDgzTCsSM5wrg6FMKcw58Qw7RZSFLCljRxwrxbwrVdw4AEwqMjw7/DkMKTw4/Cv8Onw4NGw7jDmSdcwq4GGg==&#x27;<br>        308     COMPARE_OP                      2 (==)<br>        310     POP_JUMP_IF_FALSE               324<br>        314     LOAD_NAME                       23: print<br>        316     LOAD_CONST                      12: &#x27;yes!&#x27;<br>        318     CALL_FUNCTION                   1<br>        320     POP_TOP                         <br>        322     JUMP_FORWARD                    8 (to 332)<br>        324     LOAD_NAME                       23: print<br>        326     LOAD_CONST                      13: &#x27;try again...&#x27;<br>        328     CALL_FUNCTION                   1<br>        330     POP_TOP                         <br>        332     LOAD_CONST                      1: None<br>        334     RETURN_VALUE<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs plain">import base64<br><br># 原始密钥和加密的目标输出<br>key = &#x27;7e021a7dd49e4bd0837e22129682551b&#x27;<br>encoded_target = &#x27;w53Cj3HDgzTCsSM5wrg6FMKcw58Qw7RZSFLCljRxwrxbwrVdw4AEwqMjw7/DkMKTw4/Cv8Onw4NGw7jDmSdcwq4GGg==&#x27;<br><br># 处理密钥<br>processed_key = [ord(i) ^ 102 for i in key]<br><br># RC4 类似的流密码算法构建<br>s = list(range(256))<br>j = 0<br>for i in range(256):<br>    j = (j + s[i] + processed_key[i % len(processed_key)]) % 256<br>    s[i], s[j] = s[j], s[i]<br><br># 生成数据流 `data`<br>i = j = 0<br>data = []<br>for _ in range(50):  # 生成50个密钥流字节<br>    i = (i + 1) % 256<br>    j = (j + s[i]) % 256<br>    s[i], s[j] = s[j], s[i]<br>    data.append(s[(s[i] + s[j]) % 256])<br><br># 解码 `encoded_target` 并转换为原始字符串<br>target_bytes = base64.b64decode(encoded_target).decode()<br>decoded_text = &#x27;&#x27;<br><br># 使用 `data` 对 `target_bytes` 进行解码<br>for c, k in zip(target_bytes, data):<br>    decoded_text += chr((ord(c) ^ k) ^ 51)<br><br>print(&quot;Decoded text (flag):&quot;, decoded_text)<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="litctf-easyrc4"><a href="#litctf-easyrc4" class="headerlink" title="litctf-easyrc4"></a>litctf-easyrc4</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-strong">__int64 __</span>fastcall rc4<span class="hljs-emphasis">_crypt(<span class="hljs-strong">__int64 a1, __</span>int64 a2, int i_</span>2, <span class="hljs-strong">__int64 a4)</span><br><span class="hljs-strong">&#123;</span><br><span class="hljs-strong">  __</span>int64 v4; // kr00<span class="hljs-emphasis">_8</span><br><span class="hljs-emphasis">  <span class="hljs-strong">__int64 i_1; // rax</span></span><br><span class="hljs-strong"><span class="hljs-emphasis">  int v8; // [rsp+30h] [rbp-10h]</span></span><br><span class="hljs-strong"><span class="hljs-emphasis">  int v9; // [rsp+34h] [rbp-Ch]</span></span><br><span class="hljs-strong"><span class="hljs-emphasis">  unsigned int i; // [rsp+38h] [rbp-8h]</span></span><br><span class="hljs-strong"><span class="hljs-emphasis"></span></span><br><span class="hljs-strong"><span class="hljs-emphasis">  v8 = 0;</span></span><br><span class="hljs-strong"><span class="hljs-emphasis">  v9 = 0;</span></span><br><span class="hljs-strong"><span class="hljs-emphasis">  for ( i = 0; ; ++i )</span></span><br><span class="hljs-strong"><span class="hljs-emphasis">  &#123;</span></span><br><span class="hljs-strong"><span class="hljs-emphasis">    i_1 = i;</span></span><br><span class="hljs-strong"><span class="hljs-emphasis">    if ( (int)i &gt;= i_2 )</span></span><br><span class="hljs-strong"><span class="hljs-emphasis">      break;</span></span><br><span class="hljs-strong"><span class="hljs-emphasis">    v8 = (v8 + 1) % 256;</span></span><br><span class="hljs-strong"><span class="hljs-emphasis">    v4 = *(unsigned __</span>int8 *)(v8 + a4) + v9;</span><br><span class="hljs-emphasis">    v9 = (unsigned <span class="hljs-strong">__int8)(HIBYTE(v4) + *(_BYTE *)(v8 + a4) + v9) - HIBYTE(HIDWORD(v4));</span></span><br><span class="hljs-strong"><span class="hljs-emphasis">    swap(v8 + a4, a4 + v9);</span></span><br><span class="hljs-strong"><span class="hljs-emphasis">    *(_BYTE *)((int)i + a2) = *(_BYTE *)((unsigned __</span>int8)(*(_</span>BYTE <span class="hljs-emphasis">*)(v8 + a4) + *</span>(<span class="hljs-emphasis">_BYTE *)(v9 + a4)) + a4) ^ *(_</span>BYTE <span class="hljs-emphasis">*)((int)i + a1) ^ 0x20;</span><br><span class="hljs-emphasis">  &#125;</span><br><span class="hljs-emphasis">  return i_1;</span><br><span class="hljs-emphasis">&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>plaintext[i] &#x3D; cipher[i] ^ RC4_byte ^ 0x20</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs markdown">from Crypto.Cipher import ARC4<br><br>key = b&quot;FenKey!!&quot;<br><br><br>cipher<span class="hljs-emphasis">_hex = (</span><br><span class="hljs-emphasis">    b&#x27;\x78\xCC\x4E\x13\x31\xF4\x73\x49&#x27;</span><br><span class="hljs-emphasis">    b&#x27;\x4F\x6C\x4F\x73\xC0\xF4\x35\x7E&#x27;</span><br><span class="hljs-emphasis">    b&#x27;\xCE\x27\x76\x4D\x19\x60\x7A\xEA&#x27;</span><br><span class="hljs-emphasis">    b&#x27;\x44\x5D\xC0\x42\x81\xDA\x1C\xF6&#x27;</span><br><span class="hljs-emphasis">    b&#x27;\x64\x72\x58\xD9\x94\xFA\xF8\x13&#x27;</span><br><span class="hljs-emphasis">)</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis"># 创建 RC4 加密器</span><br><span class="hljs-emphasis">rc4 = ARC4.new(key)</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis"># 获取 RC4 伪随机流</span><br><span class="hljs-emphasis">keystream = rc4.encrypt(b&#x27;\x00&#x27; * 40)</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis"># 解密：cipher ^ keystream ^ 0x20</span><br><span class="hljs-emphasis">plaintext = bytes([c ^ k ^ 0x20 for c, k in zip(cipher_</span>hex, keystream)])<br><br>print(&quot;Recovered flag:&quot;, plaintext.decode(errors=&#x27;ignore&#x27;))<br><br></code></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>更新: 2025-05-25 10:14:54<br>原文: <a target="_blank" rel="noopener" href="https://www.yuque.com/chaye-apqbl/vsc85q/flp109atxsuqmrpm">https://www.yuque.com/chaye-apqbl/vsc85q/flp109atxsuqmrpm</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2026/01/19/RE/算法逆向/RC4逆向/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 19, 2026</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E7%AE%97%E6%B3%95%E9%80%86%E5%90%91/TEA/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/19/RE/%E7%AE%97%E6%B3%95%E9%80%86%E5%90%91/index/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
