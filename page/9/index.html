@@ -227,105 +227,6 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2026/01/19/RE/%E5%85%B6%E4%BB%96/ASM%E9%80%86%E5%90%91/" target="_self">
-          
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/19/RE/%E5%85%B6%E4%BB%96/ASM%E9%80%86%E5%90%91/" target="_self">
-        <div>
-          ASM逆向例题例题116位DOS不能进行反编译，只能放入32位看汇编  开头载入了两个数据dseg、seg001往上翻可以找到一个是提示字符  一个是密文  把每个数前四位和后四位交换，再与23异或构建解密脚本（注意还原后的结果%256，不然打不出来正确的结果）   123456789101112131415161718#easyasm#0x91, 0x61, 0x01, 0xC1, 0x41,#
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-01-19 13:29" pubdate>
-              2026-01-19
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/01/19/RE/%E4%BE%8B%E9%A2%98/NSSCTF/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/" target="_self">
-          
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/19/RE/%E4%BE%8B%E9%A2%98/NSSCTF/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/" target="_self">
-        <div>
-          字符串处理例题 Cr0ssfun放入64ida，发现check函数就是不断判断读入的字符  这边直接手搓一个代码，得到flag exp1234567891011121314151617181920212223242526272829303132333435363738a1=[0]*48a1[10] = 112a1[13] = 64a1[3] = 102a1[26] = 114a1[20] = 10
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-01-19 13:29" pubdate>
-              2026-01-19
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/01/19/RE/%E4%BE%8B%E9%A2%98/NSSCTF/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0python.random/" target="_self">
-          
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/19/RE/%E4%BE%8B%E9%A2%98/NSSCTF/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0python.random/" target="_self">
-        <div>
-          伪随机数python.random例题：NSSCTF fakerandom 12345678910111213import randomflag = &#x27;xxxxxxxxxxxxxxxxxxxx&#x27;random.seed(1)l = []for i in range(4):    l.append(random.getrandbits(8))result=[]for i in ra
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-01-19 13:29" pubdate>
-              2026-01-19
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
         <a href="/2026/01/19/RE/%E4%BE%8B%E9%A2%98/NSSCTF/esaypyc/" target="_self">
           
         </a>
@@ -551,11 +452,110 @@
     </article>
   </div>
 
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/01/19/RE/index/" target="_self">
+          
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/19/RE/index/" target="_self">
+        <div>
+          RE解题思路1、先查壳，看看是32进制还是64进制写的程序 2、放IDA里面（F5）反汇编，寻找main函数 例题  找到处理函数sub_401069   123456result= &#x27;DH~mqqvqxB^||zll@Jq~jkwpmvez&#123;&#x27;s=[&#x27;a&#x27;]*32for i in range(len(result)):    s[i]=chr(o
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-19 13:29" pubdate>
+              2026-01-19
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/01/19/python/python%E6%95%B0%E6%8D%AE%E5%BA%93%E5%87%BD%E6%95%B0/SQL-decode%E5%87%BD%E6%95%B0/" target="_self">
+          
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/19/python/python%E6%95%B0%E6%8D%AE%E5%BA%93%E5%87%BD%E6%95%B0/SQL-decode%E5%87%BD%E6%95%B0/" target="_self">
+        <div>
+          SQL-decode函数sql 中 decode(…)函数的用法 —— 相当于 if 语句 1234567891011121314151617181920212223242526272829303132333435363738sql 中 decode(...)函数的用法 —— 相当于 if 语句1. decode函数比较1个参数时:SELECT ID,DECODE(inParam,&#x27;by
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-19 13:29" pubdate>
+              2026-01-19
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/01/19/python/pyenv/" target="_self">
+          
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/19/python/pyenv/" target="_self">
+        <div>
+          pyenv【LINUX-KALI 安装 pyenv 教程】_kali pyenv 环境变量-CSDN博客 pyenv用法_pyenv 使用-CSDN博客  更新: 2024-09-25 14:20:56原文: https://www.yuque.com/chaye-apqbl/vsc85q/ru90cpm5814v52i9
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-19 13:29" pubdate>
+              2026-01-19
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/8/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#board">7</a><a class="page-number" href="/page/8/#board">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/#board">10</a><a class="page-number" href="/page/11/#board">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/#board">19</a><a class="extend next" rel="next" href="/page/10/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/8/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#board">7</a><a class="page-number" href="/page/8/#board">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/#board">10</a><a class="page-number" href="/page/11/#board">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/#board">18</a><a class="extend next" rel="next" href="/page/10/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
