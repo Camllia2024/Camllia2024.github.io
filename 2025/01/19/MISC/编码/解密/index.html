@@ -1,0 +1,965 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="解密Base系列编码浅析    Base编码有很多种，常用****的有：   base16   base32   base64   base85  base36  base 58  base91  base 92   base62 base2048      base2048  更新: 2024-10-17 16:26:19原文: https:&#x2F;&#x2F;www.yuque.com&#x2F;chaye-apqbl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="各种编码">
+<meta property="og:url" content="http://example.com/2025/01/19/MISC/%E7%BC%96%E7%A0%81/%E8%A7%A3%E5%AF%86/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="解密Base系列编码浅析    Base编码有很多种，常用****的有：   base16   base32   base64   base85  base36  base 58  base91  base 92   base62 base2048      base2048  更新: 2024-10-17 16:26:19原文: https:&#x2F;&#x2F;www.yuque.com&#x2F;chaye-apqbl">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/YtY7VVhMiilnZsCT/1729153577073-82ce4789-d66d-46e6-b481-7004e4b0f5b0-685540.png">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1715054999723-cd966302-d3f9-4b90-8956-93a0e2886295-378109.png">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1715054999740-119b1eb7-f7ac-4fa8-9bfc-f38451263cd2-944777.png">
+<meta property="og:image" content="http://example.com/">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1715055000028-1298ffe1-0538-4f50-8d8e-663a4a155837-711438.png">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1715054999888-ec0a017d-0f83-4377-8063-92d014907e6d-309781.png">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1715055000044-d63897dd-fccf-4a7c-accb-b29209034074-469660.png">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1715055000124-1f75903a-4542-478c-9d7e-520b68ed0d71-778372.gif">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1715055000314-d1b81dfc-ace9-4633-9e62-fa0119b9303b-747958.gif">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1715055000283-ab4e1073-1df1-4a4e-a35a-ea2eeb24d265-716194.png">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1715055000380-5bbae422-74c5-4f6e-9e3c-8994b81a1928-462296.png">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1715055000510-4c2ce6fd-5fe5-4151-80c2-a7a41631a567-366234.png">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1715054840619-03a3ac93-ffe3-4f18-9f20-a1e11db8fb0b-881697.png">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1715055163395-c20f725e-8e91-40b0-9fd6-df57b37a1eec-043661.png">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1715256897011-7833ab5e-7fb5-4c4f-b942-d4a626b29944-162646.png">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1715257773833-5814f7c9-3c85-4efd-9b86-75849a6312bc-292602.png">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1715054779960-15e6c1fb-ccab-41f1-b60d-f3214c01327b-785437.png">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1715055871376-83142243-7109-452e-b929-fde75f128b7f-270275.png">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1715083471177-a09935e5-71b5-4097-8c40-55de8162053e-942696.png">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1715083498475-ab2040b3-6036-4618-8a2e-a941448f889e-045850.png">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1717231475092-2ecf40b6-bd4e-4a72-af4f-001efe921c8a-316374.png">
+<meta property="og:image" content="http://example.com/img/49277317_S9jFTtcXp7jOK0Zj/1727174685457-337375d6-e901-4a20-b4df-d26b987e4788-093205.png">
+<meta property="og:image" content="http://example.com/img/_jZAOlhyqSkN6VpF/1730350450413-b688bccb-cc64-49f5-9d7a-b065bcd8cb9c-251571.png">
+<meta property="og:image" content="http://example.com/img/_jZAOlhyqSkN6VpF/1730350469512-8c9170b4-c67b-4984-ba84-6f2fd8cfd284-121626.png">
+<meta property="og:image" content="http://example.com/img/khHzfA452rW5P-OV/1731741150326-719c8948-e5c5-4141-8d66-cdd523903c04-756629.webp">
+<meta property="og:image" content="http://example.com/img/khHzfA452rW5P-OV/1731741173056-444a9205-9de5-4e3f-a2d2-74fa10ad1e06-132968.webp">
+<meta property="og:image" content="http://example.com/img/khHzfA452rW5P-OV/1731741246905-615f38c7-dc35-4c36-9cc1-09740601b03f-868300.png">
+<meta property="og:image" content="http://example.com/img/khHzfA452rW5P-OV/1731741830974-a2ed3a0b-efcc-4f98-96c7-b746ff80d49e-644087.png">
+<meta property="article:published_time" content="2025-01-19T05:56:47.000Z">
+<meta property="article:modified_time" content="2026-01-19T06:46:20.004Z">
+<meta property="article:author" content="chaye">
+<meta property="article:tag" content="编码解密">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/YtY7VVhMiilnZsCT/1729153577073-82ce4789-d66d-46e6-b481-7004e4b0f5b0-685540.png">
+  
+  
+  
+  <title>各种编码 - chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="各种编码"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-01-19 13:56" pubdate>
+          January 19, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.8k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          32 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">各种编码</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h1><h1 id="Base系列编码浅析"><a href="#Base系列编码浅析" class="headerlink" title="Base系列编码浅析"></a><font style="color:rgb(0, 128, 128);">Base系列编码浅析</font></h1><p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><strong><font style="color:rgb(0, 0, 0);">Base编码有很多种，常用</font>****<font style="color:rgb(0, 0, 0);">的有：</font></strong></p>
+<p><font style="color:rgb(0, 0, 0);">  </font><strong><font style="color:rgb(0, 0, 0);">base16   base32   base64   base85  base36  base 58  base91  base 92   base62 base2048</font></strong></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<hr>
+<p><strong><font style="color:rgb(0, 0, 0);"> </font></strong></p>
+<h1 id="base2048"><a href="#base2048" class="headerlink" title="base2048"></a>base2048</h1><p><img src="/./img/YtY7VVhMiilnZsCT/1729153577073-82ce4789-d66d-46e6-b481-7004e4b0f5b0-685540.png" srcset="/img/loading.gif" lazyload alt="1729153577073-82ce4789-d66d-46e6-b481-7004e4b0f5b0.png"></p>
+<blockquote>
+<p>更新: 2024-10-17 16:26:19<br>原文: <a target="_blank" rel="noopener" href="https://www.yuque.com/chaye-apqbl/vsc85q/dh16kgx3z0xwrevl">https://www.yuque.com/chaye-apqbl/vsc85q/dh16kgx3z0xwrevl</a></p>
+</blockquote>
+<h2 id="Base16"><a href="#Base16" class="headerlink" title="Base16"></a><strong><font style="color:rgb(0, 128, 128);">Base16</font></strong></h2><ul>
+<li><strong><font style="color:rgb(0, 0, 0);"> </font></strong><font style="color:rgb(0, 0, 0);"> 使用16个ASCII可打印字符</font><strong><font style="color:rgb(0, 128, 128);">（数字0-9和字母A-F）</font></strong><font style="color:rgb(0, 0, 0);">，对任意字节数据进行编码。</font></li>
+<li><font style="color:rgb(0, 0, 0);">     先获取输入字符串每个字节的二进制值（不足8比特在高位补0），然后将其串联进来，再按照4比特一组进行切分，将每组二进制数分别转换成十进制。</font></li>
+<li><font style="color:rgb(0, 0, 0);"> Base16编码后的数据量是原数据的两倍：1000比特数据需要250个字符（即 250*8&#x3D;2000 比特）。</font></li>
+</ul>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1715054999723-cd966302-d3f9-4b90-8956-93a0e2886295-378109.png" srcset="/img/loading.gif" lazyload alt="1715054999723-cd966302-d3f9-4b90-8956-93a0e2886295.png"><font style="color:rgb(0, 0, 0);">                                    </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><strong><font style="color:rgb(0, 0, 0);">注</font></strong><font style="color:rgb(0, 0, 0);">：可以看到8比特数据按照4比特切分刚好是两组，所以Base16不可能用到填充符号“&#x3D;”。</font></p>
+<p><font style="color:rgb(0, 0, 0);"> 换句话说：Base16使用两个ASCII字符去编码原数据中的一个字节数据。</font></p>
+<p><font style="color:rgb(0, 0, 0);"> Base16编码是一个标准的十六进制字符串（注意是字符串而不是数值），更易被人类和计算机使用，因为它并不包含任何控制字符，以及Base64和Base32中的“&#x3D;”符号。</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<hr>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<h2 id="Base32"><a href="#Base32" class="headerlink" title="Base32"></a><font style="color:rgb(0, 128, 128);">Base32</font></h2><p><font style="color:rgb(0, 0, 0);"> </font></p>
+<ul>
+<li><font style="color:rgb(0, 0, 0);">   Base32编码是使用32个可打印字符（字母A-Z和数字2-7）对任意字节数据进行编码的方案，编码后的字符串不用区分大小写并排除了容易混淆的字符，可以方便地由人类使用并由计算机处理。</font></li>
+<li><font style="color:rgb(0, 0, 0);">   Base32主要用于编码二进制数据，但是Base32也能够编码诸如ASCII之类的二进制文本。</font></li>
+<li><font style="color:rgb(0, 0, 0);">   Base32将任意字符串按照字节进行切分，并将每个字节对应的二进制值（不足8比特高位补0）串联起来，按照5比特一组进行切分，并将每组二进制值转换成十进制来对应32个可打印字符中的一个。</font></li>
+</ul>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1715054999740-119b1eb7-f7ac-4fa8-9bfc-f38451263cd2-944777.png" srcset="/img/loading.gif" lazyload alt="1715054999740-119b1eb7-f7ac-4fa8-9bfc-f38451263cd2.png"></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> 由于数据的二进制传输是按照8比特一组进行（即一个字节），因此Base32按5比特切分的二进制数据必须是40比特的倍数（5和8的最小公倍数）。</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> 例如输入单字节字符“%”，它对应的二进制值是“100101”，前面补两个0变成“00100101”（二进制值不足8比特的都要在高位加0直到8比特），从左侧开始按照5比特切分成两组：“00100”和“101”，后一组不足5比特，则在末尾填充0直到5比特，变成“00100”和“10100”，这两组二进制数分别转换成十进制数，通过上述表格即可找到其对应的可打印字符“E”和“U”，但是这里只用到两组共10比特，还差30比特达到40比特，按照5比特一组还需6组，则在末尾填充6个“&#x3D;”。填充“&#x3D;”符号的作用是方便一些程序的标准化运行，大多数情况下不添加也无关紧要，而且，在URL中使用时必须去掉“&#x3D;”符号。</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<hr>
+<h2 id=""><a href="#" class="headerlink" title=""></a><font style="color:rgb(0, 0, 0);"></font></h2><h2 id="Base64"><a href="#Base64" class="headerlink" title="Base64"></a><font style="color:rgb(0, 128, 128);">Base64</font></h2><ul>
+<li><font style="color:rgb(0, 0, 0);">    Base64是一种基于64个可打印字符来表示二进制数据的表示方法。由于</font><img src="/" srcset="/img/loading.gif" lazyload><font style="color:rgb(0, 0, 0);">，所以每6个比特为一个单元，对应某个可打印字符。3个字节有24个比特，对应于4个Base64单元，即3个字节可由4个可打印字符来表示。</font></li>
+<li><font style="color:rgb(0, 0, 0);">   在Base64中的可打印字符包括字母A-Z、a-z、数字0-9，这样共有62个字符，此外两个可打印符号在不同的系统中而不同。一些如uuencode的其他编码方法。</font></li>
+<li><font style="color:rgb(0, 0, 0);">   它可用来作为电子邮件的传输编码。</font></li>
+<li><font style="color:rgb(0, 0, 0);">    Base64常用于在通常处理文本数据的场合，表示、传输、存储一些二进制数据，包括MIME的电子邮件及XML的一些复杂数据。</font></li>
+</ul>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1715055000028-1298ffe1-0538-4f50-8d8e-663a4a155837-711438.png" srcset="/img/loading.gif" lazyload alt="1715055000028-1298ffe1-0538-4f50-8d8e-663a4a155837.png"></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);">  注：BinHex的版本使用不同的64字符集来代表6个二进制数字，但是不被称为Base64。</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> 如果要编码的字节数不能被3整除，最后会多出1个或2个字节，那么可以使用下面的方法进行处理：</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> （1）先使用0字节值在末尾补足，使其能够被3整除，然后再进行Base64的编码。</font></p>
+<p><font style="color:rgb(0, 0, 0);">     （2）在编码后的Base64文本后加上一个或两个&#x3D;号，代表补足的字节数。</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> 也就是说：</font></p>
+<p><font style="color:rgb(0, 0, 0);"> 当最后剩余两个八位(待补足)字节（2个byte）时，最后一个6位的Base64字节块有四位是0值，最后附加上两个等号；</font></p>
+<p><font style="color:rgb(0, 0, 0);"> 如果最后剩余一个八位(待补足)字节（1个byte）时，最后一个6位的base字节块有两位是0值，最后附加一个等号。 </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);">参考下表：</font></p>
+<p><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1715054999888-ec0a017d-0f83-4377-8063-92d014907e6d-309781.png" srcset="/img/loading.gif" lazyload alt="1715054999888-ec0a017d-0f83-4377-8063-92d014907e6d.png"></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<hr>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<h2 id="Base85"><a href="#Base85" class="headerlink" title="Base85"></a><strong><font style="color:rgb(0, 128, 128);">Base85</font></strong></h2><ul>
+<li><font style="color:rgb(0, 0, 0);">        base85 也称为Ascii85，是Paul E. Rutter为btoa实用程序开发的一种二进制文本编码形式。通过使用五个ASCII字符来表示四个字节的二进制数据（使编码量1 &#x2F; 4比原来大，假设每ASCII字符8个比特），它比更有效UUENCODE或Base64的，它使用四个字符来表示三个字节的数据（1 &#x2F; 3的增加，假设每ASCII字符8个比特）。</font></li>
+<li><font style="color:rgb(0, 0, 0);">        用途是Adobe的PostScript和Portable Document Format文件格式，以及Git使用的二进制文件的补丁编码。</font></li>
+<li><font style="color:rgb(0, 0, 0);">        与Base64一样，Base85编码的目标是对二进制数据可打印的ASCII字符进行编码。但是它使用了更大的字符集，因此效率更高一些。具体来说，它可以用5个字符编码4个字节（32位）。</font></li>
+</ul>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);">摘自wiki介绍的一个例子：</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1715055000044-d63897dd-fccf-4a7c-accb-b29209034074-469660.png" srcset="/img/loading.gif" lazyload alt="1715055000044-d63897dd-fccf-4a7c-accb-b29209034074.png"></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<hr>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><strong><font style="color:rgb(0, 0, 0);"> </font></strong></p>
+<h2 id="Base36"><a href="#Base36" class="headerlink" title="Base36"></a><strong><font style="color:rgb(0, 128, 128);">Base36</font></strong></h2><p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);">Base36是一个二进制到文本编码表示方案的二进制数据以ASCII通过将其转化为一个字符串格式基数 -36表示。选择36十分方便，因为可以使用阿拉伯数字 0–9和拉丁字母 A–Z [1]（ISO基本拉丁字母）表示数字。</font></p>
+<p><font style="color:rgb(0, 0, 0);">每个base36位需要少于6位的信息来表示。</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);">摘自wiki的一个例子：</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);">有符号的32位和64位整数分别最多只能容纳6个或13个base-36位数字（许多base-36位数字可能会使32位和64位整数溢出）。</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);">例如，在base-36中，“ 922337203685477575807 ” 的64位带符号整数最大值为“ 1Y2P0IJ32E8E7 ”。</font></p>
+<p><font style="color:rgb(0, 0, 0);">类似地，在base-36中，“ 2147483647 ” 的32位带符号整数最大值为“ ZIK0ZJ ”。</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);">（这里没看太懂是怎么转换的，请大佬指教~）</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);">用于从BASE10编码BASE36的Python代码</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1715055000124-1f75903a-4542-478c-9d7e-520b68ed0d71-778372.gif" srcset="/img/loading.gif" lazyload alt="1715055000124-1f75903a-4542-478c-9d7e-520b68ed0d71.gif"></p>
+<p><font style="color:rgb(0, 0, 0);"></font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs plain">def base36encode(integer): <br>    chars = &#x27;0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&#x27; <br>    <br>     sign = &#x27;-&#x27; if integer &lt; 0 else &#x27;&#x27; <br>     integer = abs(integer) <br>     result = &#x27;&#x27; <br> <br>     while integer &gt; 0: <br>         integer, remainder = divmod(integer, 36) <br>         result = chars[remainder]+result<br> <br>      return sign+result<br></code></pre></td></tr></table></figure>
+
+<p><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1715055000314-d1b81dfc-ace9-4633-9e62-fa0119b9303b-747958.gif" srcset="/img/loading.gif" lazyload alt="1715055000314-d1b81dfc-ace9-4633-9e62-fa0119b9303b.gif"></p>
+<hr>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<h2 id="Base58"><a href="#Base58" class="headerlink" title="Base58"></a><strong><font style="color:rgb(0, 128, 128);">Base58</font></strong></h2><p><font style="color:rgb(0, 0, 0);"> </font></p>
+<ul>
+<li><font style="color:rgb(0, 0, 0);">        Base58是用于Bitcoin中使用的一种独特的编码方式，主要用于产生Bitcoin的钱包地址。</font></li>
+<li><font style="color:rgb(0, 0, 0);">        相比Base64，</font><strong><font style="color:rgb(0, 0, 0);">Base58不使用数字”0”，字母大写”O”，字母大写”I”，和字母小写”l”，以及”+”和”&#x2F;“符号</font></strong><font style="color:rgb(0, 0, 0);">。</font></li>
+</ul>
+<p><font style="color:rgb(0, 0, 0);"> 设计Base58主要的目的是：</font></p>
+<ol>
+<li><font style="color:rgb(0, 0, 0);">避免混淆。在某些字体下，数字0和字母大写O，以及字母大写I和字母小写l会非常相似。</font></li>
+<li><font style="color:rgb(0, 0, 0);">不使用”+”和”&#x2F;“的原因是非字母或数字的字符串作为帐号较难被接受。</font></li>
+<li><font style="color:rgb(0, 0, 0);">没有标点符号，通常不会被从中间分行。</font></li>
+<li><font style="color:rgb(0, 0, 0);">大部分的软件支持双击选择整个字符串。</font></li>
+</ol>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1715055000283-ab4e1073-1df1-4a4e-a35a-ea2eeb24d265-716194.png" srcset="/img/loading.gif" lazyload alt="1715055000283-ab4e1073-1df1-4a4e-a35a-ea2eeb24d265.png"></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<hr>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<h2 id="Base91"><a href="#Base91" class="headerlink" title="Base91"></a><strong><font style="color:rgb(0, 128, 128);">Base91</font></strong></h2><p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> 顾名思义，basE91需要91个字符来表示ASCII编码的二进制数据。 从94个可打印ASCII字符（0x21-0x7E）中，以下三个字符被省略以构建basE91字母：</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> -（破折号，0x2D）</font></p>
+<p><font style="color:rgb(0, 0, 0);"> \（反斜杠，0x5C）</font></p>
+<p><font style="color:rgb(0, 0, 0);"> ‘（撇号，0x27）</font></p>
+<ul>
+<li><font style="color:rgb(0, 0, 0);">    basE91是将二进制数据编码为ASCII字符的高级方法。 </font></li>
+<li><font style="color:rgb(0, 0, 0);">    它类似于UUencode或base64，但效率更高。 basE91产生的开销取决于输入数据。 它的数量最多为23％（而base64为33％），范围可以降低到14％，通常发生在0字节块上。 </font></li>
+<li><font style="color:rgb(0, 0, 0);">    这使得basE91对于通过二进制不安全连接（例如电子邮件或终端线）传输较大的文件非常有用。</font></li>
+</ul>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);">转换表由其余字符组成，如下所示。</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1715055000380-5bbae422-74c5-4f6e-9e3c-8994b81a1928-462296.png" srcset="/img/loading.gif" lazyload alt="1715055000380-5bbae422-74c5-4f6e-9e3c-8994b81a1928.png"></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<hr>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<h2 id="Base92"><a href="#Base92" class="headerlink" title="Base92"></a><strong><font style="color:rgb(0, 128, 128);">Base92</font></strong></h2><p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> 有关Base92的资料实在是很少，但是笔者找到了这一篇博客：</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> <a target="_blank" rel="noopener" href="https://thenoviceoof.com/blog/projects/base92/">https://thenoviceoof.com/blog/projects/base92/</a></font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><strong><font style="color:rgb(0, 0, 0);">以下介绍均摘自这篇博客</font></strong></p>
+<p><font style="color:rgb(0, 0, 0);"></font></p>
+<p><font style="color:rgb(0, 0, 0);"> “  如果您对将二进制信息从一个地方转移到另一地方一无所知，那么就知道将数据从一个地方转移到另一地方 可能很危险。就是说，这对您的数据有害：也许您需要在仅用于ASCII文本的通道上传输Blob ，并且所有’\n’以C样式字符串表示的字节都会突然有一个同级符号’\r’。或者，您的传输层实际上真的真的是以null终止的字符串，并且您恰好在字节边界上连续有8个连续的0位，即使它位于blob中一个32位整数的中间，并且你</font><font style="color:rgb(0, 0, 0);">结束了只有一半您的数据。</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> 解决此问题的一种方法是使用base64，它使用所有数字和大写&#x2F;小写字母字符对数据进行编码（再加上两个，但现在我们将忽略它们）。现在，您在传输层上尝试解释您的字节时没有任何问题，因为每个人都可以很好地处理字母数字字符，如果没有，您可能不想使用它们。</font></p>
+<p><font style="color:rgb(0, 0, 0);">当然，使用base64了一段时间后，您可能会注意到，虽然您不会因为一位反复无常的上帝以为他在提供帮助，却没有按照自己的意愿对数据进行更改，但您却通过使用放弃了效率base64。对于二进制blob中的每3个字节，如果需要传输字母数字字符，则有4个字节，因此您要以33％的容量税来支付数据保护费用：如果暴徒可以在保护球拍中掠走33％，相信他们会的。</font></p>
+<p><font style="color:rgb(0, 0, 0);"> 看一下base64，您可能会注意到，除了可以使用的64个字符外，还有更多可显示的ASCII字符，base64可以在编码中使用这些字符以提高传输密度。这样就base85诞生了，使用了……您猜对了，有85个字符！这次，将4字节的二进制数据编码为5个ASCII字符，这将导致20％的传输大小开销。但你能做什么呢？好像没有更多可显示的ASCII了……哦，等等。</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> 所以似乎没有人试图超越明显的下一步base85，所以我决定尝试自己做base92。</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> 在键入编码的字符串时，&#96;和“与普通引号’太相似，以使其舒适。希望在区分l &#x2F; 1和0 &#x2F; O时使用的字体好。</font><font style="color:rgb(0, 0, 0);">但是，我们将〜用作特殊符号（空字符串）。有94个可打印的ascii字符，因此我们最终得到91个字符，或每个字符6.5位。一旦包含〜，则将有92个字符：因此，为base92。（老实说，base91的名字太丑陋了，无法处理）</font></p>
+<p><font style="color:rgb(0, 0, 0);"> 一旦每个字符有6.5位，则可以一次使用13位，并使用类似于base85的除法和取模方案，用它们产生两个输出字符。这可能意味着，与base92编码相比，它更能抵抗损坏，因为任何损坏都更加局限（一位更改仅影响2-3个字节，而不影响4个字节）。</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);">注意：在某些需要某些输出的情况下，可能需要将〜用作空字符串分号：但是，传递空字符串进行解码不会导致它变成barf，因此不要求使用〜。</font></p>
+<p><font style="color:rgb(0, 0, 0);">旁注：以前base92产生的输出的长度与输入的长度非单调增长。这已不再是这种情况。</font></p>
+<p><font style="color:rgb(0, 0, 0);">另一个旁注：base64和base85更加优雅，将一个较小的字节整数干净地映射到另一个较小的字节整数。base92将13个字节映射为16个字符，从大小的角度来看，这比base85的4至5个字符更好，但是相当不雅观。</font><font style="color:rgb(0, 0, 0);">我们还遵循使用高除数乘积作为第一个字节的base85约定。”</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);">以上是笔者用谷歌翻译直接搬运的，如有描述不懂的小伙伴，请参照原文链接进行参考~</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<hr>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<h2 id="Base62"><a href="#Base62" class="headerlink" title="Base62"></a><strong><font style="color:rgb(0, 128, 128);">Base62</font></strong></h2><p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<ul>
+<li><font style="color:rgb(0, 0, 0);">Base62编码将数字转换为ASCII字符串（0-9，az和AZ），反之亦然，这通常会导致字符串较短。</font></li>
+</ul>
+<p><font style="color:rgb(0, 0, 0);">               26个小写字母+26个大写字母+10个数字&#x3D;62</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><strong><font style="color:rgb(0, 0, 0);">（1）62进制与10进制的互相转化</font></strong></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<ul>
+<li><font style="color:rgb(0, 0, 0);"> 62进制转10进制与2进制转10进制相似。</font></li>
+</ul>
+<p><font style="color:rgb(0, 0, 0);"> 2进制转10进制过程为： 从右到左用二进制的每个数去乘以2的相应次方，次方要从0开始。</font></p>
+<p><font style="color:rgb(0, 0, 0);"> 62进制转10进制也类似，从右往左每个数*62的N次方，N从0开始。</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> 那么，10进制转62进制也与10进制转2进制类似。  即：不断除以62取余数，然后倒序。</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><strong><font style="color:rgb(0, 0, 0);">（2）关于短Url的转换</font></strong></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> 主要思路，维护一个全局自增的id，每来一个长url，将其与一个自增id绑定，然后利用base62将该自增id转换为base62字符串，即完成转换。</font></p>
+<h2 id="-1"><a href="#-1" class="headerlink" title=""></a><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1715055000510-4c2ce6fd-5fe5-4151-80c2-a7a41631a567-366234.png" srcset="/img/loading.gif" lazyload alt="1715055000510-4c2ce6fd-5fe5-4151-80c2-a7a41631a567.png"></h2><p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> 以上就是对Base系列编码的浅析，部分知识是笔者从wiki上搬运过来的，也参考了很多博客文章和资料。如有错误及不足之处，请大佬们多提建议~</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);">参考资料：</font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki">https://en.wikipedia.org/wiki</a></font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"><a target="_blank" rel="noopener" href="https://blog.csdn.net/n0nameforn0w/article/details/87124053">https://blog.csdn.net/n0nameforn0w/article/details/87124053</a></font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"><a target="_blank" rel="noopener" href="https://thenoviceoof.com/blog/projects/base92/">https://thenoviceoof.com/blog/projects/base92/</a></font></p>
+<p><font style="color:rgb(0, 0, 0);"> </font></p>
+<p><font style="color:rgb(0, 0, 0);"><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000010516708">https://segmentfault.com/a/1190000010516708</a></font></p>
+<hr>
+<p>base16、32、64、85（较大的base）</p>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>base64-&gt;base85（不断尝试大的base解密）</p>
+<p><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1715054840619-03a3ac93-ffe3-4f18-9f20-a1e11db8fb0b-881697.png" srcset="/img/loading.gif" lazyload alt="1715054840619-03a3ac93-ffe3-4f18-9f20-a1e11db8fb0b.png"></p>
+<p><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1715055163395-c20f725e-8e91-40b0-9fd6-df57b37a1eec-043661.png" srcset="/img/loading.gif" lazyload alt="1715055163395-c20f725e-8e91-40b0-9fd6-df57b37a1eec.png"></p>
+<p>先进行htlm解密再进行base85解密</p>
+<h1 id="莫斯密码（-和-构成）"><a href="#莫斯密码（-和-构成）" class="headerlink" title="莫斯密码（-和.构成）"></a>莫斯密码（-和.构成）</h1><p><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1715256897011-7833ab5e-7fb5-4c4f-b942-d4a626b29944-162646.png" srcset="/img/loading.gif" lazyload alt="1715256897011-7833ab5e-7fb5-4c4f-b942-d4a626b29944.png"></p>
+<p>– ..- –.. .. -.- .. … –. —– —– -..</p>
+<p><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1715257773833-5814f7c9-3c85-4efd-9b86-75849a6312bc-292602.png" srcset="/img/loading.gif" lazyload alt="1715257773833-5814f7c9-3c85-4efd-9b86-75849a6312bc.png"></p>
+<h1 id="栅栏密码"><a href="#栅栏密码" class="headerlink" title="栅栏密码"></a>栅栏密码</h1><p>分为标准型和W型</p>
+<h1 id="培根密码（只由A、B构成）"><a href="#培根密码（只由A、B构成）" class="headerlink" title="培根密码（只由A、B构成）"></a><font style="color:#000000;">培根密码（只由A、B构成）</font></h1><p>只由A、B构成</p>
+<p><font style="color:rgb(85, 85, 85);">1、培根密码（Bacon’s cipher），本质上是一种替换密码，根据对应转换规则进行加密解密，通过不明显的特征来隐藏明文信息；</font><br><font style="color:rgb(85, 85, 85);">2、培根密码加密规则，将明文中的每个字母，转换成一组五个英文字母，即可得到密文，转换规则表如下：</font><br><font style="color:rgb(85, 85, 85);">  a   AAAAA    g      AABBA     n     ABBAA     t       BAABA</font><br><font style="color:rgb(85, 85, 85);">  b   AAAAB    h      AABBB     o     ABBAB     u-v    BAABB</font><br><font style="color:rgb(85, 85, 85);">  c   AAABA    i-j     ABAAA     p     ABBBA     w      BABAA</font><br><font style="color:rgb(85, 85, 85);">  d   AAABB    k      ABAAB     q     ABBBB      x       BABAB</font><br><font style="color:rgb(85, 85, 85);">  e   AABAA    l       ABABA     r      BAAAA     y       BABBA</font><br><font style="color:rgb(85, 85, 85);">  f    AABAB    m     ABABB     s      BAAAB     z       BABBB</font><br><font style="color:rgb(85, 85, 85);">3、培根密码解密时，将密文进行5个字符分组，替换成对应的明文即可。</font><br><font style="color:rgb(85, 85, 85);">4、培根密码，通常有两种不同的转换规则，一种为即I与J、U与V使用相同的编码，一种为I与J、U与V都使用不同编码。</font></p>
+<h1 id="html解密"><a href="#html解密" class="headerlink" title="html解密"></a><font style="color:rgb(85, 85, 85);">html解密</font></h1><p><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1715054779960-15e6c1fb-ccab-41f1-b60d-f3214c01327b-785437.png" srcset="/img/loading.gif" lazyload alt="1715054779960-15e6c1fb-ccab-41f1-b60d-f3214c01327b.png"></p>
+<h1 id="md5解密"><a href="#md5解密" class="headerlink" title="md5解密"></a>md5解密</h1><p><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1715055871376-83142243-7109-452e-b929-fde75f128b7f-270275.png" srcset="/img/loading.gif" lazyload alt="1715055871376-83142243-7109-452e-b929-fde75f128b7f.png"></p>
+<h1 id="-2"><a href="#-2" class="headerlink" title=""></a></h1><h1 id="二维码解码器"><a href="#二维码解码器" class="headerlink" title="二维码解码器"></a>二维码解码器</h1><p><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1715083471177-a09935e5-71b5-4097-8c40-55de8162053e-942696.png" srcset="/img/loading.gif" lazyload alt="1715083471177-a09935e5-71b5-4097-8c40-55de8162053e.png"></p>
+<p>把？后面的复制下来，进行base64解密</p>
+<p><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1715083498475-ab2040b3-6036-4618-8a2e-a941448f889e-045850.png" srcset="/img/loading.gif" lazyload alt="1715083498475-ab2040b3-6036-4618-8a2e-a941448f889e.png"></p>
+<h1 id="兔子解密（rot5、13、18、47）"><a href="#兔子解密（rot5、13、18、47）" class="headerlink" title="兔子解密（rot5、13、18、47）"></a>兔子解密（rot5、13、18、47）</h1><p><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1717231475092-2ecf40b6-bd4e-4a72-af4f-001efe921c8a-316374.png" srcset="/img/loading.gif" lazyload alt="1717231475092-2ecf40b6-bd4e-4a72-af4f-001efe921c8a.png"></p>
+<h1 id="新佛曰"><a href="#新佛曰" class="headerlink" title="新佛曰"></a>新佛曰</h1><p><a target="_blank" rel="noopener" href="http://hi.pcmoe.net/buddha.html?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2OTczNzU3NTAsImZpbGVHVUlEIjoiRHk1ZWtISmhLbzBhcDV2MyIsImlhdCI6MTY5NzM3NTQ1MCwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjotODMxMTE0NzQxNX0.mTWIluoUq65XDAhk6XrX9TnWYTlf03r-E2CS43TFFdY">新约佛论禅&#x2F;佛曰加密 - 萌研社 - PcMoe!</a></p>
+<p><img src="/./img/49277317_S9jFTtcXp7jOK0Zj/1727174685457-337375d6-e901-4a20-b4df-d26b987e4788-093205.png" srcset="/img/loading.gif" lazyload alt="1727174685457-337375d6-e901-4a20-b4df-d26b987e4788.png"></p>
+<h1 id="ook编码"><a href="#ook编码" class="headerlink" title="ook编码"></a>ook编码</h1><p><a target="_blank" rel="noopener" href="https://www.splitbrain.org/services/ook">Brainfuck&#x2F;Ook! Obfuscation&#x2F;Encoding [splitbrain.org]</a></p>
+<p>….. ….. ….! ?!!.? ….. ….. ….? .?!.? ….! .?… ….. …..</p>
+<p>..!?! !.?.. ….. ….. ..?.? !.?.. ….. ….. ….. ….. !.?.. …..</p>
+<p>….. .!?!! .?!!! !!!!! !!!!? .?!.? !!!!! !!!!! !!!!! .?… ….! ?!!.?</p>
+<p>!!!!! !?.?! .?!!! !!!!! !!!!! .!!!. ?…. ….. ….. .!?!! .?… …..</p>
+<p>….. .?.?! .?!.? .</p>
+<p><img src="/./img/_jZAOlhyqSkN6VpF/1730350450413-b688bccb-cc64-49f5-9d7a-b065bcd8cb9c-251571.png" srcset="/img/loading.gif" lazyload alt="1730350450413-b688bccb-cc64-49f5-9d7a-b065bcd8cb9c.png"></p>
+<p><img src="/./img/_jZAOlhyqSkN6VpF/1730350469512-8c9170b4-c67b-4984-ba84-6f2fd8cfd284-121626.png" srcset="/img/loading.gif" lazyload alt="1730350469512-8c9170b4-c67b-4984-ba84-6f2fd8cfd284.png"></p>
+<h1 id="Cimbar"><a href="#Cimbar" class="headerlink" title="Cimbar"></a>Cimbar</h1><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/opus/975102170591395840">https://www.bilibili.com/opus/975102170591395840</a></p>
+<p><img src="/./img/khHzfA452rW5P-OV/1731741150326-719c8948-e5c5-4141-8d66-cdd523903c04-756629.webp" srcset="/img/loading.gif" lazyload alt="1731741150326-719c8948-e5c5-4141-8d66-cdd523903c04.webp"></p>
+<p><font style="color:rgb(24, 25, 28);">每个符号在哈希空间内与其他符号相隔至少 20 位，这确保了即使图像模糊或受到其他干扰时，也能清晰区分各个符号。</font></p>
+<p> <img src="/./img/khHzfA452rW5P-OV/1731741173056-444a9205-9de5-4e3f-a2d2-74fa10ad1e06-132968.webp" srcset="/img/loading.gif" lazyload alt="1731741173056-444a9205-9de5-4e3f-a2d2-74fa10ad1e06.webp"></p>
+<h1 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h1><h2 id="SYC"><a href="#SYC" class="headerlink" title="SYC"></a>SYC</h2><p>对着图片敲二进制就行</p>
+<p><img src="/./img/khHzfA452rW5P-OV/1731741246905-615f38c7-dc35-4c36-9cc1-09740601b03f-868300.png" srcset="/img/loading.gif" lazyload alt="1731741246905-615f38c7-dc35-4c36-9cc1-09740601b03f.png"></p>
+<p>0101 0011 0101 1001 0100 0011 0111 1011</p>
+<p>0100 0001 0110 1110 0011 0000 0111 0100</p>
+<p>0110 1000 0011 0011 0111 0010 0101 1111</p>
+<p>0100 0001 0110 1101 0100 0000 0111 1010</p>
+<p>0011 0001 0110 1110 0011 1001 0101 1111</p>
+<p>0101 0001 0101 0010 0101 1111 0100 0011</p>
+<p>0110 1111 0011 0100 0110 0101 0111 1101</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 给定的二进制数据<br>binary_data = &quot;&quot;&quot;<br>01010011010110010100001101111011<br>01000001011011100011000001110100<br>01101000001100110111001001011111<br>01000001011011010100000001111010<br>00110001011011100011100101011111<br>01010001010100100101111101000011<br>01101111001101000110010101111101<br>&quot;&quot;&quot;<br><br># 将所有二进制数据合并为一个字符串<br>binary_data = binary_data.replace(&quot; &quot;, &quot;&quot;).replace(&quot;\n&quot;, &quot;&quot;)<br><br># 将每 8 位转换为一个字符<br>text = &quot;&quot;<br>for i in range(0, len(binary_data), 8):<br>    byte = binary_data[i:i+8]<br>    char = chr(int(byte, 2))  # 将 8 位二进制转换为整数，再转换为字符<br>    text += char<br><br># 输出结果<br>print(&quot;转换后的字符是：&quot;)<br>print(text)<br></code></pre></td></tr></table></figure>
+
+<p><img src="/./img/khHzfA452rW5P-OV/1731741830974-a2ed3a0b-efcc-4f98-96c7-b746ff80d49e-644087.png" srcset="/img/loading.gif" lazyload alt="1731741830974-a2ed3a0b-efcc-4f98-96c7-b746ff80d49e.png"></p>
+<blockquote>
+<p>更新: 2024-11-16 15:24:00<br>原文: <a target="_blank" rel="noopener" href="https://www.yuque.com/chaye-apqbl/vsc85q/bsb876yfxnzcbuuk">https://www.yuque.com/chaye-apqbl/vsc85q/bsb876yfxnzcbuuk</a></p>
+</blockquote>
+<blockquote>
+<p>更新: 2024-10-31 12:54:31<br>原文: <a target="_blank" rel="noopener" href="https://www.yuque.com/chaye-apqbl/vsc85q/xcd9pvw1k71teuc0">https://www.yuque.com/chaye-apqbl/vsc85q/xcd9pvw1k71teuc0</a></p>
+</blockquote>
+<blockquote>
+<p>更新: 2024-09-24 18:45:39<br>原文: <a target="_blank" rel="noopener" href="https://www.yuque.com/chaye-apqbl/vsc85q/wd6us3twqkz64s9t">https://www.yuque.com/chaye-apqbl/vsc85q/wd6us3twqkz64s9t</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/misc/" class="category-chain-item">misc</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%BC%96%E7%A0%81%E8%A7%A3%E5%AF%86/" class="print-no-link">#编码解密</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>各种编码</div>
+      <div>http://example.com/2025/01/19/MISC/编码/解密/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 19, 2025</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/01/19/MISC/%E7%BC%96%E7%A0%81/01%E7%BC%96%E7%A0%81/" title="01编码">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">01编码</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/01/19/%E5%8D%9A%E5%AE%A2/Typora%E7%A0%B4%E8%A7%A3/" title="Typora破解">
+                        <span class="hidden-mobile">Typora破解</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

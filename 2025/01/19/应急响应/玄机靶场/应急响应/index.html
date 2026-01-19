@@ -1,0 +1,872 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="chaye">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第一章webshell查杀步骤步骤1.1（木马路径）&#x2F;&#x2F;搜索目录下适配当前应用的网页文件，查看内容是否有Webshell特征 find .&#x2F; type f -name “*.jsp” | xargs grep “exec(“  find .&#x2F; type f -name “*.php” | xargs grep “eval(“  find .&#x2F; ty">
+<meta property="og:type" content="article">
+<meta property="og:title" content="应急响应练习">
+<meta property="og:url" content="http://example.com/2025/01/19/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/%E7%8E%84%E6%9C%BA%E9%9D%B6%E5%9C%BA/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/index.html">
+<meta property="og:site_name" content="chaye的博客">
+<meta property="og:description" content="第一章webshell查杀步骤步骤1.1（木马路径）&#x2F;&#x2F;搜索目录下适配当前应用的网页文件，查看内容是否有Webshell特征 find .&#x2F; type f -name “*.jsp” | xargs grep “exec(“  find .&#x2F; type f -name “*.php” | xargs grep “eval(“  find .&#x2F; ty">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/9Gc65h5uwpj-ZBhO/1748419971001-2dd4d6cd-00a1-49f0-9d5e-c24fe0e6d294-548307.png">
+<meta property="og:image" content="http://example.com/img/9Gc65h5uwpj-ZBhO/1748420254556-13aa09b0-9d06-4ac9-bb6a-55e0126323c5-325053.png">
+<meta property="og:image" content="http://example.com/img/9Gc65h5uwpj-ZBhO/1748420345979-8791a578-2eb3-411d-87e5-1abce136beb0-674913.png">
+<meta property="og:image" content="http://example.com/img/9Gc65h5uwpj-ZBhO/1748420801486-dbc3285f-1dea-4e64-8af5-3620b6f78168-336646.png">
+<meta property="og:image" content="http://example.com/img/9Gc65h5uwpj-ZBhO/1748421389170-399d867d-fb9b-4ab9-badb-102bd621e70e-530393.png">
+<meta property="og:image" content="http://example.com/img/9Gc65h5uwpj-ZBhO/1748421413548-58671f2a-7fe8-43e7-8406-68b4502c358b-901358.png">
+<meta property="og:image" content="http://example.com/img/9Gc65h5uwpj-ZBhO/1748421907313-939d41e7-eb1f-414f-a686-e166c08c5e52-810707.png">
+<meta property="og:image" content="http://example.com/img/9Gc65h5uwpj-ZBhO/1748421931220-f3160c41-dce3-4bf5-a67e-839e0fec2fb3-325887.png">
+<meta property="og:image" content="http://example.com/img/9Gc65h5uwpj-ZBhO/1748422026155-fba171aa-f8a9-4e54-a511-6d4ff46c1f8b-683216.png">
+<meta property="og:image" content="http://example.com/img/9Gc65h5uwpj-ZBhO/1748422147146-c5b55d08-e5b3-4aa4-810c-6cf66dc3f995-221852.png">
+<meta property="og:image" content="http://example.com/img/9Gc65h5uwpj-ZBhO/1748422226069-8941f031-53c0-4b3d-a1f6-04330393217e-638121.png">
+<meta property="og:image" content="http://example.com/img/9Gc65h5uwpj-ZBhO/1748496070046-c6999d08-7c7d-4bc4-b570-d3f1780ab0f1-498609.png">
+<meta property="og:image" content="http://example.com/img/9Gc65h5uwpj-ZBhO/1748496189604-9126accf-995d-46aa-900d-4ae461784de3-216415.png">
+<meta property="og:image" content="http://example.com/img/9Gc65h5uwpj-ZBhO/1748496366182-22198156-e89d-4d63-8aea-ca4646bd8e44-627182.png">
+<meta property="og:image" content="http://example.com/img/9Gc65h5uwpj-ZBhO/1748496585017-39b16371-83e7-433f-a2f8-b17de60a918a-056418.png">
+<meta property="og:image" content="http://example.com/img/9Gc65h5uwpj-ZBhO/1748496189604-9126accf-995d-46aa-900d-4ae461784de3-216415.png">
+<meta property="og:image" content="http://example.com/img/9Gc65h5uwpj-ZBhO/1748496888018-a2a82258-ff08-4479-83da-b987fcfa4e51-372177.png">
+<meta property="article:published_time" content="2025-01-19T05:56:47.000Z">
+<meta property="article:modified_time" content="2026-01-19T06:45:05.204Z">
+<meta property="article:author" content="chaye">
+<meta property="article:tag" content="应急响应">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/9Gc65h5uwpj-ZBhO/1748419971001-2dd4d6cd-00a1-49f0-9d5e-c24fe0e6d294-548307.png">
+  
+  
+  
+  <title>应急响应练习 - chaye的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chaye</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="应急响应练习"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-01-19 13:56" pubdate>
+          January 19, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.6k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          30 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">应急响应练习</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><h1 id="webshell查杀"><a href="#webshell查杀" class="headerlink" title="webshell查杀"></a>webshell查杀</h1><h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="步骤1-1（木马路径）"><a href="#步骤1-1（木马路径）" class="headerlink" title="步骤1.1（木马路径）"></a>步骤1.1（木马路径）</h3><p>&#x2F;&#x2F;搜索目录下适配当前应用的网页文件，查看内容是否有Webshell特征</p>
+<p>find .&#x2F; type f -name “*.jsp” | xargs grep “exec(“ </p>
+<p>find .&#x2F; type f -name “*.php” | xargs grep “eval(“ </p>
+<p>find .&#x2F; type f -name “*.asp” | xargs grep “execute(“ </p>
+<p>find .&#x2F; type f -name “*.aspx” | xargs grep “eval(“ </p>
+<p>&#x2F;&#x2F;对于免杀Webshell，可以查看是否使用编码</p>
+<p>find .&#x2F; type f -name “*.php” | xargs grep “base64_decode” </p>
+<p>这边查到了有异地登录ip，</p>
+<p><img src="/./img/9Gc65h5uwpj-ZBhO/1748419971001-2dd4d6cd-00a1-49f0-9d5e-c24fe0e6d294-548307.png" srcset="/img/loading.gif" lazyload alt="1748419971001-2dd4d6cd-00a1-49f0-9d5e-c24fe0e6d294.png"></p>
+<p>find .&#x2F; type f -name “*.php” | xargs grep “eval(“ </p>
+<p><img src="/./img/9Gc65h5uwpj-ZBhO/1748420254556-13aa09b0-9d06-4ac9-bb6a-55e0126323c5-325053.png" srcset="/img/loading.gif" lazyload alt="1748420254556-13aa09b0-9d06-4ac9-bb6a-55e0126323c5.png"></p>
+<p> cat .&#x2F;var&#x2F;www&#x2F;html&#x2F;include&#x2F;gz.php</p>
+<p><img src="/./img/9Gc65h5uwpj-ZBhO/1748420345979-8791a578-2eb3-411d-87e5-1abce136beb0-674913.png" srcset="/img/loading.gif" lazyload alt="1748420345979-8791a578-2eb3-411d-87e5-1abce136beb0.png"></p>
+<p>找到webshell里面的flag</p>
+<p>027ccd04-5065-48b6-a32d-77c704a5e26d</p>
+<p>简单分析一下这段恶意代码；</p>
+<p>@session_start();：启动会话</p>
+<p>@set_time_limit(0);：设置脚本执行时间限制为无限制</p>
+<p>@error_reporting(0);：关闭错误报告</p>
+<p>function encode($D,$K){…}：定义了一个名为 encode 的函数，它接受两个参数 $D 和 $K。这个函数看起来像是一个简单的异或编码函数，用于对数据进行加密或解密。它使用 $K 作为密钥，对 $D 中的每个字符进行异或操作。</p>
+<p>接下来的几行代码定义了 $payloadName、$key 和 $data 变量。$payloadName 是用于存储有效载荷的会话变量名，$key 是用于编码的密钥，$data 是从 php:&#x2F;&#x2F;input 流中读取的数据。</p>
+<p>if ($data!&#x3D;&#x3D;false){…}：如果从 php:&#x2F;&#x2F;input 读取的数据不是 false（即成功读取了数据），则执行以下代码块。</p>
+<p>if (isset($_SESSION[$payloadName])){…}：检查 $payloadName 对应的会话变量是否已设置。</p>
+<p>if (strpos($payload,”getBasicsInfo”)&#x3D;&#x3D;&#x3D;false){…}：检查 $payload 变量中是否包含字符串 “getBasicsInfo”。</p>
+<p>eval($payload);：如果 $payload 变量包含 “getBasicsInfo” 字符串，则执行 $payload 变量中的 PHP 代码。</p>
+<p>echo encode(@run($data),$key);：如果 $data 包含 “getBasicsInfo” 字符串，则执行 @run($data) 函数，并将结果编码后输出。</p>
+<p>总结：</p>
+<p>这段代码的目的是接收通过 php:&#x2F;&#x2F;input 流发送的数据，对其进行编码，并根据会话变量中的内容执行特定的 PHP 代码。这通常用于隐藏恶意代码或后门，使得攻击者可以通过特定的请求触发执行。</p>
+<h3 id="步骤1-2-哥斯拉木马"><a href="#步骤1-2-哥斯拉木马" class="headerlink" title="步骤1.2(哥斯拉木马)"></a>步骤1.2(哥斯拉木马)</h3><p>其实开头三句就可以分析出是godzilla的webshell了；</p>
+<p>为什么这样说？</p>
+<p>哥斯拉病毒是一种Java后门木马，通常用于攻击并控制Web服务器。特征就包括：</p>
+<p>@session_start(); - 开启一个会话。</p>
+<p>@set_time_limit(0); - 设置脚本执行时间为无限。</p>
+<p>@error_reporting(0); - 关闭所有错误报告。</p>
+<p><font style="color:rgb(77, 77, 77);">这些代码行主要用于隐藏病毒活动并确保其能够长时间运行而不被发现。哥斯拉病毒通常会通过Webshell或其他漏洞注入到服务器中，然后使用这些命令来掩盖其存在并执行进一步的恶意操作。</font></p>
+<p><img src="/./img/9Gc65h5uwpj-ZBhO/1748420801486-dbc3285f-1dea-4e64-8af5-3620b6f78168-336646.png" srcset="/img/loading.gif" lazyload alt="1748420801486-dbc3285f-1dea-4e64-8af5-3620b6f78168.png"></p>
+<p>md5加密<a target="_blank" rel="noopener" href="https://github.com/BeichenDream/Godzilla">https://github.com/BeichenDream/Godzilla</a>（大写）</p>
+<h3 id="步骤1-3-隐藏马"><a href="#步骤1-3-隐藏马" class="headerlink" title="步骤1.3(隐藏马)"></a>步骤1.3(隐藏马)</h3><p><font style="color:rgb(77, 77, 77);">那既然说黑客隐藏shell了，那我们肯定需要用到命令ls -la进行查找；</font></p>
+<p><font style="color:rgb(77, 77, 77);">然后发现在挨个查找的过程中发现.Mysqlli.php如果普通的ls查看目录是查不出来的，必须用到ls -la才行，所以它就是隐藏了，我们直接定位一些它的路径，进行MD5加密即可；</font></p>
+<p><img src="/./img/9Gc65h5uwpj-ZBhO/1748421389170-399d867d-fb9b-4ab9-badb-102bd621e70e-530393.png" srcset="/img/loading.gif" lazyload alt="1748421389170-399d867d-fb9b-4ab9-badb-102bd621e70e.png"></p>
+<p>vim看一下果然是木马</p>
+<p><img src="/./img/9Gc65h5uwpj-ZBhO/1748421413548-58671f2a-7fe8-43e7-8406-68b4502c358b-901358.png" srcset="/img/loading.gif" lazyload alt="1748421413548-58671f2a-7fe8-43e7-8406-68b4502c358b.png"></p>
+<p>&#x2F;var&#x2F;www&#x2F;html&#x2F;include&#x2F;Db&#x2F;.Mysqli.php</p>
+<p>AEBAC0E58CD6C5FAD1695EE4D1AC1919</p>
+<h3 id="步骤1-4（免杀马）"><a href="#步骤1-4（免杀马）" class="headerlink" title="步骤1.4（免杀马）"></a>步骤1.4（免杀马）</h3><p>什么是免杀马？</p>
+<p>免杀马（免杀病毒或免杀Webshell）是指经过特殊处理和混淆，使其能够避开杀毒软件和安全检测工具识别的恶意软件或后门程序。黑客使用各种技术手段，使恶意代码看起来像是正常代码，从而躲避签名检测和基于规则的安全机制。这种技术通常用于Webshell和其他后门程序，目的是保持对受害系统的隐蔽访问。</p>
+<p>常见的免杀技术；</p>
+<p>代码混淆：</p>
+<p>使用混淆工具或手动混淆代码，使其难以被直接阅读和分析。</p>
+<p>编码和加密：</p>
+<p>使用Base64、ROT13等编码方式或更复杂的加密技术隐藏恶意代码片段。</p>
+<p>动态生成和执行：</p>
+<p>通过动态生成代码并在运行时执行，绕过静态分析。例如，使用 eval()、create_function() 等PHP函数。</p>
+<p>多层解码：</p>
+<p>多层编码或加密，增加分析和检测的难度。</p>
+<p>使用合法函数：</p>
+<p>恶意代码嵌入到看似合法的代码中，利用正常的函数调用执行恶意操作。</p>
+<p>查找和处理免杀马的方法；</p>
+<p>文件完整性检查：</p>
+<p>比较当前文件与已知的良性备份文件，发现被修改或新增的文件。</p>
+<p>代码审查：</p>
+<p>手动检查可疑文件，寻找混淆、编码、加密和动态执行的代码模式。</p>
+<p>安全扫描工具：</p>
+<p>使用高级安全扫描工具，这些工具使用行为分析和机器学习来检测潜在的免杀马。</p>
+<p>日志分析：</p>
+<p>查看服务器访问日志和错误日志，寻找异常访问和执行模式。</p>
+<p>检查文件修改时间，与正常更新周期不符的文件可能是可疑的。</p>
+<p>基于特征的检测：</p>
+<p>使用YARA规则等特征检测工具，根据已知的免杀马特征进行扫描。</p>
+<p>总结：免杀马通过静态检测是检测不到的，因为在免杀的过程中将webshel的特征值以及特征函数都给去掉了，因为webshell执行会在网站日志留下记录，那我们就到网站日志里面看看有啥可疑的记录，这里也顺便说一下linux的日志存放在&#x2F;var&#x2F;log目录下。</p>
+<p>这里我们总结一下常见网站日志的路径：</p>
+<p>IIS（Internet Information Services）</p>
+<p>IIS是Windows上的默认Web服务器，其日志文件默认存储在以下路径：</p>
+<p>IIS 6.0 及更早版本：</p>
+<p>C:\WINDOWS\system32\LogFiles\W3SVC[SiteID]\</p>
+<p>IIS 7.0 及更高版本：</p>
+<p>C:\inetpub\logs\LogFiles\W3SVC[SiteID]\</p>
+<p>其中，[SiteID] 是网站的标识符，通常是一个数字。</p>
+<p>Apache HTTP Server</p>
+<p>如果在Windows上安装了Apache，日志文件默认存储在安装目录下的logs文件夹中：</p>
+<p>C:\Program Files (x86)\Apache Group\Apache2\logs\</p>
+<p>或者</p>
+<p>C:\Program Files\Apache Group\Apache2\logs\</p>
+<p>具体路径取决于安装时选择的位置。</p>
+<p>Linux系统中的网站日志路径</p>
+<p>Apache HTTP Server</p>
+<p>在Linux上，Apache日志文件通常位于以下目录：</p>
+<p>访问日志：</p>
+<p>&#x2F;var&#x2F;log&#x2F;apache2&#x2F;access.log</p>
+<p>或者</p>
+<p>&#x2F;var&#x2F;log&#x2F;httpd&#x2F;access_log</p>
+<p>错误日志：</p>
+<p>&#x2F;var&#x2F;log&#x2F;apache2&#x2F;error.log</p>
+<p>或</p>
+<p>&#x2F;var&#x2F;log&#x2F;httpd&#x2F;error_log</p>
+<p>不同的Linux发行版可能有不同的目录。例如，在Debian&#x2F;Ubuntu上通常使用&#x2F;var&#x2F;log&#x2F;apache2&#x2F;，而在Red Hat&#x2F;CentOS上通常使用&#x2F;var&#x2F;log&#x2F;httpd&#x2F;。</p>
+<p>Nginx</p>
+<p>Nginx是另一个流行的Web服务器，默认的日志文件路径如下：</p>
+<p>访问日志：</p>
+<p>&#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log</p>
+<p>错误日志：</p>
+<p>&#x2F;var&#x2F;log&#x2F;nginx&#x2F;error.log</p>
+<p>如何查看和分析日志文件？</p>
+<p>Windows：</p>
+<p>使用文本编辑器（如Notepad、Notepad++）直接打开日志文件查看。</p>
+<p>可以使用IIS管理器查看IIS日志。</p>
+<p>Linux：</p>
+<p>使用命令行工具查看日志，例如：</p>
+<p>tail -f &#x2F;var&#x2F;log&#x2F;apache2&#x2F;access.log tail -f &#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log</p>
+<p>可以使用日志分析工具（如GoAccess、AWStats）生成可视化的日志报告。</p>
+<p>既然它经过了免杀处理，那么木马的特征值以及特征函数应该都是被去掉了。这时我们再通过静态检测是基本检测不到的，从上面我们就可以看出我们只找到了三个马。而且上面我们说了webshell执行会在网站日志留下记录，那我们就到网站日志里面看看有啥可疑的记录。</p>
+<p>去var&#x2F;log</p>
+<p><img src="/./img/9Gc65h5uwpj-ZBhO/1748421907313-939d41e7-eb1f-414f-a686-e166c08c5e52-810707.png" srcset="/img/loading.gif" lazyload alt="1748421907313-939d41e7-eb1f-414f-a686-e166c08c5e52.png"></p>
+<p>下面的apache2</p>
+<p><img src="/./img/9Gc65h5uwpj-ZBhO/1748421931220-f3160c41-dce3-4bf5-a67e-839e0fec2fb3-325887.png" srcset="/img/loading.gif" lazyload alt="1748421931220-f3160c41-dce3-4bf5-a67e-839e0fec2fb3.png"></p>
+<p>cat access.log看一下</p>
+<p>在找你妹的游戏中主播获胜</p>
+<p>phpinfo 你想干什么</p>
+<p><img src="/./img/9Gc65h5uwpj-ZBhO/1748422026155-fba171aa-f8a9-4e54-a511-6d4ff46c1f8b-683216.png" srcset="/img/loading.gif" lazyload alt="1748422026155-fba171aa-f8a9-4e54-a511-6d4ff46c1f8b.png"></p>
+<p>在&#x2F;var&#x2F;www&#x2F;html&#x2F;wap</p>
+<p><img src="/./img/9Gc65h5uwpj-ZBhO/1748422147146-c5b55d08-e5b3-4aa4-810c-6cf66dc3f995-221852.png" srcset="/img/loading.gif" lazyload alt="1748422147146-c5b55d08-e5b3-4aa4-810c-6cf66dc3f995.png"></p>
+<p>看一下</p>
+<p><img src="/./img/9Gc65h5uwpj-ZBhO/1748422226069-8941f031-53c0-4b3d-a1f6-04330393217e-638121.png" srcset="/img/loading.gif" lazyload alt="1748422226069-8941f031-53c0-4b3d-a1f6-04330393217e.png"></p>
+<p>&#x2F;var&#x2F;www&#x2F;html&#x2F;wap&#x2F;top.php</p>
+<p>EEFF2EABFD9B7A6D26FC1A53D3F7D1DE</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="查看是否上传shell-命令"><a href="#查看是否上传shell-命令" class="headerlink" title="查看是否上传shell 命令"></a>查看是否上传shell 命令</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">//搜索目录下适配当前应用的网页文件，查看内容是否有Webshell特征<br>find ./ <span class="hljs-built_in">type</span> f -name <span class="hljs-string">&quot;*.jsp&quot;</span> | xargs grep <span class="hljs-string">&quot;exec(&quot;</span> <br>find ./ <span class="hljs-built_in">type</span> f -name <span class="hljs-string">&quot;*.php&quot;</span> | xargs grep <span class="hljs-string">&quot;eval(&quot;</span> <br>find ./ <span class="hljs-built_in">type</span> f -name <span class="hljs-string">&quot;*.asp&quot;</span> | xargs grep <span class="hljs-string">&quot;execute(&quot;</span> <br>find ./ <span class="hljs-built_in">type</span> f -name <span class="hljs-string">&quot;*.aspx&quot;</span> | xargs grep <span class="hljs-string">&quot;eval(&quot;</span> <br> <br>//对于免杀Webshell，可以查看是否使用编码<br>find ./ <span class="hljs-built_in">type</span> f -name <span class="hljs-string">&quot;*.php&quot;</span> | xargs grep <span class="hljs-string">&quot;base64_decode&quot;</span> <br></code></pre></td></tr></table></figure>
+
+<h3 id="哥斯拉木马特征"><a href="#哥斯拉木马特征" class="headerlink" title="哥斯拉木马特征"></a>哥斯拉木马特征</h3><p>哥斯拉病毒是一种Java后门木马，通常用于攻击并控制Web服务器。特征就包括：</p>
+<p>@session_start(); - 开启一个会话。</p>
+<p>@set_time_limit(0); - 设置脚本执行时间为无限。</p>
+<p>@error_reporting(0); - 关闭所有错误报告。</p>
+<h3 id="隐藏马-使用ls-la-看不同"><a href="#隐藏马-使用ls-la-看不同" class="headerlink" title="隐藏马 使用ls -la 看不同"></a>隐藏马 使用ls -la 看不同</h3><p>看 var&#x2F;www&#x2F;html</p>
+<h3 id="免杀马"><a href="#免杀马" class="headerlink" title="免杀马"></a>免杀马</h3><p>去看服务日志</p>
+<p>在Linux上，Apache日志文件通常位于以下目录：</p>
+<p>访问日志：</p>
+<p>&#x2F;var&#x2F;log&#x2F;apache2&#x2F;access.log</p>
+<p>或者</p>
+<p>&#x2F;var&#x2F;log&#x2F;httpd&#x2F;access_log</p>
+<p>错误日志：</p>
+<p>&#x2F;var&#x2F;log&#x2F;apache2&#x2F;error.log</p>
+<p>或</p>
+<p>&#x2F;var&#x2F;log&#x2F;httpd&#x2F;error_log</p>
+<h1 id="Linux日志分析"><a href="#Linux日志分析" class="headerlink" title="Linux日志分析"></a><strong>Linux日志分析</strong></h1><h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><p><font style="color:rgb(17, 17, 17);">在Linux系统中，日志文件通常存储在</font><em><strong><font style="color:rgb(68, 68, 68);background-color:rgb(249, 249, 249);">&#x2F;var&#x2F;log</font></strong></em><font style="color:rgb(17, 17, 17);">目录下。这个目录包含了系统运行过程中产生的各种日志文件，这些日志文件对于系统的维护和故障排除非常重要。以下是一些常见的日志文件及其用途：</font></p>
+<ul>
+<li><strong><font style="color:rgb(17, 17, 17);">&#x2F;var&#x2F;log&#x2F;messages</font></strong><font style="color:rgb(17, 17, 17);">：包含整体系统信息，包括系统启动期间的日志。此外，邮件、cron、守护进程、内核和授权等内容也记录在此文件中</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/sforce/article/details/112477742"><sup><strong><font style="color:rgb(23, 74, 228);background-color:rgb(209, 219, 250);">1</font></strong></sup></a><font style="color:rgb(17, 17, 17);">。</font></li>
+<li><strong><font style="color:rgb(17, 17, 17);">&#x2F;var&#x2F;log&#x2F;dmesg</font></strong><font style="color:rgb(17, 17, 17);">：包含内核缓冲信息（kernel ring buffer）。在系统启动时，会在屏幕上显示许多与硬件有关的信息。可以用</font><em><strong><font style="color:rgb(68, 68, 68);background-color:rgb(249, 249, 249);">dmesg</font></strong></em><font style="color:rgb(17, 17, 17);">命令查看它们</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/sforce/article/details/112477742"><sup><strong><font style="color:rgb(23, 74, 228);background-color:rgb(209, 219, 250);">1</font></strong></sup></a><font style="color:rgb(17, 17, 17);">。</font></li>
+<li><strong><font style="color:#DF2A3F;">&#x2F;var&#x2F;log&#x2F;auth.log</font></strong><font style="color:#DF2A3F;">：包含系统授权信息，包括用户登录和使用的权限机制等</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/sforce/article/details/112477742"><sup><strong><font style="color:#DF2A3F;background-color:rgb(209, 219, 250);">1</font></strong></sup></a><font style="color:#DF2A3F;">。</font></li>
+<li><strong><font style="color:rgb(17, 17, 17);">&#x2F;var&#x2F;log&#x2F;boot.log</font></strong><font style="color:rgb(17, 17, 17);">：包含系统启动时的日志</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/konglongaa/article/details/54289852"><sup><strong><font style="color:rgb(23, 74, 228);background-color:rgb(209, 219, 250);">2</font></strong></sup></a><font style="color:rgb(17, 17, 17);">。</font></li>
+<li><strong><font style="color:rgb(17, 17, 17);">&#x2F;var&#x2F;log&#x2F;daemon.log</font></strong><font style="color:rgb(17, 17, 17);">：包含各种系统后台守护进程的日志信息</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/sforce/article/details/112477742"><sup><strong><font style="color:rgb(23, 74, 228);background-color:rgb(209, 219, 250);">1</font></strong></sup></a><font style="color:rgb(17, 17, 17);">。</font></li>
+<li><strong><font style="color:rgb(17, 17, 17);">&#x2F;var&#x2F;log&#x2F;dpkg.log</font></strong><font style="color:rgb(17, 17, 17);">：包括安装或使用</font><em><strong><font style="color:rgb(68, 68, 68);background-color:rgb(249, 249, 249);">dpkg</font></strong></em><font style="color:rgb(17, 17, 17);">命令清除软件包的日志</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/sforce/article/details/112477742"><sup><strong><font style="color:rgb(23, 74, 228);background-color:rgb(209, 219, 250);">1</font></strong></sup></a><font style="color:rgb(17, 17, 17);">。</font></li>
+<li><strong><font style="color:rgb(17, 17, 17);">&#x2F;var&#x2F;log&#x2F;kern.log</font></strong><font style="color:rgb(17, 17, 17);">：包含内核产生的日志，有助于在定制内核时解决问题</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/sforce/article/details/112477742"><sup><strong><font style="color:rgb(23, 74, 228);background-color:rgb(209, 219, 250);">1</font></strong></sup></a><font style="color:rgb(17, 17, 17);">。</font></li>
+<li><strong><font style="color:rgb(17, 17, 17);">&#x2F;var&#x2F;log&#x2F;lastlog</font></strong><font style="color:rgb(17, 17, 17);">：记录所有用户的最近信息。这不是一个ASCII文件，因此需要用</font><em><strong><font style="color:rgb(68, 68, 68);background-color:rgb(249, 249, 249);">lastlog</font></strong></em><font style="color:rgb(17, 17, 17);">命令查看内容</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/sforce/article/details/112477742"><sup><strong><font style="color:rgb(23, 74, 228);background-color:rgb(209, 219, 250);">1</font></strong></sup></a><font style="color:rgb(17, 17, 17);">。</font></li>
+<li><strong><font style="color:rgb(17, 17, 17);">&#x2F;var&#x2F;log&#x2F;maillog</font></strong><font style="color:rgb(17, 17, 17);">或**&#x2F;var&#x2F;log&#x2F;mail.log**：包含系统运行电子邮件服务器的日志信息</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/sforce/article/details/112477742"><sup><strong><font style="color:rgb(23, 74, 228);background-color:rgb(209, 219, 250);">1</font></strong></sup></a><font style="color:rgb(17, 17, 17);">。</font></li>
+<li><strong><font style="color:rgb(17, 17, 17);">&#x2F;var&#x2F;log&#x2F;user.log</font></strong><font style="color:rgb(17, 17, 17);">：记录所有等级用户信息的日志</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/sforce/article/details/112477742"><sup><strong><font style="color:rgb(23, 74, 228);background-color:rgb(209, 219, 250);">1</font></strong></sup></a><font style="color:rgb(17, 17, 17);">。</font></li>
+<li><strong><font style="color:rgb(17, 17, 17);">&#x2F;var&#x2F;log&#x2F;Xorg.x.log</font></strong><font style="color:rgb(17, 17, 17);">：来自X的日志信息</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/sforce/article/details/112477742"><sup><strong><font style="color:rgb(23, 74, 228);background-color:rgb(209, 219, 250);">1</font></strong></sup></a><font style="color:rgb(17, 17, 17);">。</font></li>
+<li><strong><font style="color:rgb(17, 17, 17);">&#x2F;var&#x2F;log&#x2F;alternatives.log</font></strong><font style="color:rgb(17, 17, 17);">：更新替代信息都记录在这个文件中</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/sforce/article/details/112477742"><sup><strong><font style="color:rgb(23, 74, 228);background-color:rgb(209, 219, 250);">1</font></strong></sup></a><font style="color:rgb(17, 17, 17);">。</font></li>
+<li><strong><font style="color:rgb(17, 17, 17);">&#x2F;var&#x2F;log&#x2F;btmp</font></strong><font style="color:rgb(17, 17, 17);">：记录所有失败登录信息。使用</font><em><strong><font style="color:rgb(68, 68, 68);background-color:rgb(249, 249, 249);">last</font></strong></em><font style="color:rgb(17, 17, 17);">命令可以查看btmp文件</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/sforce/article/details/112477742"><sup><strong><font style="color:rgb(23, 74, 228);background-color:rgb(209, 219, 250);">1</font></strong></sup></a><font style="color:rgb(17, 17, 17);">。</font></li>
+<li><strong><font style="color:rgb(17, 17, 17);">&#x2F;var&#x2F;log&#x2F;cups</font></strong><font style="color:rgb(17, 17, 17);">：涉及所有打印信息的日志</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/sforce/article/details/112477742"><sup><strong><font style="color:rgb(23, 74, 228);background-color:rgb(209, 219, 250);">1</font></strong></sup></a><font style="color:rgb(17, 17, 17);">。</font></li>
+<li><strong><font style="color:rgb(17, 17, 17);">&#x2F;var&#x2F;log&#x2F;anaconda.log</font></strong><font style="color:rgb(17, 17, 17);">：在安装Linux时，所有安装信息都储存在这个文件中</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/sforce/article/details/112477742"><sup><strong><font style="color:rgb(23, 74, 228);background-color:rgb(209, 219, 250);">1</font></strong></sup></a><font style="color:rgb(17, 17, 17);">。</font></li>
+<li><strong><font style="color:rgb(17, 17, 17);">&#x2F;var&#x2F;log&#x2F;yum.log</font></strong><font style="color:rgb(17, 17, 17);">：包含使用</font><em><strong><font style="color:rgb(68, 68, 68);background-color:rgb(249, 249, 249);">yum</font></strong></em><font style="color:rgb(17, 17, 17);">安装的软件包信息</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/sforce/article/details/112477742"><sup><strong><font style="color:rgb(23, 74, 228);background-color:rgb(209, 219, 250);">1</font></strong></sup></a><font style="color:rgb(17, 17, 17);">。</font></li>
+<li><strong><font style="color:rgb(17, 17, 17);">&#x2F;var&#x2F;log&#x2F;cron</font></strong><font style="color:rgb(17, 17, 17);">：每当cron进程开始一个工作时，就会将相关信息记录在这个文件中</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/sforce/article/details/112477742"><sup><strong><font style="color:rgb(23, 74, 228);background-color:rgb(209, 219, 250);">1</font></strong></sup></a><font style="color:rgb(17, 17, 17);">。</font></li>
+<li><strong><font style="color:rgb(17, 17, 17);">&#x2F;var&#x2F;log&#x2F;secure</font></strong><font style="color:rgb(17, 17, 17);">：包含验证和授权方面的信息</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/sforce/article/details/112477742"><sup><strong><font style="color:rgb(23, 74, 228);background-color:rgb(209, 219, 250);">1</font></strong></sup></a><font style="color:rgb(17, 17, 17);">。</font></li>
+<li><strong><font style="color:rgb(17, 17, 17);">&#x2F;var&#x2F;log&#x2F;wtmp</font></strong><font style="color:rgb(17, 17, 17);">或**&#x2F;var&#x2F;log&#x2F;utmp**：包含登录信息。使用</font><em><strong><font style="color:rgb(68, 68, 68);background-color:rgb(249, 249, 249);">wtmp</font></strong></em><font style="color:rgb(17, 17, 17);">可以找出谁正在登录系统</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/sforce/article/details/112477742"><sup><strong><font style="color:rgb(23, 74, 228);background-color:rgb(209, 219, 250);">1</font></strong></sup></a><font style="color:rgb(17, 17, 17);">。</font></li>
+<li><strong><font style="color:rgb(17, 17, 17);">&#x2F;var&#x2F;log&#x2F;faillog</font></strong><font style="color:rgb(17, 17, 17);">：包含用户登录失败信息</font><a target="_blank" rel="noopener" href="https://blog.csdn.net/sforce/article/details/112477742"><sup><strong><font style="color:rgb(23, 74, 228);background-color:rgb(209, 219, 250);">1</font></strong></sup></a><font style="color:rgb(17, 17, 17);">。</font></li>
+</ul>
+<h2 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤"></a>步骤</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">1.有多少IP在爆破主机ssh的root帐号，如果有多个使用&quot;,&quot;分割<br>2.ssh爆破成功登陆的IP是多少，如果有多个使用&quot;,&quot;分割<br>3.爆破用户名字典是什么？如果有多个使用&quot;,&quot;分割<br>4.登陆成功的IP共爆破了多少次<br>5.黑客登陆主机后新建了一个后门用户，用户名是多少<br></code></pre></td></tr></table></figure>
+
+<h3 id="1、有多少IP在爆破主机ssh的root帐号，如果有多个使用”-”分割"><a href="#1、有多少IP在爆破主机ssh的root帐号，如果有多个使用”-”分割" class="headerlink" title="1、有多少IP在爆破主机ssh的root帐号，如果有多个使用”,”分割"></a>1、有多少IP在爆破主机ssh的root帐号，如果有多个使用”,”分割</h3><p>看完auth.log 没什么东西再看auth.log.1</p>
+<p><img src="/./img/9Gc65h5uwpj-ZBhO/1748496070046-c6999d08-7c7d-4bc4-b570-d3f1780ab0f1-498609.png" srcset="/img/loading.gif" lazyload alt="1748496070046-c6999d08-7c7d-4bc4-b570-d3f1780ab0f1.png"></p>
+<p>cat auth.log.1 | grep -a “Failed password for root” | awk ‘{print $11}’ | sort | uniq -c | sort -nr | more</p>
+<p>awk ‘{print $11}’:</p>
+<p>awk 是一个文本处理工具，用于按字段处理文本。</p>
+<p>{print $11} 表示打印每行的第11个字段。假设日志格式为标准格式，第11个字段通常是IP地址。</p>
+<p>sort:</p>
+<p>sort 命令用于对输入行进行排序。</p>
+<p>这里是对提取的IP地址进行排序。</p>
+<p>uniq -c:</p>
+<p>uniq 命令用于删除重复的行。</p>
+<p>-c 选项表示对每个唯一的行计数，即统计每个IP地址的出现次数。</p>
+<p>sort -nr:</p>
+<p>sort 命令再次用于排序。</p>
+<p>-n 选项表示按数值进行排序。</p>
+<p>-r 选项表示按降序排序。</p>
+<p>组合起来，即按出现次数从高到低排序。</p>
+<p>more:</p>
+<p>more 命令用于分页显示输出。</p>
+<p>由于输出可能很长，more 命令允许用户逐页查看结果。</p>
+<p><img src="/./img/9Gc65h5uwpj-ZBhO/1748496189604-9126accf-995d-46aa-900d-4ae461784de3-216415.png" srcset="/img/loading.gif" lazyload alt="1748496189604-9126accf-995d-46aa-900d-4ae461784de3.png"></p>
+<p>192.168.200.2,192.168.200.31,192.168.200.32</p>
+<h3 id="2、ssh爆破成功登陆的IP是多少，如果有多个使用”-”分割"><a href="#2、ssh爆破成功登陆的IP是多少，如果有多个使用”-”分割" class="headerlink" title="2、ssh爆破成功登陆的IP是多少，如果有多个使用”,”分割"></a>2、ssh爆破成功登陆的IP是多少，如果有多个使用”,”分割</h3><p>cat auth.log.1 | grep -a “Accepted “ | awk ‘{print $11}’ | sort | uniq -c | sort -nr | more</p>
+<p><img src="/./img/9Gc65h5uwpj-ZBhO/1748496366182-22198156-e89d-4d63-8aea-ca4646bd8e44-627182.png" srcset="/img/loading.gif" lazyload alt="1748496366182-22198156-e89d-4d63-8aea-ca4646bd8e44.png"></p>
+<p>192.168.200.2</p>
+<h3 id="3、爆破用户名字典是什么？如果有多个使用”-”分割"><a href="#3、爆破用户名字典是什么？如果有多个使用”-”分割" class="headerlink" title="3、爆破用户名字典是什么？如果有多个使用”,”分割"></a>3、爆破用户名字典是什么？如果有多个使用”,”分割</h3><p>cat auth.log.1 | grep -a “Failed password” |perl -e ‘while($_&#x3D;&lt;&gt;){ &#x2F;for(.*?) from&#x2F;; print “$1\n”;}’|uniq -c|sort -nr</p>
+<p><font style="color:rgb(85, 86, 102);background-color:rgb(238, 240, 244);">这个命令链的主要作用是分析</font><code>&lt;font style=&quot;color:rgb(199, 37, 78);background-color:rgb(249, 242, 244);&quot;&gt;auth.log.1&lt;/font&gt;</code><font style="color:rgb(85, 86, 102);background-color:rgb(238, 240, 244);">文件，提取出所有包含”Failed password”字符串的行，这通常表明有失败的登录尝试。然后，它使用Perl脚本提取出失败尝试的用户名和来源IP地址，统计每个用户名的失败尝试次数，并按照次数降序排列显示结果。</font></p>
+<p><img src="/./img/9Gc65h5uwpj-ZBhO/1748496585017-39b16371-83e7-433f-a2f8-b17de60a918a-056418.png" srcset="/img/loading.gif" lazyload alt="1748496585017-39b16371-83e7-433f-a2f8-b17de60a918a.png"></p>
+<p><font style="color:rgb(85, 86, 102);background-color:rgb(238, 240, 244);">flag{user,hello,root,test3,test2,test1}</font></p>
+<h3 id="4、登陆成功的IP共爆破了多少次"><a href="#4、登陆成功的IP共爆破了多少次" class="headerlink" title="4、登陆成功的IP共爆破了多少次"></a>4、登陆成功的IP共爆破了多少次</h3><p>cat auth.log.1 | grep -a “Failed password for root” | awk ‘{print $11}’ | sort | uniq -c | sort -nr | more</p>
+<p><img src="/./img/9Gc65h5uwpj-ZBhO/1748496189604-9126accf-995d-46aa-900d-4ae461784de3-216415.png" srcset="/img/loading.gif" lazyload alt="1748496189604-9126accf-995d-46aa-900d-4ae461784de3.png"></p>
+<p>flag{4}</p>
+<h3 id="5、黑客登陆主机后新建了一个后门用户，用户名是多少"><a href="#5、黑客登陆主机后新建了一个后门用户，用户名是多少" class="headerlink" title="5、黑客登陆主机后新建了一个后门用户，用户名是多少"></a>5、黑客登陆主机后新建了一个后门用户，用户名是多少</h3><p><font style="color:rgb(77, 77, 77);">那这里我们肯定就是找新建用户，因为题目也已经说明了.黑客登陆主机后新建了一个后门用户；</font></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">cat auth.log.1 |grep -a &quot;new user&quot;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/./img/9Gc65h5uwpj-ZBhO/1748496888018-a2a82258-ff08-4479-83da-b987fcfa4e51-372177.png" srcset="/img/loading.gif" lazyload alt="1748496888018-a2a82258-ff08-4479-83da-b987fcfa4e51.png"></p>
+<p>flag{test2}</p>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><blockquote>
+<p>更新: 2025-05-29 13:35:59<br>原文: <a target="_blank" rel="noopener" href="https://www.yuque.com/chaye-apqbl/vsc85q/be3xgfip9cxachqr">https://www.yuque.com/chaye-apqbl/vsc85q/be3xgfip9cxachqr</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/misc/" class="category-chain-item">misc</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" class="print-no-link">#应急响应</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>应急响应练习</div>
+      <div>http://example.com/2025/01/19/应急响应/玄机靶场/应急响应/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>chaye</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 19, 2025</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/01/19/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/%E7%8E%84%E6%9C%BA%E9%9D%B6%E5%9C%BA/index/" title="应急响应">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">应急响应</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/01/19/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%94%BB%E9%98%B2/Prompt%E6%94%BB%E5%87%BB/index/" title="提示词攻击原理">
+                        <span class="hidden-mobile">提示词攻击原理</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
