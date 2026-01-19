@@ -227,105 +227,6 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2026/01/19/RE/%E5%85%B6%E4%BB%96/ASM%E9%80%86%E5%90%91/" target="_self">
-          
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/19/RE/%E5%85%B6%E4%BB%96/ASM%E9%80%86%E5%90%91/" target="_self">
-        <div>
-          ASM逆向例题例题116位DOS不能进行反编译，只能放入32位看汇编  开头载入了两个数据dseg、seg001往上翻可以找到一个是提示字符  一个是密文  把每个数前四位和后四位交换，再与23异或构建解密脚本（注意还原后的结果%256，不然打不出来正确的结果）   123456789101112131415161718#easyasm#0x91, 0x61, 0x01, 0xC1, 0x41,#
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-01-19 13:29" pubdate>
-              2026-01-19
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/01/19/RE/%E4%BE%8B%E9%A2%98/NSSCTF/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/" target="_self">
-          
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/19/RE/%E4%BE%8B%E9%A2%98/NSSCTF/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/" target="_self">
-        <div>
-          字符串处理例题 Cr0ssfun放入64ida，发现check函数就是不断判断读入的字符  这边直接手搓一个代码，得到flag exp1234567891011121314151617181920212223242526272829303132333435363738a1=[0]*48a1[10] = 112a1[13] = 64a1[3] = 102a1[26] = 114a1[20] = 10
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-01-19 13:29" pubdate>
-              2026-01-19
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/01/19/RE/%E4%BE%8B%E9%A2%98/NSSCTF/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0python.random/" target="_self">
-          
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/19/RE/%E4%BE%8B%E9%A2%98/NSSCTF/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0python.random/" target="_self">
-        <div>
-          伪随机数python.random例题：NSSCTF fakerandom 12345678910111213import randomflag = &#x27;xxxxxxxxxxxxxxxxxxxx&#x27;random.seed(1)l = []for i in range(4):    l.append(random.getrandbits(8))result=[]for i in ra
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-01-19 13:29" pubdate>
-              2026-01-19
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
         <a href="/2026/01/19/RE/%E4%BE%8B%E9%A2%98/NSSCTF/esaypyc/" target="_self">
           
         </a>
@@ -551,11 +452,110 @@
     </article>
   </div>
 
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/01/19/RE/index/" target="_self">
+          
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/19/RE/index/" target="_self">
+        <div>
+          RE解题思路1、先查壳，看看是32进制还是64进制写的程序 2、放IDA里面（F5）反汇编，寻找main函数 例题  找到处理函数sub_401069   123456result= &#x27;DH~mqqvqxB^||zll@Jq~jkwpmvez&#123;&#x27;s=[&#x27;a&#x27;]*32for i in range(len(result)):    s[i]=chr(o
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-19 13:29" pubdate>
+              2026-01-19
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/01/19/MISC/%E9%9A%90%E5%86%99/%E9%9F%B3%E9%A2%91%E9%9A%90%E5%86%99/RXSSTV/" target="_self">
+          
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/19/MISC/%E9%9A%90%E5%86%99/%E9%9F%B3%E9%A2%91%E9%9A%90%E5%86%99/RXSSTV/" target="_self">
+        <div>
+          RXSSTVhttps://www.cnblogs.com/wutou/p/16154582.htmlhttps://blog.csdn.net/orchid_sea&#x2F;article&#x2F;details&#x2F;138075312 配置  将输出的图片设置为100%   SSTV-Engine里RX保持默认设置  将AFC、LMS、BPF全都选上 解码 例题RXSYCsunset
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-19 13:29" pubdate>
+              2026-01-19
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/01/19/MISC/%E9%9A%90%E5%86%99/%E9%9F%B3%E9%A2%91%E9%9A%90%E5%86%99/outguess/" target="_self">
+          
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/19/MISC/%E9%9A%90%E5%86%99/%E9%9F%B3%E9%A2%91%E9%9A%90%E5%86%99/outguess/" target="_self">
+        <div>
+          outguesshttps://blog.csdn.net/qq_45784859&#x2F;article&#x2F;details&#x2F;105057281 outguess下载安装t kail 终端命令输入git clone https://github.com/crorvick/outguess，安装包下载完成到文件夹。打开文件夹，右键空白处选终端打开，输入命令.&#x2F;confi
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-19 13:29" pubdate>
+              2026-01-19
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/7/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/#board">6</a><a class="page-number" href="/page/7/#board">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/#board">9</a><a class="page-number" href="/page/10/#board">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/#board">17</a><a class="extend next" rel="next" href="/page/9/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/7/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/#board">6</a><a class="page-number" href="/page/7/#board">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/#board">9</a><a class="page-number" href="/page/10/#board">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/#board">16</a><a class="extend next" rel="next" href="/page/9/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
